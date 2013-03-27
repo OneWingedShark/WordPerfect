@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Providing access to viewer functionality through the View Manager</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidSetBBarStyle.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="ViewMgrCreate.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Providing access to viewer functionality through the View Manager</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553793"></a>
+
+  <h3 class="pHeading2">Providing access to viewer functionality through the View Manager</h3><a name="wp553795"></a>
+
+  <p class="pBody">This section provides API specifications for the interface between an application and the View Manager.</p><a name="wp553797"></a>
+
+  <p class="pBody">Applications interact with a module referred to as the View Manager. The View Manager processes requests from applications. Usually, this
+  involves routing a View File request to an appropriate Viewer DLL, which provides the actual file viewing capabilities. WordPerfect products ship with
+  several Viewer DLLs. The Convert subsystem of PerfectFit is used to provide viewing capabilities for many other file types by temporarily converting the file
+  to a viewable format.</p><a name="wp553799"></a>
+
+  <p class="pBody">When a user clicks a view button, WordPerfect uses function calls to PerfectFit to tell the View Manager that it wants to view a file. These
+  same function calls have been exposed so that third-party developers can use PerfectFit to display the contents of supported file formats.</p><a name=
+  "wp553801"></a>
+
+  <p class="pBody">A typical interaction between an application and the View Manager involves registering with PerfectFit, creating a View Manager and Viewer
+  window, passing the name of the file to the View Manager, and destroying the Viewer window and the View Manager.</p><a name="wp553803"></a>
+
+  <h5 class="pHeading4">Registering with PerfectFit</h5><a name="wp553807"></a>
+
+  <p class="pBody">An application must register with PerfectFit before any of the Viewer routines are called. The PerfectFit initialization routine registers
+  the window types required by the View Manager. For information about registering an application, see "<a href=
+  "PerfectFit_registration.html#wp1270135">Registering PerfectFit</a>."</p><a name="wp553811"></a>
+
+  <p class="pBody">Registering with PerfectFit is not required for Windows Open API DLLs. For information about Open API DLLs, see "<a href=
+  "Understanding_WOAPI.html#wp1269274">Understanding Windows Open API (WOAPI)</a>."</p><a name="wp553813"></a>
+
+  <h5 class="pHeading4">Creating a View Manager and Viewer window</h5><a name="wp553815"></a>
+
+  <p class="pBody">An application typically requests creation of a View Manager when the user clicks a button on an application screen (usually a View button).
+  Parameters to this request include the location and size for the Viewer window and any special window style options desired.</p><a name="wp553817"></a>
+
+  <h5 class="pHeading4">Passing the name of the file to the View Manager</h5><a name="wp553819"></a>
+
+  <p class="pBody">Applications typically use the View Manager to view a specific file. Typically, the application dialog box contain a File List control, and
+  the application sends a View File request to the View Manager each time the user highlights a file in the File List.</p><a name="wp553821"></a>
+
+  <h5 class="pHeading4">Destroying the Viewer window and the View Manager</h5><a name="wp553823"></a>
+
+  <p class="pBody">The user typically destroys the Viewer window by double-clicking the system menu icon of the Viewer window (or by single-clicking it and
+  selecting Close). However, if necessary, an application can send a Destroy request to the View Manager when desired. Commanding the view to be destroyed is
+  recommended, but optional.</p><a name="wp553845"></a>
+
+  <h5 class="pHeading4">Understanding View Manager functions</h5><a name="wp553847"></a>
+
+  <p class="pBody">This section defines the API functions that an application uses to interact with the View Manager.</p><a name="wp1279645"></a>
+
+  <p class="pBody">Applications can use the following API functions to interact with the View Manager:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1279650"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="ViewMgrCreate.html#wp553881">ViewMgrCreate function</a></li>
+      </ul>
+    </div><a name="wp1279995"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WvwrViewFile.html#wp553926">WvwrViewFile function</a></li>
+      </ul>
+    </div><a name="wp1279999"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WvwrViewFileEnd.html#wp553974">WvwrViewFileEnd function</a></li>
+      </ul>
+    </div><a name="wp1280003"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WvwrViewMgrDestroy.html#wp554007">WvwrViewMgrDestroy function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,671 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WmbMsgBox function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WmbGetBeep.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WmbSetBeep.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Message_box.html">Creating message boxes</a> : WmbMsgBox
+        function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp549986"></a>
+
+  <h4 class="pHeading3">WmbMsgBox function</h4><a name="wp549988"></a>
+
+  <p class="pBody">The <code class="cCode">WmbMsgBox</code> function displays a PerfectFit message box. It also allows you to pass argument lists for the
+  messagebox to display. These arguments are displayed in the order specified in the parameter <code class="cCode">lpazMsg</code>.</p><a name="wp549990"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+WORD FAR PASCAL WmbMsgBox ( <a name="wp549992"> </a>
+HANDLE hCaller, <a name="wp549994"> </a>
+HANDLE hLangResInst, <a name="wp549996"> </a>
+LPAZ lpazCaption, <a name="wp549998"> </a>
+LPAZ lpazMsg, <a name="wp550000"> </a>
+DWORD dwFlags, <a name="wp550002"> </a>
+LPAZ FAR* lprglpArgList, <a name="wp550004"> </a>
+HWND hwndParent ); <a name="wp550006"> </a>
+</pre>
+  </div><a name="wp550008"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp550011"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp521412"></a>
+
+          <p class="pBody"><code class="cCode">hCaller</code></p>
+        </td>
+
+        <td>
+          <a name="wp521414"></a>
+
+          <p class="pBody">Specifies the handle of the instance invoking the message box</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521420"></a>
+
+          <p class="pBody"><code class="cCode">hLangResInst</code></p>
+        </td>
+
+        <td>
+          <a name="wp521422"></a>
+
+          <p class="pBody">Specifies the handle of the instance where the string is located</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521428"></a>
+
+          <p class="pBody"><code class="cCode">lpazCaption</code></p>
+        </td>
+
+        <td>
+          <a name="wp521430"></a>
+
+          <p class="pBody">Specifies the far pointer to the caption string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521436"></a>
+
+          <p class="pBody"><code class="cCode">lpazMsg</code></p>
+        </td>
+
+        <td>
+          <a name="wp521438"></a>
+
+          <p class="pBody">Can be either an index to a string table or a far pointer to a message string.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280204"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp1280224"></a>
+
+          <p class="pBody">If the high word of <code class="cCode">lpazMsg</code> is <code class="cCode">0</code>, then this value is an index to a string
+          table, and <code class="cCode">WmbMsgBox</code> loads the string from the table. If the message should contain filenames or other replaceable
+          parameters, use <code class="cCode">^0</code>, <code class="cCode">^1</code>, and so on to indicate the placement of these parameters (specified with
+          <code class="cCode">lprglpArgList</code>). When the message is displayed, <code class="cCode">^0</code> is replaced by the first parameter of
+          <code class="cCode">lprglpArgList</code>, <code class="cCode">^1</code> is replaced by the second parameter, and so on.</p><a name="wp1280225"></a>
+
+          <p class="pBody">A replaceable parameter can appear any number of times in the message string, such as the following: <code class="cCode">"File ^0
+          was not found in the current folder (^1). Search for ^0 in other directories?"</code></p><a name="wp1280206"></a>
+
+          <p class="pBody">All previous replaceable parameters must be specified. For example, you cannot specify <code class="cCode">^4</code> unless
+          <code class="cCode">^0</code>, <code class="cCode">^1</code>, <code class="cCode">^2</code>, and <code class="cCode">^3</code> have been defined in
+          <code class="cCode">lprglpArgList</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280208"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp1280210"></a>
+
+          <p class="pBody">Optionally, this value is a far pointer to an array of far pointers to replaceable parameters for message.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521452"></a>
+
+          <p class="pBody"><code class="cCode">hwndParent</code></p>
+        </td>
+
+        <td>
+          <a name="wp521454"></a>
+
+          <p class="pBody">Specifies the window handle of the parent</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521460"></a>
+
+          <p class="pBody"><code class="cCode">dwFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp521462"></a>
+
+          <p class="pBody">Specifies message-box flags. All Windows <code class="cCode">MessageBox</code> flags are supported. In addition, you can specify the
+          following PerfectFit flags:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp521464"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_BUTTONMASK</code></li>
+              </ul>
+            </div><a name="wp521466"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_ICONMASK</code></li>
+              </ul>
+            </div><a name="wp521468"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_DEFBUTTONMASK</code></li>
+              </ul>
+            </div><a name="wp521470"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_MODALITYMASK</code></li>
+              </ul>
+            </div><a name="wp521472"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_MISCMASK</code></li>
+              </ul>
+            </div><a name="wp521474"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_ANSISTRING</code></li>
+              </ul>
+            </div><a name="wp521476"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_NOSAFETY</code></li>
+              </ul>
+            </div><a name="wp521478"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_BEEPONERROR</code></li>
+              </ul>
+            </div><a name="wp521480"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_DONTRETRY</code></li>
+              </ul>
+            </div><a name="wp521482"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_RECORDABLE</code></li>
+              </ul>
+            </div><a name="wp521484"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMB_NULLPARENT</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp550013"></a>
+
+  <p class="pBody">The Windows flags are as follows.</p><a name="wp550016"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp521495"></a>
+
+          <h5 class="pHeading4">Value</h5>
+        </td>
+
+        <td>
+          <a name="wp521497"></a>
+
+          <h5 class="pHeading4">Meaning</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521503"></a>
+
+          <p class="pBody"><code class="cCode">MB_ABORTRETRYIGNORE</code></p>
+        </td>
+
+        <td>
+          <a name="wp521505"></a>
+
+          <p class="pBody">Specifies that the message box contains three buttons: Abort, Retry, and Ignore</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521511"></a>
+
+          <p class="pBody"><code class="cCode">MB_APPLMODAL</code></p>
+        </td>
+
+        <td>
+          <a name="wp521513"></a>
+
+          <p class="pBody">Specifies that the user must respond to the message box before continuing work in the window identified by the <code class=
+          "cCode">hwndParent</code> parameter. However, the user can move to the windows of other applications and work in those windows. <code class=
+          "cCode">MB_APPLMODAL</code> is the default if neither <code class="cCode">MB_SYSTEMMODAL</code> nor <code class="cCode">MB_TASKMODAL</code> is
+          specified.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521519"></a>
+
+          <p class="pBody"><code class="cCode">MB_DEFBUTTON1</code></p>
+        </td>
+
+        <td>
+          <a name="wp521521"></a>
+
+          <p class="pBody">Specifies that the first button is the default. Note that the first button is always the default unless <code class=
+          "cCode">MB_DEFBUTTON2</code> or <code class="cCode">MB_DEFBUTTON3</code> is specified.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521527"></a>
+
+          <p class="pBody"><code class="cCode">MB_DEFBUTTON2</code></p>
+        </td>
+
+        <td>
+          <a name="wp521529"></a>
+
+          <p class="pBody">Specifies that the second button is the default</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521535"></a>
+
+          <p class="pBody"><code class="cCode">MB_DEFBUTTON3</code></p>
+        </td>
+
+        <td>
+          <a name="wp521537"></a>
+
+          <p class="pBody">Specifies that the third button is the default</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521543"></a>
+
+          <p class="pBody"><code class="cCode">MB_ICONASTERISK</code></p>
+        </td>
+
+        <td>
+          <a name="wp521545"></a>
+
+          <p class="pBody">Is the same as <code class="cCode">MB_ICONINFORMATION</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521551"></a>
+
+          <p class="pBody"><code class="cCode">MB_ICONEXCLAMATION</code></p>
+        </td>
+
+        <td>
+          <a name="wp521553"></a>
+
+          <p class="pBody">Specifies that an exclamation-point icon appears in the message box</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521559"></a>
+
+          <p class="pBody"><code class="cCode">MB_ICONHAND</code></p>
+        </td>
+
+        <td>
+          <a name="wp521561"></a>
+
+          <p class="pBody">Is the same as <code class="cCode">MB_ICONSTOP</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521567"></a>
+
+          <p class="pBody"><code class="cCode">MB_ICONINFORMATION</code></p>
+        </td>
+
+        <td>
+          <a name="wp521569"></a>
+
+          <p class="pBody">Specifies that an icon consisting of a lowercase letter `i' in a circle appears in the message box</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521575"></a>
+
+          <p class="pBody"><code class="cCode">MB_ICONQUESTION</code></p>
+        </td>
+
+        <td>
+          <a name="wp521577"></a>
+
+          <p class="pBody">Specifies that a question-mark icon appears in the message box</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521583"></a>
+
+          <p class="pBody"><code class="cCode">MB_ICONSTOP</code></p>
+        </td>
+
+        <td>
+          <a name="wp521585"></a>
+
+          <p class="pBody">Specifies that a stop-sign icon appears in the message box</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521591"></a>
+
+          <p class="pBody"><code class="cCode">MB_OK</code></p>
+        </td>
+
+        <td>
+          <a name="wp521593"></a>
+
+          <p class="pBody">Specifies that the message box contains one button: OK</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521599"></a>
+
+          <p class="pBody"><code class="cCode">MB_OKCANCEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp521601"></a>
+
+          <p class="pBody">Specifies that the message box contains two buttons: OK and Cancel</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521607"></a>
+
+          <p class="pBody"><code class="cCode">MB_RETRYCANCEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp521609"></a>
+
+          <p class="pBody">Specifies that the message box contains two buttons: Retry and Cancel</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521615"></a>
+
+          <p class="pBody"><code class="cCode">MB_SYSTEMMODAL</code></p>
+        </td>
+
+        <td>
+          <a name="wp521617"></a>
+
+          <p class="pBody">Specifies that all applications are suspended until the user responds to the message box. If the application specifies <code class=
+          "cCode">MB_ICONHAND</code>, the message box does not become modal until after it is created; consequently, the parent window and other windows
+          continue to receive messages resulting from its activation. System-modal message boxes are used to notify the user of serious, potentially damaging
+          errors that require immediate attention (for example, running out of memory).</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521623"></a>
+
+          <p class="pBody"><code class="cCode">MB_TASKMODAL</code></p>
+        </td>
+
+        <td>
+          <a name="wp521625"></a>
+
+          <p class="pBody">Is the same as <code class="cCode">MB_APPLMODAL</code>, except that all the top-level windows belonging to the current task are
+          disabled if the <code class="cCode">hwndParent</code> parameter is <code class="cCode">NULL</code>. This flag should be used when the calling
+          application or library does not have a window handle available but still needs to prevent input to other windows in the current application without
+          suspending other applications.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521631"></a>
+
+          <p class="pBody"><code class="cCode">MB_YESNO</code></p>
+        </td>
+
+        <td>
+          <a name="wp521633"></a>
+
+          <p class="pBody">Specifies that the message box contains two buttons: Yes and No</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521639"></a>
+
+          <p class="pBody"><code class="cCode">MB_YESNOCANCEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp521641"></a>
+
+          <p class="pBody">Specifies that the message box contains three buttons: Yes, No, and Cancel</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp550018"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp550020"></a>
+
+  <p class="pBody">The return value is zero if there is not enough memory to create the message box. Otherwise, it is one of the following menu-item values
+  returned by the message box.</p><a name="wp550023"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp521652"></a>
+
+          <h5 class="pHeading4">Value</h5>
+        </td>
+
+        <td>
+          <a name="wp521654"></a>
+
+          <h5 class="pHeading4">Meaning</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521660"></a>
+
+          <p class="pBody"><code class="cCode">IDABORT</code></p>
+        </td>
+
+        <td>
+          <a name="wp521662"></a>
+
+          <p class="pBody">The Abort button was selected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521668"></a>
+
+          <p class="pBody"><code class="cCode">IDCANCEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp521670"></a>
+
+          <p class="pBody">The Cancel button was selected. If the Cancel button is present, pressing the ESC key selects it.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521676"></a>
+
+          <p class="pBody"><code class="cCode">IDIGNORE</code></p>
+        </td>
+
+        <td>
+          <a name="wp521678"></a>
+
+          <p class="pBody">The Ignore button was selected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521684"></a>
+
+          <p class="pBody"><code class="cCode">IDNO</code></p>
+        </td>
+
+        <td>
+          <a name="wp521686"></a>
+
+          <p class="pBody">The No button was selected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521692"></a>
+
+          <p class="pBody"><code class="cCode">IDOK</code></p>
+        </td>
+
+        <td>
+          <a name="wp521694"></a>
+
+          <p class="pBody">The OK button was selected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521700"></a>
+
+          <p class="pBody"><code class="cCode">IDRETRY</code></p>
+        </td>
+
+        <td>
+          <a name="wp521702"></a>
+
+          <p class="pBody">The Retry button was selected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521708"></a>
+
+          <p class="pBody"><code class="cCode">IDYES</code></p>
+        </td>
+
+        <td>
+          <a name="wp521710"></a>
+
+          <p class="pBody">The Yes button was selected</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

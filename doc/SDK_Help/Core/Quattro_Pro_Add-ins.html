@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Understanding Quattro Pro Add-ins</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Accessing_TPH_samples.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Quattro_Pro_DLLs.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : Understanding Quattro Pro Add-ins</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1275797"></a>
+
+  <h3 class="pHeading2">Understanding Quattro Pro Add-ins</h3><a name="wp529938"></a>
+
+  <p class="pBody">You can create a Quattro Pro Add-in DLL to extend and customize the functionality of Quattro Pro.</p><a name="wp529940"></a>
+
+  <p class="pBody">Quattro Pro Add-in DLLs store functions and macros. They can be used directly from Quattro Pro workbooks. For example, custom DLLs allow you
+  to create custom macro commands and write sophisticated math functions, such as Bessel functions and Fourier transforms, that can interact with external
+  databases.</p><a name="wp529942"></a>
+
+  <p class="pBody">When you create a Quattro Pro Add-In DLL, the SDK lets you generate the source code in C.</p><a name="wp1271501"></a>
+
+  <p class="pBody">This section contains the following topics:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1271502"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Quattro_Pro_DLLs.html#wp1272277">Understanding Quattro Pro DLLs</a> - provides an overview of custom functions and an explanation of PURE
+        and IMPURE functions</li>
+      </ul>
+    </div><a name="wp1271503"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DLL_templates_and_the_NPE.html#wp1271583">Understanding DLL templates and the New Project Expert</a> - describes the tools that can help
+        you get started</li>
+      </ul>
+    </div><a name="wp1271504"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="QPW32Message.html#wp1272320">Understanding QPW32Message</a> - explains the item used by Quattro Pro to communicate with the DLL</li>
+      </ul>
+    </div><a name="wp1271505"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Structures_types_enums.html#wp1271647">Understanding structures, types, and enumerations</a> - details the possible messages for a
+        function</li>
+      </ul>
+    </div><a name="wp1271506"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_functions.html#wp1271860">Understanding custom functions</a> - provides a look at supporting files and tools, as well as important
+        information to know when coding custom functions or when viewing the information that is returned to Quattro Pro</li>
+      </ul>
+    </div><a name="wp1271509"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Borland_and_Microsoft_C.html#wp1271948">Understanding the differences between Borland C++ and Microsoft C++</a> - outlines possible
+        compiler issues</li>
+      </ul>
+    </div><a name="wp1271510"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="QPA_development_tools.html#wp1271969">Understanding development tools for Quattro Pro Add-ins</a> - provides compiler information and
+        debugging tips</li>
+      </ul>
+    </div><a name="wp1271511"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="QPA_DLL_custom_functions.html#wp1272006">Using DLL custom functions with Quattro Pro</a> - shows how to call custom functions</li>
+      </ul>
+    </div><a name="wp1271515"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="QP_executable_programs.html#wp1272122">Using executable programs with Quattro Pro</a> - outlines programs that indirectly hook into the
+        DLL interface</li>
+      </ul>
+    </div><a name="wp1274773"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Quattro_Pro_AddIns_samples.html#wp1274782">Accessing Quattro Pro Add-in samples</a>- shows where to find samples of Quattro Pro
+        Add-ins</li>
+      </ul>
+    </div>
+  </div><a name="wp1271516"></a>
+
+  <p class="pBody">All prototypes and examples discussed in this section, as well as files on the SDK media, are specialized for developers using the C
+  programming language.</p><a name="wp1271517"></a>
+
+  <p class="pBody">This SDK covers only the current version of Quattro Pro. For information about earlier versions, please refer to the appropriate Quattro Pro
+  DLL Toolkit.</p><a name="wp1271519"></a>
+
+  <p class="pBody">To learn how to create Quattro Pro Add-in DLLs, please see "<a href="Creating_QP_Add-in_DLLs.html#wp532095">Creating Quattro Pro Add-in
+  DLLs</a>."</p><a name="wp1272273"></a>
+
+  <p class="pBody">To learn more about Quattro Pro import functions, please see "<a href="Quattro_Pro_import_functions.html#wp555750">Using Quattro Pro import
+  functions</a>."</p>
+</body>
+</html>

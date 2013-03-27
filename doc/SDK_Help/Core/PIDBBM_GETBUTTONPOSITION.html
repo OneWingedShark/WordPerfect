@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>PIDBBM_GETBUTTONPOSITION message</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="PIDBBM_GETBBARINFO.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidBBarGetBtnInfo.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Toolbars.html">Creating toolbars</a> : PIDBBM_GETBUTTONPOSITION
+        message</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553468"></a>
+
+  <h4 class="pHeading3">PIDBBM_GETBUTTONPOSITION message</h4><a name="wp553470"></a>
+
+  <p class="pBody">An application sends this message to get the position of a button on the toolbar whose ID matches the specified value in <code class=
+  "cCode">wParam</code>. More than one button with the same ID can be found by sending this message repeatedly. After the first use, <code class=
+  "cCode">lParam</code> should contain the return value from the previous call plus one.</p><a name="wp553472"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp553475"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp524016"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp524018"></a>
+
+          <p class="pBody">Specifies the theta ID of the button to find</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524024"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp524026"></a>
+
+          <p class="pBody">Specifies the position in the button list at which the search starts. This index value should range from <code class=
+          "cCode">0</code> to <code class="cCode">n-1</code>, where <code class="cCode">n</code> is the number of buttons on the toolbar.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553477"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp553479"></a>
+
+  <p class="pBody">If successful, the return value contains the position of the first occurrence of a button with the specified ID. Otherwise, the return value
+  is <code class="cCode">-1</code>.</p>
+</body>
+</html>

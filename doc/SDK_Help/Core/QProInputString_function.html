@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProInputString function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProInputRange_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProMenu_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "User_interface_functions_added_in_Corel_Quattro_Pro_1.html">User-interface functions added in Quattro Pro 1</a> : QProInputString function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp560568"></a>
+
+  <h4 class="pHeading3">QProInputString function</h4><a name="wp560570"></a>
+
+  <p class="pBody">This function prompts the user to enter a string.</p><a name="wp560572"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL QProInputString(<a name="wp560574"> </a>
+LPSTR Prompt,<a name="wp560576"> </a>
+LPSTR pString,<a name="wp560578"> </a>
+UINT MaxLen);<a name="wp560580"> </a>
+</pre>
+  </div><a name="wp560582"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp560585"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp528750"></a>
+
+          <p class="pBody"><code class="cCode">Prompt</code></p>
+        </td>
+
+        <td>
+          <a name="wp528752"></a>
+
+          <p class="pBody">Specifies the string with which to prompt the user</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528758"></a>
+
+          <p class="pBody"><code class="cCode">pString</code></p>
+        </td>
+
+        <td>
+          <a name="wp528760"></a>
+
+          <p class="pBody">Specifies the far pointer to output string buffer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528766"></a>
+
+          <p class="pBody"><code class="cCode">MaxLen</code></p>
+        </td>
+
+        <td>
+          <a name="wp528768"></a>
+
+          <p class="pBody">Specifies the number of bytes for output buffer (including null byte)</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp560587"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp560589"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, or it returns <code class="cCode">FALSE</code> otherwise (for example,
+  if an escape is entered).</p><a name="wp560591"></a>
+
+  <h5 class="pHeading4">Samples</h5><a name="wp560595"></a>
+
+  <p class="pBody">For an example, please see "<a href="Lesson_13_User_interface_functions.html#wp533413">Lesson 13: User interface functions</a><a href=
+  "Creating_QP_Add-in_DLLs.html#wp532095">" in the Quattro Pro Add-in DLL tutorial</a>.</p>
+</body>
+</html>

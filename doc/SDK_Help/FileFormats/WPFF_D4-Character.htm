@@ -1,0 +1,1654 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: D4 Character Functions</h2>
+    <p><strong>Character Group - Function 212 (0xD4)</strong></p>
+    <p>The Character Group subfunctions have character orientation.</p>
+    <hr />
+    <h3>0xD400</h3>
+    <p><strong>Set Alignment Character</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;0 (0x00)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[ alignment/decimal character]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD401</h3>
+    <p><strong>Set Thousands Separator Character</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;1 (0x01)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[ separator character]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD402</h3>
+    <p><strong>Set Underline Spaces Mode</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;2 (0x02)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt; underline spaces mode&gt;
+bit 0: 0 = no, 1 = yes
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD403</h3>
+    <p><strong>Set Underline Tabs Mode</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;3 (0x03)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt; underline tabs mode&gt;
+  bit 0: 
+    0 = no
+    1 = yes
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <p>Set Underline Tabs Mode causes tabs, indents, and aligns to be underlined.</p>
+    <hr />
+    <h3>0xD404</h3>
+    <p><strong>Horizontal Advance to Page Position</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;4 (0x04)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 3]
+&lt; horizontal advance definition&gt;
+  bit 0: 
+    0 = relative
+    1 = absolute
+[ position/adjustment (WPU/signed WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD405</h3>
+    <p><strong>Vertical Advance to Page Position</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;5 (0x05)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 3]
+&lt; vertical advance definition&gt;
+  bit 0: 
+    0 = relative
+    1 = absolute
+[ position/adjustment (WPU/signed WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD406</h3>
+    <p><strong>Index Entry</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;6 (0x06)&gt; [size = variable] &lt;flags = PRFXID&gt;
+&lt;number of PIDs = 1&gt;
+[index mark PID (type=0x0E)]
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD407</h3>
+    <p><strong>Table of Authority Entry</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;7 (0x07)&gt; [size = variable] &lt;flags = 0 or PRFXID&gt;
+If flags = PRFXID:
+  &lt;number of PIDs = 1&gt;
+  [parent ToA packet PID (type=0x0D)]
+  [size of non-deletable information = 0]
+If flags = 0: [short form] x ?
+  &lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD408</h3>
+    <p><strong>Cross-Reference Tag</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;8 (0x08)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [cross-reference tag PID (type=0xOF)]
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD409</h3>
+    <p><strong>Include Subdocument</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;9 (0x09)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [filename PID (type=0x0C)]
+[size of non-deletable information = 2]
+[number of lines of text to display]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD40A</h3>
+    <p><strong>Begin Marked Text for Table of Contents</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;10 (0x0A)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information]
+&lt;level (0-4)&gt;
+[ToC name] x ?  null terminated
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD40B</h3>
+    <p><strong>End Marked Text for Table of Contents</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;11 (0x0B)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information]
+&lt;level (0-4)&gt;
+[ToC name] x ?  null terminated
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD40C</h3>
+    <p><strong>Begin Marked Text for List</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;12 (0x0C)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information]
+[list name] x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD40D</h3>
+    <p><strong>End Marked Text for List</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;13 (0x0D)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information]
+[list name] x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD40E</h3>
+    <p><strong>Start of Included Subdocument</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;14 (0x0E)&gt; [size = variable] &lt;flags = PRFXID+1 (simple paired function)&gt;
+  &lt;number of PIDs = 3&gt;
+  [filename PID (type=0x0C)]
+  [subdocument summary PID (type=0x2C)]
+  [password structure packet PID (type=0x2D)]
+[size of non-deletable information = 3]
+[number of lines of text to display]
+&lt;expand flag&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD40F</h3>
+    <p><strong>End of Included Subdocument</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;15 (0x0F)&gt; [size = variable] &lt;flags = PRFXID+1 (simple paired function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [filename PID (type=0x0C)]
+[size of non-deletable information = 3]
+[number of lines of text to display]
+&lt;expand flag&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD410 - Modified for WP9</h3>
+    <p><strong>Begin Hidden Text</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;16 (0x10)&gt; [size = 12] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 2]
+&lt;hide kind/level&gt;
+  0-7 = outline level number
+  8 = no paragraph numbers in this hide
+  0x10 = outline level bit 4
+  -1 = hidden table cell information
+  -2 = hidden by hide selection
+&lt;level number at time of hide&gt; always present, but used only if
+outline level hide
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD411</h3>
+    <p><strong>End Hidden Text</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;17 (0x11)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD412</h3>
+    <p><strong>Start Generate Number Placeholder</strong></p>
+    <p>This subfunction is used only during generation.<br />
+    &lt;212 (0xD4)&gt; &lt;18 (0x12)&gt; [size = 18] &lt;flags = 0&gt;</p>
+    <pre>
+[size of non-deletable information = 8]
+[record number (for index/ToA)]
+&lt;generate number type&gt;
+[number]
+&lt;method&gt;
+[format string PID]
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD413</h3>
+    <p><strong>End Generate Number Placeholder</strong></p>
+    <p>This subfunction is used only during generation.<br />
+    &lt;212 (0xD4)&gt; &lt;19 (0x13)&gt; [size = 10] &lt;flags = 0&gt;</p>
+    <pre>
+[size of non-deletable information = 0]
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD414</h3>
+    <p><strong>Concordance Match</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;20 (0x14)&gt; [size = variable] &lt;flags = 0 or PRFXID&gt;
+If the prefix ID bit is set, then the following information exists:
+  &lt;number of PIDs = 2&gt;
+  [box caption PID]
+  [box counter PID]
+[size of non-deletable information]
+If the prefix ID bit is clear, then the following information exists:
+  [index name] x ?
+  [heading name] x ?
+  [subheading name] x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD415</h3>
+    <p><strong>Embedded Printer Command</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;21 (0x15)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [filename or commands PID (type=0x24)]
+[size of non-deletable information = 1]
+&lt;embedded printer command definition&gt;
+  0 = filename
+  1 = command
+  2 = postscript
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD416</h3>
+    <p><strong>Kerning On/Off</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;22 (0x16)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new kerning mode&gt;
+  bit 0: 
+    0 = off
+    1 = on
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD417</h3>
+    <p><strong>Block On/Off</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;23 (0x17)&gt; [size = 13] &lt;flags = 0&gt;
+[size of non-deletable information = 3]
+&lt; block state&gt;
+  bit 0: 
+    0 = off
+    1 = on
+[block level number]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD418</h3>
+    <p><strong>Color</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;24 (0x18)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 3]
+&lt;new print colors (RGB)&gt; x 3
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD419</h3>
+    <p><strong>Character Shading Change</strong></p>
+    <pre>
+&lt;212 (0xD4&gt; &lt;25 (0x19)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new shading&gt; (0 to 100%)
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD41A</h3>
+    <p><strong>Font Face Change</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;26 (0x1A)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [ font descriptor PID (type=0x55)]
+[size of non-deletable information = 8]
+[old matched point size (3600ths)]
+[hash (matched typeface descriptor)]
+[matched font index in font list]
+[matched point size of font (3600ths)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD41B</h3>
+    <p><strong>Font Size Change</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;27 (0x1B)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [old desired typeface descriptor PID (type=0x55)]
+[size of non-deletable information = 8]
+[desired point size (3600ths)]
+[hash (matched typeface descriptor)]
+[matched font index in font list]
+[matched point size of font (3600ths)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD41C</h3>
+    <p><strong>Set Language</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;28 (0x1C)&gt; [size = 12] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[2-character language code]
+All possible languages should be in this list:
+  AF = Afrikaans
+  CA = Catalan
+  CZ = Czech
+  HR = Croatian
+  DK = Danish
+  NL = Dutch
+  EN = English
+  OZ = English-Australia
+  CE = English-Canada
+  UK = English-UK
+  SU = Finnish
+  LF = French-Canada
+  FR = French-National
+  GA = Galician
+  DE = German-National
+  SD = German-Switzerland
+  GR = Greek
+  MA = Hungarian
+  IS = Icelandic
+  IT = Italian
+  JP = Japanese
+  NO = Norwegian
+  PL = Polish
+  BR = Portuguese-Brazil
+  PO = Portuguese-Portugal
+  RU = Russian
+  SL = Slovak
+  SO = Slovenian
+  ES = Spanish
+  SV = Swedish
+  TR = Turkish
+  YK = Ukrainian
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD41D</h3>
+    <p><strong>Comment</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;29 (0x1D)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs&gt;
+     1 = 0x1B - always exists
+     2 = 0x5B - can exist as a second prefix
+  [comment text PID (type=0x1B)]
+  [User Assistant (type=0x5b)] - optional prefix if PIDs set to 2
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD41E</h3>
+    <p><strong>Set Dot Leader Characters</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;30 (0x1E)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 3]
+[new dot leader character]
+&lt; number of spaces between characters&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD41F</h3>
+    <p><strong>Conditional End of Page</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;31 (0x1F)&gt; [size = 11] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;number of single spaced lines not to be broken&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD420</h3>
+    <p><strong>Date</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;32 (0x20)&gt; [size = variable] &lt;flags = 3 (encased function) +PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [format code PID (type=0x65)]
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD421</h3>
+    <p><strong>End of Date</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;33 (0x21)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD422</h3>
+    <p><strong>Date Format</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;34 (0x22)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+[date format language (set at insertion)]
+[date format string (word string)] x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD423</h3>
+    <p><strong>Character Space/Width</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;35 (0x23)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+[ percent of character width]  default = 100
+[ percent of space width]  default = 100
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD424</h3>
+    <p><strong>Space Expansion</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;36 (0x24)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+[ minimum percent of space width]  default = 60
+[ maximum percent of space width]  default = 400
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD425</h3>
+    <p><strong>Bookmark</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;37 (0x25)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [bookmark PID (type=0x09)]
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD426</h3>
+    <p><strong>Protect Block On</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;38 (0x26)&gt; [size = 12] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 2]
+[size of block to protect (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD427</h3>
+    <p><strong>Protect Block Off</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;39 (0x27)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 2]
+[size of block to protect (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD428</h3>
+    <p><strong>Pause Printer</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;40 (0x28)&gt; [size = 10] &lt;flags = 0&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD429</h3>
+    <p><strong>Overstrike</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;41 (0x29)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+[characters to overstrike (word string with attributes)] x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD42A</h3>
+    <p><strong>Table Definition (Table On)</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;42 (0x2A)&gt; [size = variable] &lt;flags = 3 + (0 or PRFXID)&gt;
+If the prefix ID bit is set, the following information exists:
+  &lt;number of prefix IDs&gt;
+  [unique table ID PID (type=0x05)]
+  [table outside border PID (type=0x44)]
+  [table default line style PID (type=0x42)]
+  [table name PID (type=0x61)] also contains names of cells, columns, rows, and blocks
+  [default table fill PID (type=0x43)]
+A maximum of 4 optional override line style PIDs may exist in any order.  WP for DOS uses the default line
+style as a custom line style so only three additional line style PIDs will ever appear.
+  [top line style PID (type=0x42)]
+  [bottom line style PID (type=0x42)]
+  [left line style PID (type=0x42)]
+  [right line style PID (type=0x42)]
+  [secondary table fill PID (type=0x43)]
+  [table style PID (type=0x69)]
+  If either of the following two packets exist, the secondary table fill pid and table style pid entries must
+exist. If there is not a fill or style, the prefix packet of zero is set.
+  [User Assistant PID (type=0x5B)]
+  [HTML packet (type=0x4F)]
+[size of non-deletable information]
+&lt;table flags&gt;
+  bit 0: 
+    0 = use border line colors
+    1 = user override color
+  bit 1: 1 = can enter all locked cells, (engine)
+  bit 2: 
+    0 = tab on last row to insert a new row
+    1 = tab to leave table
+  bit 7: 
+    0 = left to right table
+    1 = right to left table
+&lt;table position&gt;
+  bits 0-2: table position options
+    0 = align with left margin
+    1 = align with right margin
+    2 = center between margins
+    3 = full (adjust column widths to fit margins)
+    4 = absolute offset from left margin
+[offset from left edge of paper] for absolute position option
+&lt;default cell line color (RGBS)&gt; x 4
+[table override size (minimum 2)]
+[table override flags]
+  bit 14: 1 = fill override data exists
+  bit 15: 1 = border override data exists
+[table border override data size] if bit 15 is set
+[table border override flags] if bit 15 is set
+  bit 0: 1 = left line style PID exists
+  bit 1: 1 = right line style PID exists
+  bit 2: 1 = top line style PID exists
+  bit 3: 1 = bottom line style PID exists
+&lt;override data&gt; x ? if bit 15 is set
+[table fill override data size] if bit 14 is set
+[table fill override flags] if bit 14 is set
+&lt;override data&gt; x ? if bit 14 is set
+&lt;alternate fill&gt;
+  0 = off
+  1 = rows
+  2 = columns
+  3 = checkerboard
+[count for table fill pattern]
+[count for secondary fill pattern]
+&lt;table items override flags&gt;
+  bit 0: 1 = border changed by user since style was applied
+  bit 1: 1 = primary fill changed by user since style was applied
+  bit 2: 1 = secondary fill changed by user since style was applied
+  bit 3: 1 = default line changed by user since style was applied
+  bit 4: 1 = alternate fill changed by user since style was applied
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD42B</h3>
+    <p><strong>Define Table End</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;43 (0x2B)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD42C</h3>
+    <p><strong>Table Column</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;44 (0x2C)&gt; [size = 27 or 33] &lt;flags = 0&gt;
+[size of non-deletable information = 17]
+&lt;flags&gt; default = not locked
+[width]
+[left gutter spacing (WPU)]
+[right gutter spacing (WPU)]
+[attribute word 1]
+  bit 0: 1 = extra large
+  bit 1: 1 = very large
+  bit 2: 1 = large
+  bit 3: 1 = small print
+  bit 4: 1 = fine print
+  bit 5: 1 = superscript
+  bit 6: 1 = subscript
+  bit 7: 1 = outline
+  bit 8: 1 = italics
+  bit 9: 1 = shadow
+  bit 10: 1 = redline
+  bit 11: 1 = double underline
+  bit 12: 1 = bold
+  bit 13: 1 = strikeout
+  bit 14: 1 = underline
+  bit 15: 1 = small caps
+[attribute word 2]
+  bit 0: 1 = blink
+  bit 1: 1 = reverse video
+&lt;alignments&gt;
+  bits 0-2: justification
+    0 = left
+    1 = full
+    2 = center
+    3 = right
+    4 = full all lines (kinto waritsuke)
+    5 = decimal align
+  bit 3: use absolute position from right
+  bits 4-7: number of characters to right of decimal alignment
+[absolute position from right]
+[number type]
+  bits 0-3: number of digits to display after decimal point or date index information
+  bit 4: 1 = display with commas
+  bit 5: rounding
+    0 = use full precision in calculations
+    1 = use displayed precision
+  bits 6-7: negative numbers
+    0 = '-'  (use minus sign)
+    1 = ()  (use parentheses)
+    2 = CR/DR  (use credit/debit symbols)
+    3 = not defined
+  bits 8-11: standard formats
+    0 = general
+    1 = integer
+    2 = fixed
+    3 = percent
+    4 = currency
+    5 = accounting
+    6 = commas
+    7 = scientific
+    8 = date
+    9 = text
+  bit 12: 1 = text
+  bit 13: 1 = set currency symbol on
+  bits 14-15: notation
+    0 = floating point
+    1 = scientific
+    2 = fixed
+    3 = not defined
+&lt;currency symbol index&gt;
+  bits 0-6: index of the desired currency, default = 0
+  bit 7: alignment
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD42D</h3>
+    <p><strong>Disable Writing Tools</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;45 (0x2D)&gt; [size = 11] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new writing tools state&gt;  bit 0: 0 = off (enabled), 1 = on (disabled)
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD42E</h3>
+    <p><strong>Print Filename Start</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;46 (0x2E)&gt; [size = variable] &lt;flags = 3+PRFXID&gt;
+&lt;number of PIDs = 1&gt;
+  [PID]
+[size of non-deletable information = 1]
+&lt;flag&gt;
+  bit 0: 1 = insert path + filename
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD42F</h3>
+    <p><strong>Print Filename End</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;47 (0x2F)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD430</h3>
+    <p><strong>Bar Code</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;48 (0x30)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+&lt;bar code type&gt; 0 = USPS POSTNET
+[size of data to follow] (format of data is type dependent)
+&lt;bar code&gt; x ?
+If bar code type = 0, the following data exists:
+  [width of bar code (WPU)]
+  [height of bar code (WPU)]
+  &lt;ASCIIZ bar code digits&gt; x 5, 9, or 11
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD431</h3>
+    <p><strong>Sound</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;49 (0x31)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [PID of the sound clip (type=0x57)]
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD432</h3>
+    <p><strong>Paragraph Number On</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;50 (0x32)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 4]
+[hash of outline style used for expansion (0 forces reinsertion)]
+&lt;level number 0-7&gt;
+&lt;flag (bit 0 set if fixed)&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD433</h3>
+    <p><strong>Paragraph Number Off</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;51 (0x33)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD434</h3>
+    <p><strong>Hypertext Begin On</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;52 (0x34)&gt; [size = variable] &lt;flags = PRFXID+2 (encased/paired function)&gt;
+  &lt;number of PIDs = 2&gt;
+  [filename of macro or where bookmark is PID (type=0x07)]
+  [bookmark name PID (type=0x17)]
+[size of non-deletable information = 1]
+&lt;hypertext action&gt;
+  1 = go to a bookmark
+  2 = execute a macro
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD435</h3>
+    <p><strong>Hypertext Begin Off</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;53 (0x35)&gt; [size = 10] &lt;flags = 2 (encased/paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD436</h3>
+    <p><strong>Hypertext End On</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;54 (0x36)&gt; [size = 10] &lt;flags = 2 (encased/paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD437</h3>
+    <p><strong>Hypertext End Off</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;55 (0x37)&gt; [size = 10] &lt;flags = 2 (encased/paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD438</h3>
+    <p><strong>Change End of Line Characters</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;56 (0x38)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+[0 or more WP characters] x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD439</h3>
+    <p><strong>Change Beginning of Line Characters</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;57 (0x39)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+[0 or more WP characters] x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD43A</h3>
+    <p><strong>Define Link Start</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;58 (0x3A)&gt; [size = variable] &lt;flags = PRFXID+1 (simple paired function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [filename PID (type=0x07)] PID = 0 if type is not Spreadsheet, dBase, Paradox, DataPerfect, or ASCII.
+[size of non-deletable information]
+[date of file when last linked]
+[time of file when last linked]
+&lt;source type&gt;
+  1 (0x01) = spreadsheet
+  33 (0x21) = dBase
+  34 (0x22) = Paradox
+  65 (0x41) = DataPerfect
+  97 (0x61) = ASCII delimited text
+  129 (0x81) = NetWare SQL
+  130 (0x82) = Oracle
+  131 (0x83) = DB2
+  132 (0x84) = SQL Server
+  133 (0x85) = Sybase
+  134 (0x86) = SQLBase
+  135 (0x87) = XDB
+&lt;destination type&gt;
+  1 = table
+  2 = text
+  3 = merge text data
+If source type is spreadsheet:
+  &lt;user specified&gt;
+    1 = name
+    2 = range
+  [name length]
+  [name] x ? null terminated
+  [number of range blocks]
+  [range blocks] x 6?
+    Each block of 6 words contains the following:
+    [begin row]
+    [begin column]
+    [begin sheet]
+    [end row]
+    [end column]
+    [end sheet] the last word [end sheet] also has the high bit set (0x8000)
+If source type is dBase or Paradox:
+  &lt;flag&gt; bit 0: 1 = field names included
+  [field names length]
+  &lt;field names (comma-delimited list)&gt; x ?
+  [query length]
+  &lt;query string&gt; x ?
+  [password length]
+  &lt;password&gt; x ?
+If type is DataPerfect:
+  &lt;flag&gt; bit 0: 1 = field names included
+  [panel length]
+  &lt;panel&gt; x ?
+  [field names length]
+  &lt;field names (comma-delimited list)&gt; x ?
+  [query length]
+  &lt;query string&gt; x ?
+  [password length]
+  &lt;password&gt; x ?
+If type is NetWare SQL:
+  &lt;flag&gt; 
+    bit 0: 1 = field names included
+  [file path length]
+  &lt;field path&gt; x ?
+  [dictionary path length]
+  &lt;dictionary path&gt; x ?
+  [user length]
+  &lt;user&gt; x ?
+  [password length]
+  &lt;password&gt; x ?
+  [query length]
+  &lt;query string&gt; x ?
+If type is Oracle, DBase2, SQLBase, SQL Server, or Sybase, XDB:
+  &lt;flag&gt; 
+    bit 0: 1 = field names included
+  [server length]
+  &lt;server&gt; x ?
+  [user length]
+  &lt;user&gt; x ?
+  [password length]
+  &lt;password&gt; x ?
+  [query length]
+  &lt;query string&gt; x ?
+If type is ASCII delimited text:
+  &lt;encapsulate character length&gt; (range is 1-2)
+  &lt;encapsulate character&gt; x ?
+  &lt;strip characters length&gt; (range is 1-5)
+  &lt;strip characters&gt; x ?
+  &lt;field delimiter length&gt; (range is 1-5)
+  &lt;field delimiter&gt; x ?
+  &lt;record delimiter length&gt; (range is 1-5)
+  &lt;record delimiter&gt; x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD43B</h3>
+    <p><strong>Define Link End</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;59 (0x3B)&gt; [size = variable] &lt;flags = PRFXID+1 (simple paired function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [filename PID (type=0x07)]
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD43C</h3>
+    <p><strong>Style Separator Comment Begin</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;60 (0x3C)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD43D</h3>
+    <p><strong>Style Separator Comment End</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;61 (0x3D)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD43E</h3>
+    <p><strong>Macro Function Begin</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;62 (0x3E)&gt; [size = 12] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 2]
+[extended word string character]  (in range 0xD000 to 0xFFFD)
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD43F</h3>
+    <p><strong>Macro Function End</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;63 (0x3F)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD440</h3>
+    <p><strong>Page Number On</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;64 (0x40)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD441</h3>
+    <p><strong>Page Number Off</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;65 (0x41)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD442</h3>
+    <p><strong>Start of Text Marked for Hiding</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;66 (0x42)&gt; [size = 10] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD443</h3>
+    <p><strong>End of Text Marked for Hiding</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;67 (0x43)&gt; [size = 10] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD444</h3>
+    <p><strong>Floating Cell Begin</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;68 (0x44)&gt; [size = variable] &lt;flags = PRFXID+1 (simple paired function)&gt;
+  &lt;number of PIDs = 2]
+  [unique floating cell ID PID (type = 0x67)]
+  [cell name PID (type=0x60)]
+[size of non-deletable information]
+[number type]
+  bits 0-3: number of digits to display after decimal point or date index information
+  bit 4: 1 = display with commas
+  bit 5: rounding
+    0 = use full precision in calculations
+    1 = use displayed precision
+  bits 6-7: negative numbers
+    0 = '-'  (use minus sign)
+    1 = ()  (use parentheses)
+    2 = CR/DR  (use credit/debit symbols)
+    3 = not defined
+  bits 8-11: standard formats
+    0 = general
+    1 = integer
+    2 = fixed
+    3 = percent
+    4 = currency
+    5 = accounting
+    6 = commas
+    7 = scientific
+    8 = date
+    9 = text
+  bit 12: 1 = text
+  bit 13: 1 = set currency symbol on
+  bits 14-15: notation
+    0 = floating point
+    1 = scientific
+    2 = fixed
+    3 = not defined
+&lt;currency symbol index&gt;
+  bits 0-6: index of the desired currency, default = 0
+  bit 7: alignment
+[recalculation error if an error occurred during recalculation]
+&lt;number/formula flag&gt;
+  bit 0: 1 = number
+  bit 1: 1 = formula
+&lt;IEEE floating point number if number bit set&gt; x 8
+If formula bit is set, the following information exists:
+  [length of formula]
+  &lt;tokenized formula&gt; x ?
+  see <em>Table Formulas</em> for list of formula codes.
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD445</h3>
+    <p><strong>Floating Cell End</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;69 (0x45)&gt; [size = 10] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 0]
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD446</h3>
+    <p><strong>Hidden Text function</strong></p>
+    <pre>
+&lt;0xD4&gt; &lt;0x46&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [text PID (type=0x08)]
+[size of non-deletable information = 0]
+[size]&lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD447</h3>
+    <p><strong>Attached Text (subtitle) Mark (Fareast)</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;71 (0x47)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD448</h3>
+    <p><strong>Text of Attached Text (Fareast)</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;72 (0x48)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = variable]
+[attached text string] x ? word string, no embedded attributes
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD449</h3>
+    <p><strong>Attached Text Options (Fareast)</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;73 (0x49)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+&lt;justification&gt;
+  0 = left
+  1 = full (use 4 instead)
+  2 = center
+  3 = right
+  4 = full all lines (kinto waritsuke)
+&lt;subtitle position&gt;
+  bit 0: 
+    0 = position subtitle text above line
+    1 = position subtitle text below line
+&lt;maximum attached text height % of current font&gt;
+[leading adjustment (SWPUs) position to increase]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD44A</h3>
+    <p><strong>Ligature Control for Arabic (Mideast)</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;74 (0x4A)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;ligature setting&gt;
+  0 = none
+  1 = partial ligatures
+  2 = full ligatures
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD44B</h3>
+    <p><strong>Number Shaping for Arabic/Hebrew (Mideast)</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;75 (0x4B)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;number shape&gt;
+  0 = context
+  1 = force English font
+  2 = force Arabic/Hebrew font
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD44C</h3>
+    <p><strong>Start of Right-to-Left Text</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;76 (0x4C)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD44D</h3>
+    <p><strong>End of Right-to-Left Text</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;77 (0x4D)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD44E</h3>
+    <p><strong>Native Font Change (Mideast)</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;78 (0x4E)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [typeface descriptor PID]
+[size of non-deletable information = 9]
+[old point size]
+[hash]
+[matched font index in font list]
+[matched point size of font (3600th's)]
+&lt;language set&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD44F</h3>
+    <p><strong>Native Font Size Change (Mideast)</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;79 (0x4F)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [typeface descriptor PID]
+[size of non-deletable information = 9]
+[point size]
+[hash]
+[matched font index in font list]
+[matched point size of font (3600th's)]
+&lt;language set&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD450</h3>
+    <p><strong>Tracked Region On</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;80 (0x50)&gt; [size = variable] &lt;flags = PRFXID + 1 (simple paired function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [prefix of region data]
+[size of non-deletable information = 6]
+{region number}
+&lt;characteristics to track&gt; 
+for each bit: 1 = track characteristic, 0 = do not track
+  bit 0: font face
+  bit 1: font size
+  bit 2: attributes
+  bit 3: color
+  bit 4: text insertion
+  bit 5: text deletion
+&lt;region type&gt;
+  1 = OLE
+  2 = OBEX
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD451</h3>
+    <p><strong>Tracked Region Off</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;81 (0x51)&gt; [size = variable] &lt;flags = PRFXID + 1 (simple paired function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [prefix of region data]
+[size of non-deletable information = 6]
+{region number}
+&lt;characteristics to track&gt; for each bit: 1 = track characteristic, 0 = do not track
+  bit 0: font face
+  bit 1: font size
+  bit 2: attributes
+  bit 3: color
+  bit 4: text insertion
+  bit 5: text deletion
+&lt;region type&gt;
+  1 = OLE
+  2 = OBEX
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD452</h3>
+    <p><strong>Style Example Begin</strong></p>
+    <p>Not implemented in WP 6.1.<br />
+    &lt;212 (0xD4)&gt; &lt;82 (0x52)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;</p>
+    <pre>
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD453</h3>
+    <p><strong>Style Example End</strong></p>
+    <p>Not implemented in WP 6.1.<br />
+    &lt;212 (0xD4)&gt; &lt;83 (0x53)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;</p>
+    <pre>
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD454</h3>
+    <p><strong>Style Prefix Undo</strong></p>
+    <p>Style prefix undo is used when a style is changed or deleted by the user.<br />
+    </p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;84 (0x54)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 2&gt;
+  [new PID] what is being used now
+  [old PID] what was deleted by the user
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD455</h3>
+    <p><strong>Delay Prefix Undo</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;85 (0x55)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [PID of undo information]
+[size of non-deletable information = 2]
+[current PID] same as in function 0xD115
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD456</h3>
+    <p><strong>Annotate Insert On</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;86 (0x56)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 2]
+[user ID] offset into user list
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD457</h3>
+    <p><strong>Annotate Insert Off</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;87 (0x57)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 2]
+[user ID] offset into user list
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD458</h3>
+    <p><strong>Annotate Delete On</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;88 (0x58)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 2]
+[user ID] offset into user list
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD459</h3>
+    <p><strong>Annotate Delete Off</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;89 (0x59)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 2]
+[user ID] offset into user list
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD45A</h3>
+    <p><strong>Speech Recognition Begin</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;90 (0x5A)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 11]
+[session ID]
+{utterance ID}
+&lt;character count&gt; number of word characters in item
+{hash} hash of characters when item was inserted
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD45B</h3>
+    <p><strong>Speech Recognition End</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;91 (0x5B)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[session ID]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD45C</h3>
+    <p>Modified for WP9</p>
+    <p><strong>HTML Begin Form Tag</strong></p>
+    <pre>
+WordPerfect 9
+&lt;212 (0xD4)&gt;&lt;92 (0x5C)&gt; [size = variable] &lt;flags = (0x15)&gt; 
+&lt;variable length function flag = 81&gt; 
+&lt;number of PIDs = 1&gt; 
+[prefix of html data]
+[size of non-deletable information = 4] 
+[formatting width (WPUs)] 
+[formatting height (WPUs)] 
+</pre>
+    <p>&lt;undocumented deletable data&gt; x ?</p>
+    <pre>
+[size] &lt;0xD4&gt;
+
+WordPerfect 9
+&lt;212 (0xD4)&gt;&lt;92 (0x5C)&gt; [size = variable] &lt;flags = (0x15)&gt; 
+&lt;variable length function flag = 81&gt; 
+&lt;number of PIDs = 2&gt; 
+[prefix of html data]
+[prefix of html info]
+[size of non-deletable information = 4]                                 
+  [formatting width (WPUs)] 
+  [formatting height (WPUs)] 
+</pre>
+    <p>&lt;undocumented deletable data&gt; x ?</p>
+    <pre>
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD45D</h3>
+    <p><strong>HTML End Form Tag</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt;&lt;93 (0x5D)&gt; [size = variable] &lt;flags = (0x15)&gt; 
+&lt;variable length function flag = 81&gt; 
+&lt;number of PIDs = 1&gt; 
+[prefix of html data]
+[size of non-deletable information = 4] 
+[formatting width (WPUs)] 
+[formatting height (WPUs)] 
+</pre>
+    <p>&lt;undocumented deletable data&gt; x ?</p>
+    <pre>
+[size] &lt;0xD4&gt;
+</pre>
+    <hr />
+    <h3>0xD45E</h3>
+    <p>- Modified for WP9</p>
+    <p><strong>HTML Specific Tag</strong></p>
+    <pre>
+WordPerfect 9
+&lt;212 (0xD4)&gt; &lt;94 (0x5E)&gt; [size = variable] &lt;variable length function flag = 80&gt; 
+&lt;number of PIDs = 1&gt; 
+[prefix of html data]
+[size of non-deletable information = 6] 
+[HTML tag identifier]
+    0 = undefined
+    1 = Form begin code
+    2 = Form end code
+    3 = Form checkbox
+    4 = Form radio button
+    5 = Form hidden field
+    6 = Form image submit button
+    7 = Form password field
+    8 = Form reset button
+    9 = Form submit button
+   10 = Form text field, single line
+   11 = Form text area, multiple line
+   12 = Form select listbox
+   13 = Java Applet
+   14 = MS Marquee
+   15 = Image map
+[formatting width (WPUs)] 
+[formatting height (WPUs}] 
+</pre>
+    <p>&lt;undocumented deletable data&gt; x ?</p>
+    <pre>
+[Size] &lt;212&gt;
+
+WordPerfect 9
+&lt;212 (0xD4)&gt; &lt;94 (0x5E)&gt; [size = variable] &lt;variable length function flag = 80&gt; 
+&lt;number of PIDs = 1&gt; 
+[prefix of html data]
+[prefix of html information]
+[size of non-deletable information = 6] 
+  [HTML tag identifier]
+    0 = undefined
+    1 = Form begin code
+    2 = Form end code
+    3 = Form checkbox
+    4 = Form radio button
+    5 = Form hidden field
+    6 = Form image submit button
+    7 = Form password field
+    8 = Form reset button
+    9 = Form submit button
+   10 = Form text field, single line
+   11 = Form text area, multiple line
+   12 = Form select listbox
+   13 = Java Applet
+   14 = MS Marquee
+   15 = Image map
+  [formatting width (WPUs)] 
+  [formatting height (WPUs}] 
+</pre>
+    <p>&lt;undocumented deletable data&gt; x ?</p>
+    <pre>
+[Size] &lt;212&gt;
+</pre>
+    <hr />
+    <h3>0xD45F</h3>
+    <pre>
+<strong>Check As You Go</strong>
+</pre>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;95 (0x5F)&gt; [size = 16]&lt;variable length function flag = 0&gt;
+[size of non-deletable data = 6]
+&lt;type of error/area type&gt;
+  gate types:
+    0 = Revalidate
+    1 = Reserved
+    2 = Checked off
+    3 = Checked on
+    4 = Dirty off
+    5 = Dirty on
+    6 = Subdoc dirty off
+    7 = Subdoc dirty on
+[new Level] - new insert/delete of a language code or enable/disable of writing tool
+[old Level] - new insert/delete of a language code or enable/disable of writing tool
+&lt;tool type&gt;
+    1 = Speller
+    2 = Grammar
+[size] &lt;212&gt;
+</pre>
+    <hr />
+    <h3>0xD460</h3>
+    <pre>
+<strong>Named Region On</strong>
+&lt;212 (0xD4)&gt; &lt;96 (0x60)&gt; [size = 14]&lt;variable length function flag 81&gt;
+&lt;number of PIDs = 1&gt;
+[prefix of name packet]
+[size of non-deletable data = 1]
+&lt;flag&gt;
+   1 = Tab'able region
+[size] &lt;212&gt;
+</pre>
+    <hr />
+    <h3>0xD461</h3>
+    <pre>
+<strong>Named Region Off</strong>
+&lt;212 (0xD4)&gt; &lt;97 (0x61)&gt; [size = 14]&lt;variable length function flag = 81&gt;
+&lt;number of PIDs = 1&gt;
+[prefix of name packet]
+[size of non-deletable data = 1]
+&lt;flag&gt;
+    1 = Tab'able region
+[size] &lt;212&gt;
+</pre>
+    <hr />
+    <h3>0xD462</h3>
+    <p>New in WP9</p>
+    <p><strong>Set Underline Styles</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;98 (0x62)&gt; [size = variable]&lt;variable length function flag = 0&gt;
+[size of non-deletable data = 1]
+&lt;new underline style&gt;
+  0 - solid line
+  1 - dotted line
+  2 - dashed line
+  3 - dash-dotted line
+  4 - dash-dot-dotted line
+  5 - wavy line
+  6 - thick line
+</pre>
+    <p>&lt;undocumented deletable data&gt; x ?</p>
+    <pre>
+[size = 12] &lt;212&gt;
+</pre>
+    <hr />
+    <h3>0xD463</h3>
+    <p>New in WP9</p>
+    <p><strong>Set Underline Color</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;99 (0x63)&gt; [size = variable]&lt;variable length function flag = 0&gt;
+[size of non-deletable data = 4]
+  &lt;red&gt;
+  &lt;green&gt;
+  &lt;blue&gt;
+  &lt;new shade (0 - 100), or 0xff to use text color&gt;
+</pre>
+    <p>&lt;undocumented deletable data&gt; x ?</p>
+    <pre>
+[size = 0] &lt;212&gt;
+</pre>
+    <hr />
+    <h3>0xD464</h3>
+    <p>New in WP9</p>
+    <p><strong>HTML Specific Tag On</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;100 (0x64)&gt; [size = variable]&lt;variable length function flag = PRFXID(0x80) + (1 or 3)&gt;
+&lt;# of prefix id's = 1&gt;
+[prefix of HTML info]
+[size of non-deletable data = 6]
+  [HTML tag identifier]
+    0 = undefined
+    1 = Form begin code
+    2 = Form end code
+    3 = Form checkbox
+    4 = Form radio button
+    5 = Form hidden field
+    6 = Form image submit button
+    7 = Form password field
+    8 = Form reset button
+    9 = Form submit button
+   10 = Form text field, single line
+   11 = Form text area, multiple line
+   12 = Form select listbox
+   13 = Java Applet
+   14 = MS Marquee
+   15 = Image map
+  [formatting width (WPUs)]
+  [formatting height (WPUs)]
+</pre>
+    <p>&lt;undocumented deletable data&gt; x ?</p>
+    <pre>
+[size] &lt;212&gt;
+</pre>
+    <hr />
+    <h3>0xD465</h3>
+    <p>New in WP9</p>
+    <p><strong>HTML Specific Tag On</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;101 (0x65)&gt; [size = variable]&lt;variable length function flag = PRFXID(0x80) + (1 or 3)&gt;
+&lt;# of prefix id's = 1&gt;
+[prefix of HTML info]
+[size of non-deletable data = 6]
+  [HTML tag identifier]
+    0 = undefined
+    1 = Form begin code
+    2 = Form end code
+    3 = Form checkbox
+    4 = Form radio button
+    5 = Form hidden field
+    6 = Form image submit button
+    7 = Form password field
+    8 = Form reset button
+    9 = Form submit button
+   10 = Form text field, single line
+   11 = Form text area, multiple line
+   12 = Form select listbox
+   13 = Java Applet
+   14 = MS Marquee
+   15 = Image map
+  [formatting width (WPUs)]
+  [formatting height (WPUs)]
+</pre>
+    <p>&lt;undocumented deletable data&gt; x ?</p>
+    <pre>
+[size] &lt;212&gt;
+</pre>
+    <hr />
+    <h3>0xD466</h3>
+    <p>New in WP9</p>
+    <p><strong>Document Compare Begin Field</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;102 (0x66)&gt; [size = 11]&lt;variable length function flag = 0&gt;
+[size of non-deletable data = 1]
+  &lt;type&gt;
+    1=Deletion
+    2=Insertion
+    4=Move From
+    8=Move To
+    0x10= Info page
+[size] &lt;212&gt;
+</pre>
+    <hr />
+    <h3>0xD467</h3>
+    <p>New in WP9</p>
+    <p><strong>Document Compare End Field</strong></p>
+    <pre>
+&lt;212 (0xD4)&gt; &lt;103 (0x67)&gt; [size = 10]&lt;variable length function flag = 0&gt;
+[size of non-deletable data = 0]
+[size] &lt;212&gt;
+</pre>
+</body>
+</html>

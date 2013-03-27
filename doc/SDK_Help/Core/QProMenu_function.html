@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProMenu function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProInputString_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Miscellaneous_functions_added_in_Corel_Quattro_Pro_1.html"><img alt="Next Document" border="0" src="images/next.gif" width="18"
+      height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "User_interface_functions_added_in_Corel_Quattro_Pro_1.html">User-interface functions added in Quattro Pro 1</a> : QProMenu function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp560656"></a>
+
+  <h4 class="pHeading3">QProMenu function</h4><a name="wp560658"></a>
+
+  <p class="pBody">This function displays a multi-choice menu to the user.</p><a name="wp560660"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL QProMenu(<a name="wp560662"> </a>
+LPSTR  MenuName,<a name="wp560664"> </a>
+UINT  NEntries,<a name="wp560666"> </a>
+LPSTR  *Items,<a name="wp560668"> </a>
+LPSTR  *HelpStrings,<a name="wp560670"> </a>
+LPWord  pHighLight);<a name="wp560672"> </a>
+</pre>
+  </div><a name="wp560674"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp560677"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp528816"></a>
+
+          <p class="pBody"><code class="cCode">MenuName</code></p>
+        </td>
+
+        <td>
+          <a name="wp528818"></a>
+
+          <p class="pBody">Specifies the text for menu title</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528824"></a>
+
+          <p class="pBody"><code class="cCode">Nentries</code></p>
+        </td>
+
+        <td>
+          <a name="wp528826"></a>
+
+          <p class="pBody">Specifies the number of entries to display in list</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528832"></a>
+
+          <p class="pBody"><code class="cCode">Items</code></p>
+        </td>
+
+        <td>
+          <a name="wp528834"></a>
+
+          <p class="pBody">Specifies the list of text entries</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528840"></a>
+
+          <p class="pBody"><code class="cCode">HelpStrings</code></p>
+        </td>
+
+        <td>
+          <a name="wp528842"></a>
+
+          <p class="pBody">Specifies the pointer to a list of ASCIIZ help strings</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528848"></a>
+
+          <p class="pBody"><code class="cCode">pHighlight</code></p>
+        </td>
+
+        <td>
+          <a name="wp528850"></a>
+
+          <p class="pBody">Specifies the zero-based input/output of highlighted text index</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp560679"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp560681"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, or it returns <code class="cCode">FALSE</code> otherwise (for example,
+  if an escape is entered).</p><a name="wp560683"></a>
+
+  <h5 class="pHeading4">Samples</h5><a name="wp560687"></a>
+
+  <p class="pBody">For an example, please see "<a href="Lesson_13_User_interface_functions.html#wp533413">Lesson 13: User interface functions</a><a href=
+  "Creating_QP_Add-in_DLLs.html#wp532095">" in the Quattro Pro Add-in DLL tutorial</a>.</p>
+</body>
+</html>

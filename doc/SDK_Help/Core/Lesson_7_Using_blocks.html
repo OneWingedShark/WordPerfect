@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:32" />
+
+  <title>Lesson 7: Using blocks</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Lesson_6_Using_import_functions_2.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Lesson_8_Using_strings.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Creating_QP_Add-in_DLLs.html">Creating Quattro Pro Add-in DLLs</a> : Lesson 7: Using blocks</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp532731"></a>
+
+  <h3 class="pHeading2">Lesson 7: Using blocks</h3><a name="wp532733"></a>
+
+  <p class="pBody">Before beginning this lesson, do the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp532735"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Load the qshell.cpp file into your program editor.</li>
+      </ul>
+    </div><a name="wp532737"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Save qshell.cpp as lesson07.cpp in your data folder.</li>
+      </ul>
+    </div>
+  </div><a name="wp532739"></a>
+
+  <p class="pBody">This custom function takes a block and sums its contents. To do so, the function will make use of the following import functions:
+  <code class="cCode">QProPureColumnCount</code>, <code class="cCode">QProPureRowCount</code>, and <code class=
+  "cCode">QProPureGetCellNumberValue</code>.</p><a name="wp1270223"></a>
+
+  <h5 class="pHeading4">Step 1</h5><a name="wp532741"></a>
+
+  <p class="pBody">Replace <code class="cCode">DUMMY</code> with <code class="cCode">SUMR</code> in the <code class="cCode">SelfDefStructure</code> of the
+  qshell.cpp file. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532743"> </a>
+// Quattro Pro prescribed header (and other overhead)<a name="wp532745"> </a>
+//===============================================================<a name="wp532747"> </a>
+SelfDefStructure MyFuncs[] = {<a name="wp532749"> </a>
+{<a name="wp532751"> </a>
+"PURE double PASCAL SUMR(RefHandle)", // Function Command <a name="wp532753"> </a>
+(FarProc)&amp;SUMR, // Pointer to _exported function <a name="wp532755"> </a>
+"Help", // Help Line <a name="wp532757"> </a>
+"SUMR" // English name (match above) <a name="wp532759"> </a>
+}, <a name="wp532761"> </a>
+NULL // Always null terminate the list! <a name="wp532763"> </a>
+};<a name="wp532765"> </a>
+</pre>
+  </div><a name="wp532769"></a>
+
+  <p class="pBody"><code class="cCode">RefHandle</code> is the handle to a range entered as <code class="cCode">Page:Block</code>, such as <code class=
+  "cCode">A:A1..A5</code>. This value is used to provide the variables for the for loops in the main program that follows. For more information, see "<a href=
+  "Structures_types_enums.html#wp1271647">Understanding structures, types, and enumerations</a>."</p><a name="wp532771"></a>
+
+  <h5 class="pHeading4">Step 2</h5><a name="wp1270255"></a>
+
+  <p class="pBody">Now you must prototype the function in the DLL. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532773"> </a>
+// Add-In function prototypes<a name="wp532775"> </a>
+//===============================================================<a name="wp532777"> </a>
+DOUBLE Exported SUMR(RefHandle hRange);<a name="wp532779"> </a>
+</pre>
+  </div><a name="wp532781"></a>
+
+  <p class="pBody">Now you must tell the DLL what to do when <code class="cCode">SUMR</code> is called.</p><a name="wp1270265"></a>
+
+  <h5 class="pHeading4">Step 3</h5><a name="wp1270266"></a>
+
+  <p class="pBody">Change the main function code area to appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532785"> </a>
+// MAIN FUNCTION CODE<a name="wp532787"> </a>
+//===============================================================<a name="wp532789"> </a>
+DOUBLE Exported SUMR(RefHandle hRange)<a name="wp532791"> </a>
+{<a name="wp532793"> </a>
+int rowpos; <a name="wp532795"> </a>
+int colpos; <a name="wp532797"> </a>
+int shtpos; <a name="wp532799"> </a>
+int columns = QProPureColumnCount( hRange ); <a name="wp532801"> </a>
+int rows = QProPureRowCount( hRange ); <a name="wp532803"> </a>
+int sheets = QProPureSheetCount( hRange ); <a name="wp532805"> </a>
+double sum = 0; <a name="wp532807"> </a>
+for (shtpos = 0; shtpos  <a name="wp532809"> </a>
+</pre>
+  </div><a name="wp532811"></a>
+
+  <p class="pBody"><code class="cCode">SUMR(RefHandle hRange)</code> is the function you have written. It will accept a single range entered in the manner
+  <code class="cCode">A1..A5</code>.</p><a name="wp532813"></a>
+
+  <p class="pBody"><code class="cCode">QProPureColumnCount</code> returns the number of columns in the range it is given.</p><a name="wp532815"></a>
+
+  <p class="pBody"><code class="cCode">QProPureRowCount</code> returns the number of rows in the range it is given.</p><a name="wp532817"></a>
+
+  <p class="pBody"><code class="cCode">For (colpos = 0; colpos )</code> is the first <code class="cCode">for</code> loop. It processes the columns.</p><a name=
+  "wp1270302"></a>
+
+  <p class="pBody"><code class="cCode">For (rowpos = 0; rowpos )</code> is the second <code class="cCode">for</code> loop. It process the rows.</p><a name=
+  "wp532819"></a>
+
+  <p class="pBody"><code class="cCode">Sum=x+ QProPureGetCellNumberValue</code> takes the current value of <code class="cCode">x</code> and adds the current
+  cell (Column offset, Row offset) value to <code class="cCode">sum</code>.</p><a name="wp532821"></a>
+
+  <p class="pBody"><code class="cCode">DoubleReturn( sum )</code> returns the total value when all the looping is completed.</p><a name="wp532823"></a>
+
+  <p class="pBody"><code class="cCode">RefHandle hRange</code> is the block obtained. You can determine the number of rows and columns in the block by calling
+  the functions <code class="cCode">QProPureRowCount</code> and <code class="cCode">QProPureColumnCount</code>.</p><a name="wp532825"></a>
+
+  <p class="pBody">After the number of rows and columns in the block has been determined, looping through the cells in the block is easy.</p><a name=
+  "wp532827"></a>
+
+  <p class="pBody"><code class="cCode">QProPureGetCellNumberValue</code> then extracts the value of the cell and adds it to <code class="cCode">Sum</code>.
+  After all the cells have been added, the answer is passed back to the spreadsheet.</p><a name="wp1270340"></a>
+
+  <h5 class="pHeading4">Step 4</h5><a name="wp532829"></a>
+
+  <p class="pBody">Save this file as lesson07.cpp.</p><a name="wp1270344"></a>
+
+  <h5 class="pHeading4">Step 5</h5><a name="wp532831"></a>
+
+  <p class="pBody">Create your custom function. Refer to your compiler documentation for further information on making a DLL.</p><a name="wp1270345"></a>
+
+  <h5 class="pHeading4">Step 6</h5><a name="wp532833"></a>
+
+  <p class="pBody">Start Quattro Pro and type <code class="cCode">_ @LESSON07.SUMR(A1..A5)</code> in any cell. The sum of the block A1..A5 should appear in the
+  cell.</p>
+</body>
+</html>

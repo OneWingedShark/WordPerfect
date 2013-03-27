@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: D5 Cross-Reference Functions</h2>
+    <p><strong>Cross-Reference Group - Function 213 (0xD5)</strong></p>
+    <p>The Cross-Reference Group subfunctions have character orientation.</p>
+    <p>The subfunctions in this list are paired so that the even-numbered codes are the
+    On functions and the odd numbered codes are the Off functions. Each instance of a subfunction
+    will consist of the On subfunction, the associated information and the Off subfunction.<br />
+    </p>
+    <p><strong>Subfunctions: 0 (0x00) - 17 (0x11)<br />
+    </strong></p>
+    <table border="1" width="93%" cellpadding="5">
+        <tr valign="top">
+            <td width="21%">
+                <strong>Subfunction</strong></td>
+            <td width="78%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0 (0x00)</td>
+            <td>
+                User-Defined Counters On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1 (0x01)</td>
+            <td>
+                User-Defined Counters Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2 (0x02)</td>
+            <td>
+                Box Cross-Reference On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3 (0x03)</td>
+            <td>
+                Box Cross-Reference Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4 (0x04)</td>
+            <td>
+                Page Cross-Reference On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5 (0x05)</td>
+            <td>
+                Page Cross-Reference Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6 (0x06)</td>
+            <td>
+                Secondary Page Cross-Reference On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7 (0x07)</td>
+            <td>
+                Secondary Page Cross-Reference Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8 (0x08)</td>
+            <td>
+                Chapter Cross-Reference On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9 (0x09)</td>
+            <td>
+                Chapter Cross-Reference Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                10 (0x0A)</td>
+            <td>
+                Volume Cross-Reference On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                11 (0x0B)</td>
+            <td>
+                Volume Cross-Reference Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                12 (0x0C)</td>
+            <td>
+                Paragraph Number Cross-Reference On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                13 (0x0D)</td>
+            <td>
+                Paragraph Number Cross-Reference Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                14 (0x0E)</td>
+            <td>
+                Footnote Cross-Reference On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                15 (0x0F)</td>
+            <td>
+                Footnote Cross-Reference Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                16 (0x10)</td>
+            <td>
+                Endnote Cross-Reference On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                17 (0x11)</td>
+            <td>
+                Endnote Cross-Reference Off</td>
+        </tr>
+    </table>
+    <br />
+    <p><code>&lt;213 (0xD5)&gt; &lt;on subfunction&gt; [size = variable]&nbsp;<br />
+        &lt;flags = 3 (+PRFXID if counter)&gt;<br />
+        bit0~1 = 3 (encased function)<br />
+        bit2 = 0<br />
+        bit3: quick cross reference flag<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 = normal cross reference<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 = quick cross reference</code></p>
+    <p>If cross reference is a quick cross reference, the preceding text and following text
+    will be applied when cross reference is generated. When document is exported to HTML,
+    the quick reference's hyperlink information string will be replaced with target name.</p>
+    <p>The preceding text and following text information are stored in prefix packet (type
+    = 0x3b)</p>
+    <p><code>bit4~6 = 0<br />
+        bit7:&nbsp; prefix exist flag (PREXID)<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 0 = if prefix not exist<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 1 = if prefix exist<br />
+        If prefix ID bit set, the following information exists:<br />
+        &nbsp; &lt;number of PIDs = 1&gt;<br />
+        &nbsp; [PID of counter or box (type = 0x11)]<br />
+        [size of non-deletable information]<br />
+        [tag ID] x ?<br />
+        &lt;undocumented deletable data&gt; x ?<br />
+        [size] &lt;0xD5&gt;<br />
+        <br />
+        &lt;associated counter or cross-reference information&gt; x ?<br />
+        <br />
+        &lt;213 (0xD5)&gt; &lt;off subfunction&gt; [size = 10] &lt;flags = 3 (encased function)&gt;<br />
+        [size of non-deletable information = 0]<br />
+        [size] &lt;0xD5&gt;</code></p>
+</body>
+</html>

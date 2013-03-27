@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Setting up dynathetas</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WcvtDetectFileFormat.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidDynaThetaAdd.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Setting up dynathetas</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1270883"></a>
+
+  <h3 class="pHeading2">Setting up dynathetas</h3><a name="wp1270884"></a>
+
+  <p class="pBody">To understand dynathetas, you must first understand how commands are executed in a tokenized WordPerfect application.</p><a name=
+  "wp1274345"></a>
+
+  <h5 class="pHeading4">Understanding tokenized applications</h5><a name="wp546426"></a>
+
+  <p class="pBody">In a tokenized application, menu selections, toolbar selections, and macro commands are used to execute commands. These commands have
+  low-level groups of information associated with them to provide a high-level user interface.</p><a name="wp546428"></a>
+
+  <p class="pBody">A theta is defined as a structured group of information, referenced by a command ID, containing the interface information associated with
+  that ID. Most commands executed in tokenized WordPerfect applications are thetas. Here is some of the information contained in the theta structure:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp546430"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>names and parameters for macro commands</li>
+      </ul>
+    </div><a name="wp546432"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>the name of the theta</li>
+      </ul>
+    </div><a name="wp546434"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>text for the command's menu</li>
+      </ul>
+    </div><a name="wp546436"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>a bitmap for the command's toolbar</li>
+      </ul>
+    </div><a name="wp546438"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>text for the command's toolbar</li>
+      </ul>
+    </div><a name="wp546440"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Help text for the command's long prompt</li>
+      </ul>
+    </div>
+  </div><a name="wp546442"></a>
+
+  <p class="pBody">A dynatheta (dynamic theta) is defined in the Windows Registry. Dynathetas give applications and third-party developers the ability to
+  define thetas that act like base function thetas from the application's resource DLL and can be defined at any time. Thus, dynathetas allow dynamic
+  augmentation of the resource DLL.</p><a name="wp546444"></a>
+
+  <p class="pBody">A dynatheta is a structure. The members of this structure are defined as follows:</p><a name="wp546463"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp517499"></a>
+
+          <p class="pBody"><code class="cCode">ID</code></p>
+        </td>
+
+        <td>
+          <a name="wp517501"></a>
+
+          <p class="pBody">A unique number assigned by the application developer to each program action or command</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517507"></a>
+
+          <p class="pBody"><code class="cCode">Theta Name</code></p>
+        </td>
+
+        <td>
+          <a name="wp517509"></a>
+
+          <p class="pBody">A string that identifies the theta. This name represents the command in a written application macro.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517515"></a>
+
+          <p class="pBody"><code class="cCode">Long Prompt</code></p>
+        </td>
+
+        <td>
+          <a name="wp517517"></a>
+
+          <p class="pBody">Text that describes the command. Sometimes called a Help prompt. The long prompt can be displayed on the status bar to indicate a
+          command's function when it is highlighted by the cursor.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517523"></a>
+
+          <p class="pBody"><code class="cCode">Toolbar Text</code></p>
+        </td>
+
+        <td>
+          <a name="wp517525"></a>
+
+          <p class="pBody">Text that can be displayed on a button</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517531"></a>
+
+          <p class="pBody"><code class="cCode">Toolbar Graphic</code></p>
+        </td>
+
+        <td>
+          <a name="wp517533"></a>
+
+          <p class="pBody">A bitmap image that can be displayed on a button</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517539"></a>
+
+          <p class="pBody"><code class="cCode">Menu Text</code></p>
+        </td>
+
+        <td>
+          <a name="wp517541"></a>
+
+          <p class="pBody">Text to be displayed on the menu. The text can optionally contain an ampersand (<code class="cCode">&amp;</code>) to indicate the
+          mnemonic for the menu item.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517547"></a>
+
+          <p class="pBody"><code class="cCode">Help File</code></p>
+        </td>
+
+        <td>
+          <a name="wp517549"></a>
+
+          <p class="pBody">Text that names the path and filename of the Help file to be used when Help is invoked for this command. If no file is specified,
+          the default Help file is used.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517555"></a>
+
+          <p class="pBody"><code class="cCode">Help ID</code></p>
+        </td>
+
+        <td>
+          <a name="wp517557"></a>
+
+          <p class="pBody">A unique alphanumeric sequence that identifies the Help topic to be displayed if Help is invoked. This value should not be
+          translated for international versions.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517563"></a>
+
+          <p class="pBody"><code class="cCode">Macro Definition</code></p>
+        </td>
+
+        <td>
+          <a name="wp517565"></a>
+
+          <p class="pBody">The parameter format for a command. An ID often requires parameters to indicate how the command should be processed. For instance,
+          the parameter for <code class="cCode">FontBold</code> indicates whether boldface formatting should be turned on or off.</p><a name="wp1274432"></a>
+
+          <p class="pBody">Currently, the PerfectFit implementation does not allow the definition of parameters with a dynatheta. Most of the dynatheta
+          functions require the <code class="cCode">atomAppName</code> parameter to specify which application the dynatheta is being created for. If you are
+          attempting to install a dynatheta and the application for which the dynatheta is being created is not running, you must use the Windows API
+          <code class="cCode">GlobalAddAtom(&nbsp;)</code> function. When you <code class="cCode">call GlobalAddAtom(&nbsp;)</code>, use the appropriate atom
+          names for the application you are installing the dynatheta for:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1274437"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WordPerfect</code> - for WordPerfect</li>
+              </ul>
+            </div><a name="wp1274441"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">Presentations</code> - for Presentations</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp546468"></a>
+
+  <p class="pBody">After the dynatheta has been created and added to the Windows Registry, you may need to delete the dynatheta and re-create it. If you want
+  to delete it manually, the dynathetas are stored in the following Windows Registry key:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+\HKEY_CURRENT_USER\Software\Corel\PerfectScript\14\Commands\ 
+application<a name="wp546470"> </a>
+</pre>
+  </div><a name="wp546472"></a>
+
+  <p class="pBody">The <code class="cCode">application</code> key corresponds to the atom names listed in the table above.</p><a name="wp546496"></a>
+
+  <h5 class="pHeading4">Understanding dynatheta Functions</h5><a name="wp546498"></a>
+
+  <p class="pBody">You can use the following dynatheta functions:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1274490"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidDynaThetaAdd.html#wp546534">WpidDynaThetaAdd function</a></li>
+      </ul>
+    </div><a name="wp1274576"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidDynaThetaGetModificationDate.html#wp546569">WpidDynaThetaGetModificationDate function</a></li>
+      </ul>
+    </div><a name="wp1274580"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidDynaThetaListGetTempID.html#wp546607">WpidDynaThetaListGetTempID function</a></li>
+      </ul>
+    </div><a name="wp1274584"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidDynaThetaRemove.html#wp546642">WpidDynaThetaRemove function</a></li>
+      </ul>
+    </div><a name="wp1274588"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidThetaCreate.html#wp546677">WpidThetaCreate function</a></li>
+      </ul>
+    </div><a name="wp1274592"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidThetaDestroy.html#wp546740">WpidThetaDestroy function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

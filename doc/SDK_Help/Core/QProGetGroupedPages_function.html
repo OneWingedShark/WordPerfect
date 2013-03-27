@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProGetGroupedPages function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProGetGroup_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Object_functions_added_in_Corel_Quattro_Pro_5.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "Group_name_functions_added_in_Corel_Quattro_Pro_5.html">Group-name functions added in Quattro Pro 5</a> : QProGetGroupedPages function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1275197"></a>
+
+  <h4 class="pHeading3">QProGetGroupedPages function</h4><a name="wp1275198"></a>
+
+  <p class="pBody">This function sets up a pointer to show which pages are contained within a particular group.</p><a name="wp1275199"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL QProGetGroupedPages(<a name="wp1275200"> </a>
+UINT  NotebookIndex,<a name="wp1275201"> </a>
+LPSTR  pGroupName,<a name="wp1275202"> </a>
+UINT  *pFirstSheet,<a name="wp1275203"> </a>
+UINT  pLastSheet );<a name="wp1275204"> </a>
+</pre>
+  </div><a name="wp1275205"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1275223"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1275208"></a>
+
+          <p class="pBody">NotebookIndex</p>
+        </td>
+
+        <td>
+          <a name="wp1275210"></a>
+
+          <p class="pBody">Referenced notebook</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1275212"></a>
+
+          <p class="pBody"><code class="cCode">pGroupName</code></p>
+        </td>
+
+        <td>
+          <a name="wp1275214"></a>
+
+          <p class="pBody">Specifies the group name</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1275216"></a>
+
+          <p class="pBody"><code class="cCode">pFirstSheet</code></p>
+        </td>
+
+        <td>
+          <a name="wp1275218"></a>
+
+          <p class="pBody">Specifies the returned index of first sheet in group</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1275220"></a>
+
+          <p class="pBody"><code class="cCode">pLastSheet</code></p>
+        </td>
+
+        <td>
+          <a name="wp1275222"></a>
+
+          <p class="pBody">Specifies the returned index of last sheet in group</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1275224"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1275225"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, or it returns <code class="cCode">FALSE</code> if no cells are
+  allocated.</p>
+</body>
+</html>

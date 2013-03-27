@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:20:43" />
+
+  <title>DDEInitiate command</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="PerfectScript_support_for_DDE.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DDEExecute_command.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="WordPerfect_Office_Dynamic_Data_Exchange.html">Using Dynamic Data Exchange (DDE)</a> : <a href=
+        "PerfectScript_support_for_DDE.html">Using PerfectScript to set up a DDE client</a> : DDEInitiate command</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp555637"></a>
+
+  <h4 class="pHeading3">DDEInitiate command</h4><a name="wp555639"></a>
+
+  <p class="pBody">The <code class="cCode">DDEInitiate</code> command attempts to establish a conversation with another DDE-enabled application. DDE
+  conversations must be initiated before calling any other DDE command.</p><a name="wp555641"></a>
+
+  <h5 class="pHeading4">Syntax</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DDEINITIATE( ConversationId; ServiceName; TopicName )<a name="wp555643"> </a>
+</pre>
+  </div><a name="wp555645"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp555648"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp526317"></a>
+
+          <p class="pBody"><code class="cCode">ConversationId</code></p>
+        </td>
+
+        <td>
+          <a name="wp526319"></a>
+
+          <p class="pBody">Specifies a variable to return the handle to the DDE conversation. Set to zero if the conversation could not be established.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526325"></a>
+
+          <p class="pBody"><code class="cCode">ServiceName</code></p>
+        </td>
+
+        <td>
+          <a name="wp526327"></a>
+
+          <p class="pBody">Specifies the DDE service name of the application with which you want to establish a conversation with</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526333"></a>
+
+          <p class="pBody"><code class="cCode">TopicName</code></p>
+        </td>
+
+        <td>
+          <a name="wp526335"></a>
+
+          <p class="pBody">Specifies the DDE topic name for the desired conversation</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

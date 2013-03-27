@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+	<link rel="stylesheet" href="main.css" type="text/css" />
+	<title>Sample Projects</title>
+</head>
+<body>
+	<h1>
+		Sample Projects</h1>
+	<h2>
+		How to Build Samples on Windows XP, Vista and Windows 7</h2>
+	<p>
+		Due to security/permissions of the projects (enfornced by Windows Security), it is recommended that the user copy the SDK's include,
+		lib and sample folder into a fully writable user folder, like <code>Documents</code> or <code>Desktop</code> before attempting to
+		build and/or run the samples.</p>
+	<p>
+		The Delphi examples require building with Delphi 4 or higher, however, some later versions of Delphi require adding the unit Variants
+		to the samples.</p>
+	<p>
+		The C/C++ samples require building with Microsoft Visual Studio 6 or higher.</p>
+	<h2>
+		Samples</h2>
+	<p>
+		The WordPerfect Office X6 SDK provides the following sample projects for the SDK.</p>
+	<ul>
+		<li><strong>WordPerfect Third Party Handler (T.P.H.) in C++</strong> -- shows how C++ can be used to create a third-party handler DLL
+			for WordPerfect
+			<ul>
+				<li>Location: <code>/Samples/TPH/CPPTPH/CPPTPH.dsw</code></li>
+				<li>To test, build the project and use regsrv32 to register the DLL. A menu item flyout (Multiple Clipboard) will be added to the WordPerfect
+					Edit menu with subitems to insert/save selections to a file.</li>
+			</ul>
+			<br />
+		</li>
+		<li><strong>WordPerfect Third Party Handler (T.P.H.) in C</strong> -- shows how C can be used to create a third-party handler DLL for
+			WordPerfect
+			<ul>
+				<li>Location: <code>/Samples/TPH/CTPH/CTPH.dsw</code></li>
+				<li>To test, build the project and use regsrv32 to register the DLL. A menu item flyout (Multiple Clipboard) will be added to the WordPerfect
+					Edit menu with subitems to insert/save selections to a file.</li>
+			</ul>
+			<br />
+		</li>
+		<li><strong>WordPerfect Third Party Handler (T.P.H.) in Delphi</strong> -- shows how Delphi can be used to create a third-party handler
+			DLL for WordPerfect using the SDK
+			<ul>
+				<li>Location: <code>/Samples/TPH/DelphiTPH/DelphiTPH.dpr</code></li>
+				<li>To test, build the project and use regsrv32 to register the DLL. This T.P.H. DLL demonstrates overriding existing commands such
+					as open, save and save as in WordPerfect.</li>
+			</ul>
+			<br />
+		</li>
+		<li><strong>WordPerfect Office OLE automation example in Delphi</strong> -- shows how Delphi can be used to access a database (Customer.db)
+			to read data, create WordPerfect documents and merge data files, and to create a Quattro Pro spreadsheet from the database data.
+			<ul>
+				<li>Source Location: <code>/Samples/OLE/Delphi/DelphiOLE.dpr</code></li>
+				<li>Runtime requires: Requires Borland Database Engine (BDE) to be installed.</li>
+				<li>To test:
+					<ol>
+						<li>Run the SetSDKAlias.exe in the copied version of <code>Samples\DB</code> folder.
+							<br />
+							Open a command line window (CMD), and change to the folder where the SetSDKAlias.exe is located. Then type in the following line:<br />
+							<br />
+							<code>setSDKAlias.exe %CD%</code><br />
+							<br />
+						</li>
+						<li>Build the sample with Delphi (DelphiOLE.dpr)</li>
+						<li>Copy the welcome.wpt and wpformat.dll from the project folder and <code>Samples\Lib</code> folder respectively to the same folder
+							location as DelphiOLE.exe.</li>
+						<li>Run DelphiOle.exe to test.</li>
+					</ol>
+				</li>
+			</ul>
+		</li>
+	</ul>
+</body>
+</html>

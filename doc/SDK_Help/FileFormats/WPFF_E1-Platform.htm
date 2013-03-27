@@ -1,0 +1,620 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: E1 Platform Functions</h2>
+    <p><strong>Platform Group - Function 225 (0xE1)</strong></p>
+    <p>The Platform Group subfunctions have character orientation.<br />
+    <br />
+    These subfunctions do not currently contain deletable data, however, deletable data
+    and prefix IDs may be added to any function or subfunction at any time.</p>
+    <hr />
+    <h3>0xE100</h3>
+    <p><strong>Dynamic Data Exchange Start</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;0 (0x00)&gt; [size = 17] &lt;flags = PRFXID+3 (encased function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [DDE PID (type = 0x73 or 0x74)]
+[size of non-deletable information = 4]
+&lt;reserved&gt; x 4
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE101</h3>
+    <p><strong>Dynamic Data Exchange End</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;1 (0x01)&gt; [size = 17] &lt;flags = PRFXID+3 (encased function)&gt;  
+  &lt;number of PIDs = 1&gt;   
+  [DDE PID (type = 0x73 or 0x74)] 
+[size of non-deletable information = 4]  
+&lt;reserved&gt; x 4  
+[size] &lt;0xE1&gt; 
+</pre>
+    <hr />
+    <h3>0xE102</h3>
+    <p><strong>Publish Data Start</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;2 (0x02)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information]
+&lt;non-deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE103</h3>
+    <p><strong>Publish Data End</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;3 (0x03)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information]
+&lt;non-deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE104</h3>
+    <p><strong>Subscribe Data Start</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;4 (0x04)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information]
+&lt;non-deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE105</h3>
+    <p><strong>Subscribe Data End</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;5 (0x05)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information]
+&lt;non-deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE106</h3>
+    <p><strong>Subtitle Mark</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;6 (0x06)&gt; [size = 10] &lt;flags = 0&gt;
+[size of non-deletable information = 0]
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE107</h3>
+    <p><strong>Subtitle Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;7 (0x07)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+[number of lines of base text involved (always 1 for now)]
+[width of text including white space (WPU)]
+[starting horizontal cursor position of base text]
+[ending horizontal cursor position of base text]
+[max top shoulder of base text]
+[max bottom shoulder of base text]
+[max top shoulder of subtitle text]
+[max bottom shoulder of subtitle text]
+&lt;number of bytes of subtitle text&gt;
+&lt;subtitle text (word string)&gt; x ?
+...repeat for each line
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE108</h3>
+    <p><strong>Subtitle Option</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;8 (0x08)&gt; [size = 14] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+&lt;justification&gt;
+  0 = left justified
+  1 = full justified
+  2 = center justified
+  3 = indented full justified
+  4 = all (kinto waritsuke) justified
+  5 = indented all justified
+&lt;flag&gt;
+  bit 0: 
+    0 = position subtitle text above line
+    1 = position subtitle text below line
+  bit 1: 
+    0 = do not print graphically
+    1 = print graphically
+  bit 2: 
+    0 = use width of base text
+    1 = use max width of base text or subtitle text
+  bit 3: 
+    0 = wrap base text as unit
+    1 = base text and subtitle text can wrap
+[leading adjustment (signed WPU)]
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE109</h3>
+    <p><strong>Subtitle Text Options</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;9 (0x09)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [desired subtitle font PID (type=0x55)]
+[size of non-deletable information = 16]
+[point size (WPU)]
+[hash of matched typeface descriptor]
+[matched font index in font list]
+[matched point size of font (WPU)]
+[attribute word 1]
+  bit 0: 1 = extra large
+  bit 1: 1 = very large
+  bit 2: 1 = large
+  bit 3: 1 = small print
+  bit 4: 1 = fine print
+  bit 5: 1 = superscript
+  bit 6: 1 = subscript
+  bit 7: 1 = outline
+  bit 8: 1 = italics
+  bit 9: 1 = shadow
+  bit 10: 1 = redline
+  bit 11: 1 = double underline
+  bit 12: 1 = bold
+  bit 13: 1 = strikeout
+  bit 14: 1 = underline
+  bit 15: 1 = small caps
+[attribute word 2]
+  bit 0: 1 = blink
+  bit 1: 1 = reverse video
+&lt;color (RGBS)&gt; x 4
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE10A</h3>
+    <p><strong>Suppress Subtitle</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;10 (0x0A)&gt; [size = 11] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;suppress code&gt;
+  0 = no suppression
+  1 = suppress subtitles
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE10B</h3>
+    <p><strong>Third Party</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;11 (0x0B)&gt; [size = variable] &lt;flags = unknown&gt;
+[size of non-deletable information]
+[company ID] Companies must call and register an ID with Corel Corporation Limited.
+&lt;company defined information&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE10C</h3>
+    <p><strong>Pen Foreground Color (32-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;12 (0x0C)&gt; [size = 14] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+&lt;pen foreground color (RGBT)&gt; x 4
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE10D</h3>
+    <p><strong>Pen Foreground Color (64-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;13 (0x0D)&gt; [size = 18] &lt;flags = 0&gt;
+[size of non-deletable information = 8]
+&lt;pen foreground color (RGBT)&gt; x 8
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE10E</h3>
+    <p><strong>Pen Background Color (32-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;14 (0x0E)&gt; [size = 14] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+&lt;pen foreground color (RGBT)&gt; x 4
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE10F</h3>
+    <p><strong>Pen Background Color (64-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;15 (0x0F)&gt; [size = 18] &lt;flags = 0&gt;
+[size of non-deletable information = 8]
+&lt;pen foreground color (RGBT)&gt; x 8
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE110</h3>
+    <p><strong>Pen Style, Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;16 (0x10)&gt; [size = 12] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[pen style index (unsigned)]
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE111</h3>
+    <p><strong>Pen Pattern, Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;17 (0x11)&gt; [size = 12] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[pen pattern index (unsigned)]
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE112</h3>
+    <p><strong>Pen Size (16-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;18 (0x12)&gt; [size = 14] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+[pen width (0 = hairline)  (unsigned WPU)]
+[pen height (0 = hairline) (unsigned WPU)]
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE113</h3>
+    <p><strong>Pen Size (32-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;19 (0x13)&gt; [size = 18] &lt;flags = 0&gt;
+[size of non-deletable information = 8]
+{pen width (0 = hairline)  (unsigned WPU) 16.16}
+{pen height (0 = hairline) (unsigned WPU) 16.16}
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE114</h3>
+    <p><strong>Brush Gradient (32-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;20 (0x14)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+{brush gradient angle}
+[horizontal gradient reference]
+[vertical gradient reference]
+&lt;brush gradient flag&gt;
+  bit 7: anchor flag
+  bit 6: granularity flag
+if anchor flag bit is set then:
+  [horizontal gradient extent minimum (signed WPU)]
+  [vertical gradient extent minimum (signed WPU)]
+  [horizontal gradient extent maximum (signed WPU)]
+  [vertical gradient extent maximum (signed WPU)]
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE115</h3>
+    <p><strong>Brush Gradient (64-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;21 (0x15)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+{brush gradient angle}
+[horizontal gradient reference]
+[vertical gradient reference]
+&lt;brush gradient flag&gt;
+  bit 7: anchor flag
+  bit 6: granularity flag
+if anchor flag is set then:
+  {horizontal gradient extent minimum (signed WPU) 16.16}
+  {vertical gradient extent minimum (signed WPU) 16.16}
+  {horizontal gradient extent maximum (signed WPU) 16.16}
+  {vertical gradient extent maximum (signed WPU) 16.16}
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE116</h3>
+    <p><strong>Brush Foreground Color (32-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;22 (0x16)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+&lt;gradient type&gt;
+if gradient type is 0 (none), then:
+  &lt;brush foreground color (RGBT)&gt; x 4
+else
+  [number, n, of brush foreground colors]
+for each color:
+  &lt;brush foreground color (RGBT)&gt; x 4
+after all brush foreground colors:
+  [color position array] x (n-1)
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE117</h3>
+    <p><strong>Brush Foreground Color (64-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;23 (0x17)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+&lt;gradient type&gt;
+if gradient type is 0 (none), then:
+  &lt;brush foreground color (RGBT)&gt; x 8
+else
+  [number, n, of brush foreground colors]
+for each color:
+  &lt;brush foreground color (RGBT)&gt; x 8
+after all brush foreground colors:
+  [color position array] x (n-1)
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE118</h3>
+    <p><strong>Brush Background Color (32-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;24 (0x18)&gt; [size = 14] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+&lt;brush background color (RGBT)&gt; x 4
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE119</h3>
+    <p><strong>Brush Background Color (64-bit), Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;25 (0x19)&gt; [size = 18] &lt;flags = 0&gt;
+[size of non-deletable information = 8]
+&lt;brush background color (RGBT)&gt; x 8
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE11A</h3>
+    <p><strong>Brush Pattern, Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;26 (0x1A)&gt; [size = 12] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[brush pattern index (unsigned)]
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE11B</h3>
+    <p><strong>Miscellaneous Attributes, Text</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;27 (0x1B)&gt; [size = 11] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;flag&gt;
+  bit 1: 
+    0 = turn outline on
+    1 = turn outline off
+  bit 0: 
+    0 = turn fill on
+    1 = turn fill off (hollow fill)
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE11C</h3>
+    <p><strong>Presentations Slide Options</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;28 (0x1C)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+&lt;slide options&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE11D</h3>
+    <p><strong>Presentations Organization Chart Node Options</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;29 (0x1D)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+[flag]
+  bit 1: 
+    0 = node is not a staff node
+    1 = node is a staff node
+  bit 0: 
+    0 = node is not current top node
+    1 = node is current top node
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE11E</h3>
+    <p><strong>Hide for Conversions</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;30 (0x1E)&gt; [size = variable] &lt;flags = (0 or PRFXID) + (0 or 3 {encased
+function})&gt;
+  &lt;number of PIDs&gt;
+  [PIDs] x ?
+[size of non-deletable information]
+&lt;product type of the hidden code = 1 for WP files&gt;
+&lt;file type&gt;
+  0x0A = WP file types
+  0x2C = Macintosh WP 3.x
+&lt;major version&gt;
+  3 = Macintosh WP 3.x
+  2 = WP 6.x and WP 7.0
+&lt;minor version&gt;
+  0 = Macintosh WP 3.0 or WP 6.0
+  1 = WP 6.1
+  2 = WP 7.0
+&lt;hidden function data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE11F</h3>
+    <p><strong>Hide Off for Conversions</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;31 (0x1F)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE120</h3>
+    <p><strong>SGML Start Tag</strong></p>
+    <p><strong>WordPerfect 11 and earlier:</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;32 (0x20)&gt; [size = variable] &lt;flags = (0 or PRFXID) + 2 (encased/paired function)&gt;
+&lt;number of PIDs = 0 or 1&gt;
+  [PID of attribute(type = 0x46)]
+[size of non-deletable information = variable]
+[tag name] x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <p><strong>WordPerfect 11:</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;32 (0x20)&gt; [size = variable] &lt;flags = (0 or PRFXID) + 2 (encased/paired function)&gt;
+&lt;number of PIDs = 0 or 1&gt;
+  [PID of attribute(type = 0x46)]
+[size of non-deletable information = variable]
+[tag name] x ?
+&lt;hidden status&gt;
+  0 - contents are not hidden
+  1 - contents are currently hidden
+  2 - contents are being shown, but should be hidden if hiding hidden text
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE121</h3>
+    <p><strong>SGML Start Tag End</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;33 (0x21)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE122</h3>
+    <p><strong>SGML End Tag</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;34 (0x22)&gt; [size = variable] &lt;flags = 2 (encased/paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt; 
+</pre>
+    <hr />
+    <h3>0xE123</h3>
+    <p><strong>SGML End Tag End</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;35 (0x23)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE124&nbsp;</h3>
+    <p><strong>SGML Character Reference</strong>
+    <br />
+    </p>
+    <p><strong>WordPerfect 11 and earlier:</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;36 (0x24)&gt; [size = 12] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 1]
+&lt;reference number&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <p><strong>WordPerfect 11:</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;36 (0x24)&gt; [size = 12] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 6]
+&lt;reference number&gt; - The reference number has been expanded in version 9 to support reference numbers for
+unicode.  If the reference number is &lt; 255, both reference numbers will be the same value.  If the reference
+number is &gt; 255, the first reference number will be the '?' character.
+&lt;hexadecimal format&gt;
+  0 - decimal format
+  1 - hexadecimal format
+{reference number}
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE125</h3>
+    <p><strong>SGML End Character Reference</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;37 (0x25)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE126</h3>
+    <p><strong>SGML Entity Reference</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;38 (0x26)&gt; [size = variable] &lt;flags = (0 or PRFXID) + 3 (encased function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [tag with attributes parent PID (type=0x46)]
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE127</h3>
+    <p><strong>SGML End Entity Reference</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;39 (0x27)&gt; [size = variable] &lt;flags = 0 or 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE128</h3>
+    <p><strong>SGML Ignore On</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;40 (0x28)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE129</h3>
+    <p><strong>SGML Ignore Off</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;41 (0x29)&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE12A</h3>
+    <p><strong>SGML Marked Section On</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;42 (0x2A)&gt; [size = variable] &lt;flags = 1  + (0 or PRFXID) (simple paired)&gt;
+&lt;# of PIDs = 0 or n&gt;
+  [PID of marked section parameter entity]
+  ..
+  [nth PID of marked section parameter entity]
+[size of non-deletable information = 9]
+  [keyword]
+    bit 0: CDATA
+    bit 1: RCDATA
+    bit 2: IGNORE
+    bit 3: INCLUDE
+    bit 4: TEMP
+  [keyword resolution]
+    bit 0: CDATA
+    bit 1: RCDATA
+    bit 2: IGNORE
+    bit 3: INCLUDE
+    bit 4: TEMP
+  [parameter entity pfid resolution] - overriding parameter entity prefix id
+  &lt;hidden status&gt;
+    0: contents are not hidden
+    1: contents are currently hidden
+    2: contents are being shown, but should be hidden if hiding hidden text
+&lt;undocumented deletable data&gt; x ?
+[size]&lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE12B</h3>
+    <p><strong>SGML Marked Section Off</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;43 (0x2B)&gt; [size = variable] &lt;flags = 1 (simple paired)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size]&lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE12C</h3>
+    <p><strong>SGML Processing Instruction On</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;44 (0x2C)&gt; [size = variable] &lt;flags = 1  + (0 or PRFXID) (simple paired)&gt;
+&lt;# of PIDs = 0 or 1&gt;
+  [PID of processing instruction target]
+[size of non-deletable information = 1]
+  &lt;hidden status&gt;
+    1: contents are currently hidden
+    2: contents are being shown, but should be hidden if hiding hidden text
+&lt;undocumented deletable data&gt; x ?
+[size]&lt;0xE1&gt;
+</pre>
+    <hr />
+    <h3>0xE12D</h3>
+    <p><strong>SGML Processing Instruction Off</strong></p>
+    <pre>
+&lt;225 (0xE1)&gt; &lt;45 (0x2D)&gt; [size = variable] &lt;flags = 1 (simple paired)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE1&gt;
+</pre>
+</body>
+</html>

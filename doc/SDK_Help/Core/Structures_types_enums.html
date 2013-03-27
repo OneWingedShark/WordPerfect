@@ -1,0 +1,777 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Understanding structures, types, and enumerations</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {margin-left: 2em}
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QPW32Message.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Custom_functions.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Quattro_Pro_Add-ins.html">Understanding
+        Quattro Pro Add-ins</a> : Understanding structures, types, and enumerations</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1271647"></a>
+
+  <h4 class="pHeading3">Understanding structures, types, and enumerations</h4><a name="wp1271648"></a>
+
+  <p class="pBody">Quattro Pro can pass three possible messages to a function. <code class="cCode">QPW32Message</code> processes each message and returns to
+  Quattro Pro. The three messages defined in qprowin.h are as follows:</p><a name="wp1271662"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1272893"></a>
+
+          <h5 class="pHeading4">Message</h5>
+        </td>
+
+        <td>
+          <a name="wp1272895"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271651"></a>
+
+          <p class="pBody"><code class="cCode">QPWMSG_Init</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271653"></a>
+
+          <p class="pBody">Is sent to a DLL when it is initialized. The <code class="cCode">wParam</code> item returns the <code class=
+          "cCode">DLLHandle</code>. <code class="cCode">DLLHandle</code> is a handle to the DLL only when used with <code class="cCode">QPWMSG_Init</code>. The
+          <code class="cCode">lParam</code> item returns <code class="cCode">LPSTR DLLName</code>, which is a pointer to a string that contains the DLL
+          name.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271655"></a>
+
+          <p class="pBody"><code class="cCode">QPWMSG_Term</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271657"></a>
+
+          <p class="pBody">Is sent to each loaded DLL when Quattro Pro is shutting down. The <code class="cCode">lParam</code> and <code class=
+          "cCode">wParam</code> items will contain no valid values.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271659"></a>
+
+          <p class="pBody"><code class="cCode">QPWMSG_Info</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271661"></a>
+
+          <p class="pBody">Requests initialization information from the DLL. The <code class="cCode">lParam</code> item will return <code class=
+          "cCode">LPDLLInfo</code>.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1271663"></a>
+
+  <p class="pBody">These Quattro Pro messages are defined in the qprowin.h header file.</p><a name="wp1271664"></a>
+
+  <p class="pBody">When the <code class="cCode">QPWMSG_Info</code> message is received by <code class="cCode">QPW32Message</code>, Quattro Pro expects the
+  function to fill the members of the structure that is passed to it in <code class="cCode">lParam</code>. This structure is defined in qprowin.h and has the
+  following format:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+     typedef struct {<a name="wp1271665"> </a>
+          WORD wVersion;           // QProInterfaceVersion<a name="wp1271666"> </a>
+          WORD wSDSSize;           // sizeof(SelfDefStructure)<a name="wp1271667"> </a>
+          LPSelfDefStructure pSDS; // &amp;Functions[0]<a name="wp1271668"> </a>
+     } DLLInfo, FAR *LPDLLInfo;<a name="wp1271669"> </a>
+</pre>
+  </div><a name="wp1271670"></a>
+
+  <p class="pBody">The last member of this structure is a far pointer to an array of structures known as <code class="cCode">SelfDefStructures</code>. The
+  <code class="cCode">SelfDefStructure</code> is where the developer defines custom functions to Quattro Pro and passes Quattro Pro the custom function
+  address. The format of each <code class="cCode">SelfDefStructure</code> in the array is as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+     typedef struct {<a name="wp1271671"> </a>
+          LPSTR ProcPrototype;      //function prototype string<a name="wp1271672"> </a>
+          FarProc ProcLocation;     //far pointer to exported 
+function<a name="wp1271673"> </a>
+          LPSTR ArgumentHelp;       //^-separated help strings<a name="wp1271674"> </a>
+          LPSTR TranslatedName;     //English form of name<a name="wp1271675"> </a>
+     } SelfDefStructure, FAR *LPSelfDefStructure;<a name="wp1271676"> </a>
+</pre>
+  </div><a name="wp1271677"></a>
+
+  <p class="pBody">A <code class="cCode">SelfDefStructure</code> is defined for each custom function in the DLL. Each structure is pointed to by one of the
+  elements of the array functions. The last element of functions is always a <code class="cCode">NULL</code>, to tell Quattro Pro that there are no more
+  structures in the array. The following defines the purpose of each member in the <code class="cCode">SelfDefStructure</code>:</p><a name="wp1271700"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1271680"></a>
+
+          <h5 class="pHeading4">Member</h5>
+        </td>
+
+        <td>
+          <a name="wp1271682"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271684"></a>
+
+          <p class="pBody"><code class="cCode">ProcPrototype</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271686"></a>
+
+          <p class="pBody">A string, defines the type of the custom function (PURE/IMPURE), the default name of the custom function, and the argument types and
+          return type used by the custom function. For more complete information on this member, refer to the "ProcPrototype" section that follows.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271688"></a>
+
+          <p class="pBody"><code class="cCode">ProcLocation</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271690"></a>
+
+          <p class="pBody">Contains a far pointer to the custom function being defined by this structure</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271692"></a>
+
+          <p class="pBody"><code class="cCode">ArgumentHelp</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271694"></a>
+
+          <p class="pBody">Contains the name of the individual arguments. These appear on the Quattro Pro hint line when the user attempts to enter the custom
+          @function or macro. This helps the user navigate the required parameters of your custom function.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271696"></a>
+
+          <p class="pBody"><code class="cCode">TranslatedName</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271698"></a>
+
+          <p class="pBody">Provides an alternate form of the function's name, used for creating English language versions of a DLL. For example, let's say that
+          a French developer makes a custom function that has a French name, which would be entered as part of the <code class="cCode">ProcPrototype</code>
+          string mentioned above. The developer would put the English translation of the name into this <code class="cCode">TranslatedName</code> member. If
+          the custom function is used in any foreign language versions of Quattro Pro (except the English version), the French name would appear. But when the
+          function is brought into the English version of Quattro Pro, the name in this member will appear instead.</p><a name="wp1271699"></a>
+
+          <p class="pBody">For compatibility, when a user's notebook file is saved, it is saved with the English name, but it appears in the notebook in its
+          original form.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1271701"></a>
+
+  <p class="pBody">Here is an code sample:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+     "{USAGE}{STACK}{SPECIAL}{TYPE} function( [{ARGTYPE}] 
+[,{ARGTYPE}])"<a name="wp1273057"> </a>
+     USAGE     &lt;&lt; PURE or nothing &gt;&gt;    IMPURE is default.<a name="wp1271702"> </a>
+     STACK     &lt;&lt; PASCAL or nothing &gt;&gt;  C Stack is default.<a name="wp1271703"> </a>
+     SPECIAL   &lt;&gt;<a name="wp1271704"> </a>
+     TYPE &lt;&gt;<a name="wp1271705"> </a>
+     ARGTYPE   &lt;&lt; Type of Each Value Sent to Function &gt;&gt;<a name="wp1271706"> </a>
+</pre>
+  </div><a name="wp1271707"></a>
+
+  <p class="pBody">In qshell.cpp, a function is defined as an array of structures of type <code class="cCode">SelfDefStructure</code>, and it has two elements.
+  The first element (element zero) is a <code class="cCode">SelfDefStructure</code> that defines a custom function called <code class="cCode">DUMMY</code>. The
+  second element of the array (element 1) is defined as a <code class="cCode">NULL</code> value, which tells Quattro Pro that there is only one custom function
+  defined in this DLL.</p><a name="wp1271708"></a>
+
+  <p class="pBody">In the <code class="cCode">SelfDefStructure</code> of element zero, <code class="cCode">DUMMY</code>, is defined to be a PURE function that
+  receives no data, returns a value of type integer, and uses the C argument passing protocol.</p><a name="wp1271709"></a>
+
+  <p class="pBody">When Quattro Pro sends the message <code class="cCode">QPW_Info</code> to <code class="cCode">QPW32Message</code>, the function returns a
+  far pointer to functions back to Quattro Pro through the <code class="cCode">pDLL</code> structure. Along with the pointer, the interface version and the
+  size of the <code class="cCode">SelfDefStructure</code> are also passed back in <code class="cCode">pDLL</code>.</p><a name="wp1271710"></a>
+
+  <h5 class="pHeading4">Understanding ProcPrototype</h5><a name="wp1271711"></a>
+
+  <p class="pBody">This member of the <code class="cCode">SelfDefStructure</code> is a string that contains several keywords. These keywords define a custom
+  function to Quattro Pro and can be divided into the generalized categories of <code class="cCode">USAGE</code>, <code class="cCode">STACK</code>,
+  <code class="cCode">SPECIAL</code>, <code class="cCode">TYPE</code>, <code class="cCode">Function Name</code>, and <code class="cCode">ARGTYPE</code>. These
+  keywords can be placed in the string in different orders.</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1273191"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Structures_types_enums.html#wp1271712">USAGE</a></li>
+      </ul>
+    </div><a name="wp1273195"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Structures_types_enums.html#wp1271716">STACK</a></li>
+      </ul>
+    </div><a name="wp1273196"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Structures_types_enums.html#wp1271729">SPECIAL</a></li>
+      </ul>
+    </div><a name="wp1273224"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Structures_types_enums.html#wp1271750">TYPE</a></li>
+      </ul>
+    </div><a name="wp1273225"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Structures_types_enums.html#wp1271798">Function Name</a></li>
+      </ul>
+    </div><a name="wp1273226"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Structures_types_enums.html#wp1271800">ARGTYPE</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1271712"></a>
+
+  <p class="pBody"><code class="cCode">USAGE</code> defines a custom function as being PURE or IMPURE. The keyword must be in all uppercase. If the function is
+  to be PURE, the <code class="cCode">PURE</code> keyword is placed in the string. If the function is to be IMPURE, no keyword is placed in the string. The
+  following two examples of a <code class="cCode">ProcPrototype</code> definition string define the function <code class="cCode">DUMMY</code> as a PURE and
+  IMPURE function.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+          "PURE int DUMMY ( )",    //defined as PURE<a name="wp1271714"> </a>
+          "int DUMMY ( )",         //defined as IMPURE<a name="wp1271715"> </a>
+</pre>
+  </div><a name="wp1271716"></a>
+
+  <p class="pBody"><code class="cCode">STACK</code> tells Quattro Pro the parameter passing protocol that will be used by the custom function. The Quattro Pro
+  DLL interface supports both the <code class="cCode">_stdcall</code> and <code class="cCode">_pascal</code> passing protocols used by functions.</p><a name=
+  "wp1271718"></a>
+
+  <p class="pBody">If a custom function is using the Pascal protocol, it must put the <code class="cCode">PASCAL</code> keyword in the <code class=
+  "cCode">ProcPrototype</code> string. Besides defining the protocol in the <code class="cCode">ProcPrototype</code>, the windows.h modifier <code class=
+  "cCode">PASCAL</code> must be put in the custom function prototype as well. For Microsoft Visual C++, there are two defined values in qprowin.h that should
+  be used: <code class="cCode">Exported</code> should be used for any functions defined by Quattro Pro for use by an Add-in DLL, while <code class=
+  "cCode">_EXPORT_</code> should be used to export any custom functions created by a developer. Here is an example:</p><a name="wp1271719"></a>
+
+  <p class="pBody"><code class="cCode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int PASCAL DUMMY ( )</code></p><a name="wp1271720"></a>
+
+  <p class="pBody">In Microsoft Visual C++, the prototype would look like this:</p><a name="wp1271721"></a>
+
+  <p class="pBody"><code class="cCode">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; int _EXPORT_ DUMMY( )</code></p><a name="wp1271722"></a>
+
+  <p class="pBody">A define in the qprowin.h file allows you to define a function as PASCAL and makes the function exportable. This define is called
+  <code class="cCode">Exported</code>. The previous example would be rewritten to appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+          int Exported DUMMY( )<a name="wp1271723"> </a>
+</pre>
+  </div><a name="wp1271725"></a>
+
+  <p class="pBody">This is the syntax that will be used in the sample programs and <a href="Creating_QP_Add-in_DLLs.html#wp532095">Quattro Pro Add-in DLL
+  tutorial examples</a>. The Quattro Pro Add-in sample can be found at
+  X:\Corel\Program&nbsp;Files\WordPerfect&nbsp;Office&nbsp;X6\SDK\Samples\QPAI, where X: represents the drive in which your
+  Program&nbsp;Files folder is stored.</p><a name="wp1271726"></a>
+
+  <p class="pBody">If the C protocol is used, no keyword is entered. The following examples show two <code class="cCode">ProcPrototype</code> strings defining
+  the custom function <code class="cCode">DUMMY</code> with the Pascal and C protocols:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+        "PURE PASCAL int DUMMY ( )"  //defined with Pascal protocol<a name="wp1271727"> </a>
+        "PURE int DUMMY ( )"         //defined with C protocol<a name="wp1271728"> </a>
+</pre>
+  </div><a name="wp1271729"></a>
+
+  <p class="pBody"><code class="cCode">SPECIAL</code> defines a modifier that changes the way Quattro Pro and the custom function interact with each other. The
+  modifier key words are not case-sensitive. The following list provides all recognized modifiers and their descriptions:</p><a name="wp1271749"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1271733"></a>
+
+          <h5 class="pHeading4">Keyword</h5>
+        </td>
+
+        <td>
+          <a name="wp1271735"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271737"></a>
+
+          <p class="pBody"><code class="cCode">MACRO</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271739"></a>
+
+          <p class="pBody">Allows an IMPURE function to be executed as a macro command. The Quattro Pro system executes this function when a macro of the same
+          name is executed from the spreadsheet. If function <code class="cCode">xyz</code> is marked as a macro type, the end-user may execute the
+          <code class="cCode">{XYZ ...}</code> macro. The DLL must be loaded prior to macro execution. The execution of <code class="cCode">{XYZ...}</code>
+          does not load the DLL. For more information see "Loading and Auto Loading DLLs," under <a href="QPA_DLL_custom_functions.html#wp1272006">"Using DLL
+          custom functions with Quattro Pro,"</a> later in this section.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271742"></a>
+
+          <p class="pBody"><code class="cCode">MSGLOOP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271744"></a>
+
+          <p class="pBody">Should be used in cases where the DLL function has its own Windows message loop. The most common need for this arises in DLL
+          functions that are using DDEML - in particular, DDEML synchronous transactions. Without this keyword, stray keystrokes and mouse clicks may enter the
+          macro stream; typically, this results in the macro error message <code class="cCode">Command equivalents not allowed in this context</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271746"></a>
+
+          <p class="pBody"><code class="cCode">SYNCUI</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271748"></a>
+
+          <p class="pBody">Suspends macros while function is executing</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1271750"></a>
+
+  <p class="pBody"><code class="cCode">TYPE</code> refers to the type of the value that is being returned by the custom function. Not only are several of the
+  standard compiler and Windows types supported as keywords (for example, <code class="cCode">int</code>, <code class="cCode">long</code>, and <code class=
+  "cCode">LPSTR</code>), but there are also several type keywords unique to the Quattro Pro DLL interface. The keywords can be uppercase or lowercase, and
+  there is no set order between types and modifiers. The following list shows all of the supported return type keywords:</p><a name="wp1271794"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1271754"></a>
+
+          <h5 class="pHeading4">Keyword</h5>
+        </td>
+
+        <td>
+          <a name="wp1271756"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271758"></a>
+
+          <p class="pBody"><code class="cCode">ARRAY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271760"></a>
+
+          <p class="pBody">Outputs an array, meaning that its output values are placed in two or more cells in a given spreadsheet</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271762"></a>
+
+          <p class="pBody"><code class="cCode">DOUBLE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271764"></a>
+
+          <p class="pBody">Specifies a 64-bit IEEE floating-point number</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271766"></a>
+
+          <p class="pBody"><code class="cCode">INT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271768"></a>
+
+          <p class="pBody">Specifies a 16-bit signed integer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271770"></a>
+
+          <p class="pBody"><code class="cCode">LONG</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271772"></a>
+
+          <p class="pBody">Specifies a 32-bit signed integer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271774"></a>
+
+          <p class="pBody"><code class="cCode">LPDOUBLE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271776"></a>
+
+          <p class="pBody">Specifies a far pointer to a double value</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271778"></a>
+
+          <p class="pBody"><code class="cCode">LPSTR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271780"></a>
+
+          <p class="pBody">Specifies a far pointer to null-terminated character string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271782"></a>
+
+          <p class="pBody"><code class="cCode">UINT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271784"></a>
+
+          <p class="pBody">Specifies a 16-bit unsigned integer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271786"></a>
+
+          <p class="pBody"><code class="cCode">ULONG</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271788"></a>
+
+          <p class="pBody">Specifies a 32-bit unsigned integer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271790"></a>
+
+          <p class="pBody"><code class="cCode">VOID</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271792"></a>
+
+          <p class="pBody">Can be used only with a custom function that is using the <code class="cCode">MACRO</code> modifier and is called as a macro
+          command. For more information, see <a href="QPA_DLL_custom_functions.html#wp1272006">"Using DLL custom functions with Quattro Pro."</a></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1271795"></a>
+
+  <p class="pBody">The following Pascal examples show the function <code class="cCode">DUMMY</code> defined with a return value type and with a modifier
+  added:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+"PURE PASCAL int DUMMY ( )",  //defined with int type and no modifier<a name="wp1271796"> </a>
+"PURE PASCAL MACRO int DUMMY ( )", //defined with modifier<a name="wp1271797"> </a>
+</pre>
+  </div><a name="wp1271798"></a>
+
+  <p class="pBody"><code class="cCode">Function name</code> refers to the name that the developer has given to the custom function that is being defined. This
+  name is used by Quattro Pro to display the function name in the Hints line of non-English versions of Quattro Pro. This is its only purpose. The <code class=
+  "cCode">SelfDefStructure</code> has another member for passing the address of the custom function. Nevertheless, the function name is usually entered as you
+  would enter it in a C function prototype.</p><a name="wp1271800"></a>
+
+  <p class="pBody"><code class="cCode">ARGTYPE</code> determines the type of each argument needed by your custom function. Write this string as you would write
+  a C function prototype, with argument type keywords separated by commas and the entire list enclosed in parentheses. The keywords are not case-sensitive. The
+  list of legal argument-type keywords is very similar to the list of return-type keywords, but there are some differences between the two lists and they
+  cannot be used interchangeably:</p><a name="wp1271843"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1271804"></a>
+
+          <h5 class="pHeading4">Keyword</h5>
+        </td>
+
+        <td>
+          <a name="wp1271806"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271808"></a>
+
+          <p class="pBody"><code class="cCode">DOUBLE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271810"></a>
+
+          <p class="pBody">Specifies a 64-bit IEEE floating-point number</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271812"></a>
+
+          <p class="pBody"><code class="cCode">INT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271814"></a>
+
+          <p class="pBody">Specifies a 16-bit signed integer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271816"></a>
+
+          <p class="pBody"><code class="cCode">LONG</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271818"></a>
+
+          <p class="pBody">Specifies a 32-bit signed integer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271820"></a>
+
+          <p class="pBody"><code class="cCode">LPDOUBLE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271822"></a>
+
+          <p class="pBody">Specifies a ar pointer to a double value</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271824"></a>
+
+          <p class="pBody"><code class="cCode">LPSTR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271826"></a>
+
+          <p class="pBody">Specifies a far pointer to null-terminated character string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271828"></a>
+
+          <p class="pBody"><code class="cCode">OAHANDLE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271830"></a>
+
+          <p class="pBody">Specifies a handle for a list of optional function arguments (variable arguments). If used with fixed parameters, this parameter
+          type must be the last parameter. This type may be used with the other types to support stronger type checking. It may be used as the sole parameter
+          to allow weaker type checking. If you are compiling with Microsoft C++, do not mix other standard types with <code class="cCode">OAHANDLE</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271832"></a>
+
+          <p class="pBody"><code class="cCode">REFHANDLE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271834"></a>
+
+          <p class="pBody">Specifies a handle for a range of cells. This value must be decoded by import function calls.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271836"></a>
+
+          <p class="pBody"><code class="cCode">UINT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271838"></a>
+
+          <p class="pBody">Specifies a 16-bit unsigned integer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271840"></a>
+
+          <p class="pBody"><code class="cCode">ULONG</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271842"></a>
+
+          <p class="pBody">Specifies a 32-bit unsigned integer</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1271848"></a>
+
+    <div class="pSmartList1">
+      In some situations, parameter pointer types might be NULL. Make sure to verify that the pointer is valid before attempting to de-reference it. Failing to
+      verify pointers will cause problems for Quattro Pro.
+    </div>
+  </div><a name="wp1271849"></a>
+
+  <p class="pBody">The following three Pascal examples show the custom function <code class="cCode">DUMMY</code> with different numbers of input arguments
+  defined:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+"PURE PASCAL int DUMMY ( int )", //defined with one input argument<a name="wp1271850"> </a>
+"PURE PASCAL int DUMMY ( int, double )",//defined with 2 arguments<a name="wp1271851"> </a>
+"PURE PASCAL int DUMMY ( oahandle )",   //defined with variable<a name="wp1271852"> </a>
+                                        //number of arguments<a name="wp1271853"> </a>
+</pre>
+  </div>
+</body>
+</html>

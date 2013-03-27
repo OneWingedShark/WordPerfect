@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpsxPVarExists function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpsxPVarDiscard.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpsxPVarGetFloat.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Persistent_macro_variables.html">Using persistent macro
+        variables</a> : WpsxPVarExists function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp550454"></a>
+
+  <h4 class="pHeading3">WpsxPVarExists function</h4><a name="wp550456"></a>
+
+  <p class="pBody">The <code class="cCode">WpsxPVarExists</code> function checks to see if a variable exists in the persistent variable pool.</p><a name=
+  "wp550458"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+long SHAPI WpsxPVarExists (PWZ pwzName, MAC_VALUE_TYPE *peType, 
+size_t *pcSize); <a name="wp550460"> </a>
+</pre>
+  </div><a name="wp550462"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp550465"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp522130"></a>
+
+          <p class="pBody"><code class="cCode">pwzName</code></p>
+        </td>
+
+        <td>
+          <a name="wp522132"></a>
+
+          <p class="pBody">Acts as a pointer to a word string, giving the name of the variable to check</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522138"></a>
+
+          <p class="pBody"><code class="cCode">peType</code></p>
+        </td>
+
+        <td>
+          <a name="wp522140"></a>
+
+          <p class="pBody">Acts as a pointer to the returned variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522146"></a>
+
+          <p class="pBody"><code class="cCode">pcSize</code></p>
+        </td>
+
+        <td>
+          <a name="wp522148"></a>
+
+          <p class="pBody">Acts as a pointer to size of the variable contents, if the variable contains a string</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp550467"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp550469"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful or <code class="cCode">FALSE</code> if not successful.</p>
+</body>
+</html>

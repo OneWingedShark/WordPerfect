@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WfsSetCurDrive function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WfsSetCurDir.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WioCreateDir.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        WfsSetCurDrive function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp548006"></a>
+
+  <h4 class="pHeading3">WfsSetCurDrive function</h4><a name="wp548008"></a>
+
+  <p class="pBody">The <code class="cCode">WfsSetCurDrive</code> function changes the current working drive. It does not change the working folder; to change
+  both the drive and folder, calls to both <code class="cCode">WfsSetCurDrive(&nbsp;)</code> and <code class="cCode">WfsSetCurDir(&nbsp;)</code> must be made.
+  The input to this function is assumed to be an ANSI string.</p><a name="wp548010"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int SHAPI WfsSetCurDrive ( LPSTR lpszCurrentPath );<a name="wp548012"> </a>
+</pre>
+  </div><a name="wp548014"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp548017"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1277690"></a>
+
+          <p class="pBody"><code class="cCode">lpszCurrentPath</code></p>
+        </td>
+
+        <td>
+          <a name="wp1277692"></a>
+
+          <p class="pBody">Acts as a pointer to the name of the drive to use as the new working drive. This name can be a full pathname, and it should be no
+          larger than <code class="cCode">FS_PATHNAME_BUFSIZE</code> (<code class="cCode">143</code>).</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp548019"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp548021"></a>
+
+  <p class="pBody">This function returns <code class="cCode">0</code> if the drive change was successful, or <code class="cCode">-1</code> if the drive change
+  was unsuccessful.</p>
+</body>
+</html>

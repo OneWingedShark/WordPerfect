@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidDynaThetaGetModificationDate function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidDynaThetaAdd.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidDynaThetaListGetTempID.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dynathetas.html">Setting up dynathetas</a> :
+        WpidDynaThetaGetModificationDate function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp546569"></a>
+
+  <h4 class="pHeading3">WpidDynaThetaGetModificationDate function</h4><a name="wp546571"></a>
+
+  <p class="pBody">The <code class="cCode">WpidDynaThetaGetModificationDate</code> function gets the last modification date for the specified
+  dynatheta.</p><a name="wp546573"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DWORD FAR PASCAL WpidDynaThetaGetModificationDate (<a name="wp546575"> </a>
+ATOM atomAppName,<a name="wp546577"> </a>
+DTHETAID dthetaID );<a name="wp546579"> </a>
+</pre>
+  </div><a name="wp546581"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp546584"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp517626"></a>
+
+          <p class="pBody"><code class="cCode">atomAppName</code></p>
+        </td>
+
+        <td>
+          <a name="wp517628"></a>
+
+          <p class="pBody">Specifies the application the theta is read from</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517634"></a>
+
+          <p class="pBody"><code class="cCode">dthetaID</code></p>
+        </td>
+
+        <td>
+          <a name="wp517636"></a>
+
+          <p class="pBody">Specifies the ID of the theta to be read from the Windows Registry. This value is obtained by successfully calling <code class=
+          "cCode">WpidDynaThetaListGetTempID(&nbsp;)</code>.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp546586"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp546588"></a>
+
+  <p class="pBody">Returns a <code class="cCode">DWORD</code> date and time value of the following format:</p><a name="wp546591"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp517651"></a>
+
+          <h5 class="pHeading4">Value</h5>
+        </td>
+
+        <td>
+          <a name="wp517653"></a>
+
+          <h5 class="pHeading4"># of Bits</h5>
+        </td>
+
+        <td>
+          <a name="wp517655"></a>
+
+          <h5 class="pHeading4">Possible values</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517663"></a>
+
+          <p class="pBody">seconds</p>
+        </td>
+
+        <td>
+          <a name="wp517665"></a>
+
+          <p class="pBody">5</p>
+        </td>
+
+        <td>
+          <a name="wp517667"></a>
+
+          <p class="pBody"><code class="cCode">0</code> to <code class="cCode">29</code>, in two-second increments</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517675"></a>
+
+          <p class="pBody">minute</p>
+        </td>
+
+        <td>
+          <a name="wp517677"></a>
+
+          <p class="pBody">6</p>
+        </td>
+
+        <td>
+          <a name="wp517679"></a>
+
+          <p class="pBody"><code class="cCode">0</code> to <code class="cCode">59</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517687"></a>
+
+          <p class="pBody">hour</p>
+        </td>
+
+        <td>
+          <a name="wp517689"></a>
+
+          <p class="pBody">5</p>
+        </td>
+
+        <td>
+          <a name="wp517691"></a>
+
+          <p class="pBody"><code class="cCode">0</code> to <code class="cCode">23</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517699"></a>
+
+          <p class="pBody">day</p>
+        </td>
+
+        <td>
+          <a name="wp517701"></a>
+
+          <p class="pBody">5</p>
+        </td>
+
+        <td>
+          <a name="wp517703"></a>
+
+          <p class="pBody"><code class="cCode">1</code> to <code class="cCode">31</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517711"></a>
+
+          <p class="pBody">month</p>
+        </td>
+
+        <td>
+          <a name="wp517713"></a>
+
+          <p class="pBody">4</p>
+        </td>
+
+        <td>
+          <a name="wp517715"></a>
+
+          <p class="pBody"><code class="cCode">1</code> to <code class="cCode">12</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517723"></a>
+
+          <p class="pBody">year</p>
+        </td>
+
+        <td>
+          <a name="wp517725"></a>
+
+          <p class="pBody">7</p>
+        </td>
+
+        <td>
+          <a name="wp517727"></a>
+
+          <p class="pBody"><code class="cCode">1980</code> to <code class="cCode">2099</code>; <code class="cCode">1980 == 0</code></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

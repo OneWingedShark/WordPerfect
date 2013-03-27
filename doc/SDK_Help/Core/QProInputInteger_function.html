@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProInputInteger function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProInputFilename_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProInputRange_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "User_interface_functions_added_in_Corel_Quattro_Pro_1.html">User-interface functions added in Quattro Pro 1</a> : QProInputInteger function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp560523"></a>
+
+  <h4 class="pHeading3">QProInputInteger function</h4><a name="wp560525"></a>
+
+  <p class="pBody">This function prompts the user to enter an integer. This function does not support input of calculated values (<code class=
+  "cCode">"1+2"</code>, <code class="cCode">@RAND</code>, and so on). This function calls itself until it gets a value within the specified range.</p><a name=
+  "wp560527"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL QProInputInteger(<a name="wp560529"> </a>
+LPSTR  Prompt,<a name="wp560531"> </a>
+int  *pInteger,<a name="wp560533"> </a>
+in  Lower,<a name="wp560535"> </a>
+int  Upper);<a name="wp560537"> </a>
+</pre>
+  </div><a name="wp560539"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp560542"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp528713"></a>
+
+          <p class="pBody"><code class="cCode">Prompt</code></p>
+        </td>
+
+        <td>
+          <a name="wp528715"></a>
+
+          <p class="pBody">Specifies the string with which to prompt the user</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528721"></a>
+
+          <p class="pBody"><code class="cCode">pInteger</code></p>
+        </td>
+
+        <td>
+          <a name="wp528723"></a>
+
+          <p class="pBody">Specifies the pointer to input/output value</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528729"></a>
+
+          <p class="pBody"><code class="cCode">Lower</code></p>
+        </td>
+
+        <td>
+          <a name="wp528731"></a>
+
+          <p class="pBody">Specifies the lower bound of acceptable input</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528737"></a>
+
+          <p class="pBody"><code class="cCode">Upper</code></p>
+        </td>
+
+        <td>
+          <a name="wp528739"></a>
+
+          <p class="pBody">Specifies the upper bound of acceptable input</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp560544"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp560546"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, or it returns <code class="cCode">FALSE</code> otherwise (for example,
+  if an escape is entered).</p><a name="wp560548"></a>
+
+  <h5 class="pHeading4">Samples</h5><a name="wp560552"></a>
+
+  <p class="pBody">For an example, please see "<a href="Lesson_13_User_interface_functions.html#wp533413">Lesson 13: User interface functions</a><a href=
+  "Creating_QP_Add-in_DLLs.html#wp532095">" in the Quattro Pro Add-in DLL tutorial</a>.</p>
+</body>
+</html>

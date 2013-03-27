@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>utlParamHandler function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="PerfectFit_registration.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WshVersion.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="PerfectFit_registration.html">Registering PerfectFit</a> :
+        utlParamHandler function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1270414"></a>
+
+  <h4 class="pHeading3">utlParamHandler function</h4><a name="wp1270415"></a>
+
+  <p class="pBody">The <code class="cCode">utlParamHandler</code> function acts as a callback that lets your application process the task parameters passed to
+  the PerfectFit link window. These parameters are processed after PerfectFit has processed them.</p><a name="wp1270416"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL FAR PASCAL utlParamHandler ( <a name="wp1270417"> </a>
+LPCSTR lpszTag, <a name="wp1270418"> </a>
+LPCSTR lpszValue, <a name="wp1270419"> </a>
+UTLParamPriority uPriority, <a name="wp1270420"> </a>
+UTLParamSeq uSequenceNumber ); <a name="wp1270421"> </a>
+</pre>
+  </div><a name="wp1270422"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1270440"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1270425"></a>
+
+          <p class="pBody"><code class="cCode">lpszTag</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270427"></a>
+
+          <p class="pBody">Specifies the tag, or label, of a parameter. For example, in the parameter <code class="cCode">/nt-1</code>, <code class=
+          "cCode">nt</code> is the tag. The <code class="cCode">/</code> and <code class="cCode">-</code> (or <code class="cCode">=</code>) are not passed in
+          any parameters. If there is no tag (for example, <code class="cCode">c:\filename</code>), an empty string is returned.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270429"></a>
+
+          <p class="pBody"><code class="cCode">lpszValue</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270431"></a>
+
+          <p class="pBody">This is the value being passed by a parameter. In the example <code class="cCode">/nt-1</code>, <code class="cCode">1</code> is the
+          value. If there is no value (for example, <code class="cCode">/f</code>), this variable points to an empty string.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270433"></a>
+
+          <p class="pBody"><code class="cCode">uPriority</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270435"></a>
+
+          <p class="pBody">Some WPGroup parameters must be executed in a particular order, no matter in what order they appear on the command line. This
+          parameter returns the assigned priority of a WPGroup parameter. This is not useful to third-party developers.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270437"></a>
+
+          <p class="pBody"><code class="cCode">uSequenceNumber</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270439"></a>
+
+          <p class="pBody">This is the original order of the parameter. This order is determined by the order it was found and by where it was found (for
+          example, in the command line or in the .env file). This information is not useful to third-party developers.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1270441"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1270442"></a>
+
+  <p class="pBody">None</p>
+</body>
+</html>

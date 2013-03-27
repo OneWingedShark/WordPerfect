@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DBMGetSBarRect function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBMGetSBarHeight.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DBMReleaseSBarDC.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dialog_box_manager.html">Creating dialog boxes</a> :
+        DBMGetSBarRect function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp545707"></a>
+
+  <h4 class="pHeading3">DBMGetSBarRect function</h4><a name="wp545709"></a>
+
+  <p class="pBody">The <code class="cCode">DBMGetSBarRect</code> function fills the rectangle structure with the rectangle that bounds the drawable portion of
+  a dialog box status bar. This drawable portion of a dialog box status bar is the client rectangle of the status bar minus any border overhead.</p><a name=
+  "wp545711"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+VOID FAR PASCAL DBMGetSBarRect (<a name="wp545713"> </a>
+HWND hSBar,<a name="wp545715"> </a>
+LPRECT lpstRect );<a name="wp545717"> </a>
+</pre>
+  </div><a name="wp545719"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp545722"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp514404"></a>
+
+          <p class="pBody"><code class="cCode">hSBar</code></p>
+        </td>
+
+        <td>
+          <a name="wp514406"></a>
+
+          <p class="pBody">Specifies the handle to the status bar control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514412"></a>
+
+          <p class="pBody"><code class="cCode">lpstRect</code></p>
+        </td>
+
+        <td>
+          <a name="wp514414"></a>
+
+          <p class="pBody">Specifies the address of the rectangle structure to be filled by <code class="cCode">DBMGetSBarRect(&nbsp;)</code></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp545724"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp545726"></a>
+
+  <p class="pBody">None</p>
+</body>
+</html>

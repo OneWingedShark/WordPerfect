@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WfsFileOpenEx function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WfsFileMove.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WfsFileSaveAsEx.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        WfsFileOpenEx function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp547580"></a>
+
+  <h4 class="pHeading3">WfsFileOpenEx function</h4><a name="wp547582"></a>
+
+  <p class="pBody">The <code class="cCode">WfsFileOpenEx</code> function presents the user with the File Open dialog box. All input and output strings for this
+  function are assumed to be ANSI strings.</p><a name="wp547584"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int SHAPI WfsFileOpenEx (<a name="wp547586"> </a>
+HWND hParent,<a name="wp547588"> </a>
+LPSTR lpszPath,<a name="wp547590"> </a>
+LPSTR lpszFileName,<a name="wp547592"> </a>
+LPSTR lpszTemplate,<a name="wp547594"> </a>
+LPSTR lpszUserEntered,<a name="wp547596"> </a>
+WORD wFileAttrib,<a name="wp547598"> </a>
+LPSTR lpszTitle,<a name="wp547600"> </a>
+LPSTR lpszButtonText,<a name="wp547602"> </a>
+FARPROC lpfnExtraFunc,<a name="wp547604"> </a>
+DWORD dwOptionsIn,<a name="wp547606"> </a>
+LPDWORD lpdwOptionsOut,<a name="wp547608"> </a>
+FARPROC pfnQueryCnt,<a name="wp547610"> </a>
+FARPROC pfnFormat,<a name="wp547612"> </a>
+WORD wCvtClass );<a name="wp547614"> </a>
+</pre>
+  </div><a name="wp547616"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp547619"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1276691"></a>
+
+          <p class="pBody"><code class="cCode">hParent</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276693"></a>
+
+          <p class="pBody">Specifies the handle of the window to use as parent of File Open dialog box. <code class="cCode">NULL</code> is also valid.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276695"></a>
+
+          <p class="pBody"><code class="cCode">lpszPath</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276697"></a>
+
+          <p class="pBody">Acts as a pointer to the path for the list display. This parameter can be passed as <code class="cCode">NULL</code>. It is returned
+          as the path of the list display and should be of size <code class="cCode">FS_PATHNAME_BUFSIZE</code> (<code class="cCode">143</code>). It may be
+          different from the path of the file that was opened.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276699"></a>
+
+          <p class="pBody"><code class="cCode">lpszFileName</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276701"></a>
+
+          <p class="pBody">Acts as a pointer to the filename to be displayed in the edit field. A pathname may be included. This parameter may be passed as
+          <code class="cCode">NULL</code>. It is returned as the path and filename of the file to be opened, and it should be of size <code class=
+          "cCode">FS_FILENAME_LEN</code> (<code class="cCode">155</code>).</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276703"></a>
+
+          <p class="pBody"><code class="cCode">lpszTemplate</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276705"></a>
+
+          <p class="pBody">Acts as a pointer to the file template to use in the list. (A file template is a filename that may contain wildcard characters.)
+          This parameter may be passed as <code class="cCode">NULL</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276707"></a>
+
+          <p class="pBody"><code class="cCode">lpszUseEntered</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276709"></a>
+
+          <p class="pBody">Acts as a pointer to the buffer to contain the exact string the user entered in the Filename edit field. This buffer should be of
+          size <code class="cCode">FS_FILENAME_LEN</code> (<code class="cCode">155</code>).</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276711"></a>
+
+          <p class="pBody"><code class="cCode">wFileAttrib</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276713"></a>
+
+          <p class="pBody">Specifies the DOS file attributes to use in creating file lists. It should be passed as zero to accept the default attributes.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276715"></a>
+
+          <p class="pBody"><code class="cCode">lpszTitle</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276717"></a>
+
+          <p class="pBody">Acts as a pointer to the string to use as the dialog box title. If this parameter is passed as <code class="cCode">NULL</code>, the
+          default text <code class="cCode">"Open"</code> is used.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276719"></a>
+
+          <p class="pBody"><code class="cCode">lpszButtonText</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276721"></a>
+
+          <p class="pBody">Acts as a pointer to the text to be used on the dialog box Open button. This parameter can be passed as <code class=
+          "cCode">NULL</code> to use the default text <code class="cCode">"Open"</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276723"></a>
+
+          <p class="pBody"><code class="cCode">lpfnExtraFunc</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276725"></a>
+
+          <p class="pBody">Acts as a pointer to the function to be called when single-clicking names in the Files list box. This parameter can be passed as
+          NULL.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276727"></a>
+
+          <p class="pBody"><code class="cCode">dwOptionsIn</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276729"></a>
+
+          <p class="pBody">See "<a href="File_System.html#wp546788">Understanding File Open input flags</a>."</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276731"></a>
+
+          <p class="pBody"><code class="cCode">lpdwOptionsOut</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276733"></a>
+
+          <p class="pBody">See "<a href="File_System.html#wp546788">Understanding File Open input flags</a>."</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276735"></a>
+
+          <p class="pBody"><code class="cCode">pfnQueryCnt</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276737"></a>
+
+          <p class="pBody">Is reserved for future use; should be set to <code class="cCode">NULL</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276739"></a>
+
+          <p class="pBody"><code class="cCode">pfnFormat</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276741"></a>
+
+          <p class="pBody">Is reserved for future use; should be set to <code class="cCode">NULL</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276743"></a>
+
+          <p class="pBody"><code class="cCode">wCvtClass</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276745"></a>
+
+          <p class="pBody">Contains the combination of the classes of files to list in the Format list. Any combination of the following can be used:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1276746"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CVT_CLASS_DOC</code> - document or text files</li>
+              </ul>
+            </div><a name="wp1276747"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CVT_CLASS_SS</code> - spreadsheet files</li>
+              </ul>
+            </div><a name="wp1276748"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CVT_CLASS_GR</code> - graphics files</li>
+              </ul>
+            </div><a name="wp1276749"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CVT_CLASS_DB</code> - database files</li>
+              </ul>
+            </div><a name="wp1276750"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CVT_CLASS_ALL</code> - all files</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp547621"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp547623"></a>
+
+  <p class="pBody">This function returns <code class="cCode">1</code> if OK was pressed. It returns <code class="cCode">0</code> if Cancel was pressed or if an
+  error occurs.</p>
+</body>
+</html>

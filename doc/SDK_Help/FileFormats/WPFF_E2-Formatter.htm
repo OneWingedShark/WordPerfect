@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: E2 Formatter Functions</h2>
+    <p><strong>Formatter Group - Function 226 (0xE2)</strong></p>
+    <p>The formatter group subfunctions have character orientation.</p>
+    <p>This group is platform dependent and formatter specific, and is undocumented. WordPerfect
+    rebuilds the group when a document is retrieved or opened. Developers should use the
+    size word to skip over any 0xE2 function codes.</p>
+    <hr />
+    <h3>(0xE2)</h3>
+    <p><strong>Formatter</strong></p>
+    <p>&lt;226 (0xE2)&gt; formatter group function</p>
+    <pre>
+&lt;0 (0x00) to 255 (0xFF)&gt;
+[size = variable] size of function code
+&lt;undocumented data&gt; x ?
+[size] &lt;0xE2&gt;
+</pre>
+</body>
+</html>

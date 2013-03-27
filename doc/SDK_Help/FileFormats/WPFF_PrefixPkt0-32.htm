@@ -1,0 +1,2960 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Packet Data Formats: Prefix Packets 0-32</h2>
+    <p>Reserved packets may appear in a document prefix. Most of the strings in the packet
+    data are strings made up of short values. The high byte of the short value is the WP
+    character set number. The low byte of the short value is the character number. The strings
+    are null terminated with a short value unless otherwise specified. </p>
+    <hr />
+    <h3>Packet Type 0 (0x00)</h3>
+    <p><strong>Index Entry Is Available or Was Deleted</strong>
+    <br />
+    This does not apply to the index header, which is always the first index in the index
+    block.<br />
+    </p>
+    <hr />
+    <h3>Packet Type 1 (0x01)</h3>
+    <p><strong>Document Height</strong><br />
+    <br />
+    The document height is the height of the entire document from top to bottom.<br />
+    <br />
+    {document height (text mode)} in formatter text lines</p>
+    <pre>
+{document height (graphics mode)} in WPUs
+{document height (page mode)} in 3600ths
+</pre>
+    <hr />
+    <h3>Packet Type 2 (0x02)</h3>
+    <p><strong>Document-Specific Flags</strong><br />
+    <br />
+    &lt;flag bits for doc&gt;<br />
+    bit 0:</p>
+    <pre>
+    1 = baseline placement for typesetters is active
+  bits 1-2: 
+    00 = font change
+    01 = character in right margin
+    10 = character in left margin
+    11 = character in alternating margins
+  bit 3: 
+    1 = document needs to be formatted
+  bit 4: 
+    1 = document needs to be (re)generated
+  bit 5: 
+    1 = manual display pitch
+  bit 6: 
+    1 = links should be updated on retrieval
+  bit 7: 
+    1 = links codes should not be displayed
+&lt;text/graphics quality&gt;
+  low nibble = text quality
+  high nibble = graphics quality
+  both nibbles:
+    0 = do not print
+    1 = draft
+    2 = medium
+    3 = high
+[redline character]
+[width of screen character]
+&lt;ink color&gt;
+  0 = black
+  1 = full color
+  2 = solid color
+&lt;merge display flags&gt;
+  2 (0x02) = display merge codes
+  4 (0x04) = show displayed codes as icons
+&lt;reserved&gt;
+&lt;default form number&gt;
+[current undo-level number]
+[current range level number]
+&lt;more document flags&gt;
+  bit 0: 
+    1 = hypertext mode is active
+  bit 1: 
+    1 = hiding text marked for hiding
+&lt;reserved for future use&gt;
+</pre>
+    <hr />
+    <h3>Packet Type 3 (0x03)</h3>
+    <p><strong>Reserved</strong></p>
+    <hr />
+    <h3>Packet Type 4 (0x04)</h3>
+    <p><strong>Form Hash Table</strong><br />
+    <br />
+    [hash value for each form contained in a document] x ?</p>
+    <hr />
+    <h3>Packet Type 5 (0x05)</h3>
+    <p><strong>Writing Tools API</strong>
+    <br />
+    </p>
+    <pre>
+[company ID]
+[tool (or product) ID]
+&lt;tool information&gt; x ?
+</pre>
+    <p>The Speller uses the Tool information field for the document Supplemental Dictionary.
+    The format of the Supplemental Dictionary is a WP short string.<br />
+    </p>
+    <hr />
+    <h3>Packet Type 6 (0x06)</h3>
+    <p><strong>Character Map</strong><br />
+    <br />
+    This structure is the same as used in a MAP file. The file type for a MAP file is 49
+    (0x31). In a MAP file, this structure begins directly following the 16-byte prefix.<br />
+    </p>
+    <pre>
+[size of character mapping packet]
+&lt;map flags&gt;
+  bit 7 is set when using 2-byte mappings (WP short string mappings)
+    80 = Japanese mapping
+    81 = Korean mapping
+    82 = Chinese mapping
+    83 = Taiwanese mapping
+[pointer to map name] offset from start of packet
+[pointer to map table] table for converting document characters to WP characters 
+[map name] x ? null terminated WP word string of indeterminate length
+[min value = 1] minimum value of mappable characters
+[max value = 127] maximum value of mappable characters
+[number of mappable chars] max - min + 1
+[size of map table]
+[document char, WP char]
+</pre>
+    <p>Document characters are mapped into the range 1-127. The 1-byte document character
+    to WP character mapping table is essentially a lookup table. It consists of 127 entries,
+    each one word in length. The first byte of the first word represents document character
+    1 and the second byte represents the WP character that document character 1 is mapped
+    to.</p>
+    <hr />
+    <h3>Packet Type 7 (0x07)</h3>
+    <p><strong>Native Filename</strong><br />
+    <br />
+    If this packet does not have any children, the format is:<br />
+    </p>
+    <pre>
+&lt;filename&gt; x ?  <em>or</em> [filename] x ?  null terminated byte or word string
+
+If this packet does have children, the format is the following:
+[count of child IDs]
+  [ID 1] ID of child packet
+  [ID 2] ID of child packet
+  .. ..
+  [ID n] ID of last child
+  [tag 1] tag flag for first child packet
+  [tag 2] tag flag for second child packet
+  .. ..
+  [tag n] last tag flag for last child packet
+[filename] x ?  null terminated
+
+
+Format for tag flags
+0x0001 = data being kept internal
+0x0010 = data being kept internal (hot link)
+0x0011 = data being kept internal (warm link)
+0x0012 = data being kept internal (cold link)
+</pre>
+    <hr />
+    <h3>Packet Type 8 (0x08)</h3>
+    <p><strong>General WP Text</strong><br />
+    </p>
+    <p>[number of text blocks]<br />
+    {relative offset of first text block within packet}<br />
+    {size of 1st text block}<br />
+    {size of 2nd text block}</p>
+    <p>..</p>
+    <p>{size of last text block}</p>
+    <p>..</p>
+    <p>&lt;text data for 1st block&gt; x 1st block size</p>
+    <p>&lt;text data for 2nd block&gt; x 2nd block size</p>
+    <p>..</p>
+    <p>&lt;text data for last block&gt; x last block size<br />
+    </p>
+    <hr />
+    <h3>Packet Type 9 (0x09)</h3>
+    <p><strong>Bookmark Data</strong></p>
+    <pre>
+[reserved]
+&lt;bookmark flags&gt;
+  bits 0-3: reserved
+  bit 4: 1 = paired bookmark
+  bit 5: 1 = bookmark is in a substructure
+  bit 6: 1 = quick bookmark
+  bit 7: 1 = deleted bookmark
+&lt;reserved&gt;
+[bookmark name] x ? (null-terminated WP short string; max 78 bytes or 38 chars + null)
+</pre>
+    <hr />
+    <h3>Packet Type 10 (0x0A)</h3>
+    <p><strong>Macro Executable</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 11 (0x0B)</h3>
+    <p><strong>Mark Text for Generate Definition</strong></p>
+    <p>The byte following the PIDs in each of the following structures indicates which type
+    of definition exits in a particular instance of this packet.</p>
+    <p>Table of Contents Definition</p>
+    <pre>
+[number of child prefix IDs = 2-6]
+  [style PID 1 (type=0x30)]
+  [style PID 2 (type=0x30)]
+  ..
+  [format PID (type=0x62)]
+&lt;ToC definition = 0&gt;
+&lt;number mode&gt;
+  0 = no number
+  1 = number follows entry
+  2 = number in parentheses follows entry
+  3 = number flush right
+  4 = number flush right with dot leaders
+[ToC name = 0]
+</pre>
+    <p>Index Definition</p>
+    <pre>
+[number of child prefix IDs = 4]
+  [child PID (level 1) (type=0x30)]
+  [child PID (level 2) (type=0x30)]
+  [concordance filename PID (type=0x07, 0 if none)]
+  [format PID (type=0x62, 0 for document format)]
+&lt;index definition = 2&gt;
+&lt;number mode&gt;
+  0 = no number
+  1 = number follows entry
+  2 = number in parentheses follows entry
+  3 = number flush right
+  4 = number flush right with dot leaders
+&lt;definition flags&gt;
+  1 = reserved
+  2 = combining of sequential page numbers (default)
+[index name = 0]
+</pre>
+    <p>List Definition</p>
+    <pre>
+[number of child prefix IDs = 3]
+[style PID (type=0x30)]
+[format string PID (type=0x62)]
+[graphics style PID (type=0x11)]
+&lt;list definition = 1&gt;
+&lt;number mode&gt;
+  0 = no number
+  1 = number follows entry
+  2 = number in parentheses follows entry
+  3 = number flush right
+  4 = number flush right with dot leaders
+&lt;reserved&gt;
+[list name] x ?  short string format
+</pre>
+    <p>Table of Authorities Definition</p>
+    <pre>
+[number of child prefix IDs = 2]
+  [style PID (type=0x30)]
+  [format string PID (type=0x62)]
+&lt;ToA definition = 4&gt;
+&lt;number mode&gt;
+  0 = no number
+  1 = number follows entry
+  2 = number in parentheses follows entry
+  3 = number flush right
+  4 = number flush right with dot leaders
+&lt;definition flags&gt;
+  1 = ToA definition - underlining allowed
+  2 = combining of sequential page numbers (default)
+[ToA name] x ?  short string format
+</pre>
+    <hr />
+    <h3>Packet Type 12 (0x0C)</h3>
+    <p><strong>Subdocument</strong></p>
+    <p>If this packet does not have any children, the format is a short string of the filename
+    for the subdocument. The subdocument is stored externally on disk.</p>
+    <pre>
+[subdocument filename] x ?  null terminated
+</pre>
+    <p>If this packet has children, the format is the following:<br />
+    [number of child IDs]</p>
+    <pre>
+  [ID 1]  ID of child packet containing subdocument information
+  [ID 2]  ID of child packet containing subdocument information
+  ..  ..
+  [ID cnt] last child ID for subdocument information
+  [tag 1]  tag flag for first child packet
+  [tag 2]  tag flag for second child packet
+  ..  ..
+  [tag cnt] tag flag for last child packet
+[subdocument filename] x ?
+</pre>
+    <p>Format for tag flags</p>
+    <pre>
+0x0001 = data is part of this file
+0x0010 = data is part of this file (hot link)
+0x0011 = data is part of this file (warm link)
+0x0012 = data is part of this file (cold link)
+</pre>
+    <hr />
+    <h3>Packet Type 13 (0x0D)</h3>
+    <p><strong>Table of Authorities Mark</strong></p>
+    <p>The full form Table of Authorities mark consists of this parent packet and a General
+    WP Text child packet.<br />
+    </p>
+    <pre>
+[number of child prefix IDs = 1]
+[child PID (type=0x08)]
+[short form name] x ?  WP word string
+[ToA section name] x ?  WP word string
+</pre>
+    <p>The short form Table of Authorities mark consists of the short form name contained
+    within this packet.</p>
+    <pre>
+[short form name] x ?  WP word string
+</pre>
+    <hr />
+    <h3>Packet Type 14 (0x0E)</h3>
+    <p><strong>Index Mark</strong></p>
+    <pre>
+[index name] x ?  null terminated
+[heading] x ?  null terminated
+[subheading] x ?  null terminated
+</pre>
+    <hr />
+    <h3>Packet Type 15 (0x0F)</h3>
+    <p><strong>Cross-Reference Target</strong></p>
+    <pre>
+[target name] x ?  null terminated
+</pre>
+    <hr />
+    <h3>Packet Type 16 (0x10)</h3>
+    <p><strong>Total Page Count</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 17 (0x11)</h3>
+    <p><strong>Counters Data</strong></p>
+    <pre>
+[name or ID] x 16  There will always be 32 bytes set aside for the name, but if the counter is a system
+counter, then this field is an ID number instead of a name.  Both the name and the ID number are null
+terminated with a word null and the remaining bytes are random.
+&lt;number of counter levels valid (1-5)&gt; actual number of levels used
+&lt;default numbering method for level 1&gt;
+&lt;default numbering method for level 2&gt;
+&lt;default numbering method for level 3&gt;
+&lt;default numbering method for level 4&gt;
+&lt;default numbering method for level 5&gt;
+[level name 1] x 16  null terminated word strings, begin with two spaces ([2000] [2000])
+[level name 2] x 16  null terminated word strings, begin with two spaces ([2000] [2000])
+[level name 3] x 16  null terminated word strings, begin with two spaces ([2000] [2000])
+[level name 4] x 16  null terminated word strings, begin with two spaces ([2000] [2000])
+[level name 5] x 16  null terminated word strings, begin with two spaces ([2000] [2000])
+</pre>
+    <hr />
+    <h3>Packet Type 18 (0x12)</h3>
+    <p><strong>Extended Document Summary</strong></p>
+    <p>The extended summary data group occurs for up to 100 times, one for each field defined
+    in the extended summary:</p>
+    <pre>
+[size] (byte length of data group.)
+[tag] (field ID of the extended summary field.)
+[type] (field data type)
+  bit 0: 1 = single line, data length is limited to 255 words
+  bit 1: 1 = multi-line, data length is limited to 1023 words
+  bit 2: 1 = date, see 10-byte date structure below.
+  bit 3: 1 = read only (document may be locked by another user)
+[name] x ?  (null-terminated word string, optional.)
+[data] x ?  (null-terminated word string or 10-byte date field.)
+</pre>
+    <table border="1" width="98%">
+        <tr valign="top">
+            <td colspan="3" width="13%">
+                <b>Valid predefined extended summary fields:</b></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Tag</td>
+            <td width="29%">
+                Name</td>
+            <td width="57%">
+                Type</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1</td>
+            <td>
+                Abstract</td>
+            <td>
+                Multi-line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2</td>
+            <td>
+                Account</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3</td>
+            <td>
+                Address</td>
+            <td>
+                Multi-line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4</td>
+            <td>
+                Attachments</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5</td>
+            <td>
+                Author</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6</td>
+            <td>
+                Authorization</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7</td>
+            <td>
+                Bill To</td>
+            <td>
+                Multi-line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8</td>
+            <td>
+                Blind Copy</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9</td>
+            <td>
+                Carbon Copy</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                10</td>
+            <td>
+                Category</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                11</td>
+            <td>
+                Checked By</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                12</td>
+            <td>
+                Client</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                13</td>
+            <td>
+                Comments</td>
+            <td>
+                Multi-line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                14</td>
+            <td>
+                Creation Date</td>
+            <td>
+                Date</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                15</td>
+            <td>
+                Date Completed</td>
+            <td>
+                Date</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                16</td>
+            <td>
+                Department</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                17</td>
+            <td>
+                Descriptive Name</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                18</td>
+            <td>
+                Descriptive Type</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                19</td>
+            <td>
+                Destination</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                20</td>
+            <td>
+                Disposition</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                21</td>
+            <td>
+                Division</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                22</td>
+            <td>
+                Document number</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                23</td>
+            <td>
+                Editor</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                24</td>
+            <td>
+                Forward To</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                25</td>
+            <td>
+                Group</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                26</td>
+            <td>
+                Keywords</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                27</td>
+            <td>
+                Language</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                28</td>
+            <td>
+                Mail Stop</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                29</td>
+            <td>
+                Matter</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                30</td>
+            <td>
+                Office</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                31</td>
+            <td>
+                Owner</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                32</td>
+            <td>
+                Project</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                33</td>
+            <td>
+                Publisher</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                34</td>
+            <td>
+                Purpose</td>
+            <td>
+                Multi-line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                35</td>
+            <td>
+                Received From</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                36</td>
+            <td>
+                Recorded By</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                37</td>
+            <td>
+                Recorded Date</td>
+            <td>
+                Date</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                38</td>
+            <td>
+                Reference</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                39</td>
+            <td>
+                Revision Date</td>
+            <td>
+                Date and read only</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                40</td>
+            <td>
+                Revision Notes</td>
+            <td>
+                Multi-line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                41</td>
+            <td>
+                Revision number</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                42</td>
+            <td>
+                Section</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                43</td>
+            <td>
+                Security</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                44</td>
+            <td>
+                Source</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                45</td>
+            <td>
+                Status</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                46</td>
+            <td>
+                Subject</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                47</td>
+            <td>
+                Telephone number</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                48</td>
+            <td>
+                Typist</td>
+            <td>
+                Single line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                49</td>
+            <td>
+                Version Date</td>
+            <td>
+                Date</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                50</td>
+            <td>
+                Version Notes</td>
+            <td>
+                Multi-line</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                51</td>
+            <td>
+                Version number</td>
+            <td>
+                Single line</td>
+        </tr>
+    </table>
+    <p>10-Byte Date Structure</p>
+    <pre>
+[year]
+&lt;month&gt;
+&lt;day&gt;
+&lt;hour&gt;
+&lt;minute&gt;
+&lt;second&gt;
+&lt;day of week&gt; (not implemented)
+&lt;time zone&gt; (not implemented)
+&lt;unused&gt;
+</pre>
+    <p>User-defined extended summary fields have a tag number in the range of 101 to 65535
+    and must have a field name.</p>
+    <p>Predefined fields have tag numbers in the range of 1 to 100 and may have a name,
+    but for multilingual purposes, the name displayed in all interfaces comes from a translatable
+    resource file.</p>
+    <p>Tag number 39, Revision Date, is a special case where the date is extracted from
+    the DOS file date.</p>
+    <hr />
+    <h3>Packet Type 19 (0x13)</h3>
+    <p><strong>Macro Labels</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 20 (0x14)</h3>
+    <p><strong>Macro Global Labels</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 21 (0x15)</h3>
+    <p><strong>Macro Translation Table</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 22 (0x16)</h3>
+    <p><strong>Template Filename</strong></p>
+    <pre>
+[# of child id's] - each child id will have corresponding tag data
+[id of child packet] - repeated once for every child id, refers to Native Filename packet (0x07).
+[tag data]
+  9201 - long filename
+  9202 - filename moniker
+[bookmark name] x ? Null terminated. This filename uses short directory/filename convention.
+</pre>
+    <hr />
+    <h3>Packet Type 23 (0x17)</h3>
+    <p><strong>Hypertext (Bookmark Name)</strong></p>
+    <pre>
+[bookmark name] x ?  null terminated
+</pre>
+    <hr />
+    <h3>Packet Type 24 (0x18)</h3>
+    <p><strong>Box Text Filename</strong></p>
+    <pre>
+[box text filename] x ?  null terminated
+
+If this packet ever has child IDs, the format will be that of the Native Filename packet type
+0x07.
+</pre>
+    <hr />
+    <h3>Packet Type 25 (0x19)</h3>
+    <p><strong>Equation Text Filename</strong>
+    <br />
+    </p>
+    <pre>
+[equation text filename] x ?  null terminated
+</pre>
+    <pre>
+If this packet ever has child IDs, the format will be that of the Native Filename packet type 0x07.
+</pre>
+    <hr />
+    <h3>Packet Type 26 (0x1A)</h3>
+    <p><strong>Envelope Address Document</strong></p>
+    <p>The structure of this packet is the same as packet type 8 (0x08), General WP Text.</p>
+    <hr />
+    <h3>Packet Type 27 (0x1B)</h3>
+    <p><strong>Comment/Annotation</strong></p>
+    <pre>
+[number of prefix IDs = 1]
+[text PID (type=0x08)]
+&lt;annotation flag&gt; 
+  0 = comment
+  1 = annotation
+date/time:
+[year]
+&lt;month&gt;
+&lt;day&gt;
+&lt;hour&gt;
+&lt;minute&gt;
+&lt;second&gt;
+&lt;day of week&gt; not implemented
+&lt;time zone&gt; not implemented
+&lt;unused&gt;
+&lt;annotation color (RGBS)&gt; x 4
+[user initials] x ?  word string null terminated
+[user name] x ?  word string null terminated
+</pre>
+    <hr />
+    <h3>Packet Type 28 (0x1C)</h3>
+    <p><strong>WP Hidden Outline Text</strong></p>
+    <p>The structure of this packet is the same as packet type 8 (0x08), General WP Text.
+    Reserved for DOS. This is a DOS only packet.</p>
+    <hr />
+    <h3>Packet Type 29 (0x1D)</h3>
+    <p><strong>Prefix Needs Spell-Check</strong></p>
+    <p>The entire document is dirty regardless of clean/dirty spell gates. An index exists
+    only if a spell-check is needed. The data size is zero. The data pointer is unused and
+    invalid if non-zero.</p>
+    <hr />
+    <h3>Packet Type 30 (0x1E)</h3>
+    <p><strong>Formatter Region</strong></p>
+    <p>Region being tracked in the formatter for any changes. This packet contains a region
+    packet header followed by information for each region packet.</p>
+    <p>Header information in the Formatter Region packet:</p>
+    <pre>
+[offset to first region packet information]
+{number of region entries in this prefix packet}
+{the next region number to allocate}
+&lt;name of file this packet created with&gt; x ?
+
+Region information for each region packet:
+{unique number representing this tracked region}
+{byte count offset in edit buffer to region on code} (distance from beginning of file if positive, distance
+from end of file if negative)
+{byte count offset in edit buffer to region off code} (distance from beginning of file if positive, distance
+from end of file if negative)
+[page number where start of tracked region starts]
+[y position where start of tracked region starts]
+[page number where end of tracked region ends]
+[y position where end of tracked region ends]
+[font face at start of region]
+[font size at start of region]
+[attributes at start of region]
+&lt;color at start of region (RGB)&gt; x 3
+&lt;region active flag&gt; indicates if changes to region should be sent to the interface
+  0 = region is not active
+  1 = region is active
+&lt;type of region being tracked&gt;
+  1 = OLE
+  2 = OBEX
+</pre>
+    <hr />
+    <h3>Packet Type 31 (0x1F)</h3>
+    <p><strong>Mideast Flags Prefix</strong></p>
+    <p>Mideast-specific document flags.</p>
+    <p>&lt;ligature control&gt;<br />
+    &nbsp; 0 = none<br />
+    &nbsp; 1 = partial ligatures<br />
+    &nbsp; 2 = full ligatures<br />
+    &lt;number shape&gt;<br />
+    &nbsp; 0 = context<br />
+    &nbsp; 1 = force English font<br />
+    &nbsp; 2 = force Arabic/Hebrew font</p>
+    <hr />
+    <h3>Packet Type 32 (0x20)</h3>
+    <p><strong>Font Typeface Descriptor Pool</strong></p>
+    <p>This packet contains all font descriptors used in the document)</p>
+    <p>In the SET file the font typeface descriptor pool only contains the default descriptor.</p>
+    <p>Matched Font Descriptor (closest available to desired font)</p>
+    <pre>
+[average character width (PSU)]
+[ascender height (PSU)]
+[x height (PSU)]
+[descender height (PSU)]
+[italic adjust]
+[primary family ID]
+</pre>
+    <table border="1" width="98%">
+        <tr valign="top">
+            <td colspan="2" width="52%">
+                0x0100 Family: ITCBenguiat</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0101 = Bellini</td>
+            <td width="47%">
+                0x0117 = Stratford</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0102 = Erasmus</td>
+            <td>
+                0x0118 = ITCTiffany</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0103 = HollandseMediaeval</td>
+            <td>
+                0x0119 = ITCBenguiat</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0104 = Pastonchi</td>
+            <td>
+                0x011A = Seagull</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0105 = Windsor</td>
+            <td>
+                0x011B = ITCSouvenir</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0106 = Kennerley</td>
+            <td>
+                0x011C = Vendome</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0107 = Raleigh</td>
+            <td>
+                0x011D = ItalianOldStyle</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0108 = SurreyOldStyle</td>
+            <td>
+                0x011E = ITCItalia</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0109 = Trajanus</td>
+            <td>
+                0x011F = JensonOldStyle</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x010A = Verona</td>
+            <td>
+                0x0120 = Guardi</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x010B = WorchesterRound</td>
+            <td>
+                0x0121 = Cantoria</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x010C = DellaRobbia</td>
+            <td>
+                0x0122 = ITCBerkleyOldStyle</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x010D = BauerText</td>
+            <td>
+                0x0123 = ITCGiovanni</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x010E = Cloister</td>
+            <td>
+                0x0124 = Lavenham</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x010F = Jenson</td>
+            <td>
+                0x0125 = ITCVeljovic</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0110 = SchneidlerOldStyle</td>
+            <td>
+                0x0126 = HampshireOldStyle</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0111 = Centaur</td>
+            <td>
+                0x0127 = ITCEsprit</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0112 = HorleyOldStyle</td>
+            <td>
+                0x0128 = Hadriano</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0113 = Deepdene</td>
+            <td>
+                0x0129 = ITCWeidemann</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0114 = Brighton</td>
+            <td>
+                0x012A = Minion</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0115 = ITCClearface</td>
+            <td>
+                0x012B = Seneca</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0116 = Lutetia</td>
+            <td>
+                0x012C = Carmina</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x0900 Family: TimesRoman</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0901 = Bembo</td>
+            <td>
+                0x090E = ITCStoneSerif</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0902 = BernhardModern</td>
+            <td>
+                0x090F = Life</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0903 = GoudyOldStyle</td>
+            <td>
+                0x0910 = Minister</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0904 = Plantin</td>
+            <td>
+                0x0911 = TimesRoman</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0905 = Poliphilus</td>
+            <td>
+                0x0912 = Calisto</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0906 = Trajan</td>
+            <td>
+                0x0913 = Adroit</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0907 = Leamington</td>
+            <td>
+                0x0914 = ITCSlimbach</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0908 = Missal</td>
+            <td>
+                0x0915 = Administer</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x0909 = TrumpMediaeval</td>
+            <td>
+                0x0916 = Caxton</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x090A = Berling</td>
+            <td>
+                0x0917 = Eldorado</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x090B = Hiroshige</td>
+            <td>
+                0x0918 = Symposia</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x090C = Albertina</td>
+            <td>
+                0x0919 = Artcraft</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x090D = Emerson</td>
+            <td>
+                0x091A = ZAntiqua</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x1100 Family: ITCGaramond</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1101 = BinnyOldStyle</td>
+            <td>
+                0x1119 = QuadrigaAntiqua</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1102 = Bookman</td>
+            <td>
+                0x111A = Sabon</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1103 = Bulmer</td>
+            <td>
+                0x111B = Barbou</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1104 = Caslon540</td>
+            <td>
+                0x111C = Fournier</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1105 = Amerigo</td>
+            <td>
+                0x111D = Garamond</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1106 = ChiswellOldFace</td>
+            <td>
+                0x111E = Spectrum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1107 = Fontana</td>
+            <td>
+                0x111F = Weiss</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1108 = Granjon</td>
+            <td>
+                0x1120 = Concorde</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1109 = Imprint</td>
+            <td>
+                0x1121 = ITCCushing</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x110A = Monticello</td>
+            <td>
+                0x1122 = Dante</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x110B = OldStyleNo2</td>
+            <td>
+                0x1123 = Gazette</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x110C = GarthGraphic</td>
+            <td>
+                0x1124 = ITCIsbell</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x110D = Scenario</td>
+            <td>
+                0x1125 = Romulus</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x110E = Ehrhardt</td>
+            <td>
+                0x1126 = Rotation</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x110F = Galliard</td>
+            <td>
+                0x1127 = VanDijck</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1110 = Aldus</td>
+            <td>
+                0x1128 = Janson</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1111 = Aster</td>
+            <td>
+                0x1129 = Roundfunk</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1112 = Baskerville</td>
+            <td>
+                0x112A = Charter</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1113 = RotisSerif</td>
+            <td>
+                0x112B = Criterion</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1114 = Congress</td>
+            <td>
+                0x112C = Ellington</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1115 = Lectura</td>
+            <td>
+                0x112D = HollandSeminar</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1116 = Palatino</td>
+            <td>
+                0x112E = ITCGamma</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1117 = PopplPontifex</td>
+            <td>
+                0x112F = ITCLeawood</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1118 = TimesEuropa</td>
+            <td>
+                0x1130 = Pasquale</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x1900 Family: CenturySchoolbook</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1901 = Joanna</td>
+            <td>
+                0x1911 = Impressum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1902 = Maximus</td>
+            <td>
+                0x1912 = Melior</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1903 = Breughel</td>
+            <td>
+                0x1913 = Dominante</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1904 = Excelsior</td>
+            <td>
+                0x1914 = Menhart</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1905 = Perpetua</td>
+            <td>
+                0x1915 = Paragon</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1906 = Primer</td>
+            <td>
+                0x1916 = Cochin</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1907 = Nofret</td>
+            <td>
+                0x1917 = Electra</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1908 = CenturySchoolBook</td>
+            <td>
+                0x1918 = Iridium</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1909 = Nimrod</td>
+            <td>
+                0x1919 = ITCZapfInternational</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x190A = Cheltenham</td>
+            <td>
+                0x191A = Accolade</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x190B = Comenius</td>
+            <td>
+                0x191B = Cardinal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x190C = Sorbonne</td>
+            <td>
+                0x191C = Claridge</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x190D = Bramley</td>
+            <td>
+                0x191D = Else</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x190E = GoudyModern</td>
+            <td>
+                0x191E = ITCJamille</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x190F = Athenaeum</td>
+            <td>
+                0x191F = MonoTypeEngravers</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x1910 = Diotima</td>
+            <td>
+                0x1920 = ITCStoneInformal</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x2100 Family: Bodoni</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2101 = Auriga</td>
+            <td>
+                0x210A = Walbaum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2102 = ITCZapfBook</td>
+            <td>
+                0x210B = ITCFenice</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2103 = BauerBodoni</td>
+            <td>
+                0x210C = Modern</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2104 = Corvinus</td>
+            <td>
+                0x210D = ScotchRoman</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2105 = Albion42</td>
+            <td>
+                0x210E = Centennial</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2106 = Caledonia</td>
+            <td>
+                0x210F = Versailles</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2107 = Fairfield</td>
+            <td>
+                0x2110 = Wilke</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2108 = DeVinne</td>
+            <td>
+                0x2111 = Inflex</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2109 = Madison</td>
+            <td>
+                0x2112 = ITCDidi</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x2900 Family: ITCLubalinGraph</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2901 = ASGallatin</td>
+            <td>
+                0x290C = AntiqueNo5</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2902 = Beton</td>
+            <td>
+                0x290D = ITCPacella</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2903 = Calvert</td>
+            <td>
+                0x290E = SchadowAntiqua</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2904 = Candida</td>
+            <td>
+                0x290F = Aachen</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2905 = City</td>
+            <td>
+                0x2910 = PMNCaecilia</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2906 = Glypha</td>
+            <td>
+                0x2911 = available17</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2907 = ITCLubalinGraph</td>
+            <td>
+                0x2912 = Clarendon</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2908 = Memphis</td>
+            <td>
+                0x2913 = EgyptienneF</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x2909 = Rockwell</td>
+            <td>
+                0x2914 = Egizio</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x290A = Serifa</td>
+            <td>
+                0x2915 = Fortune</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x290B = Stymie</td>
+            <td>
+                0x2916 = ITCAmericanTypewriter</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x3100 Family: Albertus</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x3101 = Albertus</td>
+            <td>
+                0x310E = Biltmore</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x3102 = Americana</td>
+            <td>
+                0x310F = ITCLSCBook</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x3103 = Flange</td>
+            <td>
+                0x3110 = Meridien</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x3104 = FrenchOldStyle</td>
+            <td>
+                0x3111 = ITCTiepolo</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x3105 = ITCFrizQuadrata</td>
+            <td>
+                0x3112 = RotisSemiserif</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x3106 = Icone</td>
+            <td>
+                0x3113 = ITCSerifGothic</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x3107 = ITCKorinna</td>
+            <td>
+                0x3114 = available20</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x3108 = ITCNewText</td>
+            <td>
+                0x3115 = available21</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x3109 = ITCNovarese</td>
+            <td>
+                0x3116 = available22</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x310A = PopplLaudatio</td>
+            <td>
+                0x3117 = Footlight</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x310B = ITCQuorum</td>
+            <td>
+                0x3118 = ITCElan</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x310C = Romana</td>
+            <td>
+                0x3119 = ITCUsherwood</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x310D = ITCBarcelona</td>
+            <td>
+                0x311A = Copperplate</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x3900 Family: Courier</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x3901 = Courier</td>
+            <td>
+                0x3902 = PrestigeElite</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x4100 Family: Helvetica</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4101 = Abadi</td>
+            <td>
+                0x4116 = Helvetica</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4102 = AkzidenzGrotesk</td>
+            <td>
+                0x4117 = HollandTitle</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4103 = AlpinGothic</td>
+            <td>
+                0x4118 = Imago</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4104 = AntiqueOlive</td>
+            <td>
+                0x4119 = Impact</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4105 = Avenir</td>
+            <td>
+                0x411A = Insignia</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4106 = CGSymphony</td>
+            <td>
+                0x411B = ITCAvantGardeGothic</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4107 = DINSchriften</td>
+            <td>
+                0x411C = ITCKabel</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4108 = DirectoryGothic</td>
+            <td>
+                0x411D = ITCMixage</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4109 = Flyer</td>
+            <td>
+                0x411E = Ambassador</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x410A = Folio</td>
+            <td>
+                0x411F = ITCStoneSans</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x410B = Formata</td>
+            <td>
+                0x4120 = TradeGothic</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x410C = FranklinGothic</td>
+            <td>
+                0x4121 = Metro</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x410D = Frontiera</td>
+            <td>
+                0x4122 = NeuzeitS</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x410E = Frutiger</td>
+            <td>
+                0x4123 = NewsGothic</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x410F = Futura</td>
+            <td>
+                0x4124 = Placard</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4110 = GillSans</td>
+            <td>
+                0x4125 = VAGRounded</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4111 = Gothic</td>
+            <td>
+                0x4126 = RotisSansSerif</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4112 = Grotesque</td>
+            <td>
+                0x4127 = Sans</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4113 = CenturyGothic</td>
+            <td>
+                0x4128 = SassoonPrimary</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4114 = Harry</td>
+            <td>
+                0x4129 = Syntax</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4115 = Headline</td>
+            <td>
+                0x412A = Uncia</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x4900 Family: ITCRonda</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4901 = ITCBauhaus</td>
+            <td>
+                0x4904 = ITCRonda</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4902 = BlippoBlack</td>
+            <td>
+                0x4905 = Wexford</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x4903 = Churchward70</td>
+            <td>
+                0x4906 = ITCBusorama</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x5100 Family: Microstyle</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5101 = Doric</td>
+            <td>
+                0x5106 = MagnumGothic</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5102 = Heldustry</td>
+            <td>
+                0x5107 = Microstyle</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5103 = ITCBolt</td>
+            <td>
+                0x5108 = Neographik</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5104 = ITCEras</td>
+            <td>
+                0x5109 = RussellSquare</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5105 = available5</td>
+            <td>
+                0x510A = Serpentine</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x5900 Family: Optima</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5901 = BakerSignet</td>
+            <td>
+                0x5908 = Optima</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5902 = BlueJack</td>
+            <td>
+                0x5909 = Lisbon</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5903 = Chelmsford</td>
+            <td>
+                0x590A = RotisSemisans</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5904 = Peignot</td>
+            <td>
+                0x590B = Shannon</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5905 = ITCPanache</td>
+            <td>
+                0x590C = Triplett</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5906 = ITCSymbol</td>
+            <td>
+                0x590D = Video</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x5907 = Omega</td>
+            <td>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x6100 Family: LetterGothic</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6101 = available1</td>
+            <td>
+                0x6105 = OCRB</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6102 = LetterGothic</td>
+            <td>
+                0x6106 = Orator</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6103 = LinePrinter</td>
+            <td>
+                0x6107 = Presentation</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6104 = OCRA</td>
+            <td>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x6900 Family: Brush</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6901 = AshleyScript</td>
+            <td>
+                0x6908 = FreeStyleScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6902 = BiffoScript</td>
+            <td>
+                0x6909 = Kaufmann</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6903 = BrophyScript</td>
+            <td>
+                0x690A = MonoLineScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6904 = BrushScript</td>
+            <td>
+                0x690B = BickleyScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6905 = CascadeScript</td>
+            <td>
+                0x690C = PresentScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6906 = Chaplin</td>
+            <td>
+                0x690D = Swing</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x6907 = Charme</td>
+            <td>
+                0x690E = Bronx</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x7100 Family: ParkAvenue</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7101 = AristonLightScript</td>
+            <td>
+                0x710D = ITCIsadora</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7102 = Basilica</td>
+            <td>
+                0x710E = ITCZapfChancery</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7103 = Bellevue</td>
+            <td>
+                0x710F = Jasper</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7104 = BertholdScript</td>
+            <td>
+                0x7110 = Liberty</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7105 = Boulevard</td>
+            <td>
+                0x7111 = LisbonCursive</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7106 = Amazone</td>
+            <td>
+                0x7112 = MediciScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7107 = CarmineTango</td>
+            <td>
+                0x7113 = MurrayHill</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7108 = CommercialScript</td>
+            <td>
+                0x7114 = ParkAvenue</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7109 = Coronet</td>
+            <td>
+                0x7115 = Stuyvesant</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x710A = Corsiva</td>
+            <td>
+                0x7116 = UniversityRoman</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x710B = Diskus</td>
+            <td>
+                0x7117 = Musketeer</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x710C = FloridianScript</td>
+            <td>
+                0x7118 = TypoUpright</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x7900 Family: SignetRoundhand</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7901 = AbelCursive</td>
+            <td>
+                0x790D = NuptialScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7902 = Aristocrat</td>
+            <td>
+                0x790E = OldFashionScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7903 = CitadelScript</td>
+            <td>
+                0x790F = OriginalScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7904 = DorchesterScript</td>
+            <td>
+                0x7910 = PalaceScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7905 = FlemishScript</td>
+            <td>
+                0x7911 = PopplResidenz</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7906 = FlorentineScript</td>
+            <td>
+                0x7912 = Balmoral</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7907 = FrenchScript</td>
+            <td>
+                0x7913 = ShelleyAllegroScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7908 = Isabella</td>
+            <td>
+                0x7914 = ShelleyAndanteScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x7909 = KunstlerScript</td>
+            <td>
+                0x7915 = SignetRoundhand</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x790A = LinoScript</td>
+            <td>
+                0x7916 = VenitianScript</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x790B = LuciaScript</td>
+            <td>
+                0x7917 = Vivaldi</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x790C = MahoganyScript</td>
+            <td>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x8100 Family: Tekton</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8101 = Banco</td>
+            <td>
+                0x810B = Matura</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8102 = Bison</td>
+            <td>
+                0x810C = Mercurius</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8103 = ITCGrizzly</td>
+            <td>
+                0x810D = NewBerolina</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8104 = DomCasual</td>
+            <td>
+                0x810E = Mistral</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8105 = Hebrastyle</td>
+            <td>
+                0x810F = Pepita</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8106 = Herculanum</td>
+            <td>
+                0x8110 = Reporter</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8107 = ITCFlora</td>
+            <td>
+                0x8111 = Tekton</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8108 = Forte</td>
+            <td>
+                0x8112 = Jiffy</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8109 = Klang</td>
+            <td>
+                0x8113 = Visigoth</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x810A = Lithos</td>
+            <td>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x8900 Family: Uncial</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8901 = AbbottOldStyle</td>
+            <td>
+                0x890A = available10</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8902 = Amigo</td>
+            <td>
+                0x890B = available11</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8903 = Auriol</td>
+            <td>
+                0x890C = Libra</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8904 = Camelot</td>
+            <td>
+                0x890D = available13</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8905 = Carolina</td>
+            <td>
+                0x890E = Omnia</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8906 = Clairvaux</td>
+            <td>
+                0x890F = Ondine</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8907 = AuraScript</td>
+            <td>
+                0x8910 = available16</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8908 = Euclid</td>
+            <td>
+                0x8911 = PostAntiqua</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x8909 = Feinen</td>
+            <td>
+                0x8912 = Uncial</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x9100 Family: OldEnglish</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9101 = Basque</td>
+            <td>
+                0x910A = BlackMoor</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9102 = CloisterBlack</td>
+            <td>
+                0x910B = OldEnglish</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9103 = DucDeBerry</td>
+            <td>
+                0x910C = Agincourt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9104 = EngraversText</td>
+            <td>
+                0x910D = SanMarco</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9105 = FetteFraktur</td>
+            <td>
+                0x910E = WeddingText</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9106 = GoudyText</td>
+            <td>
+                0x910F = WilhelmKlingsporGotisch</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9107 = AmericanText</td>
+            <td>
+                0x9110 = YorkShire</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9108 = LinoText</td>
+            <td>
+                0x9111 = AlteSchwabacher</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9109 = LondonText</td>
+            <td>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0x9900 Family: ITCZapfDingbats</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9901 = BorderPi</td>
+            <td>
+                0x990B = Sonata</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9902 = BundesbahnPi</td>
+            <td>
+                0x990C = StarTrekPi</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9903 = Carta</td>
+            <td>
+                0x990D = Symbol</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9904 = Cheq</td>
+            <td>
+                0x990E = WoodTypeOrnaments</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9905 = EuropeanPi</td>
+            <td>
+                0x990F = LineDraw</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9906 = HelveticaFractions</td>
+            <td>
+                0x9910 = BarCodes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9907 = ITCZapfDingbats</td>
+            <td>
+                0x9911 = KeyCaps</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9908 = LinoTypeDecorationPi</td>
+            <td>
+                0x9912 = MonoTypeSorts</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x9909 = LinoTypeGamePi</td>
+            <td>
+                0x9913 = MTExtra</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0x990A = LinoTypeHolidayPi</td>
+            <td>
+                0x9914 = Fences</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0xA100 Family: Broadway</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA101 = Braggadocio</td>
+            <td>
+                0xA10A = ITCLSCManhattan</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA102 = Brittanic</td>
+            <td>
+                0xA10B = ITCTomsRoman</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA103 = Broadway</td>
+            <td>
+                0xA10C = McCollough</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA104 = Falstaff</td>
+            <td>
+                0xA10D = Binner</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA105 = Annlie</td>
+            <td>
+                0xA10E = Normande</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA106 = GlobeGothic</td>
+            <td>
+                0xA10F = Parisian</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA107 = ITCBernase</td>
+            <td>
+                0xA110 = Stencil</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA108 = ITCFatFace</td>
+            <td>
+                0xA111 = Trooper</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA109 = ITCFirenze</td>
+            <td>
+                0xA112 = Bremen</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0xA900 Family: Computer</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA901 = Computer</td>
+            <td>
+                0xA907 = PrinterNo1</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA902 = Countdown</td>
+            <td>
+                0xA908 = PrinterNo2</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA903 = Data70</td>
+            <td>
+                0xA909 = Zeitgeist</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA904 = Digital</td>
+            <td>
+                0xA90A = LCD</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA905 = ITCMachine</td>
+            <td>
+                0xA90B = OrbitB</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xA906 = Amelia</td>
+            <td>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0xB100 Family: PTBarnum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB101 = Playbill</td>
+            <td>
+                0xB105 = Figaro</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB102 = BrandingIron</td>
+            <td>
+                0xB106 = Hidalgo</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB103 = available3</td>
+            <td>
+                0xB107 = PTBarnum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB104 = available4</td>
+            <td>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0xB900 Family: Ponderosa</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB901 = AldousVertical</td>
+            <td>
+                0xB90A = Lafayette</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB902 = Arcadia</td>
+            <td>
+                0xB90B = LatinExtraCondensed</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB903 = Birch</td>
+            <td>
+                0xB90C = Mesquite</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB904 = Compacta</td>
+            <td>
+                0xB90D = Onyx</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB905 = Eccentric</td>
+            <td>
+                0xB90E = Ponderosa</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB906 = Industria</td>
+            <td>
+                0xB90F = Runic</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB907 = Ironwood</td>
+            <td>
+                0xB910 = TipTop</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB908 = ITCLSCCondensed</td>
+            <td>
+                0xB911 = Willow</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xB909 = Juniper</td>
+            <td>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0xC100 Family: Madrone</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC101 = BlackOak</td>
+            <td>
+                0xC103 = Poplar</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC102 = Madrone</td>
+            <td>
+                0xC104 = Thunderbird</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0xC900 Family: Hobo</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC901 = AntikvaMargaret</td>
+            <td>
+                0xC911 = KochAntiqua</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC902 = ArnoldBocklin</td>
+            <td>
+                0xC912 = Milton</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC903 = Belwe</td>
+            <td>
+                0xC913 = Neptune</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC904 = BlackfriarsRoman</td>
+            <td>
+                0xC914 = Packard</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC905 = BrynMawr</td>
+            <td>
+                0xC915 = Pretorian</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC906 = Charleston</td>
+            <td>
+                0xC916 = Raphael</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC907 = Columbus</td>
+            <td>
+                0xC917 = Richmond</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC908 = CooperBlack</td>
+            <td>
+                0xC918 = Skyjald</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC909 = Cottonwood</td>
+            <td>
+                0xC919 = Tango</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC90A = Croydon</td>
+            <td>
+                0xC91A = Thalia</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC90B = Eckmann</td>
+            <td>
+                0xC91B = Belshaw</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC90C = Hobo</td>
+            <td>
+                0xC91C = LoType</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC90D = Hogarth</td>
+            <td>
+                0xC91D = Parsons</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC90E = ITCGorilla</td>
+            <td>
+                0xC91E = Romic</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC90F = ITCGrouch</td>
+            <td>
+                0xC91F = BitstreamArrus</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xC910 = ITCHonda</td>
+            <td>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0xD100 Family: Revue</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD101 = AdLib</td>
+            <td>
+                0xD108 = Pump</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD102 = Becket</td>
+            <td>
+                0xD109 = Revue</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD103 = Kino</td>
+            <td>
+                0xD10A = Sintex1</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD104 = MotterTektura</td>
+            <td>
+                0xD10B = Stop</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD105 = Neuland</td>
+            <td>
+                0xD10C = Tabasco</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD106 = Octopuss</td>
+            <td>
+                0xD10D = Balloon</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD107 = Othello</td>
+            <td>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                0xD900 Family: AestheticOrnamented</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD901 = Abramesque</td>
+            <td>
+                0xD919 = RaffiaInitials</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD902 = AestheticOrnamented</td>
+            <td>
+                0xD91A = RayShaded</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD903 = BedRock</td>
+            <td>
+                0xD91B = RomantiquesNo5</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD904 = BlockUp</td>
+            <td>
+                0xD91C = Sapphire</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD905 = Chevalier</td>
+            <td>
+                0xD91D = Sinaloa</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD906 = Fatima</td>
+            <td>
+                0xD91E = SnowCap</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD907 = Flintstones</td>
+            <td>
+                0xD91F = TalbotsRockyMountian</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD908 = Flirt</td>
+            <td>
+                0xD920 = Tonal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD909 = Florist</td>
+            <td>
+                0xD921 = Trocadero</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD90A = Fontanesi</td>
+            <td>
+                0xD922 = UncleSam</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD90B = FrysOrnamented</td>
+            <td>
+                0xD923 = ViaFaceDonBlack</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD90C = Gallia</td>
+            <td>
+                0xD924 = Zip</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD90D = GoodVibrations</td>
+            <td>
+                0xD925 = Shadows</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD90E = ITCNeon</td>
+            <td>
+                0xD926 = Cameos</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD90F = Karnak</td>
+            <td>
+                0xD927 = StripedPatterns</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD910 = Kismet</td>
+            <td>
+                0xD928 = HatchPatterns</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD911 = LettresOrnees</td>
+            <td>
+                0xD929 = Engraved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD912 = Lexington</td>
+            <td>
+                0xD92A = Outlines</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD913 = Lilith</td>
+            <td>
+                0xD92B = BabyTeeth</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD914 = Nymphic</td>
+            <td>
+                0xD92C = Bottleneck</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD915 = OldGlory</td>
+            <td>
+                0xD92D = Davida</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD916 = Picadilly</td>
+            <td>
+                0xD92E = OldDreadfulNo7</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD917 = Pinball</td>
+            <td>
+                0xD92F = Shotgun</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0xD918 = Quentin</td>
+            <td>
+            </td>
+        </tr>
+    </table>
+    <pre>
+&lt;scripting system&gt;  
+  1 = European classification
+&lt;primary character set&gt;  character set numbers 0-15
+&lt;width (aspect ratio)&gt;
+  0 = don't know
+  16-31 = ultra condensed
+  32-47 = extra compressed
+  48-63 = compressed
+  64-79 = extra condensed
+  80-95 = condensed (compact)
+  96-111 = semi condensed (narrow)
+  112-127 = normal
+  128-143 = semi expanded
+  144-159 = expanded (extended)
+  160-175 = extra expanded
+  176-191 = ultra expanded
+  192-223 = double wide
+  224-254 = triple wide
+  255 = reserved
+&lt;weight&gt;
+  0 = don't know
+  1-7 = ultra thin
+  8-15 = ultra light
+  16-23 = extra thin
+  24-31 = thin
+  32-47 = extra light
+  48-63 = light
+  64-79 = demi light
+  80-87 = semi light
+  88-95 = book
+  96-103 = regular (plain)
+  104-111 = Roman
+  112-127 = medium
+  128-135 = demi bold
+  136-143 = semi bold
+  144-159 = bold
+  160-175 = extra bold
+  176-191 = heavy
+  192-207 = extra heavy
+  208-223 = black
+  224-239 = extra black
+  240-247 = ultra heavy
+  248-254 = ultra black
+  254 = max weight
+  255 = reserved
+&lt;attributes&gt;
+  bit 0: 1 = italic
+  bit 1: 1 = outline
+  bit 2: 1 = shadow
+  bit 3: 1 = small caps
+&lt;general characteristics&gt;
+  bits 0-1: usage category
+    0 = don't know
+    1 = text
+    2 = display
+    3 = both
+  bits 2-3: general serif
+    0 = don't know
+    1 = sans serif
+    2 = serif
+    3 = script
+  bits 4-5: spacing
+    0 = don't know
+    1 = proportional
+    2 = monospace
+&lt;classification&gt;
+  bits 0-3: serif type
+    0 = don't know
+    1 = bracket
+    2 = cupped
+    3 = round bracket
+    4 = line
+    5 = slab
+    6 = wedge
+    7 = half
+    8 = sans square
+    9 = sans round
+    10 = sans flare
+    11 = nonconnect
+    12 = joining
+    13 = black serif
+    14 = swash
+&lt;fill byte = 0&gt;
+&lt;font type&gt;
+  In .PRS file:
+    0 = built in
+    1 = cartridge slot
+    2 = memory (quantity units are in kilobytes)
+    3 = memory (quantity units are in font slots)
+    4 = print wheel
+  In .DRS file:
+    128 (0x80) = wp greeked font
+    129 (0x81) = wp menu
+    130 (0x82) = wp vector
+    131 (0x83) = wp outline
+    132 (0x84) = reserved
+    133 (0x85) = reserved
+    134 (0x86) = Speedo
+    135 (0x87) = bullet (not yet internal)
+    138 (0x8A) = ATM
+    139 (0x8B) = TrueType
+    140 (0x8C) = reserved
+    141 (0x8D) = TrueType
+    142 (0x8E) = reserved
+    143 (0x8F) = reserved
+    255 (0xFF) = no soft font driver loaded
+&lt;font source file type&gt;
+  16 (0x10) = .PRS file type
+  20 (0x14) = .DRS file type
+[typeface name length in bytes]
+[typeface name] x 58? (word-string; max size = 116 bytes)
+  The typeface name is made up for four separate null word-terminated strings:
+    1st string = typeface family (such as Times or Swiss)
+    2nd string = attributes (such as Bold, Italic, or Bold Italic)
+    3rd string = name prefix (group abbreviation, used for sorting in fonts and cartridge menus [such as CG])
+    4th string = name extension.  This is a symset string, an orientation string, or a string to simply 
+distinguish this font from other fonts (such as scalable).
+</pre>
+</body>
+</html>

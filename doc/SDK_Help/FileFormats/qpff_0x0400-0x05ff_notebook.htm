@@ -1,0 +1,1150 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>Quattro Pro File Format</title>
+</head>
+<body>
+    <h1>Quattro Pro File Format</h1>
+    <p><a href="qpff_Index.htm">Back to main page</a></p>
+    <h2>Notebook Records - 0x0400-0x05FF</h2>
+    <p>The following are notebook records, which span from 0x0400 to 0x05FF.</p>
+    <hr />
+    <h3>0x0401</h3>
+    <p><b>BON: Beginning of Notebook</b>&nbsp;</p>
+    <p>[record type = 1025 (0x0401)]</p>
+    <p>[body length = 24]</p>
+    <p>QRANGE3D dimension, 3D range of cells used in the notebook</p>
+    <p>[sheet limit] maximum number of sheets in the notebook</p>
+    <p>[column limit] maximum number of columns per sheet</p>
+    <p>{row limit} maximum number of rows per column</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0402</h3>
+    <p><b>EON: End of Notebook</b>&nbsp;</p>
+    <p>[record type = 1026 (0x0402)]</p>
+    <p>[body length]</p>
+    <p>{prev end} file position of beginning of notebook (BON) record (since single notebook
+    per file)</p>
+    <p>{nested end} file position of the last end of sheet record (0 if no sheets)</p>
+    <p>status: Modified</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0403</h3>
+    <p><b>EXTERNAL_LINK</b>&nbsp;</p>
+    <p>[record type = 1027 (0x0403)]</p>
+    <p>[body length = variable]</p>
+    <p>[index]</p>
+    <p>[page first]</p>
+    <p>[page last]</p>
+    <p>QSTR_LABEL name&nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0404</h3>
+    <p><b>EXTERNAL_LINK_END</b>&nbsp;</p>
+    <p>[record type = 1028 (0x0404)]</p>
+    <p>[body length = 0]<br />
+    &nbsp;</p>
+    <p>status: Proposed</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0405</h3>
+    <p>EXTERNAL_NAME</p>
+    <p><u>IMPLEMENTATION NOT COMPLETE</u></p>
+    <p>[record type = 1029 (0x0405)]</p>
+    <p>[body length = variable]</p>
+    <p>[format]</p>
+    <p>bit 0: 1 = name is a build-in name</p>
+    <p>bit 1:</p>
+    <p>0 = manual DDE links</p>
+    <p>1 = automatic DDE links</p>
+    <p>bit 2: wantPict</p>
+    <p>bit 3: 1 = record stores OLE standard document name</p>
+    <p>bit 4: 0 = DDE link</p>
+    <p>bits 5-14: clipboard format for which the DDE Advise succeeded</p>
+    <p>bit 15: 0 = SSREF follows name instead of nameDef</p>
+    <p>{idx}</p>
+    <p>[niOwner] the notebook which the name belongs to</p>
+    <p>QSTR_LABEL name</p>
+    <p>SSREF reference of the name<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Proposed</p>
+    <p>implemented load and save: Partially (DDE and OLE links not done)</p>
+    <hr />
+    <h3>0x0406</h3>
+    <p>NAME _LIST: name (including user-defined functions)</p>
+    <p><u>IMPLEMENTATION NOT COMPLETE</u></p>
+    <p>[record type = 1030 (0x0406)]</p>
+    <p>[body length = variable]</p>
+    <p>[count]</p>
+    <p>[record length]</p>
+    <p>[name]</p>
+    <p>bit 0: 1 = name is hidden</p>
+    <p>bit 1: 1 = name is a function</p>
+    <p>bit 2: 1 = name is a Visual Basic procedure</p>
+    <p>bit 3: 1 = name is a function or command name on a macro sheet</p>
+    <p>bit 4: 1 = name contains a complex function; a function which returns an array (for
+    eg. TREND, MINVERSE), contains a ROW or COLUMN function, or contains a user-defined
+    function</p>
+    <p>bit 5: 1 = name is a built-in name; the def field will have a count of 1, with the
+    one byte definition as follows</p>
+    <p>1 = Auto_Open</p>
+    <p>2 = Auto_Close</p>
+    <p>3 = Extract</p>
+    <p>4 = Database</p>
+    <p>5 = Criteria</p>
+    <p>6 = Print_Area</p>
+    <p>7 = Print_Titles</p>
+    <p>8 = Recorder</p>
+    <p>9 = Data_Form</p>
+    <p>10 = Auto_Archive</p>
+    <p>11 = Auto_Deactivate</p>
+    <p>12 = Sheet_Title</p>
+    <p>bits 6-11: function group index</p>
+    <p>bit 12: 1 = name refers to binary data. These names can be created only by calling
+    the xlDefineBinaryName function from the Microsoft Excel C API. The first byte is length
+    of the name, which is followed by the name string. Following the name string is the
+    data to which the name refers</p>
+    <p>bits 13-15: reserved</p>
+    <p>[format]</p>
+    <p>bit 0: implicit. This bit is set if name is implicit from a label</p>
+    <p>bit 1: undoable</p>
+    <p>bits 2-3: exeType</p>
+    <p>bit 4: inLoop</p>
+    <p>bit 5: inLoad (always 0)</p>
+    <p>bit 6: defined</p>
+    <p>bit 7: nameDef (always 0 in version 9)</p>
+    <p>bits 8-15: unused</p>
+    <p>[macro key] keyboard shortcut, if any, if 3<sup>rd</sup> bit is set in name field</p>
+    <p>QSTR_LABEL name text</p>
+    <p>SSREF reference</p>
+    <p>QSTR_LABEL description</p>
+    <p>QSTR_LABEL custom menu text</p>
+    <p>QSTR_LABEL help topic text</p>
+    <p>QSTR_LABEL status bar text<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: No (Microsoft Excel compatibility not added)</p>
+    <hr />
+    <h3>0x0407</h3>
+    <p><b>STRING_TABLE</b>&nbsp;</p>
+    <p>[record type = 1031 (0x0407)]</p>
+    <p>[body length = variable]</p>
+    <p>{entries}</p>
+    <p>{total used}</p>
+    <p>{space saved}</p>
+    <p>QSTR_LABEL x entries</p>
+    <p>reviewed for file format: Yes</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: Yes</p>
+    <hr />
+    <h3>0x0408</h3>
+    <p><b>FORMULA_TABLE</b>&nbsp;</p>
+    <p>[record type = 1032 (0x0408)]</p>
+    <p>[body length = variable]</p>
+    <p>{entries}</p>
+    <p>{total used}</p>
+    <p>{space saved}</p>
+    <p>QSTR_LABEL x entries&nbsp;<br />
+    &nbsp;</p>
+    <p>reviewed for file format: Yes</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: Yes</p>
+    <hr />
+    <h3>0x0409</h3>
+    <p><b>MACRO_LIBRARY</b>&nbsp;</p>
+    <p>[record type = 1033 (0x0409)]</p>
+    <p>[body length = 1]</p>
+    <p>&lt;lib&gt; 1 = macro library<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x040A</h3>
+    <p>CALC_MODE</p>
+    <p><u>IMPLEMENTATION NOT COMPLETE</u></p>
+    <p>[record type = 1034 (0x040a)]</p>
+    <p>[body length = 2]</p>
+    <p>[mode]</p>
+    <p>0 = automatic</p>
+    <p>1 = manual</p>
+    <p>2 = background</p>
+    <p>3 = recalc before save</p>
+    <p>4 = automatic with no tables<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: No</p>
+    <p>required memory changes done: No (need to add 3 and 4)</p>
+    <hr />
+    <h3>0x040B</h3>
+    <p><b>CALC_ORDER</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1035 (0x040b)]</p>
+    <p>[body length = 2]</p>
+    <p>[order]</p>
+    <p>0 = row</p>
+    <p>1 = natural</p>
+    <p>2 = column<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: No</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x040C</h3>
+    <p><b>CALC_ITERATION_COUNT</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1036 (0x040c)]</p>
+    <p>[body length = 2]</p>
+    <p>[count] number of iterations (only positive number)<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: No</p>
+    <p>required memory changes done: No (need to increase from byte)</p>
+    <hr />
+    <h3>0x040D</h3>
+    <p>CALC_ITERATION_MODE</p>
+    <p><u>UNIMPLEMENTED</u></p>
+    <p>[record type = 1037 (0x040d)]</p>
+    <p>[body length = 2]</p>
+    <p>[mode]</p>
+    <p>0 = off</p>
+    <p>1 = On<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: No</p>
+    <p><i>required memory changes done: No (need to override implicit)</i>&nbsp;</p>
+    <hr />
+    <h3>0x040E</h3>
+    <p>CALC_ITERATION_INCREMENT</p>
+    <p><u>UNIMPLEMENTED</u></p>
+    <p>[record type = 1038 (0x040e)]</p>
+    <p>[body length = 2]</p>
+    <p>[count] number of iterations (only positive number)<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: No</p>
+    <p>required memory changes done: No (need to increase from byte)</p>
+    <hr />
+    <h3>0x040F</h3>
+    <p>CALC_PRECISION</p>
+    <p><u>UNIMPLEMENTED</u></p>
+    <p>[record type = 1039(0x040f]</p>
+    <p>[body length = 2]</p>
+    <p>[precision]</p>
+    <p>0 = off</p>
+    <p>1 = calc as precision displayed<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load / save: No</p>
+    <p>required memory changes done: No (new feature)</p>
+    <hr />
+    <h3>0x0410</h3>
+    <p>CALC_COMPILE</p>
+    <p><u>IMPLEMENTATION NOT COMPLETE</u></p>
+    <p>[record type = 1040 (0x0410)]</p>
+    <p>[body length = 1]</p>
+    <p>&lt;compile&gt;<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load / save: No</p>
+    <p>required memory changes done: No (new feature)</p>
+    <hr />
+    <h3>0x0411</h3>
+    <p>CALC_AUDIT</p>
+    <p><u>IMPLEMENTATION NOT COMPLETE</u></p>
+    <p>[record type = 1041 (0x0411)]</p>
+    <p>[body length = 1]</p>
+    <p>&lt;audit&gt;<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load / save: No</p>
+    <p>required memory changes done: No (new feature)</p>
+    <hr />
+    <h3>0x0412</h3>
+    <p><b>COLOR_TABLE</b><br />
+    &nbsp;</p>
+    <p>[record type = 1042 (0x0412)]</p>
+    <p>[body length = 1024]</p>
+    <p>{rgb} x 256<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0413</h3>
+    <p><b>PAGE_GROUP_ON</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1043 (0x0413)]</p>
+    <p>[body length = 1]</p>
+    <p>&lt;mode&gt; 1 = on<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0414</h3>
+    <p><b>PAGE_GROUP</b><br />
+    &nbsp;</p>
+    <p>[record type = 1044 (0x0414)]</p>
+    <p>[body length = variable]</p>
+    <p>[first page]</p>
+    <p>[last page]</p>
+    <p>QSTR_LABEL name<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0415</h3>
+    <p><b>FILL</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1045 (0x0415)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF ref<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0416</h3>
+    <p><b>DATA_TABLE</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1046 (0x0416)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF tableRange</p>
+    <p>SSREF input 1</p>
+    <p>SSREF input 2</p>
+    <p>{function}<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0417</h3>
+    <p><b>DATA_QUERY</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1047 (0x0417)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF dbRange</p>
+    <p>SSREF outRange</p>
+    <p>SSREF crRange</p>
+    <p>{function}<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0418</h3>
+    <p><b>COMPATIBLE_SLIDE_SHOW</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1048 (0x0418)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF dataSlide<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0419</h3>
+    <p><b>OPTIMIZER</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1049 (0x0419)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF adjCell</p>
+    <p>SSREF objCell<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>{objGoal}</p>
+    <p>[[objValue]]</p>
+    <p>{estimate}</p>
+    <p>{difference}</p>
+    <p>{search}</p>
+    <p>{linear}</p>
+    <p>{showIters}</p>
+    <p>{maxSecs}</p>
+    <p>{maxIters}</p>
+    <p>[[precision]]</p>
+    <p>SSRANGE loadSaveCell</p>
+    <p>SSRANGE detailReport</p>
+    <p>SSRANGE answerReport</p>
+    <p>{contraints}</p>
+    <p>[[tolerance]]</p>
+    <p>{autoScale}<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x041A</h3>
+    <p><b>OPTIMIZER_CONSTRAINT</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1050 (0x041a)]</p>
+    <p>[body length = variable]</p>
+    <p>SSRANGE range</p>
+    <p>&lt;op&gt;</p>
+    <p>SSREF cc<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x041B</h3>
+    <p><b>SOLVE_FOR</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1051 (0x041b)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF adjCell</p>
+    <p>SSREF objCell</p>
+    <p>[[goal]]</p>
+    <p>[[precision]]</p>
+    <p>{maxIters}<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x041C</h3>
+    <p>SORT_MRU_LIST</p>
+    <p><u>IMPLEMENTATION NOT COMPLETE</u></p>
+    <p>[record type = 1052 (0x041c)]</p>
+    <p>[body length = variable]</p>
+    <p>{count} number of sort histories saved</p>
+    <p>SORT_RECORD x count<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: No</p>
+    <p>required memory changes done: No (increase sizes and add type for case sensitive)</p>
+    <hr />
+    <h3>0x041D</h3>
+    <p><b>FREQUENCY_DISTRIBUTION</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1053 (0x041d)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF valList</p>
+    <p>SSREF binRange<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x041E</h3>
+    <p><b>PARSE</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1054 (0x041e)]</p>
+    <p>[body length = 36]</p>
+    <p>SSREF inputRange</p>
+    <p>SSREF outputRange<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x041F</h3>
+    <p><b>REGRESSION</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1055 (0x041f)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF dependentRange</p>
+    <p>SSREF independentRange</p>
+    <p>SSREF outputRange</p>
+    <p>[yIntercept]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0420</h3>
+    <p><b>MATRIX</b><br />
+    &nbsp;</p>
+    <p>[record type = 1056 (0x0420)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF srcRange</p>
+    <p>SSREF dstRange</p>
+    <p>SSREF m1Range</p>
+    <p>SSREF m2Range</p>
+    <p>SSREF mDstRange<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0421</h3>
+    <p><b>DIALOG_NUMBER</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1057 (0x0421)]</p>
+    <p>[body length = 2]</p>
+    <p>[number]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0422</h3>
+    <p><b>TABLE_QUERY</b><br />
+    &nbsp;</p>
+    <p>[record type = 1058 (0x0422)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF queryBlock</p>
+    <p>SSREF queryDest</p>
+    <p>[file based query]</p>
+    <p>&lt;name&gt; x 81<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0423</h3>
+    <p><b>CONSOLIDATE_LIST</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1059 (0x0423)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF srcBlocks</p>
+    <p>SSREF destBlocks</p>
+    <p>SSREF curSelRef</p>
+    <p>SSREF curDstRef</p>
+    <p>{state}</p>
+    <p>{dstIndex}</p>
+    <p>{dstFuncs} x 18</p>
+    <p>QSTR_LABEL name<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0424</h3>
+    <p><b>CONSOLIDATE</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1060 (0x0424)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF srcBlocks</p>
+    <p>SSREF dstBlocks</p>
+    <p>SSREF curSelRef</p>
+    <p>SSREF curDstRef</p>
+    <p>{state}</p>
+    <p>{dstIndex}</p>
+    <p>{dstFuncs} x 18</p>
+    <p>QSTR_LABEL name<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0425</h3>
+    <p><b>OBJECT_DISPLAY</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>Allow suppression of object display<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1061 (0x0425)]</p>
+    <p>[body length = 2]</p>
+    <p>[display]</p>
+    <p>0 = regular display</p>
+    <p>1 = show indicator for object only</p>
+    <p>2 = hide all objects<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0426</h3>
+    <p><b>SUMMARY_STREAM</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1062 (0x0426)]</p>
+    <p>[body length = variable]</p>
+    <p>&lt;stream&gt; x ?<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0427</h3>
+    <p><b>FILL_OVER_GRID</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1063 (0x0427)]</p>
+    <p>[body length = 2]</p>
+    <p>[fill]</p>
+    <p>1 = fill over grid<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0428</h3>
+    <p><b>USER_ASSISTANT_INFO</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1064 (0x0428)]</p>
+    <p>[body length = variable]</p>
+    <p>&lt;data&gt; x ?<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0429</h3>
+    <p><b>HORIZ_SCROLL_SIZE1</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1065 (0x0429)]</p>
+    <p>[body length = 4]</p>
+    <p>{scroll}<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x042A</h3>
+    <p><b>HORIZ_SCROLL_SIZE2</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1066 (0x042a)]</p>
+    <p>[body length = 4]</p>
+    <p>{scroll}<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x042B</h3>
+    <p>WINDOW_PROTECT: don't allow window modification</p>
+    <p><u>UNIMPLEMENTED</u></p>
+    <p>[record type = 1067 (0x042b)]</p>
+    <p>[body length = 2]</p>
+    <p>[protect]</p>
+    <p>0 = no protection</p>
+    <p>1 = window is protected from sizing, moving or closing<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: No</p>
+    <p>required memory changes done: New feature</p>
+    <hr />
+    <h3>0x042C</h3>
+    <p><b>OLE_SIZE</b><br />
+    &nbsp;</p>
+    <p>[record type = 1068 (0x042c)]</p>
+    <p>[body length = 16]</p>
+    <p>{left}</p>
+    <p>{top}</p>
+    <p>{right}</p>
+    <p>{bottom}<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x042D</h3>
+    <p>TAG</p>
+    <p><u>UNIMPLEMENTED</u></p>
+    <p>[record type = 1069 (0x042d)]</p>
+    <p>[body length = variable]</p>
+    <p>[flags]</p>
+    <p>QSTR_LABEL tag text<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>reviewed for file format: No</p>
+    <p>implemented load and save: No</p>
+    <p>required memory changes done: No (new feature)</p>
+    <hr />
+    <h3>0x042E</h3>
+    <p><b>SYSTEM_PROPERTY</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1070 (0x042e)]</p>
+    <p>[body length = 2]</p>
+    <p>[hidden]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted</p>
+    <p>implemented load and save: Yes</p>
+    <hr width="100%" />
+    <h3>0x042F</h3>
+    <p><b>OLE_LINKS</b><br />
+    &nbsp;</p>
+    <p>[record type = 1071 (0x042F)]</p>
+    <p>[body length = variable]</p>
+    <p>{ref count}</p>
+    <p>{name length}</p>
+    <p>{storage name length}</p>
+    <p>OLE_CELL_REF x ref count</p>
+    <p>&lt;name&gt; x name length</p>
+    <p>&lt;storName&gt; x storage name length<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <h3>0x0430</h3>
+    <p><b>NOTEBOOK INDEX</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1072 (0x0430)]</p>
+    <p>[body length = 2]</p>
+    <p>[index]</p>
+    <h2>Scenario Records</h2>
+    <p>Scenario records are a subset of notebook records.</p>
+    <hr />
+    <h3>0x0460</h3>
+    <p><b>SCENARIO_MASTER_TABLE</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1120 (0x0460)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF reportRange</p>
+    <p>[page]</p>
+    <p>bit 0: make page</p>
+    <p>bit 1: is highlighted</p>
+    <p>bit 2: report all</p>
+    <p>bits 3-6: change color</p>
+    <p>bits 7-10: result color</p>
+    <p>bits 11-15: reserved</p>
+    <p>QSTR_LABEL current table name<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0461</h3>
+    <p><b>SCENARIO_TABLE_BEGIN</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1121 (0x0461)]</p>
+    <p>[body length = variable]</p>
+    <p>SSRANGE captureRange active capture range</p>
+    <p>[flag]</p>
+    <p>bit 0: isNew rue if allocated but not added</p>
+    <p>bit 1: isDirty indicates that changes have been made</p>
+    <p>bit 2: isWorking this is the current selected scenario</p>
+    <p>bit 3-4: captureMode type of capture notebook, page, block</p>
+    <p>bit 5: autoResult auto calc result cells on change cell input</p>
+    <p>bit 6: trackData true to track data move/insert/deletes</p>
+    <p>bit 7: leftLabels use labels to the left in reports</p>
+    <p>bit 8: topLabels use labels above in reports</p>
+    <p>bit 9: explicitRange range has been explicitly set</p>
+    <p>bits 10-15: reserved</p>
+    <p>QSTR_LABEL name name of this table</p>
+    <p>QSTR_LABEL curName value in scenario combobox<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0462</h3>
+    <p><b>SCENARIO_TABLE_END</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1122 (0x0462)]</p>
+    <p>[body length = 0]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0463</h3>
+    <p><b>SCENARIO_BEGIN</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1123 (0x0463)]</p>
+    <p>[body length = variable]</p>
+    <p>[flags]</p>
+    <p>bit 0: isBaseCase set if this is a base case</p>
+    <p>bit 1: isNew true if allocated but not added</p>
+    <p>bit 2: isDirty indicates that changes have been made</p>
+    <p>bit 3: isWorking this is the current selected scenario</p>
+    <p>bit 4: needsCapture scndata needs to be captured before save</p>
+    <p>bit 5: manualMods set if any refs were manually added/deleted</p>
+    <p>bits 6-15: reserved</p>
+    <p>QSTR_LABEL name</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0464</h3>
+    <p><b>SCENARIO_END</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1124 (0x0464)]</p>
+    <p>[body length = 0]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0465</h3>
+    <p><b>SCENARIO_BOUNDS</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1125 (0x0465)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF bound<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0466</h3>
+    <p><b>SCENARIO_REF_LIST</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1126 (0x0466)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF ref<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0467</h3>
+    <p><b>SCENARIO_IN_LIST</b>&nbsp;</p>
+    <p>[record type = 1127 (0x0467)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF ref<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0468</h3>
+    <p><b>SCENARIO_OUT_LIST</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1128 (0x0468)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF ref<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0469</h3>
+    <p><b>SCENARIO_SHEET_BEGIN</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1129 (0x0469)]</p>
+    <p>[body length = 2]</p>
+    <p>[sheet]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x046A</h3>
+    <p><b>SCENARIO_SHEET_END</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1130 (0x046a)]</p>
+    <p>[body length = 0]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p><i>implemented load and save: Yes</i><br />
+    &nbsp;</p>
+    <h2>View Records</h2>
+    <p>View records are a subset of notebook records.</p>
+    <hr />
+    <h3>0x0480</h3>
+    <p><b>NB_WINDOW_BEGIN</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1152 (0x0480)]</p>
+    <p>[body length = 0]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0481</h3>
+    <p><b>NB_WINDOW_END</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1153 (0x0481)]</p>
+    <p>[body length = 0]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x0482</h3>
+    <p><b>NB_WINDOW_LOCATION</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1154 (0x0482)]</p>
+    <p>[body length = 4]</p>
+    <p>[X]</p>
+    <p>[Y]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x0483</h3>
+    <p><b>NB_WINDOW_SIZE</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1155 (0x0483)]</p>
+    <p>[body length = 6]</p>
+    <p>[height]</p>
+    <p>[width]</p>
+    <p>[state]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x0484</h3>
+    <p><b>NB_DISPLAY</b><br />
+    &nbsp;</p>
+    <p>[record type = 1156 (0x0484)]</p>
+    <p>[body length = 8]</p>
+    <p>[group mode]</p>
+    <p>[vs]</p>
+    <p>[hs]</p>
+    <p>[tc]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x0485</h3>
+    <p><b>NB_ZOOM</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1157 (0x0485)]</p>
+    <p>[body length = 2]</p>
+    <p>[zoom]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x0486</h3>
+    <p>NB_WINDOW_SPLIT</p>
+    <p><u>IMPLEMENTATION NOT COMPLETE</u></p>
+    <p>[record type = 1158 (0x0486)]</p>
+    <p>[body length = 6]</p>
+    <p>[split]</p>
+    <p>0 = no split</p>
+    <p>1 = split horizontal</p>
+    <p>2 = split vertical</p>
+    <p>3 = split both</p>
+    <p>[ext1]</p>
+    <p>[ext2]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes (except split both)</p>
+    <p>required memory changes done: No - allow 4 panes (split both)</p>
+    <hr />
+    <h3>0x0487</h3>
+    <p><b>NB_WINDOW_SYNC</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1159 (0x0487)]</p>
+    <p>[body length = 2]</p>
+    <p>[split] on or off<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x0488</h3>
+    <p><b>NB_SHEET_PANE1</b><br />
+    &nbsp;</p>
+    <p>This record is written for each allocated page&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1160 (0x0488)]</p>
+    <p>[body length = 38]</p>
+    <p>[page index]</p>
+    <p>[flags]</p>
+    <p>bit 0: rowHdrVis</p>
+    <p>bit 1: colHdrVis</p>
+    <p>bit 2: gdHLineVis</p>
+    <p>bit 3: gdVLineVis</p>
+    <p>bit 4: mapView</p>
+    <p>bit 5-15: reserved</p>
+    <p>QPOINT caTLC</p>
+    <p>QPOINT caLastSelect</p>
+    <p>[pane title]</p>
+    <p>QPOINT caTitle</p>
+    <p>{rows title}</p>
+    <p>{cols title}<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x0489</h3>
+    <p><b>NB_SHEET_PANE2</b><br />
+    &nbsp;</p>
+    <p>This record is written for each allocated page with a second pane&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1161 (0x0489)]</p>
+    <p>[body length = 38]</p>
+    <p>[page index]</p>
+    <p>[flags]</p>
+    <p>bit 0: rowHdrVis</p>
+    <p>bit 1: colHdrVis</p>
+    <p>bit 2: gdHLineVis</p>
+    <p>bit 3: gdVLineVis</p>
+    <p>bit 4: mapView</p>
+    <p>bit 5-15: reserved</p>
+    <p>QPOINT caTLC</p>
+    <p>QPOINT caLastSelect</p>
+    <p>[pane title]</p>
+    <p>QPOINT caTitle</p>
+    <p>{rows title}</p>
+    <p>{cols title}<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x048A</h3>
+    <p><b>NB_WINDOW_PAGE1</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1162 (0x048a)]</p>
+    <p>[body length = 2]</p>
+    <p>[page index]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x048B</h3>
+    <p><b>NB_WINDOW_PAGE2</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>This record is written only if split panes exists<br />
+    &nbsp;</p>
+    <p>[record type = 1163 (0x048b)]</p>
+    <p>[body length = 2]</p>
+    <p>[page index]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x048C</h3>
+    <p><b>NB_PANE_ACTIVE</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>This record is written only if split panes exists&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1164 (0x048c)]</p>
+    <p>[body length = 1]</p>
+    <p>&lt;active pane&gt; specifies active pane<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <hr />
+    <h3>0x048D</h3>
+    <p><b>NB_WINDOW_PAGE_VIEW</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1165 (0x048d)]</p>
+    <p>[body length = 1]</p>
+    <p>&lt;view type&gt; draft, page or page break view<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Reviewed</p>
+    <p>implemented load and save: Yes</p>
+    <p>required memory changes done: None</p>
+    <h2>Print Records</h2>
+    <p>Print records are a subset of notebook records.</p>
+    <hr />
+    <h3>0x4A0</h3>
+    <p><b>PRINT_SHEET_SET_BEGIN</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1184 (0x04a0)]</p>
+    <p>[body length = 0]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x4A1</h3>
+    <p><b>PRINT_GRAPH_SET_BEGIN</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1185 (0x04a1)]</p>
+    <p>[body length = 0]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x4A2</h3>
+    <p><b>PRINT_NAMED_SET_BEGIN</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1186 (0x04a2)]</p>
+    <p>[body length = variable]</p>
+    <p>QSTR_LABEL name<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x4A3</h3>
+    <p><b>PRINT_END</b><br />
+    &nbsp;</p>
+    <p>[record type = 1187 (0x04a3)]</p>
+    <p>[body length = 0]<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x4A4</h3>
+    <p><b>PRINT_AREA</b><br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1188 (0x04a4)]</p>
+    <p>[body length = 1]</p>
+    <p>&lt;area&gt;</p>
+    <p>0 = current sheet (Find used area on current sheet)</p>
+    <p>1 = notebook (Find used area on each page)</p>
+    <p>2 = block (Use print range)</p>
+    <p>3 = current page (Find used area on current page)</p>
+    <p>4 = none of the above<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x4A5</h3>
+    <p><b>PRINT_BLOCK</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1189 (0x04a5)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF range<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented load and save: Yes</p>
+    <hr />
+    <h3>0x4A6</h3>
+    <p><b>PRINT_FOOTER</b>&nbsp;<br />
+    &nbsp;</p>
+    <p>[record type = 1190 (0x04a6)]</p>
+    <p>[body length = variable]</p>
+    <p>[flags]</p>
+    <p>0 = print on every page of every sheet</p>
+    <p>1 = print on just the first page of the first sheet</p>
+    <p>2 = print on every page except the first page of the first sheet</p>
+    <p>QSTR_LABEL footer&nbsp;<br />
+    &nbsp;</p>
+    <p>status: Converted from QP8</p>
+    <p>implemented</p>
+</body>
+</html>

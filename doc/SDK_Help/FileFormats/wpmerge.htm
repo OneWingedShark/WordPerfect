@@ -1,0 +1,281 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format DLL</title>
+</head>
+<body>
+    <h1>WordPerfect File Format DLL</h1>
+    <p><a href="WpFormat.htm">Back to main page</a></p>
+    <h2>WordPerfect Merge Data Files</h2>
+    <p>Use Merge to mass-produce letters, envelopes, mailing labels, contracts, phone lists,
+    memos, or other documents.<br />
+    <br />
+    For example you can write one form letter and then use Merge to create personalized
+    copies for everyone on your address list. To do this you create two files - a form file
+    (letter) and a data file (names and addresses). You can then merge the two files to
+    create a third file, which contains all the merged, personalized letters.</p>
+    <p><strong>Form Files</strong></p>
+    <p>The most common type of merge combines a form file with a data file. The form file
+    controls the merge. The document that supplies the data for the form file is usually
+    a WordPerfect Data file. The purpose of this documentation is to provide developers
+    the tools needed to create WordPerfect data files programmatically. For more information
+    on form files, see the WordPerfect documentation.</p>
+    <p><strong>Data Files</strong></p>
+    <p>A merge data file, also known as a mail merge file or secondary merge file, provides
+    data to a form file during the merge process. For example a data file may include such
+    information as names and phone numbers.<br />
+    <br />
+    When a data file is created, the information is separated into fields and records. For
+    example:<br />
+    <br />
+    Myles Huffman ENDFIELD<br />
+    (613)728-0826 ENDFIELD<br />
+    ENDRECORD<br />
+    <br />
+    Brent Huffman ENDFIELD<br />
+    (613)728-0826 ENDFIELD<br />
+    ENDRECORD<br />
+    <br />
+    A field is the smallest unit of information that you can specify in a data file. You
+    can make a field as small as one character or as large as several lines. You can also
+    leave a field blank. A record contains a group of related fields. In the example above
+    the group includes a name and phone number.<br />
+    <br />
+    As databases have increased in their popularity and use, so has the need for porting
+    this data to WordPerfect data files. In previous versions you were required to export
+    the database as an ASCII delimited text file. In this version of the SDK a DLL is provided,
+    <em><b>WPFORMAT.DLL</b></em>, that provides the functions needed to create your own
+    WordPerfect data file. In order to use the DLL you must be using Windows 95/98, Windows
+    NT, Windows ME, Windows 2000 or Windows XP, and must be using a development language
+    that allows DLL function calls.</p>
+    <p><strong>Data File Functions</strong></p>
+    <p>The following Data File Functions are provided.</p>
+    <hr />
+    <h3>MRGInitDataFile</h3>
+    <p>Creates a new WordPerfect data file.<br />
+    <br />
+    <strong>C Prototype</strong><br />
+    HANDLE WINAPI MRGInitDataFile (BYTE bWPVersion, LPSTR lpszFileName);</p>
+    <p><strong>Pascal Prototype</strong>
+    <br />
+    function MRGInitDataFile (bWPVersion: BYTE; lpszFileName: PChar): THandle; stdcall;</p>
+    <p><strong>Parameters</strong></p>
+    <pre>
+<em>bWPVersion</em> - WordPerfect Version
+
+        WP6.0 = 0
+        WP6.1 = 1
+        WP7.0 = 1
+        WP8.0 = 1
+        WP9.0 = 1
+        WP10.0 = 1
+        WP11.0 = 1
+   <em>lpszFileName</em> - Filename for the merge data file
+
+</pre>
+    <p><strong>Return Values</strong>
+    <br />
+    The handle to the file, otherwise INVALID_HANDLE_VALUE.</p>
+    <p><strong>Note</strong>
+    <br />
+    This function must be called before making any other WPMerge.DLL function call.</p>
+    <hr />
+    <h3>MRGCreateFieldNames</h3>
+    <p>Adds merge field names to a WP document.<br />
+    <br />
+    For example: FieldNames(First Name;Last Name;Phone) ENDRECORD<br />
+    <br />
+    <strong>C Prototype</strong></p>
+    <pre>
+void WINAPI MRGCreateFieldNames (HANDLE hFile, LPSTR lpszFieldName, int nFieldCount);
+</pre>
+    <p><strong>Pascal Prototype</strong>
+    <br />
+    procedure MRGCreateFieldNames (hFile: THandle; lpszFieldName: PChar; nFieldCount:<br />
+    integer); stdcall;<br />
+    </p>
+    <p><strong>Parameters</strong><br />
+    <em>hFile</em> - Handle of the WP data File, obtained from MRGInitDataFile().<br />
+    <em>lpszFieldName</em> - A semicolon delimited string, listing the names of the fields.
+    i.e. First Name;Last Name;Phone. If NULL or nil, Field numbers are used.</p>
+    <pre>
+   <em>nFieldCount</em> - The number of Fields.
+</pre>
+    <p><strong>Return Values</strong>
+    <br />
+    None</p>
+    <p><strong>Note</strong>
+    <br />
+    Must be called after calling InitDataFile().</p>
+    <hr />
+    <h3>MRGAddField</h3>
+    <pre>
+Adds data to the secondary merge file. For example: 
+
+        Brent Huffman ENDFIELD
+        (613) 728-0826 ENDFIELD
+        ...
+
+<strong>C Prototype</strong> 
+
+void WINAPI MRGAddField (HANDLE hFile, LPSTR lpszField);
+
+<strong>Pascal Prototype</strong> 
+procedure MRGAddField (hFile: THandle; lpszField: PChar); stdcall;
+</pre>
+    <p><strong>Parameters</strong>
+    <br />
+    <em>hFile</em> - Handle of the WP data File, obtained from MRGInitDataFile().<br />
+    <em>lpszField</em> - Field Data</p>
+    <p><strong>Return Values</strong>
+    <br />
+    None.</p>
+    <p><strong>Note</strong><br />
+    Call for each field in record.</p>
+    <p><strong>Extended Character Support:</strong><br />
+    WordPerfect supports ASCII characters in the normal range (33 - 127).<br />
+    Characters 128 and above are interpreted by WP as <em>Single or Multi-Byte Functions</em>.
+    Characters in the Extended Character Set must be converted to WordPerfect Characters
+    (see the WPFormat.dll function <em>WPInsertWPChar</em>, or function 0xF0 - Extended
+    Character function in the Fixed-Length Multi-Byte Functions file format documentation).</p>
+    <p>Because WordPerfect interprets values 128 and above as function values, characters
+    in the extended range must be handled by the Third Party application. WPAddText will
+    convert specific values to the appropriate WP values. This version of WPFormat.dll contains
+    support for 26 extended characters. This support is limited to systems using the 1252
+    code page.</p>
+    <p>These 26 extended characters are mapped to the lower ASCII range between 0 and 32.
+    WPAddText will also convert some lower range (0 - 32) ASCII character values (space
+    - ASCII 32 and CR/LF - ASCII 13/10) to appropriate Single-Byte Function codes.</p>
+    <p>If your application uses code page 1252, your application must handle all other extended
+    (128+) and lower range (0 - 32) characters, substituting a valid character values. If
+    WPAddText function finds any extended characters besides those listed below, these characters
+    are replaced with a <em>#</em> symbol. All other extended characters would otherwise
+    be interpreted as a Single-byte function or the beginning of Multi-byte Function and
+    might consequently corrupt the WordPerfect document.</p>
+    <pre>
+Lower range characters:
+   Space, character 32 is converted to Single-Byte Function 0x80 - Soft Space.
+   CR/LF, characters 13/10 are converted to Single-Byte Function 0xCC - Hard EOL.
+
+The valid extended characters are: 
+  &Ccedil; - 128
+  &uuml; - 129
+  &eacute; - 130
+  &acirc; - 131
+  &auml; - 132
+  &agrave; - 133
+  &aring; - 134
+  &ccedil; - 135
+  &ecirc; - 136
+  &euml; - 137
+  &egrave; - 138
+  &Auml; - 142
+  &Aring; - 143
+  &Eacute; - 144
+  &aelig; - 145
+  &AElig; - 146
+  &ouml; - 148
+  &ugrave; - 151
+  &Ouml; - 153
+  &Uuml; - 154
+  &aacute; - 160
+  &iacute; - 161
+  &uacute; - 163
+  &ntilde; - 164
+  &Ntilde; - 165
+  &szlig; - 225
+</pre>
+    <p>If your system does not use codepage 1252, your application must handle all characters
+    above 127. ASCII 32 and CR/LF will be handled by WPFormat.dll.</p>
+    <hr />
+    <h3>MRGEndRecord</h3>
+    <p>Ends a merge record.<br />
+    <br />
+    For example:</p>
+    <pre>
+Your Name ENDFIELD
+
+(613) 728-0826 ENDFIELD
+
+ENDRECORD
+</pre>
+    <p><strong>C Prototype</strong>
+    <br />
+    void WINAPI MRGEndRecord (HANDLE hFile);</p>
+    <p><strong>Pascal Prototype</strong>
+    <br />
+    procedure MRGEndRecord (hFile: THandle); stdcall;</p>
+    <p><strong>Parameters</strong><br />
+    <em>hFile</em> - Handle of the WP data File, obtained from MRGInitDataFile().</p>
+    <p><strong>Return Values</strong>
+    <br />
+    None.</p>
+    <p><strong>Note</strong>
+    <br />
+    Call after adding all your fields using MRGAddField(). Use a combination of MRGAddField
+    and MRGEndRecord for each record of data.</p>
+    <hr />
+    <h3>MRGCloseDataFile</h3>
+    <p>Closes the WP data file, opened using MRGInitDataFile().</p>
+    <p><strong>C Prototype</strong>
+    <br />
+    void WINAPI MRGCloseDataFile (HANDLE hFile) ;</p>
+    <p><strong>Pascal Prototype</strong>
+    <br />
+    procedure MRGCloseDataFile (hFile: THandle); stdcall;</p>
+    <p><strong>Parameters</strong>
+    <br />
+    <em>hFile</em> - Handle of the WP data File, obtained from MRGInitDataFile().</p>
+    <p><strong>Return Values</strong>
+    <br />
+    None.</p>
+    <p><strong>Note</strong>
+    <br />
+    Call at the end of creating the WP data file.</p>
+    <h2>Reference: Example of Data File Functions</h2>
+    <p>To clarify some of the questions you may have after reading the documentation, an
+    example is shown below. In this example Borland Delphi is used as the development platform,
+    and Paradox for the Employee database. The intent of this example is not to teach you
+    how to use Borland Delphi, or make any type of comparison of Borland Delphi to other
+    development platforms. The example is to show the proper use of the functions documented
+    above.<br />
+    </p>
+    <p><code>procedure CreateWPDataFile;<br />
+        var<br />
+        &nbsp;&nbsp; I, j: integer;<br />
+        &nbsp;&nbsp; hFile: THandle;<br />
+        &nbsp;&nbsp; szField: array [0..255] of char;<br />
+        &nbsp;&nbsp; szFile: array[0..255] of char;<br />
+        begin<br />
+        &nbsp;&nbsp;&nbsp; StrPCopy(szFile, sPath + 'empdata.dat');<br />
+        &nbsp;&nbsp;&nbsp; hFile:= <strong>MRGInitDataFile</strong>(WP70, szFile);<br />
+        <br />
+        &nbsp;&nbsp;&nbsp; if(hFile &gt; 0)then<br />
+        &nbsp;&nbsp;&nbsp; begin<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TblEmp.First;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>MRGCreateFieldNames</strong>(hFile, nil,
+        TblEmp.FieldCount);<br />
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for i:=0 to TblEmp.RecordCount-1 do<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin<br />
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; for j:= 0 to TblEmp.FieldCount-1 do<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; begin<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; StrPCopy(szField, TblEmp.Fields[j].AsString);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>MRGAddField</strong>(hFile,
+        szField);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;<br />
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; TblEmp.Next;<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>MRGEndRecord</strong>(hFile);<br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; end;<br />
+        <br />
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <strong>MRGCloseDataFile</strong>(hFile);<br />
+        &nbsp;&nbsp; end;<br />
+        <br />
+        end;</code></p>
+</body>
+</html>

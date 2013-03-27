@@ -1,0 +1,4605 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Providing document conversion</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBM_POPM_SHOW_GLYPH_ONLY.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WcvtConvertFile.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Providing document conversion</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1270683"></a>
+
+  <h3 class="pHeading2">Providing document conversion</h3><a name="wp1270684"></a>
+
+  <p class="pBody">WordPerfect has developed a series of conversion functions that ship as part of PerfectFit. These functions include conversions for popular
+  word-processing formats such as Microsoft Word, Ami Pro, and Rich Text Format (RTF), as well as graphics, spreadsheet, and database formats.</p><a name=
+  "wp546153"></a>
+
+  <h5 class="pHeading4">Understanding the file formats available for document conversion</h5><a name="wp546155"></a>
+
+  <p class="pBody">The document-conversion functions can detect the following file formats.</p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1273606"></a>
+
+    <div class="pSmartList1">
+      WordPerfect does not provide conversion functions in the Windows versions for some of the file formats listed.
+    </div>
+  </div><a name="wp546158"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp514640"></a>
+
+          <h5 class="pHeading4">Value</h5>
+        </td>
+
+        <td>
+          <a name="wp514642"></a>
+
+          <h5 class="pHeading4">File Format</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514648"></a>
+
+          <p class="pBody"><code class="cCode">1</code></p>
+        </td>
+
+        <td>
+          <a name="wp514650"></a>
+
+          <p class="pBody">WordPerfect 4.2</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514656"></a>
+
+          <p class="pBody"><code class="cCode">2</code></p>
+        </td>
+
+        <td>
+          <a name="wp514658"></a>
+
+          <p class="pBody">WordPerfect 5.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514664"></a>
+
+          <p class="pBody"><code class="cCode">3</code></p>
+        </td>
+
+        <td>
+          <a name="wp514666"></a>
+
+          <p class="pBody">WordPerfect 5.1</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514672"></a>
+
+          <p class="pBody"><code class="cCode">4</code></p>
+        </td>
+
+        <td>
+          <a name="wp514674"></a>
+
+          <p class="pBody">WordPerfect 6/7/8/9/10/11</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514680"></a>
+
+          <p class="pBody"><code class="cCode">6</code></p>
+        </td>
+
+        <td>
+          <a name="wp514682"></a>
+
+          <p class="pBody">WordPerfect 7</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514688"></a>
+
+          <p class="pBody"><code class="cCode">7</code></p>
+        </td>
+
+        <td>
+          <a name="wp514690"></a>
+
+          <p class="pBody">WordPerfect 8</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514696"></a>
+
+          <p class="pBody"><code class="cCode">9</code></p>
+        </td>
+
+        <td>
+          <a name="wp514698"></a>
+
+          <p class="pBody">PerfectScript Macro</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514704"></a>
+
+          <p class="pBody"><code class="cCode">20</code></p>
+        </td>
+
+        <td>
+          <a name="wp514706"></a>
+
+          <p class="pBody">WordPerfect 2.0 MacIntosh</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514712"></a>
+
+          <p class="pBody"><code class="cCode">21</code></p>
+        </td>
+
+        <td>
+          <a name="wp514714"></a>
+
+          <p class="pBody">WordPerfect 2.1 MacIntosh</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514720"></a>
+
+          <p class="pBody"><code class="cCode">22</code></p>
+        </td>
+
+        <td>
+          <a name="wp514722"></a>
+
+          <p class="pBody">WordPerfect 3.0 MacIntosh</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514728"></a>
+
+          <p class="pBody"><code class="cCode">23</code></p>
+        </td>
+
+        <td>
+          <a name="wp514730"></a>
+
+          <p class="pBody">WordPerfect 3.1 MacIntosh</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514736"></a>
+
+          <p class="pBody"><code class="cCode">30</code></p>
+        </td>
+
+        <td>
+          <a name="wp514738"></a>
+
+          <p class="pBody">WordStar 3.3</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514744"></a>
+
+          <p class="pBody"><code class="cCode">31</code></p>
+        </td>
+
+        <td>
+          <a name="wp514746"></a>
+
+          <p class="pBody">WordStar 3.31</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514752"></a>
+
+          <p class="pBody"><code class="cCode">32</code></p>
+        </td>
+
+        <td>
+          <a name="wp514754"></a>
+
+          <p class="pBody">WordStar 3.4</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514760"></a>
+
+          <p class="pBody"><code class="cCode">33</code></p>
+        </td>
+
+        <td>
+          <a name="wp514762"></a>
+
+          <p class="pBody">WordStar 4.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514768"></a>
+
+          <p class="pBody"><code class="cCode">34</code></p>
+        </td>
+
+        <td>
+          <a name="wp514770"></a>
+
+          <p class="pBody">WordStar 5.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514776"></a>
+
+          <p class="pBody"><code class="cCode">35</code></p>
+        </td>
+
+        <td>
+          <a name="wp514778"></a>
+
+          <p class="pBody">WordStar 5.5</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514784"></a>
+
+          <p class="pBody"><code class="cCode">36</code></p>
+        </td>
+
+        <td>
+          <a name="wp514786"></a>
+
+          <p class="pBody">WordStar 6.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514792"></a>
+
+          <p class="pBody"><code class="cCode">37</code></p>
+        </td>
+
+        <td>
+          <a name="wp514794"></a>
+
+          <p class="pBody">WordStar 7.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514800"></a>
+
+          <p class="pBody"><code class="cCode">40</code></p>
+        </td>
+
+        <td>
+          <a name="wp514802"></a>
+
+          <p class="pBody">WordStar 2000 Version 1.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514808"></a>
+
+          <p class="pBody"><code class="cCode">41</code></p>
+        </td>
+
+        <td>
+          <a name="wp514810"></a>
+
+          <p class="pBody">WordStar 2000 Version 2.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514816"></a>
+
+          <p class="pBody"><code class="cCode">42</code></p>
+        </td>
+
+        <td>
+          <a name="wp514818"></a>
+
+          <p class="pBody">WordStar 2000 Version 3.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514824"></a>
+
+          <p class="pBody"><code class="cCode">43</code></p>
+        </td>
+
+        <td>
+          <a name="wp514826"></a>
+
+          <p class="pBody">WordStar 2000 Version 3.5</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514832"></a>
+
+          <p class="pBody"><code class="cCode">50</code></p>
+        </td>
+
+        <td>
+          <a name="wp514834"></a>
+
+          <p class="pBody">Microsoft Word 3.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514840"></a>
+
+          <p class="pBody"><code class="cCode">51</code></p>
+        </td>
+
+        <td>
+          <a name="wp514842"></a>
+
+          <p class="pBody">Microsoft Word 3.1</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514848"></a>
+
+          <p class="pBody"><code class="cCode">52</code></p>
+        </td>
+
+        <td>
+          <a name="wp514850"></a>
+
+          <p class="pBody">Microsoft Word 4.0 (DOS and MAC)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514856"></a>
+
+          <p class="pBody"><code class="cCode">53</code></p>
+        </td>
+
+        <td>
+          <a name="wp514858"></a>
+
+          <p class="pBody">Microsoft Word 5.0 (DOS and OS2)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514864"></a>
+
+          <p class="pBody"><code class="cCode">54</code></p>
+        </td>
+
+        <td>
+          <a name="wp514866"></a>
+
+          <p class="pBody">Microsoft Word 5.5</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514872"></a>
+
+          <p class="pBody"><code class="cCode">60</code></p>
+        </td>
+
+        <td>
+          <a name="wp514874"></a>
+
+          <p class="pBody">Microsoft Word for Windows 1.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514880"></a>
+
+          <p class="pBody"><code class="cCode">61</code></p>
+        </td>
+
+        <td>
+          <a name="wp514882"></a>
+
+          <p class="pBody">Microsoft Word for Windows 1.1</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514888"></a>
+
+          <p class="pBody"><code class="cCode">62</code></p>
+        </td>
+
+        <td>
+          <a name="wp514890"></a>
+
+          <p class="pBody">Microsoft Word for Windows 1.1a</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514896"></a>
+
+          <p class="pBody"><code class="cCode">63</code></p>
+        </td>
+
+        <td>
+          <a name="wp514898"></a>
+
+          <p class="pBody">Microsoft Word for Windows 2.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514904"></a>
+
+          <p class="pBody"><code class="cCode">64</code></p>
+        </td>
+
+        <td>
+          <a name="wp514906"></a>
+
+          <p class="pBody">Microsoft Word for Windows 2.0a</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514912"></a>
+
+          <p class="pBody"><code class="cCode">65</code></p>
+        </td>
+
+        <td>
+          <a name="wp514914"></a>
+
+          <p class="pBody">Microsoft Word for Windows 2.0b</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514920"></a>
+
+          <p class="pBody"><code class="cCode">66</code></p>
+        </td>
+
+        <td>
+          <a name="wp514922"></a>
+
+          <p class="pBody">Microsoft Word for Windows 2.0c</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514928"></a>
+
+          <p class="pBody"><code class="cCode">67</code></p>
+        </td>
+
+        <td>
+          <a name="wp514930"></a>
+
+          <p class="pBody">Microsoft Word for Windows 6.0/7.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514936"></a>
+
+          <p class="pBody"><code class="cCode">69</code></p>
+        </td>
+
+        <td>
+          <a name="wp514938"></a>
+
+          <p class="pBody">Microsoft Word for Windows 97/2000/2002</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514944"></a>
+
+          <p class="pBody"><code class="cCode">80</code></p>
+        </td>
+
+        <td>
+          <a name="wp514946"></a>
+
+          <p class="pBody">IBM DCA Revisible Form Text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514952"></a>
+
+          <p class="pBody"><code class="cCode">81</code></p>
+        </td>
+
+        <td>
+          <a name="wp514954"></a>
+
+          <p class="pBody">IBM DCA Final Form Text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514960"></a>
+
+          <p class="pBody"><code class="cCode">82</code></p>
+        </td>
+
+        <td>
+          <a name="wp514962"></a>
+
+          <p class="pBody">DisplayWrite 4.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514968"></a>
+
+          <p class="pBody"><code class="cCode">83</code></p>
+        </td>
+
+        <td>
+          <a name="wp514970"></a>
+
+          <p class="pBody">DisplayWrite 4.2</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514976"></a>
+
+          <p class="pBody"><code class="cCode">84</code></p>
+        </td>
+
+        <td>
+          <a name="wp514978"></a>
+
+          <p class="pBody">DisplayWrite 5.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514984"></a>
+
+          <p class="pBody"><code class="cCode">90</code></p>
+        </td>
+
+        <td>
+          <a name="wp514986"></a>
+
+          <p class="pBody">WITA 1.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp514992"></a>
+
+          <p class="pBody"><code class="cCode">91</code></p>
+        </td>
+
+        <td>
+          <a name="wp514994"></a>
+
+          <p class="pBody">WITA 2.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515000"></a>
+
+          <p class="pBody"><code class="cCode">100</code></p>
+        </td>
+
+        <td>
+          <a name="wp515002"></a>
+
+          <p class="pBody">MultiMate 3.3</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515008"></a>
+
+          <p class="pBody"><code class="cCode">101</code></p>
+        </td>
+
+        <td>
+          <a name="wp515010"></a>
+
+          <p class="pBody">MultiMate Advantage 3.6</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515016"></a>
+
+          <p class="pBody"><code class="cCode">102</code></p>
+        </td>
+
+        <td>
+          <a name="wp515018"></a>
+
+          <p class="pBody">MultiMate Advantage II 1.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515024"></a>
+
+          <p class="pBody"><code class="cCode">103</code></p>
+        </td>
+
+        <td>
+          <a name="wp515026"></a>
+
+          <p class="pBody">MultiMate 4.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515032"></a>
+
+          <p class="pBody"><code class="cCode">110</code></p>
+        </td>
+
+        <td>
+          <a name="wp515034"></a>
+
+          <p class="pBody">Professional Write 1.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515040"></a>
+
+          <p class="pBody"><code class="cCode">111</code></p>
+        </td>
+
+        <td>
+          <a name="wp515042"></a>
+
+          <p class="pBody">Professional Write 2.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515048"></a>
+
+          <p class="pBody"><code class="cCode">112</code></p>
+        </td>
+
+        <td>
+          <a name="wp515050"></a>
+
+          <p class="pBody">Professional Write 2.1</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515056"></a>
+
+          <p class="pBody"><code class="cCode">113</code></p>
+        </td>
+
+        <td>
+          <a name="wp515058"></a>
+
+          <p class="pBody">Professional Write 2.2</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515064"></a>
+
+          <p class="pBody"><code class="cCode">120</code></p>
+        </td>
+
+        <td>
+          <a name="wp515066"></a>
+
+          <p class="pBody">Officewriter 6.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515072"></a>
+
+          <p class="pBody"><code class="cCode">121</code></p>
+        </td>
+
+        <td>
+          <a name="wp515074"></a>
+
+          <p class="pBody">Officewriter 6.1</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515080"></a>
+
+          <p class="pBody"><code class="cCode">122</code></p>
+        </td>
+
+        <td>
+          <a name="wp515082"></a>
+
+          <p class="pBody">Officewriter 6.11</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515088"></a>
+
+          <p class="pBody"><code class="cCode">123</code></p>
+        </td>
+
+        <td>
+          <a name="wp515090"></a>
+
+          <p class="pBody">Officewriter 6.2</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515096"></a>
+
+          <p class="pBody"><code class="cCode">130</code></p>
+        </td>
+
+        <td>
+          <a name="wp515098"></a>
+
+          <p class="pBody">WordPerfect Merge</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515104"></a>
+
+          <p class="pBody"><code class="cCode">140</code></p>
+        </td>
+
+        <td>
+          <a name="wp515106"></a>
+
+          <p class="pBody">Volkswriter Deluxe 2.2</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515112"></a>
+
+          <p class="pBody"><code class="cCode">141</code></p>
+        </td>
+
+        <td>
+          <a name="wp515114"></a>
+
+          <p class="pBody">Volkswriter Deluxe Plus</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515120"></a>
+
+          <p class="pBody"><code class="cCode">142</code></p>
+        </td>
+
+        <td>
+          <a name="wp515122"></a>
+
+          <p class="pBody">Volkswriter 3</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515128"></a>
+
+          <p class="pBody"><code class="cCode">143</code></p>
+        </td>
+
+        <td>
+          <a name="wp515130"></a>
+
+          <p class="pBody">Volkswriter 4</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515136"></a>
+
+          <p class="pBody"><code class="cCode">146</code></p>
+        </td>
+
+        <td>
+          <a name="wp515138"></a>
+
+          <p class="pBody">Volkswriter Total Word</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515144"></a>
+
+          <p class="pBody"><code class="cCode">150</code></p>
+        </td>
+
+        <td>
+          <a name="wp515146"></a>
+
+          <p class="pBody">Microsoft Rich-Text Format</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515152"></a>
+
+          <p class="pBody"><code class="cCode">151</code></p>
+        </td>
+
+        <td>
+          <a name="wp515154"></a>
+
+          <p class="pBody">Microsoft Rich-Text Format for Windows Help Files</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515160"></a>
+
+          <p class="pBody"><code class="cCode">155</code></p>
+        </td>
+
+        <td>
+          <a name="wp515162"></a>
+
+          <p class="pBody">Sprint</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515168"></a>
+
+          <p class="pBody"><code class="cCode">159</code></p>
+        </td>
+
+        <td>
+          <a name="wp515170"></a>
+
+          <p class="pBody">Unicode text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515176"></a>
+
+          <p class="pBody"><code class="cCode">160</code></p>
+        </td>
+
+        <td>
+          <a name="wp515178"></a>
+
+          <p class="pBody">ASCII Text (Standard)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515184"></a>
+
+          <p class="pBody"><code class="cCode">161</code></p>
+        </td>
+
+        <td>
+          <a name="wp515186"></a>
+
+          <p class="pBody">ASCII Text (Windows - ANSI)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515192"></a>
+
+          <p class="pBody"><code class="cCode">162</code></p>
+        </td>
+
+        <td>
+          <a name="wp515194"></a>
+
+          <p class="pBody">ASCII Text (Formatted)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515200"></a>
+
+          <p class="pBody"><code class="cCode">163</code></p>
+        </td>
+
+        <td>
+          <a name="wp515202"></a>
+
+          <p class="pBody">DOS Delimited Text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515208"></a>
+
+          <p class="pBody"><code class="cCode">164</code></p>
+        </td>
+
+        <td>
+          <a name="wp515210"></a>
+
+          <p class="pBody">Equation Editor</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515216"></a>
+
+          <p class="pBody"><code class="cCode">165</code></p>
+        </td>
+
+        <td>
+          <a name="wp515218"></a>
+
+          <p class="pBody">ASCII Text (Stripped)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515224"></a>
+
+          <p class="pBody"><code class="cCode">166</code></p>
+        </td>
+
+        <td>
+          <a name="wp515226"></a>
+
+          <p class="pBody">ASCII Text (CR/LF -&gt; SRt)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515232"></a>
+
+          <p class="pBody"><code class="cCode">167</code></p>
+        </td>
+
+        <td>
+          <a name="wp515234"></a>
+
+          <p class="pBody">EBCDIC</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515240"></a>
+
+          <p class="pBody"><code class="cCode">168</code></p>
+        </td>
+
+        <td>
+          <a name="wp515242"></a>
+
+          <p class="pBody">ASCII Text (Standard Hebrew/Arabic)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515248"></a>
+
+          <p class="pBody"><code class="cCode">169</code></p>
+        </td>
+
+        <td>
+          <a name="wp515250"></a>
+
+          <p class="pBody">ASCII Text (Windows-ANSI Hebrew/Arabic)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515256"></a>
+
+          <p class="pBody"><code class="cCode">170</code></p>
+        </td>
+
+        <td>
+          <a name="wp515258"></a>
+
+          <p class="pBody">ASCII Text (Formatted Hebrew/Arabic)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515264"></a>
+
+          <p class="pBody"><code class="cCode">171</code></p>
+        </td>
+
+        <td>
+          <a name="wp515266"></a>
+
+          <p class="pBody">DOS Delimited (Hebrew/Arabic)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515272"></a>
+
+          <p class="pBody"><code class="cCode">172</code></p>
+        </td>
+
+        <td>
+          <a name="wp515274"></a>
+
+          <p class="pBody">ASCII Text (Stripped Hebrew/Arabic)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515280"></a>
+
+          <p class="pBody"><code class="cCode">173</code></p>
+        </td>
+
+        <td>
+          <a name="wp515282"></a>
+
+          <p class="pBody">Seven-bit transfer format</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515288"></a>
+
+          <p class="pBody"><code class="cCode">175</code></p>
+        </td>
+
+        <td>
+          <a name="wp515290"></a>
+
+          <p class="pBody">Navy DIF Standard</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515296"></a>
+
+          <p class="pBody"><code class="cCode">180</code></p>
+        </td>
+
+        <td>
+          <a name="wp515298"></a>
+
+          <p class="pBody">Enable 2.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515304"></a>
+
+          <p class="pBody"><code class="cCode">181</code></p>
+        </td>
+
+        <td>
+          <a name="wp515306"></a>
+
+          <p class="pBody">Enable 2.15</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515312"></a>
+
+          <p class="pBody"><code class="cCode">182</code></p>
+        </td>
+
+        <td>
+          <a name="wp515314"></a>
+
+          <p class="pBody">Enable 3.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515320"></a>
+
+          <p class="pBody"><code class="cCode">183</code></p>
+        </td>
+
+        <td>
+          <a name="wp515322"></a>
+
+          <p class="pBody">Enable 4.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515328"></a>
+
+          <p class="pBody"><code class="cCode">190</code></p>
+        </td>
+
+        <td>
+          <a name="wp515330"></a>
+
+          <p class="pBody">XyWrite III Plus 3.55</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515336"></a>
+
+          <p class="pBody"><code class="cCode">191</code></p>
+        </td>
+
+        <td>
+          <a name="wp515338"></a>
+
+          <p class="pBody">XyWrite III Plus 3.56</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515344"></a>
+
+          <p class="pBody"><code class="cCode">192</code></p>
+        </td>
+
+        <td>
+          <a name="wp515346"></a>
+
+          <p class="pBody">XyWrite III Plus 4.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515352"></a>
+
+          <p class="pBody"><code class="cCode">195</code></p>
+        </td>
+
+        <td>
+          <a name="wp515354"></a>
+
+          <p class="pBody">Q &amp; A. 3.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515360"></a>
+
+          <p class="pBody"><code class="cCode">196</code></p>
+        </td>
+
+        <td>
+          <a name="wp515362"></a>
+
+          <p class="pBody">Q &amp; A Write 1.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515368"></a>
+
+          <p class="pBody"><code class="cCode">200</code></p>
+        </td>
+
+        <td>
+          <a name="wp515370"></a>
+
+          <p class="pBody">Ami Pro 1.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515376"></a>
+
+          <p class="pBody"><code class="cCode">201</code></p>
+        </td>
+
+        <td>
+          <a name="wp515378"></a>
+
+          <p class="pBody">Ami Pro 1.2</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515384"></a>
+
+          <p class="pBody"><code class="cCode">202</code></p>
+        </td>
+
+        <td>
+          <a name="wp515386"></a>
+
+          <p class="pBody">Ami Pro 1.2a</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515392"></a>
+
+          <p class="pBody"><code class="cCode">203</code></p>
+        </td>
+
+        <td>
+          <a name="wp515394"></a>
+
+          <p class="pBody">Ami Pro 1.2b</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515400"></a>
+
+          <p class="pBody"><code class="cCode">204</code></p>
+        </td>
+
+        <td>
+          <a name="wp515402"></a>
+
+          <p class="pBody">Ami Pro 2.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515408"></a>
+
+          <p class="pBody"><code class="cCode">205</code></p>
+        </td>
+
+        <td>
+          <a name="wp515410"></a>
+
+          <p class="pBody">Ami Pro 3.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515416"></a>
+
+          <p class="pBody"><code class="cCode">210</code></p>
+        </td>
+
+        <td>
+          <a name="wp515418"></a>
+
+          <p class="pBody">Microsoft Write</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515424"></a>
+
+          <p class="pBody"><code class="cCode">215</code></p>
+        </td>
+
+        <td>
+          <a name="wp515426"></a>
+
+          <p class="pBody">WordPerfect Works 2.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515432"></a>
+
+          <p class="pBody"><code class="cCode">220</code></p>
+        </td>
+
+        <td>
+          <a name="wp515434"></a>
+
+          <p class="pBody">Corel Offfice for Java</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515440"></a>
+
+          <p class="pBody"><code class="cCode">222</code></p>
+        </td>
+
+        <td>
+          <a name="wp515442"></a>
+
+          <p class="pBody">XML UTF-16 BE</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515448"></a>
+
+          <p class="pBody"><code class="cCode">223</code></p>
+        </td>
+
+        <td>
+          <a name="wp515450"></a>
+
+          <p class="pBody">XML UTF-16 LE</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515456"></a>
+
+          <p class="pBody"><code class="cCode">224</code></p>
+        </td>
+
+        <td>
+          <a name="wp515458"></a>
+
+          <p class="pBody">XML UTF-8</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515464"></a>
+
+          <p class="pBody"><code class="cCode">225</code></p>
+        </td>
+
+        <td>
+          <a name="wp515466"></a>
+
+          <p class="pBody">Edgar format for SEC</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515472"></a>
+
+          <p class="pBody"><code class="cCode">226</code></p>
+        </td>
+
+        <td>
+          <a name="wp515474"></a>
+
+          <p class="pBody">HTML</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515480"></a>
+
+          <p class="pBody"><code class="cCode">227</code></p>
+        </td>
+
+        <td>
+          <a name="wp515482"></a>
+
+          <p class="pBody">SGML</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515488"></a>
+
+          <p class="pBody"><code class="cCode">250</code></p>
+        </td>
+
+        <td>
+          <a name="wp515490"></a>
+
+          <p class="pBody">DEC</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515496"></a>
+
+          <p class="pBody"><code class="cCode">400</code></p>
+        </td>
+
+        <td>
+          <a name="wp515498"></a>
+
+          <p class="pBody">WordPerfect 5.X Text only</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515504"></a>
+
+          <p class="pBody"><code class="cCode">401</code></p>
+        </td>
+
+        <td>
+          <a name="wp515506"></a>
+
+          <p class="pBody">.EXE (Program)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515512"></a>
+
+          <p class="pBody"><code class="cCode">402</code></p>
+        </td>
+
+        <td>
+          <a name="wp515514"></a>
+
+          <p class="pBody">.COM (Program)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515520"></a>
+
+          <p class="pBody"><code class="cCode">403</code></p>
+        </td>
+
+        <td>
+          <a name="wp515522"></a>
+
+          <p class="pBody">WordPerfect file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515528"></a>
+
+          <p class="pBody"><code class="cCode">404</code></p>
+        </td>
+
+        <td>
+          <a name="wp515530"></a>
+
+          <p class="pBody">Other EXE type (obj, dll, sys)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515536"></a>
+
+          <p class="pBody"><code class="cCode">405</code></p>
+        </td>
+
+        <td>
+          <a name="wp515538"></a>
+
+          <p class="pBody">WordPerfect .PRS or .ALL</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515544"></a>
+
+          <p class="pBody"><code class="cCode">406</code></p>
+        </td>
+
+        <td>
+          <a name="wp515546"></a>
+
+          <p class="pBody">ANSI Delimited Text (Windows)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515552"></a>
+
+          <p class="pBody"><code class="cCode">407</code></p>
+        </td>
+
+        <td>
+          <a name="wp515554"></a>
+
+          <p class="pBody">Stripped ANSI (Windows)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515560"></a>
+
+          <p class="pBody"><code class="cCode">408</code></p>
+        </td>
+
+        <td>
+          <a name="wp515562"></a>
+
+          <p class="pBody">New .EXE (Windows)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515568"></a>
+
+          <p class="pBody"><code class="cCode">409</code></p>
+        </td>
+
+        <td>
+          <a name="wp515570"></a>
+
+          <p class="pBody">ANSI Text (CR/LF -&gt; SRt)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515576"></a>
+
+          <p class="pBody"><code class="cCode">410</code></p>
+        </td>
+
+        <td>
+          <a name="wp515578"></a>
+
+          <p class="pBody">PKZIP (Compressed)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515584"></a>
+
+          <p class="pBody"><code class="cCode">411</code></p>
+        </td>
+
+        <td>
+          <a name="wp515586"></a>
+
+          <p class="pBody">Windows .HLP</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515592"></a>
+
+          <p class="pBody"><code class="cCode">412</code></p>
+        </td>
+
+        <td>
+          <a name="wp515594"></a>
+
+          <p class="pBody">Windows .PIF</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515600"></a>
+
+          <p class="pBody"><code class="cCode">413</code></p>
+        </td>
+
+        <td>
+          <a name="wp515602"></a>
+
+          <p class="pBody">DrawPerfect 1.x Presentation</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515608"></a>
+
+          <p class="pBody"><code class="cCode">414</code></p>
+        </td>
+
+        <td>
+          <a name="wp515610"></a>
+
+          <p class="pBody">WordPerfect Application Resource</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515616"></a>
+
+          <p class="pBody"><code class="cCode">415</code></p>
+        </td>
+
+        <td>
+          <a name="wp515618"></a>
+
+          <p class="pBody">WordPerfect InForms</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515624"></a>
+
+          <p class="pBody"><code class="cCode">416</code></p>
+        </td>
+
+        <td>
+          <a name="wp515626"></a>
+
+          <p class="pBody">Generic RIFF file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515632"></a>
+
+          <p class="pBody"><code class="cCode">417</code></p>
+        </td>
+
+        <td>
+          <a name="wp515634"></a>
+
+          <p class="pBody">Waveform Audio</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515640"></a>
+
+          <p class="pBody"><code class="cCode">418</code></p>
+        </td>
+
+        <td>
+          <a name="wp515642"></a>
+
+          <p class="pBody">Palette</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515648"></a>
+
+          <p class="pBody"><code class="cCode">419</code></p>
+        </td>
+
+        <td>
+          <a name="wp515650"></a>
+
+          <p class="pBody">MIDI file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515656"></a>
+
+          <p class="pBody"><code class="cCode">420</code></p>
+        </td>
+
+        <td>
+          <a name="wp515658"></a>
+
+          <p class="pBody">Multimedia Movie</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515664"></a>
+
+          <p class="pBody"><code class="cCode">421</code></p>
+        </td>
+
+        <td>
+          <a name="wp515666"></a>
+
+          <p class="pBody">AVI (Audio Visual Interleave)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515672"></a>
+
+          <p class="pBody"><code class="cCode">422</code></p>
+        </td>
+
+        <td>
+          <a name="wp515674"></a>
+
+          <p class="pBody">Creative Labs Voice file (sound)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515680"></a>
+
+          <p class="pBody"><code class="cCode">423</code></p>
+        </td>
+
+        <td>
+          <a name="wp515682"></a>
+
+          <p class="pBody">WP 6.x text only</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515688"></a>
+
+          <p class="pBody"><code class="cCode">424</code></p>
+        </td>
+
+        <td>
+          <a name="wp515690"></a>
+
+          <p class="pBody">Apple QuickTime Movie</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515696"></a>
+
+          <p class="pBody"><code class="cCode">425</code></p>
+        </td>
+
+        <td>
+          <a name="wp515698"></a>
+
+          <p class="pBody">Windows Clipboard</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515704"></a>
+
+          <p class="pBody"><code class="cCode">426</code></p>
+        </td>
+
+        <td>
+          <a name="wp515706"></a>
+
+          <p class="pBody">ARC (compressed) files</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515712"></a>
+
+          <p class="pBody"><code class="cCode">427</code></p>
+        </td>
+
+        <td>
+          <a name="wp515714"></a>
+
+          <p class="pBody">WP Office encapsulated OLE object</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515720"></a>
+
+          <p class="pBody"><code class="cCode">428</code></p>
+        </td>
+
+        <td>
+          <a name="wp515722"></a>
+
+          <p class="pBody">WP QuickFinder Index</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515728"></a>
+
+          <p class="pBody"><code class="cCode">429</code></p>
+        </td>
+
+        <td>
+          <a name="wp515730"></a>
+
+          <p class="pBody">WP Office 4.0 View</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515736"></a>
+
+          <p class="pBody"><code class="cCode">430</code></p>
+        </td>
+
+        <td>
+          <a name="wp515738"></a>
+
+          <p class="pBody">WP Office 4.0 Shelf Contents</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515744"></a>
+
+          <p class="pBody"><code class="cCode">431</code></p>
+        </td>
+
+        <td>
+          <a name="wp515746"></a>
+
+          <p class="pBody">WordPerfect InForms Transport</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515752"></a>
+
+          <p class="pBody"><code class="cCode">432</code></p>
+        </td>
+
+        <td>
+          <a name="wp515754"></a>
+
+          <p class="pBody">Presentations Show</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515760"></a>
+
+          <p class="pBody"><code class="cCode">433</code></p>
+        </td>
+
+        <td>
+          <a name="wp515762"></a>
+
+          <p class="pBody">Presentations Master</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515768"></a>
+
+          <p class="pBody"><code class="cCode">434</code></p>
+        </td>
+
+        <td>
+          <a name="wp515770"></a>
+
+          <p class="pBody">WordPerfect Dictionary</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515776"></a>
+
+          <p class="pBody"><code class="cCode">435</code></p>
+        </td>
+
+        <td>
+          <a name="wp515778"></a>
+
+          <p class="pBody">WordPerfect Thesaurus</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515784"></a>
+
+          <p class="pBody"><code class="cCode">436</code></p>
+        </td>
+
+        <td>
+          <a name="wp515786"></a>
+
+          <p class="pBody">HEX (used by Viewer only)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515792"></a>
+
+          <p class="pBody"><code class="cCode">437</code></p>
+        </td>
+
+        <td>
+          <a name="wp515794"></a>
+
+          <p class="pBody">Speedo Font</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515800"></a>
+
+          <p class="pBody"><code class="cCode">438</code></p>
+        </td>
+
+        <td>
+          <a name="wp515802"></a>
+
+          <p class="pBody">ATM Font</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515808"></a>
+
+          <p class="pBody"><code class="cCode">439</code></p>
+        </td>
+
+        <td>
+          <a name="wp515810"></a>
+
+          <p class="pBody">Truetype Font</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515816"></a>
+
+          <p class="pBody"><code class="cCode">440</code></p>
+        </td>
+
+        <td>
+          <a name="wp515818"></a>
+
+          <p class="pBody">Grammatik (mor)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515824"></a>
+
+          <p class="pBody"><code class="cCode">441</code></p>
+        </td>
+
+        <td>
+          <a name="wp515826"></a>
+
+          <p class="pBody">Grammatik (rul)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515832"></a>
+
+          <p class="pBody"><code class="cCode">442</code></p>
+        </td>
+
+        <td>
+          <a name="wp515834"></a>
+
+          <p class="pBody">DocSumm (Viewer only)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515840"></a>
+
+          <p class="pBody"><code class="cCode">443</code></p>
+        </td>
+
+        <td>
+          <a name="wp515842"></a>
+
+          <p class="pBody">WordPerfect QuickFinder log</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515848"></a>
+
+          <p class="pBody"><code class="cCode">444</code></p>
+        </td>
+
+        <td>
+          <a name="wp515850"></a>
+
+          <p class="pBody">IA5</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515856"></a>
+
+          <p class="pBody"><code class="cCode">445</code></p>
+        </td>
+
+        <td>
+          <a name="wp515858"></a>
+
+          <p class="pBody">Win32 Portable Executable</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515864"></a>
+
+          <p class="pBody"><code class="cCode">446</code></p>
+        </td>
+
+        <td>
+          <a name="wp515866"></a>
+
+          <p class="pBody">OS/2 Executable</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515872"></a>
+
+          <p class="pBody"><code class="cCode">447</code></p>
+        </td>
+
+        <td>
+          <a name="wp515874"></a>
+
+          <p class="pBody">Window 3.X VxD</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515880"></a>
+
+          <p class="pBody"><code class="cCode">448</code></p>
+        </td>
+
+        <td>
+          <a name="wp515882"></a>
+
+          <p class="pBody">WordPerfect Envoy</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515888"></a>
+
+          <p class="pBody"><code class="cCode">449</code></p>
+        </td>
+
+        <td>
+          <a name="wp515890"></a>
+
+          <p class="pBody">WordPerfect Works</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515896"></a>
+
+          <p class="pBody"><code class="cCode">550</code></p>
+        </td>
+
+        <td>
+          <a name="wp515898"></a>
+
+          <p class="pBody">WordPerfect WPG graphic</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515904"></a>
+
+          <p class="pBody"><code class="cCode">551</code></p>
+        </td>
+
+        <td>
+          <a name="wp515906"></a>
+
+          <p class="pBody">WordPerfect WPG 2.0 graphic</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515912"></a>
+
+          <p class="pBody"><code class="cCode">552</code></p>
+        </td>
+
+        <td>
+          <a name="wp515914"></a>
+
+          <p class="pBody">TIFF graphic</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515920"></a>
+
+          <p class="pBody"><code class="cCode">553</code></p>
+        </td>
+
+        <td>
+          <a name="wp515922"></a>
+
+          <p class="pBody">PC Paintbrush (PCX) graphic</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515928"></a>
+
+          <p class="pBody"><code class="cCode">554</code></p>
+        </td>
+
+        <td>
+          <a name="wp515930"></a>
+
+          <p class="pBody">Windows metafile</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515936"></a>
+
+          <p class="pBody"><code class="cCode">555</code></p>
+        </td>
+
+        <td>
+          <a name="wp515938"></a>
+
+          <p class="pBody">Windows bitmap</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515944"></a>
+
+          <p class="pBody"><code class="cCode">556</code></p>
+        </td>
+
+        <td>
+          <a name="wp515946"></a>
+
+          <p class="pBody">CGM Graphic</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515952"></a>
+
+          <p class="pBody"><code class="cCode">557</code></p>
+        </td>
+
+        <td>
+          <a name="wp515954"></a>
+
+          <p class="pBody">DXF Graphic</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515960"></a>
+
+          <p class="pBody"><code class="cCode">558</code></p>
+        </td>
+
+        <td>
+          <a name="wp515962"></a>
+
+          <p class="pBody">EPS Graphic</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515968"></a>
+
+          <p class="pBody"><code class="cCode">559</code></p>
+        </td>
+
+        <td>
+          <a name="wp515970"></a>
+
+          <p class="pBody">HPGL Graphic</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515976"></a>
+
+          <p class="pBody"><code class="cCode">560</code></p>
+        </td>
+
+        <td>
+          <a name="wp515978"></a>
+
+          <p class="pBody">RTF type Graphic</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515984"></a>
+
+          <p class="pBody"><code class="cCode">561</code></p>
+        </td>
+
+        <td>
+          <a name="wp515986"></a>
+
+          <p class="pBody">Pict Graphics</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp515992"></a>
+
+          <p class="pBody"><code class="cCode">562</code></p>
+        </td>
+
+        <td>
+          <a name="wp515994"></a>
+
+          <p class="pBody">Micrografx Graphics</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516000"></a>
+
+          <p class="pBody"><code class="cCode">563</code></p>
+        </td>
+
+        <td>
+          <a name="wp516002"></a>
+
+          <p class="pBody">Presentations 2.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516008"></a>
+
+          <p class="pBody"><code class="cCode">564</code></p>
+        </td>
+
+        <td>
+          <a name="wp516010"></a>
+
+          <p class="pBody">Lotus .PIC</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516016"></a>
+
+          <p class="pBody"><code class="cCode">565</code></p>
+        </td>
+
+        <td>
+          <a name="wp516018"></a>
+
+          <p class="pBody">CompuServe GIF</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516024"></a>
+
+          <p class="pBody"><code class="cCode">566</code></p>
+        </td>
+
+        <td>
+          <a name="wp516026"></a>
+
+          <p class="pBody">Truevision TGA</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516032"></a>
+
+          <p class="pBody"><code class="cCode">567</code></p>
+        </td>
+
+        <td>
+          <a name="wp516034"></a>
+
+          <p class="pBody">Harvard Graphics 3.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516040"></a>
+
+          <p class="pBody"><code class="cCode">568</code></p>
+        </td>
+
+        <td>
+          <a name="wp516042"></a>
+
+          <p class="pBody">Harvard Graphics 2.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516048"></a>
+
+          <p class="pBody"><code class="cCode">569</code></p>
+        </td>
+
+        <td>
+          <a name="wp516050"></a>
+
+          <p class="pBody">Enhanced Windows Metafile</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516056"></a>
+
+          <p class="pBody"><code class="cCode">570</code></p>
+        </td>
+
+        <td>
+          <a name="wp516058"></a>
+
+          <p class="pBody">WordPerfect Works 2.0 Paint</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516064"></a>
+
+          <p class="pBody"><code class="cCode">571</code></p>
+        </td>
+
+        <td>
+          <a name="wp516066"></a>
+
+          <p class="pBody">WordPerfect Works 2.0 Draw</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516072"></a>
+
+          <p class="pBody"><code class="cCode">572</code></p>
+        </td>
+
+        <td>
+          <a name="wp516074"></a>
+
+          <p class="pBody">CorelDRAW</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516080"></a>
+
+          <p class="pBody"><code class="cCode">573</code></p>
+        </td>
+
+        <td>
+          <a name="wp516082"></a>
+
+          <p class="pBody">JPEG</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516088"></a>
+
+          <p class="pBody"><code class="cCode">574</code></p>
+        </td>
+
+        <td>
+          <a name="wp516090"></a>
+
+          <p class="pBody">Autoshade Rendering</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516096"></a>
+
+          <p class="pBody"><code class="cCode">575</code></p>
+        </td>
+
+        <td>
+          <a name="wp516098"></a>
+
+          <p class="pBody">OS/2 PM Metafile</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516104"></a>
+
+          <p class="pBody"><code class="cCode">576</code></p>
+        </td>
+
+        <td>
+          <a name="wp516106"></a>
+
+          <p class="pBody">Kodak Photo CD</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516112"></a>
+
+          <p class="pBody"><code class="cCode">577</code></p>
+        </td>
+
+        <td>
+          <a name="wp516114"></a>
+
+          <p class="pBody">IBM Picture Exchange</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516120"></a>
+
+          <p class="pBody"><code class="cCode">578</code></p>
+        </td>
+
+        <td>
+          <a name="wp516122"></a>
+
+          <p class="pBody">NAPLPS and Video Text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516128"></a>
+
+          <p class="pBody"><code class="cCode">579</code></p>
+        </td>
+
+        <td>
+          <a name="wp516130"></a>
+
+          <p class="pBody">GDF</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516136"></a>
+
+          <p class="pBody"><code class="cCode">580</code></p>
+        </td>
+
+        <td>
+          <a name="wp516138"></a>
+
+          <p class="pBody">DDF</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516144"></a>
+
+          <p class="pBody"><code class="cCode">581</code></p>
+        </td>
+
+        <td>
+          <a name="wp516146"></a>
+
+          <p class="pBody">GES</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516152"></a>
+
+          <p class="pBody"><code class="cCode">582</code></p>
+        </td>
+
+        <td>
+          <a name="wp516154"></a>
+
+          <p class="pBody">CGM Clean Text Encoding</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516160"></a>
+
+          <p class="pBody"><code class="cCode">583</code></p>
+        </td>
+
+        <td>
+          <a name="wp516162"></a>
+
+          <p class="pBody">Compuserve GIF/PNG</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516168"></a>
+
+          <p class="pBody"><code class="cCode">584</code></p>
+        </td>
+
+        <td>
+          <a name="wp516170"></a>
+
+          <p class="pBody">OS/2 Bitmap</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516176"></a>
+
+          <p class="pBody"><code class="cCode">585</code></p>
+        </td>
+
+        <td>
+          <a name="wp516178"></a>
+
+          <p class="pBody">Corel Photo-Paint</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516184"></a>
+
+          <p class="pBody"><code class="cCode">586</code></p>
+        </td>
+
+        <td>
+          <a name="wp516186"></a>
+
+          <p class="pBody">Picture Publisher 4</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516192"></a>
+
+          <p class="pBody"><code class="cCode">587</code></p>
+        </td>
+
+        <td>
+          <a name="wp516194"></a>
+
+          <p class="pBody">CALS Bitmap</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516200"></a>
+
+          <p class="pBody"><code class="cCode">588</code></p>
+        </td>
+
+        <td>
+          <a name="wp516202"></a>
+
+          <p class="pBody">CorelDRAW CMX</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516208"></a>
+
+          <p class="pBody"><code class="cCode">589</code></p>
+        </td>
+
+        <td>
+          <a name="wp516210"></a>
+
+          <p class="pBody">Adobe Photoshop</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516216"></a>
+
+          <p class="pBody"><code class="cCode">590</code></p>
+        </td>
+
+        <td>
+          <a name="wp516218"></a>
+
+          <p class="pBody">Corel Wavelet</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516224"></a>
+
+          <p class="pBody"><code class="cCode">591</code></p>
+        </td>
+
+        <td>
+          <a name="wp516226"></a>
+
+          <p class="pBody">Scitex CT</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516232"></a>
+
+          <p class="pBody"><code class="cCode">592</code></p>
+        </td>
+
+        <td>
+          <a name="wp516234"></a>
+
+          <p class="pBody">Device Independent Bitmap</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516240"></a>
+
+          <p class="pBody"><code class="cCode">593</code></p>
+        </td>
+
+        <td>
+          <a name="wp516242"></a>
+
+          <p class="pBody">MacPaint</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516248"></a>
+
+          <p class="pBody"><code class="cCode">594</code></p>
+        </td>
+
+        <td>
+          <a name="wp516250"></a>
+
+          <p class="pBody">Postscript</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516256"></a>
+
+          <p class="pBody"><code class="cCode">595</code></p>
+        </td>
+
+        <td>
+          <a name="wp516258"></a>
+
+          <p class="pBody">GEM IMG</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516264"></a>
+
+          <p class="pBody"><code class="cCode">596</code></p>
+        </td>
+
+        <td>
+          <a name="wp516266"></a>
+
+          <p class="pBody">GEM Metafile</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516272"></a>
+
+          <p class="pBody"><code class="cCode">597</code></p>
+        </td>
+
+        <td>
+          <a name="wp516274"></a>
+
+          <p class="pBody">Microsoft + Paint (Windows 2.X)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516280"></a>
+
+          <p class="pBody"><code class="cCode">598</code></p>
+        </td>
+
+        <td>
+          <a name="wp516282"></a>
+
+          <p class="pBody">PC Paint</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516288"></a>
+
+          <p class="pBody"><code class="cCode">599</code></p>
+        </td>
+
+        <td>
+          <a name="wp516290"></a>
+
+          <p class="pBody">FAX (Multipage PCX)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516296"></a>
+
+          <p class="pBody"><code class="cCode">600</code></p>
+        </td>
+
+        <td>
+          <a name="wp516298"></a>
+
+          <p class="pBody">FAX (TIFF)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516304"></a>
+
+          <p class="pBody"><code class="cCode">601</code></p>
+        </td>
+
+        <td>
+          <a name="wp516306"></a>
+
+          <p class="pBody">CorelDRAW 4</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516312"></a>
+
+          <p class="pBody"><code class="cCode">602</code></p>
+        </td>
+
+        <td>
+          <a name="wp516314"></a>
+
+          <p class="pBody">CorelDRAW 5</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516320"></a>
+
+          <p class="pBody"><code class="cCode">603</code></p>
+        </td>
+
+        <td>
+          <a name="wp516322"></a>
+
+          <p class="pBody">CorelDRAW 6</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516328"></a>
+
+          <p class="pBody"><code class="cCode">604</code></p>
+        </td>
+
+        <td>
+          <a name="wp516330"></a>
+
+          <p class="pBody">CorelDRAW 4 Template</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516336"></a>
+
+          <p class="pBody"><code class="cCode">605</code></p>
+        </td>
+
+        <td>
+          <a name="wp516338"></a>
+
+          <p class="pBody">CorelDRAW 5 Template</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516344"></a>
+
+          <p class="pBody"><code class="cCode">606</code></p>
+        </td>
+
+        <td>
+          <a name="wp516346"></a>
+
+          <p class="pBody">CorelDRAW 6 Template</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516352"></a>
+
+          <p class="pBody"><code class="cCode">607</code></p>
+        </td>
+
+        <td>
+          <a name="wp516354"></a>
+
+          <p class="pBody">Corel Photo-Paint 7</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516360"></a>
+
+          <p class="pBody"><code class="cCode">608</code></p>
+        </td>
+
+        <td>
+          <a name="wp516362"></a>
+
+          <p class="pBody">CorelDRAW 7</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516368"></a>
+
+          <p class="pBody"><code class="cCode">609</code></p>
+        </td>
+
+        <td>
+          <a name="wp516370"></a>
+
+          <p class="pBody">CorelDRAW 7 Template</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516376"></a>
+
+          <p class="pBody"><code class="cCode">610</code></p>
+        </td>
+
+        <td>
+          <a name="wp516378"></a>
+
+          <p class="pBody">CorelDRAW 8</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516384"></a>
+
+          <p class="pBody"><code class="cCode">611</code></p>
+        </td>
+
+        <td>
+          <a name="wp516386"></a>
+
+          <p class="pBody">CorelDRAW 8 Template</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516392"></a>
+
+          <p class="pBody"><code class="cCode">612</code></p>
+        </td>
+
+        <td>
+          <a name="wp516394"></a>
+
+          <p class="pBody">Windows Icon (ICO)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516400"></a>
+
+          <p class="pBody"><code class="cCode">613</code></p>
+        </td>
+
+        <td>
+          <a name="wp516402"></a>
+
+          <p class="pBody">Windows Cursor</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516408"></a>
+
+          <p class="pBody"><code class="cCode">614</code></p>
+        </td>
+
+        <td>
+          <a name="wp516410"></a>
+
+          <p class="pBody">Windows Bitmap</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516416"></a>
+
+          <p class="pBody"><code class="cCode">615</code></p>
+        </td>
+
+        <td>
+          <a name="wp516418"></a>
+
+          <p class="pBody">CorelDraw ClipArt</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516424"></a>
+
+          <p class="pBody"><code class="cCode">616</code></p>
+        </td>
+
+        <td>
+          <a name="wp516426"></a>
+
+          <p class="pBody">CorelDraw 9</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516432"></a>
+
+          <p class="pBody"><code class="cCode">617</code></p>
+        </td>
+
+        <td>
+          <a name="wp516434"></a>
+
+          <p class="pBody">CorelDraw 9 Template</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516440"></a>
+
+          <p class="pBody"><code class="cCode">618</code></p>
+        </td>
+
+        <td>
+          <a name="wp516442"></a>
+
+          <p class="pBody">CorelDraw 10</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516448"></a>
+
+          <p class="pBody"><code class="cCode">619</code></p>
+        </td>
+
+        <td>
+          <a name="wp516450"></a>
+
+          <p class="pBody">SVG (Scalable Vector Graphics)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516456"></a>
+
+          <p class="pBody"><code class="cCode">750</code></p>
+        </td>
+
+        <td>
+          <a name="wp516458"></a>
+
+          <p class="pBody">BIFF Charts</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516464"></a>
+
+          <p class="pBody"><code class="cCode">751</code></p>
+        </td>
+
+        <td>
+          <a name="wp516466"></a>
+
+          <p class="pBody">WPG1.0 Charting Style</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516472"></a>
+
+          <p class="pBody"><code class="cCode">752</code></p>
+        </td>
+
+        <td>
+          <a name="wp516474"></a>
+
+          <p class="pBody">WPG1.0 Charting Data</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516480"></a>
+
+          <p class="pBody"><code class="cCode">753</code></p>
+        </td>
+
+        <td>
+          <a name="wp516482"></a>
+
+          <p class="pBody">WPG1.0E Charting Style</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516488"></a>
+
+          <p class="pBody"><code class="cCode">754</code></p>
+        </td>
+
+        <td>
+          <a name="wp516490"></a>
+
+          <p class="pBody">WPG1.0E Charting Data</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516496"></a>
+
+          <p class="pBody"><code class="cCode">755</code></p>
+        </td>
+
+        <td>
+          <a name="wp516498"></a>
+
+          <p class="pBody">WPG2.0 Charting Style</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516504"></a>
+
+          <p class="pBody"><code class="cCode">756</code></p>
+        </td>
+
+        <td>
+          <a name="wp516506"></a>
+
+          <p class="pBody">WPG2.0 Charting Data</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516512"></a>
+
+          <p class="pBody"><code class="cCode">757</code></p>
+        </td>
+
+        <td>
+          <a name="wp516514"></a>
+
+          <p class="pBody">Harvard Graphs Chart Style</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516520"></a>
+
+          <p class="pBody"><code class="cCode">758</code></p>
+        </td>
+
+        <td>
+          <a name="wp516522"></a>
+
+          <p class="pBody">Harvard Graphs Chart Data</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516528"></a>
+
+          <p class="pBody"><code class="cCode">800</code></p>
+        </td>
+
+        <td>
+          <a name="wp516530"></a>
+
+          <p class="pBody">Spreadsheet DIF</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516536"></a>
+
+          <p class="pBody"><code class="cCode">805</code></p>
+        </td>
+
+        <td>
+          <a name="wp516538"></a>
+
+          <p class="pBody">Microsoft Excel 2.1 (Tabs and Spaces)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516544"></a>
+
+          <p class="pBody"><code class="cCode">806</code></p>
+        </td>
+
+        <td>
+          <a name="wp516546"></a>
+
+          <p class="pBody">Microsoft Excel 3.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516552"></a>
+
+          <p class="pBody"><code class="cCode">807</code></p>
+        </td>
+
+        <td>
+          <a name="wp516554"></a>
+
+          <p class="pBody">Microsoft Excel 4.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516560"></a>
+
+          <p class="pBody"><code class="cCode">808</code></p>
+        </td>
+
+        <td>
+          <a name="wp516562"></a>
+
+          <p class="pBody">Microsoft Excel 5.0/7.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516568"></a>
+
+          <p class="pBody"><code class="cCode">809</code></p>
+        </td>
+
+        <td>
+          <a name="wp516570"></a>
+
+          <p class="pBody">Microsoft Excel 97</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516576"></a>
+
+          <p class="pBody"><code class="cCode">815</code></p>
+        </td>
+
+        <td>
+          <a name="wp516578"></a>
+
+          <p class="pBody">Lotus 1-2-3 1A (Tabs and Spaces)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516584"></a>
+
+          <p class="pBody"><code class="cCode">816</code></p>
+        </td>
+
+        <td>
+          <a name="wp516586"></a>
+
+          <p class="pBody">Lotus 1-2-3 2.0 (Tabs and Spaces)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516592"></a>
+
+          <p class="pBody"><code class="cCode">817</code></p>
+        </td>
+
+        <td>
+          <a name="wp516594"></a>
+
+          <p class="pBody">Lotus 1-2-3 2.3 lower machine version</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516600"></a>
+
+          <p class="pBody"><code class="cCode">818</code></p>
+        </td>
+
+        <td>
+          <a name="wp516602"></a>
+
+          <p class="pBody">Lotus 1-2-3 2.4 lower machine version</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516608"></a>
+
+          <p class="pBody"><code class="cCode">825</code></p>
+        </td>
+
+        <td>
+          <a name="wp516610"></a>
+
+          <p class="pBody">Lotus 1-2-3 3.0 higher machine version</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516616"></a>
+
+          <p class="pBody"><code class="cCode">826</code></p>
+        </td>
+
+        <td>
+          <a name="wp516618"></a>
+
+          <p class="pBody">Lotus 1-2-3 3.1 higher machine version</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516624"></a>
+
+          <p class="pBody"><code class="cCode">830</code></p>
+        </td>
+
+        <td>
+          <a name="wp516626"></a>
+
+          <p class="pBody">Lotus 1-2-3 1.0 for Windows</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516632"></a>
+
+          <p class="pBody"><code class="cCode">831</code></p>
+        </td>
+
+        <td>
+          <a name="wp516634"></a>
+
+          <p class="pBody">Lotus 1-2-3 4.0 for Windows</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516640"></a>
+
+          <p class="pBody"><code class="cCode">835</code></p>
+        </td>
+
+        <td>
+          <a name="wp516642"></a>
+
+          <p class="pBody">Quattro</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516648"></a>
+
+          <p class="pBody"><code class="cCode">836</code></p>
+        </td>
+
+        <td>
+          <a name="wp516650"></a>
+
+          <p class="pBody">Quattro Pro 3.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516656"></a>
+
+          <p class="pBody"><code class="cCode">837</code></p>
+        </td>
+
+        <td>
+          <a name="wp516658"></a>
+
+          <p class="pBody">Quattro Pro 4.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516664"></a>
+
+          <p class="pBody"><code class="cCode">838</code></p>
+        </td>
+
+        <td>
+          <a name="wp516666"></a>
+
+          <p class="pBody">Quattro Pro 5.5</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516672"></a>
+
+          <p class="pBody"><code class="cCode">840</code></p>
+        </td>
+
+        <td>
+          <a name="wp516674"></a>
+
+          <p class="pBody">Quattro Pro 1.0 for Windows</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516680"></a>
+
+          <p class="pBody"><code class="cCode">841</code></p>
+        </td>
+
+        <td>
+          <a name="wp516682"></a>
+
+          <p class="pBody">Quattro Pro 5.0 for Windows</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516688"></a>
+
+          <p class="pBody"><code class="cCode">842</code></p>
+        </td>
+
+        <td>
+          <a name="wp516690"></a>
+
+          <p class="pBody">Quattro Pro 6.0 for Windows</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516696"></a>
+
+          <p class="pBody"><code class="cCode">843</code></p>
+        </td>
+
+        <td>
+          <a name="wp516698"></a>
+
+          <p class="pBody">Quattro Pro 7</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516704"></a>
+
+          <p class="pBody"><code class="cCode">844</code></p>
+        </td>
+
+        <td>
+          <a name="wp516706"></a>
+
+          <p class="pBody">Quattro Pro 8</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516712"></a>
+
+          <p class="pBody"><code class="cCode">845</code></p>
+        </td>
+
+        <td>
+          <a name="wp516714"></a>
+
+          <p class="pBody">Quattro Pro 9</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516720"></a>
+
+          <p class="pBody"><code class="cCode">850</code></p>
+        </td>
+
+        <td>
+          <a name="wp516722"></a>
+
+          <p class="pBody">PlanPerfect 3.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516728"></a>
+
+          <p class="pBody"><code class="cCode">851</code></p>
+        </td>
+
+        <td>
+          <a name="wp516730"></a>
+
+          <p class="pBody">PlanPerfect 5.0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516736"></a>
+
+          <p class="pBody"><code class="cCode">852</code></p>
+        </td>
+
+        <td>
+          <a name="wp516738"></a>
+
+          <p class="pBody">PlanPerfect 5.1</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516744"></a>
+
+          <p class="pBody"><code class="cCode">900</code></p>
+        </td>
+
+        <td>
+          <a name="wp516746"></a>
+
+          <p class="pBody">DataPerfect</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516752"></a>
+
+          <p class="pBody"><code class="cCode">901</code></p>
+        </td>
+
+        <td>
+          <a name="wp516754"></a>
+
+          <p class="pBody">DataPerfect 2.2</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516760"></a>
+
+          <p class="pBody"><code class="cCode">902</code></p>
+        </td>
+
+        <td>
+          <a name="wp516762"></a>
+
+          <p class="pBody">DataPerfect 2.3</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516768"></a>
+
+          <p class="pBody"><code class="cCode">910</code></p>
+        </td>
+
+        <td>
+          <a name="wp516770"></a>
+
+          <p class="pBody">dBase database</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516776"></a>
+
+          <p class="pBody"><code class="cCode">920</code></p>
+        </td>
+
+        <td>
+          <a name="wp516778"></a>
+
+          <p class="pBody">Paradox database</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp546197"></a>
+
+  <h5 class="pHeading4">Understanding the functions for providing document conversion</h5><a name="wp546199"></a>
+
+  <p class="pBody">You can use the following functions for converting documents:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1273719"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WcvtConvertFile.html#wp546227">WcvtConvertFile function</a></li>
+      </ul>
+    </div><a name="wp1273775"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WcvtConvertHandle.html#wp539362">WcvtConvertHandle function</a></li>
+      </ul>
+    </div><a name="wp1273779"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WcvtDetectBufferFormat.html#wp546323">WcvtDetectBufferFormat function</a></li>
+      </ul>
+    </div><a name="wp1273797"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WcvtDetectFileFormat.html#wp546360">WcvtDetectFileFormat function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1273992"></a>
+
+  <p class="pBody">The document-conversion functions use the following flags when converting a file from one format to another. These flags can be combined to
+  control processes such as file format, cursor appearance, and document prefix.</p><a name="wp1274031"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1273996"></a>
+
+          <h5 class="pHeading4">Flag</h5>
+        </td>
+
+        <td>
+          <a name="wp1273998"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1274000"></a>
+
+          <p class="pBody"><code class="cCode">CVT_NODEFAULTS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1274002"></a>
+
+          <p class="pBody">Does not write document defaults (such as default margins, default justification, and so forth) into the converted document.
+          Conversion for the Clipboard always sets this bit so that paste operations work as expected.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1274004"></a>
+
+          <p class="pBody"><code class="cCode">CVT_NODISKGRAPHICS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1274006"></a>
+
+          <p class="pBody">Does not create external files for embedded graphics</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1274008"></a>
+
+          <p class="pBody"><code class="cCode">CVT_PLEASEWAIT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1274010"></a>
+
+          <p class="pBody">Displays the Please Wait dialog box that allows the user to cancel the conversion</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1274012"></a>
+
+          <p class="pBody"><code class="cCode">CVT_WINO</code></p>
+        </td>
+
+        <td>
+          <a name="wp1274014"></a>
+
+          <p class="pBody">Specifies that the output file should contain the Windows native format only. This is used when converting a Windows metafile to WPG
+          to indicate that the metafile should be encapsulated into the WPG but no conversion should be performed. Do not set both <code class=
+          "cCode">CVT_WINO</code> and <code class="cCode">CVT_WINCV</code>. If neither is set, the graphic is converted and the metafile is not
+          encapsulated.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1274016"></a>
+
+          <p class="pBody"><code class="cCode">CVT_WINCV</code></p>
+        </td>
+
+        <td>
+          <a name="wp1274018"></a>
+
+          <p class="pBody">Specifies that the output file should include the Windows native format along with the converted data. This is used when converting
+          a Windows metafile to WPG to indicate that in addition to the converted graphic, the metafile should be encapsulated into the WPG. Do not set both
+          <code class="cCode">CVT_WINO</code> and <code class="cCode">CVT_WINCV</code>. If neither is set, the graphic is converted and the metafile is not
+          encapsulated.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1274020"></a>
+
+          <p class="pBody"><code class="cCode">CVT_SKIPPREFIX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1274022"></a>
+
+          <p class="pBody">Does not process the prefix. This also means that functions that refer to prefixes are handled differently.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1274024"></a>
+
+          <p class="pBody"><code class="cCode">CVT_LENGTH_IN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1274026"></a>
+
+          <p class="pBody">Specifies that the first four bytes of <code class="cCode">hMem</code> contain the length of the data that follows the first four
+          bytes (<code class="cCode">dwLen</code> is ignored)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1274028"></a>
+
+          <p class="pBody"><code class="cCode">CVT_LENGTH_OUT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1274030"></a>
+
+          <p class="pBody">Places the length of the output data in the first four bytes of the output data. <code class="cCode">lpOutLen</code> is this value
+          plus four.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1273798"></a>
+
+  <p class="pBody">The document-conversion functions can return any of the following error codes.</p><a name="wp1273972"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1273801"></a>
+
+          <h5 class="pHeading4">Error code</h5>
+        </td>
+
+        <td>
+          <a name="wp1273803"></a>
+
+          <h5 class="pHeading4">Meaning</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273805"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_NOMEM</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273807"></a>
+
+          <p class="pBody">Out of memory</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273809"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_DUP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273811"></a>
+
+          <p class="pBody">Output file is same as input file.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273813"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_FMT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273815"></a>
+
+          <p class="pBody">Format not specified for input file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273817"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_FRM</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273819"></a>
+
+          <p class="pBody">Invalid format structure</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273821"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_RBT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273823"></a>
+
+          <p class="pBody">Invalid body text structure</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273825"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_FLD</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273827"></a>
+
+          <p class="pBody">Invalid field delimiter input</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273829"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_RCD</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273831"></a>
+
+          <p class="pBody">Invalid record delimiter input</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273833"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_STR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273835"></a>
+
+          <p class="pBody">Invalid strip character input</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273837"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_MHD</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273839"></a>
+
+          <p class="pBody">Invalid memory pointer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273841"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_DRV</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273843"></a>
+
+          <p class="pBody">No driver to call</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273845"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_UKN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273847"></a>
+
+          <p class="pBody">Unknown file format entered</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273849"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_BDR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273851"></a>
+
+          <p class="pBody">Driver initialization failure</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273853"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_IVD</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273855"></a>
+
+          <p class="pBody">Invalid driver header</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273857"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_VLD</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273859"></a>
+
+          <p class="pBody">Verify input file type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273861"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_BTC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273863"></a>
+
+          <p class="pBody">Invalid batch command entered</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273865"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_GRF</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273867"></a>
+
+          <p class="pBody">No graphics converter to call</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273869"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_GID</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273871"></a>
+
+          <p class="pBody">Unknown graphics format</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273873"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_DBG</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273875"></a>
+
+          <p class="pBody">Unknown file format entered</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273877"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_DKT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273879"></a>
+
+          <p class="pBody">Detection driver unavailable</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273881"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_IFS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273883"></a>
+
+          <p class="pBody">Invalid drive/path on input filespec</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273885"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_IFN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273887"></a>
+
+          <p class="pBody">Invalid drive/path on input filename</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273889"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_OFS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273891"></a>
+
+          <p class="pBody">Invalid drive/path on output filespec</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273893"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_OFN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273895"></a>
+
+          <p class="pBody">Invalid drive/path on output filename</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273897"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_CNL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273899"></a>
+
+          <p class="pBody">Confirm <code class="cCode">CANCEL</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273901"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_CRP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273903"></a>
+
+          <p class="pBody">Document appears to be corrupted.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273905"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_NCP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273907"></a>
+
+          <p class="pBody">Invalid encapsulation character entered</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273909"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_IFL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273911"></a>
+
+          <p class="pBody">Invalid input filename</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273913"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_OFL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273915"></a>
+
+          <p class="pBody">Invalid output filename</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273917"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_CDP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273919"></a>
+
+          <p class="pBody">Invalid code page specified</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273921"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_UDT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273923"></a>
+
+          <p class="pBody">Unknown file format detected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273925"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_RFI</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273927"></a>
+
+          <p class="pBody">Requested formats are incompatible.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273929"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_USF</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273931"></a>
+
+          <p class="pBody">Unsupported file format detected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273933"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_GND</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273935"></a>
+
+          <p class="pBody">No convertible data was received.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273937"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_GWN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273939"></a>
+
+          <p class="pBody">Several entities were not convertible.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273941"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_IGN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273943"></a>
+
+          <p class="pBody">Detected file format is set to be ignored.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273945"></a>
+
+          <p class="pBody"><code class="cCode">CV_ER_NSS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273947"></a>
+
+          <p class="pBody">File is not a spreadsheet.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273949"></a>
+
+          <p class="pBody"><code class="cCode">ER_EOF</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273951"></a>
+
+          <p class="pBody">End of file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273953"></a>
+
+          <p class="pBody"><code class="cCode">ER_LOCK</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273955"></a>
+
+          <p class="pBody">The file is locked.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273957"></a>
+
+          <p class="pBody"><code class="cCode">ER_FULL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273959"></a>
+
+          <p class="pBody">Out of disk space</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273961"></a>
+
+          <p class="pBody"><code class="cCode">ER_FHAN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273963"></a>
+
+          <p class="pBody">No available file descriptors</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273965"></a>
+
+          <p class="pBody"><code class="cCode">ER_INVDT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273967"></a>
+
+          <p class="pBody">Invalid data found in input file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273969"></a>
+
+          <p class="pBody"><code class="cCode">ER_NOMEM</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273971"></a>
+
+          <p class="pBody">Out of memory</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

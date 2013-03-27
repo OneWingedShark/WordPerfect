@@ -1,0 +1,137 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>Quattro Pro File Format</title>
+</head>
+<body>
+    <h1>Quattro Pro File Format</h1>
+    <p><a href="qpff_Index.htm">Back to main page</a></p>
+    <h2>Introduction</h2>
+    <p>The Quattro Pro File Format documentation covers the following major areas:</p>
+    <ul>
+    <li><em>File Structure and Records</em>: Provides the definition of a record, the Quattro
+        Pro file organization, and a synopsis of spreadsheet records grouped by use.</li>
+    <li><em>Records by Type</em>: Lists type definitions used by records.</li>
+    <li><em>General Declarations and Type Definitions</em>: Gives a record-by-record explanation
+        of each record used by the spreadsheet portion of a Quattro Pro file.</li>
+    <li><em>Formula Syntax and Opcodes</em>: Describes the syntax used by Quattro Pro for
+        Windows formulas.</li>
+    </ul>
+    <hr />
+    <h3>Documentation Conventions</h3>
+    <p>As you read this documentation, you should understand the following conventions to
+    help you locate and interpret the information you need.</p>
+    <h4>Decimal and Hexadecimal Values</h4>
+    <p>Computers perform operations and handle data in binary form, which can be readily
+    represented with hexadecimal numbers. Conversion between decimal and hexadecimal values
+    is not obvious. In this document, values will generally be shown as decimal numbers,
+    frequently followed by the hexadecimal equivalent in parentheses. The hexadecimal value
+    will be represented as number that begins with "0x" followed by the actual value, such
+    as (0xFF). In most cases values are unsigned.</p>
+    <h4>Size Definitions</h4>
+    <p>Sizes are referred to as bytes, short integers (sometimes abbreviated as short),
+    or long integers (sometimes abbreviated as long). Depending on the environment and operating
+    system, these terms can mean different things. Fields are depicted with the field name
+    enclosed in brackets. The brackets indicate the size of the field. Use the table below
+    to match the bracket types with the size and terms they represent.</p>
+    <table border="1" width="98%">
+        <tr valign="top">
+            <th width="21%">Terms</th>
+            <th width="41%">Names</th>
+            <th width="22%">Brackets</th>
+            <th width="15%">Size</th>
+        </tr>
+        <tr valign="top">
+            <td>
+                Byte</td>
+            <td>
+                character (char), byte</td>
+            <td>
+                &lt;&gt;</td>
+            <td>
+                8 bits</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Short</td>
+            <td>
+                short integer, word</td>
+            <td>
+                []</td>
+            <td>
+                16 bits</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Long</td>
+            <td>
+                long integer, double word</td>
+            <td>
+                {}</td>
+            <td>
+                32 bits</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Quadword</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                [[]]</td>
+            <td>
+                64 bits</td>
+        </tr>
+    </table>
+    <p>BYTE 1-byte value</p>
+    <p>WORD 2-byte value</p>
+    <p>LONG 4-byte value</p>
+    <p>RK 4-byte integer or IEEE abbreviation</p>
+    <p>DOUBLE 8-byte IEEE floating-point number</p>
+    <p>QDOUBLE DOUBLE with possible special values for errors</p>
+    <p>TWIP LONG (TWentIeth of a Point, 1440 = 72 pt = 1 inch) - some values stored as points</p>
+    <p>The byte sequence of all multi-byte data types that are larger than a byte follows
+    the Intel* convention of placing the least-significant byte first.</p>
+    <h4>Fields with Bit Flags</h4>
+    <p>Some fields have bit flags. Individual bits are specified by a bit number. The range
+    of bits for a byte value is from 0 to 7, with bit 0 the rightmost or least significant
+    bit, and bit 7 the leftmost or most significant bit.</p>
+    <h4>Fields</h4>
+    <p>The brackets shown in the table under <em>Size Definitions</em> above are used to
+    describe the size of the individual fields within a record. If a field is variable in
+    length, it is represented with " x ?" following the field. For Example:</p>
+    <p>If a field contains 5 bytes, it is represented as:</p>
+    <p>&lt;byte field description&gt; x 5</p>
+    <p>If a field contains an indefinite number of short values, it is represented as:</p>
+    <p>[short field description] x ?</p>
+    <h4>Indentation</h4>
+    <p>Indentation is used in this document to distinguish levels of detail and to signal
+    something unique about the information. Most flag fields require a definition of the
+    meaning of each bit used in the flag. The definition will be indented under the flag
+    field to give a visual indication that it contains additional information about the
+    previous field.</p>
+    <h4>File Structure and Records</h4>
+    <p>Quattro Pro 11.0 files have support for the OLE Compound File format specification.
+    This Compound document information wraps around a Quattro Pro file. The OLE Compound
+    file format is the native file format for OLE 2 servers and makes it possible for full
+    implementation of Windows 95/98 Shell integration features. A Compound file is a file
+    system within a file. This support exists to allow users, using OLE 2 server applications,
+    to browse, modify, and share embedded Quattro Pro 11.0 documents without starting Quattro
+    Pro. In addition, the Windows 95/98 Shell integration gives users the ability to move
+    documents to other machines without losing their links.</p>
+    <p>Embedded inside to the OLE Compound document is the standard Quattro Pro file format.
+    The file format for Quattro Pro consists of a set of variable-length binary records.
+    These records comprise most spreadsheet information in the file. There is another section
+    of object information which is beyond the scope of this manual. (Objects are items such
+    as graphs, dialog boxes, and buttons which a Quattro Pro user may have used.)</p>
+    <h4>Record Header</h4>
+    <p>Each record consists of a 4-byte header followed by the record body.</p>
+    <p>[record type] record type</p>
+    <p>[body length] length of record body</p>
+    <p>... header is followed by a variable-length record body</p>
+    <p><strong>Note:</strong> The value given in the [body length] field includes the record
+    body only. It does not include the [record type] and [body length] fields.</p>
+</body>
+</html>

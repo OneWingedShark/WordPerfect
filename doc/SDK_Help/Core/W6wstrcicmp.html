@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>W6wstrcicmp function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {margin-left: 2em}
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="W6wstrccmp.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="W6wstrchrcnt.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="PerfectFit_string_handling_API.html">Handling strings</a> :
+        W6wstrcicmp function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp552819"></a>
+
+  <h4 class="pHeading3">W6wstrcicmp function</h4><a name="wp552821"></a>
+
+  <p class="pBody">The <code class="cCode">W6wstrcicmp</code> function performs a case-insensitive <code class="cCode">WORD</code> string comparison at most c
+  <code class="cCode">CHARACTER</code> items (not <code class="cCode">WORD</code> items).</p><a name="wp1283841"></a>
+
+  <p class="pBody">This function was written to solve a problem in the <code class="cCode">W6wstrnicmp</code> function, which returns <code class=
+  "cCode">TRUE</code> if the two strings are still equal after the specified number of <code class="cCode">WORD</code> items in either string. In contrast, the
+  <code class="cCode">W6wstrcicmp</code> function returns <code class="cCode">TRUE</code> if the two strings are still equal after the same number of
+  <code class="cCode">CHARACTER</code> items in both strings. As long as the strings being compared do not contain non-character codes that <code class=
+  "cCode">W6wstrFirstCh</code> and <code class="cCode">W6wstrNextCh</code> skip (such as <code class="cCode">[Tab]</code> and <code class=
+  "cCode">[Bold]</code>), these two methods return the same results on the same strings. If there are non-character codes in the strings, then <code class=
+  "cCode">W6wstrncmp</code> ignores their values by skipping over them, but it counts them as part of the n <code class="cCode">WORD</code> items to be
+  compared.</p><a name="wp552823"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int FAR PASCAL W6wstrcicmp ( <a name="wp552825"> </a>
+LPWZ lpwzStr1, <a name="wp552827"> </a>
+LPWZ lpwzStr2, <a name="wp552829"> </a>
+int cc ); <a name="wp552831"> </a>
+</pre>
+  </div><a name="wp552833"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp552836"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp523315"></a>
+
+          <p class="pBody"><code class="cCode">lpwzStr1</code></p>
+        </td>
+
+        <td>
+          <a name="wp523317"></a>
+
+          <p class="pBody">Specifies a far pointer to <code class="cCode">WORD</code> string 1</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523323"></a>
+
+          <p class="pBody"><code class="cCode">lpwzStr2</code></p>
+        </td>
+
+        <td>
+          <a name="wp523325"></a>
+
+          <p class="pBody">Specifies a far pointer to <code class="cCode">WORD</code> string 2</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523331"></a>
+
+          <p class="pBody"><code class="cCode">cc</code></p>
+        </td>
+
+        <td>
+          <a name="wp523333"></a>
+
+          <p class="pBody">Specifies the count of characters (not <code class="cCode">WORD</code> items) to compare</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp552838"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1283896"></a>
+
+  <p class="pBody">This function returns one of the following values:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp552840"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">-1</code>, if string 1 &lt; string 2</li>
+      </ul>
+    </div><a name="wp1283900"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">0</code>, if string 1 == string 2</li>
+      </ul>
+    </div><a name="wp1283901"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">1</code>, if string 1 &gt; string 2</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

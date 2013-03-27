@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>Using Quattro Pro import functions</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Lesson_13_User_interface_functions.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="New_functions_for_Quattro_Pro_11.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody">Using Quattro Pro import functions</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp555750"></a>
+
+  <h2 class="pHeading1">Using Quattro Pro import functions</h2><a name="wp1217556"></a>
+
+  <p class="pBody">This section provides the following information for the qprowin.def import functions: name, prototype, description, parameters, return
+  values, and relevant sample and lesson files. The sample files are provided with the Corel&nbsp;WordPerfect&nbsp;Office SDK.</p><a name="wp555754"></a>
+
+  <p class="pBody">Some of the import functions use defined structures. The format of these structures can be found in the qprowin.h file provided with the SDK
+  for WordPerfect.</p><a name="wp555756"></a>
+
+  <p class="pBody">As an object-oriented product, Quattro Pro has a variety of objects and associated properties available for use in the qprowin.def import
+  functions <code class="cCode">QProSetProperty</code>, <code class="cCode">QProGetProperty</code>, and <code class="cCode">QProExecute</code>. The objects and
+  properties available are listed in the Quattro Pro Help. Two functions that are included in Quattro Pro - <code class="cCode">@PROPERTY</code> and
+  <code class="cCode">@COMMAND</code> - should be reviewed, as they can assist in getting the proper syntax for the property of the object you are reading or
+  setting. Starting with version 5.0, changes have been made to allow <code class="cCode">QProSetProperty</code>, <code class="cCode">QProGetProperty</code>,
+  and <code class="cCode">QProExecute</code> to be fully compliant with the Quattro Pro <code class="cCode">@Property</code> macro command. For more
+  information, please see the documentation for <code class="cCode">@Property</code> and <code class="cCode">@Command</code> in the Quattro Pro
+  Help.</p><a name="wp555758"></a>
+
+  <p class="pBody">Some functions use the <code class="cCode">NotebookIndex</code> parameter. For version 5.0 and later, the <code class=
+  "cCode">NotebookIndex</code> value can be <code class="cCode">0</code>, to indicate to Quattro Pro that it should use the current <code class=
+  "cCode">Notebook</code> index. For versions earlier than 5.0, all indexes were required to be valid, non-zero index values.</p><a name="wp555760"></a>
+
+  <p class="pBody">This section provides documentation for the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1269289"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="New_functions_for_Quattro_Pro_11.html#wp555850">Miscellaneous functions added in Quattro Pro 11</a></li>
+      </ul>
+    </div><a name="wp1272785"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="New_functions_for_Corel_Quattro_Pro_7_and_8.html#wp555896">Miscellaneous functions added in Quattro Pro 7 and 8</a></li>
+      </ul>
+    </div><a name="wp1272789"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Object_functions_added_in_Corel_Quattro_Pro_6.html#wp556552">Object functions added in Quattro Pro 6</a></li>
+      </ul>
+    </div><a name="wp1272793"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Miscellaneous_functions_added_in_Corel_Quattro_Pro_6.html#wp1272289">Miscellaneous functions added in Quattro Pro 6</a></li>
+      </ul>
+    </div><a name="wp1272797"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Array_functions_added_in_Corel_Quattro_Pro_5.html#wp556692">Array functions added in Quattro Pro 5</a></li>
+      </ul>
+    </div><a name="wp1272801"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Formatting_functions_added_in_Corel_Quattro_Pro_5.html#wp1272439">Formatting functions added in Quattro Pro 5</a></li>
+      </ul>
+    </div><a name="wp1272805"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Group_name_functions_added_in_Corel_Quattro_Pro_5.html#wp557117">Group-name functions added in Quattro Pro 5</a></li>
+      </ul>
+    </div><a name="wp1272809"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Object_functions_added_in_Corel_Quattro_Pro_5.html#wp557323">Object functions added in Quattro Pro 5</a></li>
+      </ul>
+    </div><a name="wp1272813"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Range_name_functions_added_in_Corel_Quattro_Pro_5.html#wp557432">Range-name functions added in Quattro Pro 5</a></li>
+      </ul>
+    </div><a name="wp1272817"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Sheet_name_functions_added_in_Corel_Quattro_Pro_5.html#wp557669">Sheet-name functions added in Quattro Pro 5</a></li>
+      </ul>
+    </div><a name="wp1272821"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="String_support_functions_added_in_Corel_Quattro_Pro_5.html#wp557920">String-support functions added in Quattro Pro 5</a></li>
+      </ul>
+    </div><a name="wp1272825"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Miscellaneous_functions_added_in_Corel_Quattro_Pro_5.html#wp1272507">Miscellaneous functions added in Quattro Pro 5</a></li>
+      </ul>
+    </div><a name="wp1272829"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Cell_access_functions_added_in_Corel_Quattro_Pro_1.html#wp558494">Cell-access functions added in Quattro Pro 1</a></li>
+      </ul>
+    </div><a name="wp1273113"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Current_range_functions_added_in_Corel_Quattro_Pro_1.html#wp558824">Current-range functions added in Quattro Pro 1</a></li>
+      </ul>
+    </div><a name="wp1273117"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Object_functions_added_in_Corel_Quattro_Pro_1.html#wp559052">Object functions added in Quattro Pro 1</a></li>
+      </ul>
+    </div><a name="wp1273121"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Optional_argument_functions_added_in_Corel_Quattro_Pro_1.html#wp559227">Optional-argument functions added in Quattro Pro 1</a></li>
+      </ul>
+    </div><a name="wp1273125"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PUREtype_functions_added_in_Corel_Quattro_Pro_1.html#wp559498">PURE-type functions added in Quattro Pro 1</a></li>
+      </ul>
+    </div><a name="wp1273129"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Reference_conversion_functions_added_in_Corel_Quattro_Pro_1.html#wp560015">Reference-conversion functions added in Quattro Pro 1</a></li>
+      </ul>
+    </div><a name="wp1273133"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="User_interface_functions_added_in_Corel_Quattro_Pro_1.html#wp560391">User-interface functions added in Quattro Pro 1</a></li>
+      </ul>
+    </div><a name="wp1273137"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Miscellaneous_functions_added_in_Corel_Quattro_Pro_1.html#wp1272578">Miscellaneous functions added in Quattro Pro 1</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

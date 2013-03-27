@@ -1,0 +1,1899 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>File System</title>
+</head>
+<body>
+    <h1>File System</h1>
+    <p><strong>Note: The WfsFileOpenEx() API which is described in this document is mainly
+        preserved for backward compatibility. Using the PerfectFit FileOpen COM Object is
+        the preferred method to interface with the Corel File Open dialog.</strong></p>
+    <p>This API subsystem is a group of functions that allows your application to have file
+    management capabilities without having to write all the code. In most cases, error and
+    special case handling is provided by the functions. Also provided are common Filespec
+    and FileSaveAs dialogs that give you access to the following:</p>
+    <p>Directory Management functions and ViewerDocument management systems through Open
+    Document Management Architecture (ODMA) <a name="File Open Input Flags"></a></p>
+    <h2>File Open Input Flags</h2>
+    <p>The File Open input flags are used with WfsFileOpenEx( ). </p>
+    <h4>Flag and Desired Result</h4>
+    <p><em>FO_DOESNTHAVETOEXIST</em> Does not require the file to already exist.</p>
+    <h2>File I/O Return Values</h2>
+    <p>The File I/O return values are used by WfsFileCopy( ), WfsFileMove( ), WfsFileDelete(
+    ), WfsFileAttr( ), WfsCreateDir( ), and WfsRemoveDir( ).</p>
+    <h4>Flag and Returns</h4>
+    <table>
+        <tr>
+            <td>
+                <em>FS_RETURN_OKERROR</em></td>
+            <td>
+                Error occurred after a successful operation. Note that the FS_RETURN_OKERROR and
+                FS_RETURN_OKCANCEL flags are mainly used for template operations. Either value returned
+                means the operation was successful on one or more files before the error or cancel
+                occurred.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_OKCANCEL</em></td>
+            <td>
+                Cancel was selected after a successful operation. Note that the FS_RETURN_OKERROR
+                and FS_RETURN_OKCANCEL flags are mainly used for template operations. Either value
+                returned means the operation was successful on one or more files before the error
+                or cancel occurred.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_CANCEL</em></td>
+            <td>
+                Cancel selected, no successful operation performed.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_ERROR</em></td>
+            <td>
+                Error occurred, no successful operation performed.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_NO</em></td>
+            <td>
+                Reserved for unhandled.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_OK</em></td>
+            <td>
+                Operation successful.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_ALLREADONLY</em></td>
+            <td>
+                Delete all read-only files selected.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_ALLHIDDEN</em></td>
+            <td>
+                Delete all hidden files selected.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_ALLSYSTEM</em></td>
+            <td>
+                Delete all system files selected.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_REPLACEONE</em></td>
+            <td>
+                Yes replace selected.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_REPLACENORMAL</em></td>
+            <td>
+                Yes-to-all replace selected.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_REPLACEREADONLY</em></td>
+            <td>
+                Replace all read-only files.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_REPLACEHIDDEN</em></td>
+            <td>
+                Replace all hidden files.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_RETURN_REPLACESYSTEM</em></td>
+            <td>
+                Replace all system files.</td>
+        </tr>
+    </table>
+    <a name="File I/O Input Flags"></a>
+    <h2>File I/O Input Flags</h2>
+    <p>The File I/O input flags are used by WfsFileCopy( ), WfsFileMove( ), WfsFileDelete(
+    ), WfsFileAttr( ), WfsCreateDir( ), and WfsRemoveDir( ).</p>
+    <h4>Flag and Desired Result</h4>
+    <table>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_ERROR</em></td>
+            <td>
+                Does not prompt if an error occurs.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_CREATE</em></td>
+            <td>
+                Does not prompt to create item; it will just create it.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_REPLACE</em></td>
+            <td>
+                Does not prompt to replace files. Note that if both replace and replaceall are not
+                set, PerfectFit will prompt for replace, but not replaceall. If replace is set and
+                replaceall is not set, PerfectFit will prompt for replaceall. If both are set, PerfectFit
+                will not prompt for either replace or replaceall.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_REPLACEALL</em></td>
+            <td>
+                Does not prompt for replaceall files. Note that if both replace and replaceall are
+                not set, PerfectFit will prompt for replace, but not replaceall. If replace is set
+                and replaceall is not set, PerfectFit will prompt for replaceall. If both are set,
+                PerfectFit will not prompt for either replace or replaceall.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_READONLY</em></td>
+            <td>
+                Does not prompt on move/delete of read-only file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_HIDDEN</em></td>
+            <td>
+                Does not prompt on move/delete of hidden file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_SYSTEM</em></td>
+            <td>
+                Does not prompt on move/delete of system file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_STATUS</em></td>
+            <td>
+                Does not display status spinner.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_REPLACENORMAL</em></td>
+            <td>
+                Does not prompt on replacement of normal file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_REPLACEREADONLY</em></td>
+            <td>
+                Does not prompt on replacement of read-only file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_REPLACEHIDDEN</em></td>
+            <td>
+                Does not prompt on replacement of hidden file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_REPLACESYSTEM</em></td>
+            <td>
+                Does not prompt on replacement of system file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_PROMPT_YESTOALL</em></td>
+            <td>
+                Prompts to delete all specified files (if set).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOPROMPT_DESTDEL</em></td>
+            <td>
+                Does not prompt to delete existing files on the removable target (if set).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_NOCOPY_IDENTICAL</em></td>
+            <td>
+                Does not copy files that have the same date and time as the target file (if set).</td>
+        </tr>
+    </table>
+    <a name="File I/O Functions"></a>
+    <h2>File I/O Functions</h2>
+    <p>The following are File I/O Functions.</p>
+    <hr />
+    <h3>WfsAddExtension</h3>
+    <p>Adds an extension to a filename. If the filename already has an extension, the current
+    filename and extension remain intact. The parameters for this function are assumed to
+    be ANSI strings.</p>
+    <h4>Prototype</h4>
+    <pre>
+    VOID SHAPI <strong>WfsAddExtension</strong> (
+          LPSTR     lpszFileName,
+          LPSTR     lpszExtIn );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszFileName</em></td>
+            <td>
+                The filename to add the extension to. It is returned with the modified filename.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszExtIn</em></td>
+            <td>
+                The extension to add.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>None.</p>
+    <hr />
+    <h3>WfsAddPathSlash</h3>
+    <p>Adds an ending \ to a pathname. If the pathname already has an ending slash, or if
+    it is simply a drive specification such as C:, then nothing is done. The input parameter
+    for this function is assumed to be an ANSI string. </p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsAddPathSlash</strong> ( LPSTR lpszPath );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszPath</em></td>
+            <td>
+                The pathname to add the slash to. This parameter can be no longer than FS_PATHNAME_BUFSIZE
+                (143) in length. It is returned with the modified path.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns the new size of the path in bytes, excluding the null terminator.</p>
+    <hr />
+    <h3>WfsConcatPathFilename</h3>
+    <p>Concatenates a valid filename (filename with possible extension) with a valid path
+    (a drive and/or directory specification). The parameters for this function are assumed
+    to be ANSI strings.</p>
+    <h4>Prototype</h4>
+    <pre>
+    VOID SHAPI <strong>WfsConcatPathFilename</strong> (
+          LPSTR     lpszPath,
+          LPSTR     lpszFilename );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszPath</em></td>
+            <td>
+                The drive and/or directory combination to use in the concatenation. It is returned
+                with the complete file specification.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszFilename</em></td>
+            <td>
+                The name of the file to use in the concatenation.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>None.</p>
+    <hr />
+    <h3>WfsCreateDir</h3>
+    <p>Creates a directory with error checking.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsCreateDir</strong> (
+          LPSTR     lpszDirName,
+          UINT      iInputFlags );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszDirName</em></td>
+            <td>
+                A pointer to the directory name of the directory to create.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>iInputFlags</em></td>
+            <td>
+                Flag bit values. See the File I/O Flags table earlier in this section.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>See the File I/O return values table earlier in this section.</p>
+    <hr />
+    <h3>WfsDirPath</h3>
+    <p>Opens the Select Directory dialog box, which allows the user to select a directory
+    name. All input and output strings are assumed to be ANSI strings.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsDirPath</strong> (
+          LPSTR     lpszPathNameIn,
+          LPSTR     lpszPathNameOut,
+          BOOL      bValidate );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszPathNameIn</em></td>
+            <td>
+                A pointer to the default directory path to use in the dialog.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszPathNameOut</em></td>
+            <td>
+                A pointer to the selected directory path.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>bValidate</em></td>
+            <td>
+                Set to TRUE if the path should be validated.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>The size of the new path is returned in bytes, excluding the null terminator.</p>
+    <hr />
+    <h3>WfsDoesDirExist</h3>
+    <p>Indicates whether the specified directory name is an existing directory. The current
+    working directory is not changed by calling this function. The input parameter for this
+    function is assumed to be an ANSI string.</p>
+    <h4>Prototype</h4>
+    <pre>
+    BOOL SHAPI <strong>WfsDoesDirExist</strong> ( LPSTR lpszDirName  );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszDirName</em></td>
+            <td>
+                A pointer to the name of the directory to verify. The size of the path cannot be
+                larger than FS_PATHNAME_BUFSIZE (143).</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>TRUE is returned if the directory exists, FALSE if the directory does not exist.</p>
+    <hr />
+    <h3>WfsDoesExistDefault</h3>
+    <p>Validates the input file specification (path+filename, path, filename, template,
+    and so forth) and determines whether it exists, using <em>lpszDefault</em> to fill in
+    any missing components. It also parses the file specification into its path and filename/template
+    components. The input file specification is assumed to be an ANSI string. The path can
+    have a final backslash. The <em>lpszOutPath</em> and <em>lpszOutName</em> parameters
+    string can be passed in as NULL.</p>
+    <h4>Prototype</h4>
+    <pre>
+    short SHAPI <strong>WfsDoesExistDefault</strong> (
+          LPSTR     lpszDefault,
+          LPSTR     lpszInSpec,
+          LPSTR     lpszOutPath,
+          LPSTR     lpszOutName );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszDefault</em></td>
+            <td>
+                Default value used to fill in missing components of <em>lpszInSpec</em>.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszInSpec</em></td>
+            <td>
+                A pointer to the file specification to validate.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszOutPath</em></td>
+            <td>
+                A pointer to a buffer which will contain the drive/directory component.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszOutName</em></td>
+            <td>
+                A pointer to a buffer which will contain the filename (or template) component).</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns one of the values listed in the table below.</p>
+    <h4>Return Value and Condition</h4>
+    <table>
+        <tr>
+            <td>
+                <em>FS_EMPTY</em></td>
+            <td>
+                File specification was empty.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_INVALIDDRIVE</em></td>
+            <td>
+                The specified drive was invalid.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_INVALIDDIR</em></td>
+            <td>
+                The specified directory was invalid.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_FILEDIRNOTFOUND</em></td>
+            <td>
+                The specified drive or directory was not found.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_ISDIR</em></td>
+            <td>
+                File specification had a valid directory name (in <em>lpszOutPath</em>).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_ISFILENAME</em></td>
+            <td>
+                File specification had a valid filename (<em>lpszOutPath</em> points to drive, full
+                directory, and filename).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_ISTEMPLATE</em></td>
+            <td>
+                File specification had (optionally) a valid drive/dir, and included a file template
+                (for example, it had wildcard characters).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_INVALIDFILENAME</em></td>
+            <td>
+                File specification had an invalid filename.</td>
+        </tr>
+    </table>
+    <hr />
+    <h3>WfsDoesExistEx</h3>
+    <p>Validates the input file specification (path+filename, path, filename, template,
+    and so forth.) and determines whether it exists. The input file specification is assumed
+    to be an ANSI string. The path can have a final backslash. The <em>lpszOutSpec</em>
+    parameter can be passed in as NULL.</p>
+    <h4>Prototype</h4>
+    <pre>
+    short SHAPI <strong>WfsDoesExistEx</strong> (
+          LPSTR     lpszInSpec,
+          LPSTR     lpszOutSpec );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszInSpec</em></td>
+            <td>
+                A pointer to the file specification to validate.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszOutSpec</em></td>
+            <td>
+                A pointer to a buffer which will contain the drive/directory/filename components.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns one of the values listed below.</p>
+    <table>
+        <tr>
+            <td>
+                <em>FS_EMPTY</em></td>
+            <td>
+                File specification was empty.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_INVALIDDRIVE</em></td>
+            <td>
+                The specified drive was invalid.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_INVALIDDIR</em></td>
+            <td>
+                The specified directory was invalid.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_FILEDIRNOTFOUND</em></td>
+            <td>
+                The specified drive or directory was not found.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_ISDIR</em></td>
+            <td>
+                File specification had a valid directory name (in <em>lpszOutPath</em>).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_ISFILENAME</em></td>
+            <td>
+                File specification had a valid filename (<em>lpszOutPath</em> points to drive, full
+                directory, and filename).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_ISTEMPLATE</em></td>
+            <td>
+                File specification had (optionally) a valid drive/dir, and included a file template
+                (for example, it had wildcard characters).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_INVALIDFILENAME</em></td>
+            <td>
+                File specification had an invalid filename.</td>
+        </tr>
+    </table>
+    <hr />
+    <h3>WfsDoesFileExist</h3>
+    <p>Indicates whether the specified file exists. Only tests for valid files; to test
+    for directories, use WfsDoesDirExist( ). The input parameter for this function is assumed
+    to be an ANSI string.</p>
+    <h4>Prototype</h4>
+    <pre>
+    BOOL SHAPI <strong>WfsDoesFileExist</strong> ( LPSTR lpszFileName  );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszFileName</em></td>
+            <td>
+                A pointer to the name of the file to verify. The length of this filename cannot
+                be greater than FS_FILENAME_LEN (155).</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>TRUE is returned if the specified file exists, FALSE if the file does not exist.</p>
+    <hr />
+    <h3>WfsExpandPath</h3>
+    <p>Expands a pathname fragment into a fully-qualified pathname. For example, ..\mydir
+    would be expanded to c:\util\mydir. The parameters for this function are assumed to
+    be ANSI strings.</p>
+    <h4>Prototype</h4>
+    <pre>
+    BOOL SHAPI <strong>WfsExpandPath</strong> (
+          LPSTR     lpszInPath,
+          LPSTR     lpszOutPath );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszInPath</em></td>
+            <td>
+                A pointer to the path fragment to expand.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszOutPath</em></td>
+            <td>
+                A pointer to a buffer to hold the fully expanded path.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if the conversion was successful, -1 if it was not successful.</p>
+    <hr />
+    <h3>WfsFileAttr</h3>
+    <p>Sets or modifies current attributes on files.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WfsFileAttr</strong> (
+          LPSTR     lpszFileName,
+          UINT      iAttrib,
+          UINT      iInputFlags );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszFileName</em></td>
+            <td>
+                A far pointer to the name of the file to modify or set attributes on. This path
+                and filename can include wildcards.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>iAttrib</em></td>
+            <td>
+                DOS attribute to set. The following attributes are valid:<br />
+                FF_NORMAL (0x00)FF_READONLY (0x01)FF_HIDDEN (0x02)FF_SYSTEM (0x04)FF_LABEL (0x08)FF_DIRECTORY
+                (0x10)FF_ARCHIVED (0x20)</td>
+        </tr>
+        <tr>
+            <td>
+                <em>iInputFlags</em>
+            </td>
+            <td>
+                Flag bit values. See the File I/O Flags table earlier in this section.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>See the File I/O return values table earlier in this section.</p>
+    <hr />
+    <h3>WfsFileCopy</h3>
+    <p>Copies a file with confirmation and error checking.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsFileCopy</strong> (
+          LPSTR     lpszDest,
+          LPSTR     lpszSource,
+          UINT      iInputFlags );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszDest</em></td>
+            <td>
+                A pointer to the destination filename.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszSource</em></td>
+            <td>
+                A pointer to the source filename.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>iInputFlags</em></td>
+            <td>
+                Flag bit vector. See the File I/O Flags table earlier in this section.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>See the File I/O return values table earlier in this section.</p>
+    <hr />
+    <h3>WfsFileDelete</h3>
+    <p>Deletes a file with confirmation and error checking.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsFileDelete</strong> (
+          LPSTR     lpszFile,
+          UINT      iInputFlags );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszFile</em></td>
+            <td>
+                A pointer to the filename of the file to delete.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>iInputFlags</em></td>
+            <td>
+                Flag bit values. See the File I/O Flags table earlier in this section.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>See the File I/O return values table earlier in this section.</p>
+    <hr />
+    <h3>WfsFileMove</h3>
+    <p>Moves a file with confirmation and error checking.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsFileMove</strong> (
+          LPSTR     lpszDest,
+          LPSTR     lpszSource,
+          UINT      iInputFlags );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszDest</em></td>
+            <td>
+                A pointer to the destination file name.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszSource</em></td>
+            <td>
+                A pointer to the source file name.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>iInputFlags</em></td>
+            <td>
+                Flag bit values. See the File I/O Flags table earlier in this section.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>See the File I/O return values table earlier in this section.</p>
+    <hr />
+    <h3>WfsFileOpenEx</h3>
+    <p>Presents the user with the File Open dialog box. All input and output strings for
+    this function are assumed to be ANSI strings.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsFileOpenEx</strong> (
+          HWND      hParent,
+          LPSTR     lpszPath,
+          LPSTR     lpszFileName,
+          LPSTR     lpszTemplate,
+          LPSTR     lpszUserEntered,
+          WORD      wFileAttrib,
+          LPSTR     lpszTitle,
+          LPSTR     lpszButtonText,
+          FARPROC   lpfnExtraFunc,
+          DWORD     dwOptionsIn,
+          LPDWORD   lpdwOptionsOut,
+          FARPROC   pfnQueryCnt,
+          FARPROC   pfnFormat,
+          WORD      wCvtClass );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>hParent</em></td>
+            <td>
+                Handle of the window to use as parent of File Open dialog. NULL is also valid.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszPath</em></td>
+            <td>
+                A pointer to the path for the list display. This parameter may be passed as NULL.
+                It is returned as the path of the list display and should be of size FS_PATHNAME_BUFSIZE
+                (143). It may be different than the path of the file that was opened.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszFileName</em></td>
+            <td>
+                A pointer to the filename to be displayed in the edit field. A pathname may be included.
+                This parameter may be passed as NULL. It is returned as the path and filename of
+                the file to be opened, and should be of size FS_FILENAME_LEN (155).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszTemplate</em></td>
+            <td>
+                A pointer to the file template to use in the list. (A file template is a filename
+                which may contain wildcard characters.) This parameter may be passed as NULL.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszUseEntered</em></td>
+            <td>
+                A pointer to the buffer to contain the exact string the user entered in the Filename
+                edit field. This buffer should be of size FS_FILENAME_LEN (155).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>wFileAttrib</em></td>
+            <td>
+                The DOS file attributes to use in creating file lists. It should be passed as zero
+                to accept the default attributes.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszTitle</em></td>
+            <td>
+                A pointer to the string to use as the dialog box title. If this parameter is passed
+                as NULL, the default text "Open" will be used.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszButtonText</em></td>
+            <td>
+                A pointer to the text to be used on the dialog Open button. This parameter may be
+                passed as NULL to use the default text "Open".</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpfnExtraFunc</em></td>
+            <td>
+                A pointer to the function to be called when single-clicking names in the Files list
+                box. This parameter may be passed as NULL.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>dwOptionsIn</em></td>
+            <td>
+                See the File Open Input Flags table earlier in this section.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpdwOptionsOut</em></td>
+            <td>
+                See the File Open Output Flags table.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>pfnQueryCnt</em></td>
+            <td>
+                Reserved for future use; should be set to NULL.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>pfnFormat</em></td>
+            <td>
+                Reserved for future use; should be set to NULL.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>wCvtClass</em></td>
+            <td>
+                This contains the combination of the classes of files to list in the Format list.
+                Any combination of the following may be used:<br />
+                <strong>Class and File</strong><br />
+                <table>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_DOC</em></td>
+                        <td>
+                            Document or text files.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_SS</em></td>
+                        <td>
+                            Spreadsheet files.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_GR</em></td>
+                        <td>
+                            Graphics files.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_DB</em></td>
+                        <td>
+                            Database files.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_ALL</em></td>
+                        <td>
+                            All files.</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns 1 if OK was pressed. Returns 0 if Cancel was pressed or if an error occurs.</p>
+    <hr />
+    <h3>WfsFileSaveAsEx</h3>
+    <p>Opens the File Save As dialog for the user. All input and output strings for this
+    function are assumed to be ANSI strings.</p>
+    <h4>Prototype</h4>
+    <pre>
+    WORD SHAPI <strong>WfsFileSaveAsEx</strong> (
+          HWND      hParent,
+          LPSTR     lpszPath,
+          LPSTR     lpszFileName,
+          LPSTR     lpszTemplate,
+          LPSTR     lpszUserEntered,
+          LPSTR     Title,
+          LPSTR     ButtonText,
+          LPDWORD   lpdwExportType,
+          DWORD     dwOptionsIn,
+          LPDWORD   dwOptionsOut,
+          FARPROC   pfnQueryCnt,
+          FARPROC   pfnFormat,
+          DWORD     dwCvtClass );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>hParent</em></td>
+            <td>
+                Handle of the window to use as parent of File Open dialog. NULL is also valid.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszPath</em></td>
+            <td>
+                A pointer to the path for the list display. This parameter may be passed as NULL.
+                It is returned as the path of the list display and should be of size FS_PATHNAME_BUFSIZE
+                (143). It may be different than the path of the file that was saved.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszFileName</em></td>
+            <td>
+                A pointer to the filename to be displayed in the edit field. A pathname may be included.
+                This parameter may be passed as NULL. It is returned as the path and filename of
+                the file to be saved, and should be of size FS_FILENAME_LEN (155).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszTemplate</em></td>
+            <td>
+                A pointer to the file template to use in the list. (A file template is a filename
+                which may contain wildcard characters.) This parameter may be passed as NULL.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszUseEntered</em></td>
+            <td>
+                A pointer to the buffer to contain the exact string the user entered in the Filename
+                edit field. This buffer should be of size FS_FILENAME_LEN (155).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszTitle</em></td>
+            <td>
+                A pointer to the string to use as the dialog box title. If this parameter is passed
+                as NULL, the default text "Save As" will be used.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszButtonText</em></td>
+            <td>
+                A pointer to the text to be used on the dialog box Save button. This parameter may
+                be passed as NULL to use the default text "Save".</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpdwExportType</em></td>
+            <td>
+                A pointer to the default export file type of the file to be saved. It is returned
+                as the selected export type.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>dwOptionsIn</em></td>
+            <td>
+                See the File Save As Input Flags table earlier in this section.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpdwOptionsOut</em></td>
+            <td>
+                See the File Save As Output Flags table earlier in this section.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>pfnQueryCnt</em></td>
+            <td>
+                Reserved for future use; should be set to NULL.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>pfnFormat</em></td>
+            <td>
+                Reserved for future use; should be set to NULL.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>dwCvtClass</em></td>
+            <td>
+                This contains the combination of the classes of files to list in the Format list.
+                Any combination of the following may be used:<br />
+                <strong>Class and File</strong><br />
+                <table>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_DOC</em></td>
+                        <td>
+                            Document or text files.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_SS</em></td>
+                        <td>
+                            Spreadsheet files.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_GR</em></td>
+                        <td>
+                            Graphics files.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_DB</em></td>
+                        <td>
+                            Database files.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_SPECIAL</em></td>
+                        <td>
+                            Special files.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>CVT_CLASS_ALL</em></td>
+                        <td>
+                            All files.</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if Cancel is pressed; otherwise it will return one of the values listed
+    in the table below. If the specified filename is too long, it will be truncated to an
+    eight-character file prefix followed by a period (.) and a three-character file extension.</p>
+    <h4>Return Value and Condition</h4>
+    <table>
+        <tr>
+            <td>
+                <em>FS_EMPTY</em></td>
+            <td>
+                If the file specification was empty.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_INVALIDDRIVE</em></td>
+            <td>
+                If the specified drive is invalid.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_INVALIDDIR</em></td>
+            <td>
+                If the specified directory does not exist.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>FS_INVALIDFILENAME</em></td>
+            <td>
+                If the specified filename was invalid.</td>
+        </tr>
+    </table>
+    <hr />
+    <h3>WfsGetCurDir</h3>
+    <p>Returns the current working drive and directory. The parameters used in this function
+    are assumed to be ANSI strings.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsGetCurDir</strong> ( LPSTR lpszCurrentPath  );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszCurrentPath</em></td>
+            <td>
+                A pointer to the buffer which will hold the current working drive and path. This
+                buffer should be of size FS_PATHNAME_BUFSIZE (143).</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if it was successful, or -1 if unsuccessful.</p>
+    <hr />
+    <h3>WfsGetDiskSize</h3>
+    <p>Gets the total and free disk space of uDrive.</p>
+    <h4>Prototype</h4>
+    <pre>
+    BOOL FAR PASCAL <strong>WfsGetDiskSpace</strong> (
+          unsigned       uDrive,
+          DWORD FAR *    lpdwDiskSize,
+          DWORD FAR *    lpdwFreeSpace );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>uDrive</em></td>
+            <td>
+                Drive value: 0 = a, 1 = b, 2 = c, and so forth.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpdwDiskSpace</em></td>
+            <td>
+                The address of a variable to hold the value of the total disk space of <em>uDrive</em>.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpdwFreeSpace</em></td>
+            <td>
+                The address of a variable to hold the value of the free space on <em>uDrive</em>.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>TRUE if successful, FALSE if unsuccessful.</p>
+    <hr />
+    <h3>WfsGetExtension</h3>
+    <p>Extracts everything following the last period in the filename passed to it. The input
+    to this function is assumed to be an ANSI string and may be a fully qualified pathname.</p>
+    <h4>Prototype</h4>
+    <pre>
+    VOID SHAPI <strong>WfsGetExtension</strong> (
+          LPSTR     lpszNameIn,
+          LPSTR     lpszExtOut );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszNameIn</em></td>
+            <td>
+                A pointer to the filename from which to take the extension.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszExtOut</em></td>
+            <td>
+                A pointer to the buffer to hold the extension.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>None.</p>
+    <hr />
+    <h3>WfsGetFileName</h3>
+    <p>Extracts everything following the last slash or colon from the filename passed to
+    it. The input to this function is assumed to be an ANSI string.</p>
+    <h4>Prototype</h4>
+    <pre>
+    VOID SHAPI <strong>WfsGetFileName</strong> (
+          LPSTR     lpszSpecIn,
+          LPSTR     lpszNameOut );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszSpecIn</em></td>
+            <td>
+                A pointer to the input filename specification.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszNameOut</em></td>
+            <td>
+                A pointer to the buffer to contain the extracted filename.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>None.</p>
+    <hr />
+    <h3>WfsIsTemplate</h3>
+    <p>Checks for wildcard characters in a filename.</p>
+    <h4>Prototype</h4>
+    <pre>
+    BOOL FAR PASCAL <strong>WfsIsTemplate</strong> ( LPSTR lpszFileName );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszFileName</em></td>
+            <td>
+                Path and filename to verify for template.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>TRUE if the wildcard characters (? or *) are included in <em>lpszFileName</em>, FALSE
+    if they were not included.</p>
+    <hr />
+    <h3>WfsPathSplit</h3>
+    <p>Breaks up a qualified pathname into its component parts (drive, directory, filename,
+    and extension). All input and output strings are assumed to be ANSI strings. This function
+    does not attempt to verify any portion of the path.</p>
+    <h4>Prototype</h4>
+    <pre>
+    VOID SHAPI <strong>WfsPathSplit</strong> (
+          LPSTR     lpszFullPath,
+          LPSTR     lpszDrive,
+          LPSTR     lpszDir,
+          LPSTR     lpszFileName,
+          LPSTR     lpszExt );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszFullPath</em></td>
+            <td>
+                A pointer to the input filename to split. This filename can be no longer than FS_FILENAME_LEN
+                (155).</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszDrive</em></td>
+            <td>
+                A pointer to the buffer to contain the drive letter and colon. This buffer should
+                be of size FS_DRIVE_LEN.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszDir</em></td>
+            <td>
+                A pointer to the buffer to contain the directory. This buffer should be of size
+                FS_DIR_LEN.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszFileName</em></td>
+            <td>
+                A pointer to the buffer to contain the filename without the extension. This buffer
+                should be of length FS_FILE_LEN.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpszExt</em></td>
+            <td>
+                A pointer to the buffer to contain the extension, including the preceding period.
+                This buffer should be of length FS_EXT_LEN.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>None.</p>
+    <hr />
+    <h3>WfsRemoveDir</h3>
+    <p>Removes a directory with confirmation.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsRemoveDir</strong> (
+          LPSTR     lpszDirName,
+          UINT      iInputFlags );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszDirName</em></td>
+            <td>
+                A pointer to the directory name of the directory to delete.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>iInputFlags</em></td>
+            <td>
+                Flag bit values. See the File I/O Flags table earlier in this section.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>See the File I/O return values table earlier in this section.</p>
+    <hr />
+    <h3>WfsRemovePathSlash</h3>
+    <p>Removes an ending \ from a pathname. If the given pathname is a drive specification
+    such as C:\, the slash is not removed. The parameter for this function is assumed to
+    be an ANSI string.</p>
+    <h4>Prototype</h4>
+    <pre>
+    VOID SHAPI <strong>WfsRemovePathSlash</strong> ( LPSTR lpszPath );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszPath</em></td>
+            <td>
+                A pointer to the pathname from which to remove the slash. The length of this pathname
+                should not be greater than FS_PATHNAME_BUFSIZE (143).</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>None.</p>
+    <hr />
+    <h3>WfsSetCurDir</h3>
+    <p>Changes the current working directory. This function will not change the current
+    drive. To change the current drive, use WfsSetCurDrive( ). The input to this function
+    is assumed to be an ANSI string and may contain a final backslash.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsSetCurDir</strong> ( LPSTR lpszCurrentPath );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszCurrentPath</em></td>
+            <td>
+                A pointer to the name of the directory to use as the new working directory. This
+                name should not be larger than FS_PATHNAME_BUFSIZE (143).</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if the directory change was successful, or -1 if the directory change
+    was unsuccessful.</p>
+    <hr />
+    <h3>WfsSetCurDrive</h3>
+    <p>Changes the current working drive. It will not change the working directory. To change
+    both the drive and directory, calls to both WfsSetCurDrive( ) and WfsSetCurDir( ) should
+    be made. The input to this function is assumed to be an ANSI string.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>WfsSetCurDrive</strong> ( LPSTR lpszCurrentPath );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpszCurrentPath</em></td>
+            <td>
+                A pointer to the name of the drive to use as the new working drive. This name may
+                be a full pathname, and should be no larger than FS_PATHNAME_BUFSIZE (143).</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns 0 if the drive change was successful, or -1 if the drive change was unsuccessful.</p>
+    <hr />
+    <h3>WioCreateDir</h3>
+    <p>Creates a new directory.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WioCreateDir</strong> ( LPAZ lpazPath );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpazPath</em></td>
+            <td>
+                The full path of the new directory.</td>
+        </tr>
+    </table>
+    <h4>Return Value</h4>
+    <p>Returns zero if no errors occur. If there was an error, it will return -1. Use WioFileError(
+    ) to determine the type of error that occurred.</p>
+    <hr />
+    <h3>WioDiskSpace</h3>
+    <p>Determines the amount of disk space on the drive specified.</p>
+    <h4>Prototype</h4>
+    <pre>
+    DWORD FAR PASCAL <strong>WioDiskSpace</strong> ( BYTE bDisk );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>bDisk</em></td>
+            <td>
+                0 = default.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns the number of free bytes on the drive. If there was an error, it will return
+    -1. Use WioFileError( ) to determine the type of error that occurred.</p>
+    <hr />
+    <h3>WioFileCopy</h3>
+    <p>Copies a file from one directory to another.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WioFileCopy</strong> (
+          LPAZ lpazDest,
+          LPAZ lpazSource );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpazDest</em></td>
+            <td>
+                The path and filename of the destination file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpazSource</em></td>
+            <td>
+                The path and filename of the source file.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if no errors occur. If there was an error, it will return -1. Use WioFileError(
+    ) to determine the type of error that occurred.</p>
+    <hr />
+    <h3>WioFileDelete</h3>
+    <p>Deletes the specified file.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WioFileDelete</strong> ( LPAZ lpazFileName );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpazFileName</em></td>
+            <td>
+                The path and filename of the file to delete.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>WioFileDelete( ) will return zero if no errors occur. If there was an error, it will
+    return -1. Use WioFileError( ) to determine the type of error that occurred.</p>
+    <hr />
+    <h3>WioFileError</h3>
+    <p>Returns the specific error after receiving a -1 return error from a File I/O function.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WioFileError</strong> ( void );
+</pre>
+    <h4>Parameters</h4>
+    <p>None.</p>
+    <h4>Return Values</h4>
+    <p>Most of the File I/O routines return zero on success and -1 on failure. WioFileError(
+    ) will return the error number of the specific error. WioFileError( ) returns an integer
+    which corresponds to one of the values defined in the table below.</p>
+    <pre>
+<strong>Error Number Error Type</strong>
+0                 No error
+1                 Out of memory
+2                 Couldn't allocate memory
+4                 Access denied
+7                 The file is locked
+8                 The file can't be locked
+9                 No available file descriptors
+10                File already exists
+11                Invalid drive/path specified
+12                File not found
+13                Can't open file
+14                Out of disk space
+16                Can't create new process
+18                Error on file read
+29                Floating point error
+30                Floating point error - invalid number
+31                Floating point error - overflow
+32                Floating point error - underflow
+33                Floating point error - division by zero
+34                Precision error
+36                Cancel out - generic
+</pre>
+    <hr />
+    <h3>WioFileMove</h3>
+    <p>Moves a file from one directory to another. It will work whether or not the directories
+    are on the same drive.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WioFileMove</strong> (
+          LPAZ lpazDest,
+          LPAZ lpazSource );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpazDest</em></td>
+            <td>
+                The path and filename of the destination file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpazSource</em></td>
+            <td>
+                The path and filename of the source file.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if no errors occur. If there was an error, it will return -1. Use WioFileError(
+    ) to determine the type of error that occurred.</p>
+    <hr />
+    <h3>WioFileRename</h3>
+    <p>Renames a file to another filename.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WioFileRename</strong> (
+          LPAZ lpazDest,
+          LPAZ lpazSource );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpazDest</em></td>
+            <td>
+                The path and filename of the destination file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>lpazSource</em></td>
+            <td>
+                The path and filename of the source file.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if no errors occur. If there was an error, it will return -1. Use WioFileError(
+    ) to determine the type of error that occurred.</p>
+    <hr />
+    <h3>WioFullPath</h3>
+    <p>Returns a fully qualified path. This can be used to get the proper path for a Save
+    As function when the user has entered a string like c:\..\test.wpd.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WioFullPath</strong> ( LPAZ lpazPath );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpazPath</em></td>
+            <td>
+                The path and filename to qualify.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if no errors occur. If the return value is zero, then <em>lpazPath</em>
+    will contain the fully qualified path and filename. If there was an error, it will return
+    -1. Use WioFileError( ) to determine the type of error that occurred.</p>
+    <hr />
+    <h3>WioGetCurrentDir</h3>
+    <p>Returns the current directory.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WioGetCurrentDir</strong> ( LPAZ lpazPath );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpazPath</em></td>
+            <td>
+                The variable containing the path of the current directory.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if no errors occur. If the return value is zero, then <em>lpazPath</em>
+    will be the path of the current directory. If there was an error, it will return -1.
+    Use WioFileError( ) to determine the type of error that occurred.</p>
+    <hr />
+    <h3>WioRemoveDir</h3>
+    <p>Removes the specified directory.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WioRemoveDir</strong> ( LPAZ lpazPath );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpazPath</em></td>
+            <td>
+                The path of the directory to remove.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if no errors occur. If there was an error, it will return -1. Use WioFileError(
+    ) to determine the type of error that occurred.</p>
+    <hr />
+    <h3>WioSetCurrentDir</h3>
+    <p>Sets the current directory to the specified directory.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int FAR PASCAL <strong>WioSetCurrentDir</strong> ( LPAZ lpazPath );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>lpazPath</em></td>
+            <td>
+                The path of the directory to set as the current directory.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if no errors occur. If there was an error, it will return -1. Use WioFileError(
+    ) to determine the type of error that occurred.</p>
+    <h2><a name="wopen"></a>WordPerfect File I/O Functions</h2>
+    <p>The following are WordPerfect File I/O Functions.</p>
+    <hr />
+    <h3>wopen</h3>
+    <p>Allow the user to open a file using WP file I/O.</p>
+    <h4>Prototype</h4>
+    <pre>
+    WFP SHAPI <strong>wopen</strong> ( 
+          WPFNAME name, 
+          WUDWORD flags );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>name</em></td>
+            <td>
+                The path of the file to open or create passed in as a WPFNAME structure.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>flags</em></td>
+            <td>
+                The following flags can be passed in to this field, which will determine the access
+                of the file opened:
+                <table width="98%">
+                    <tr>
+                        <td width="32%">
+                            <em>WIO_READ</em></td>
+                        <td width="67%">
+                            Open the file with read access</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_WRITE</em></td>
+                        <td>
+                            Open with write privileges</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_SHARED</em></td>
+                        <td>
+                            Allocate memory for this file from shared memory.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_CREATE</em></td>
+                        <td>
+                            Create the file if it doesn't exist.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_EXCL</em></td>
+                        <td>
+                            Open only if the file doesn't exist previously.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_BUF</em></td>
+                        <td>
+                            Buffer the file I/O</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_CACHE</em></td>
+                        <td>
+                            Cache the file.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_DELETE</em></td>
+                        <td>
+                            Automatically delete the file when finished.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_TRUNC</em></td>
+                        <td>
+                            Truncate the file to length 0 on open.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_MEMORY</em></td>
+                        <td>
+                            Put this file into memory, not onto disk.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_PERSISTENT</em></td>
+                        <td>
+                            Make this memory file stay around after closing.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_DENYNONE</em></td>
+                        <td>
+                            File sharing mode allow read and write</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_DENYREAD</em></td>
+                        <td>
+                            File sharing mode - deny reading the file</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_DENYWRITE</em></td>
+                        <td>
+                            File sharing mode - deny writing the file</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_DENYALL</em></td>
+                        <td>
+                            File sharing mode - deny reading and writing of the file</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_EXPLODEPREFIX</em></td>
+                        <td>
+                            Force loading of the Prefix area</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_DOCSAVECHECK</em></td>
+                        <td>
+                            Check the file on saving to see if it is corrupt. Don't allow saving of corrupt
+                            documents.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_DOCFILE</em></td>
+                        <td>
+                            Create the file as an OLE compound file. If file exists, must already be a compound
+                            file. (This option can be used to create a WordPerfect 7 document.)</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_FLATTFILE</em></td>
+                        <td>
+                            ALWAYS open the file as a flat file.</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if an error occurs. If there was no error, it will return a WFP, which
+    is a WordPerfect File Pointer to the opened file.</p>
+    <hr />
+    <h3>wclose</h3>
+    <p>Close the file associated with the WFP file pointer passed in.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>wclose</strong> ( WFP fp );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>fp</em></td>
+            <td>
+                File pointer of the file to close.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns zero if no error occurs. Returns a -1 if there was an error.</p>
+    <hr />
+    <h3>wread</h3>
+    <p>Read from the file associated with the WFP file pointer passed in.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>wread</strong> ( 
+          WFP        fp, 
+          WUBYTE FAR *bufx, 
+          WSDWORD    cnt);
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>fp</em></td>
+            <td>
+                File pointer of the file to read from.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>bufx</em></td>
+            <td>
+                Address of buffer to read into.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>cnt</em></td>
+            <td>
+                Number of bytes to read from file.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns the number of bytes actually read from the file. Returns a -1 if there was
+    an error.</p>
+    <hr />
+    <h3>wwrite</h3>
+    <p>Write data out to the file associated with the WFP file pointer passed in.</p>
+    <h4>Prototype</h4>
+    <pre>
+    int SHAPI <strong>wwrite</strong> ( 
+         WFP        fp, 
+         WUBYTE FAR *bufx, 
+         WSDWORD    cnt);
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>fp</em></td>
+            <td>
+                File pointer of the file to write to.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>bufx</em></td>
+            <td>
+                Address of buffer to write out to the file.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>cnt</em></td>
+            <td>
+                Number of bytes to write out to the file.</td>
+        </tr>
+    </table>
+    <h4>Return Values</h4>
+    <p>Returns the number of bytes actually written to the file. Returns a -1 if there was
+    an error.</p>
+    <hr />
+    <h3>wseek</h3>
+    <p>Move the pointer to a position in the file associated with the WFP file pointer passed
+    in.</p>
+    <h4>Prototype</h4>
+    <pre>
+    WSDWORD SHAPI <strong>wseek</strong> ( 
+          WFP     fp, 
+          WSDWORD offset,
+          WUWORD  basis );
+</pre>
+    <h4>Parameters</h4>
+    <table>
+        <tr>
+            <td>
+                <em>fp</em></td>
+            <td>
+                File pointer of the file to close.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>offset</em></td>
+            <td>
+                Number of bytes to position the file pointer relative to the basis passed in.</td>
+        </tr>
+        <tr>
+            <td>
+                <em>basis</em></td>
+            <td>
+                Move the pointer relative to one of the following three options:<br />
+                <table width="98%">
+                    <tr>
+                        <td width="25%">
+                            <em>WIO_SEEKB</em></td>
+                        <td width="75%">
+                            Position the pointer relative to the beginning of the file.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_SEEKC</em></td>
+                        <td>
+                            Position the pointer relative to the current file position.</td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <em>WIO_SEEKE</em></td>
+                        <td>
+                            Position the pointer relative to the end of the file.</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <h4>Return Values</h4>
+    <p>Returns the current file position if no error occurs. Returns a -1 if there was an
+    error.</p>
+</body>
+</html>

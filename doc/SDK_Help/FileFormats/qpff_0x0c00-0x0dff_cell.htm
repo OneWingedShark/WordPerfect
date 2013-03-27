@@ -1,0 +1,145 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>Quattro Pro File Format</title>
+</head>
+<body>
+    <h1>Quattro Pro File Format</h1>
+    <p><a href="qpff_Index.htm">Back to main page</a></p>
+    <h2>Cell Records - 0x0C00-0x0DFF</h2>
+    <p>The following are cell records, which span from 0x0C00 to 0x0DFF.</p>
+    <p><strong>Note:</strong> The sheet number for a cell record is the value in the last
+    BOS record, and the column number is the value in the last BOC record. The row number
+    is determined by a cell offset (including mul counts) in the celllist. Row, column and
+    sheet numbers are all 0-based -- A:A1 is 0,0,0. A cell record without a format index
+    indicates the cell uses the default format (whether column, sheet, or notebook).</p>
+    <hr />
+    <h3>0x0C01</h3>
+    <p><strong>CELLLIST</strong></p>
+    <p>This record contains all the cell data for a range of cells</p>
+    <p>[record type = 3073 (0x0c01)]</p>
+    <p>[body length = variable]</p>
+    <p>{first} row number of first cell in the list</p>
+    <p>{count} number of cells in this range</p>
+    <p>QCELL x count</p>
+    <hr />
+    <h3>0x0C02</h3>
+    <p><strong>FORMULA_STRING_VALUE</strong></p>
+    <p>[record type = 3074 (0x0c02)]</p>
+    <p>[body length = variable]</p>
+    <p>[column]</p>
+    <p>{row}</p>
+    <p>QSTR_LABEL string</p>
+    <hr />
+    <h3>0x0C70</h3>
+    <p><strong>CGENERICBLANK</strong></p>
+    <p>Not written from QP9</p>
+    <p><strong><u>UNIMPLEMENTED</u></strong></p>
+    <p>[record type = 3184 (0x0c70)]</p>
+    <p>[body length = 8]</p>
+    <p>[column]</p>
+    <p>{row}</p>
+    <p>[format index]</p>
+    <hr />
+    <h3>0x0C71</h3>
+    <p><strong>CGENERICERR</strong></p>
+    <p>Not written from QP9</p>
+    <p><strong><u>UNIMPLEMENTED</u></strong></p>
+    <p>[record type = 3185 (0x0c71)]</p>
+    <p>[body length = 10]</p>
+    <p>[column]</p>
+    <p>{row}</p>
+    <p>[format index]</p>
+    <p>[error value]</p>
+    <hr />
+    <h3>0x0C72</h3>
+    <p><strong>CGENERICLABEL</strong></p>
+    <p>Not written from QP9</p>
+    <p>[record type = 3186 (0x0c72)]</p>
+    <p>[body length = variable]</p>
+    <p>[column]</p>
+    <p>{row}</p>
+    <p>[format index]</p>
+    <p>QSTR_LABEL label text</p>
+    <hr />
+    <h3>0x0C73</h3>
+    <p><strong>CGENERICNUM_INT</strong></p>
+    <p>Not written from QP9</p>
+    <p><strong><u>UNIMPLEMENTED</u></strong></p>
+    <p>[record type = 3187 (0x0c73)]</p>
+    <p>[body length = 10]</p>
+    <p>[column]</p>
+    <p>{row}</p>
+    <p>[format index]</p>
+    <p>[num] signed 16-bit integer</p>
+    <hr />
+    <h3>0x0C74</h3>
+    <p><strong>CGENERICNUM_RK</strong></p>
+    <p>Not written from QP9</p>
+    <p><strong><u>UNIMPLEMENTED</u></strong></p>
+    <p>[record type = 3188 (0x0c74)]</p>
+    <p>[body length = variable]</p>
+    <p>[column]</p>
+    <p>{row}</p>
+    <p>[format index]</p>
+    <p>{num} 32-bit RK value</p>
+    <hr />
+    <h3>0x0C75</h3>
+    <p><strong>CGENERICNUM_IEEE</strong></p>
+    <p>Not written from QP9</p>
+    <p><strong><u>UNIMPLEMENTED</u></strong></p>
+    <p>[record type = 3189 (0x0c75)]</p>
+    <p>[body length = variable]</p>
+    <p>[column]</p>
+    <p>{row}</p>
+    <p>[format index]</p>
+    <p>[[num]] 64-bit IEEE floating-point number</p>
+    <hr />
+    <h3>0x0C76</h3>
+    <p><strong>CGENERICFORMULA</strong></p>
+    <p>Not written from QP9</p>
+    <p>[record type = 3190 (0x0c76)]</p>
+    <p>[body length = variable]</p>
+    <p>[column]</p>
+    <p>{row}</p>
+    <p>[format index]</p>
+    <p>[[result]] number, string, or error result (if high WORD is 0x7FF0, next highest
+    WORD is error or string flag, and if string, low LONG is label index)</p>
+    <p>[state]</p>
+    <p>[len] length of formulaStr</p>
+    <p>[refPos] position in formulaStr where references begin</p>
+    <p>&lt;formulaStr&gt; x ? formula cde and references</p>
+    <hr />
+    <h3>0x0C80</h3>
+    <p><strong>CCOMMENT</strong></p>
+    <p>Not written from QP9</p>
+    <p><strong><u>UNIMPLEMENTED</u></strong></p>
+    <p>[record type = 3200 (0x0c80)]</p>
+    <p>[body length = variable]</p>
+    <p>[column]</p>
+    <p>{row}</p>
+    <p>{flag}</p>
+    <p>QSTR_LABEL author name</p>
+    <p>QSTR_LABEL comment</p>
+    <h2>Object Records</h2>
+    <p>The following are object records.</p>
+    <hr />
+    <h3>0x01401</h3>
+    <p><strong>BeginObject</strong></p>
+    <p>This record indicates the start of object data</p>
+    <p>[record type = 5121 (0x01401)]</p>
+    <p>[body length = variable]</p>
+    <p>{size} size of object data that follows (used to skip data)</p>
+    <p>[type] type of object data that follows</p>
+    <p>QSTR_LABEL name name of the following object (optional)</p>
+    <hr />
+    <h3>0x01402</h3>
+    <p><strong>EndObject</strong></p>
+    <p>Marks the end of an object begun by a BeginObject record. There is no data.</p>
+    <p>[record type = 5121 (0x01401)]</p>
+    <p>[body length = 0]</p>
+</body>
+</html>

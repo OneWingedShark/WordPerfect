@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WshVersion function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="utlParamHandler.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WutlAllocTaskParam.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="PerfectFit_registration.html">Registering PerfectFit</a> :
+        WshVersion function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1270448"></a>
+
+  <h4 class="pHeading3">WshVersion function</h4><a name="wp1270449"></a>
+
+  <p class="pBody">The <code class="cCode">WshVersion</code> function returns the major and minor versions of PerfectFit. It can be called before or after your
+  program registers with PerfectFit.</p><a name="wp1270450"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DWORD FAR PASCAL WshVersion ( void ); <a name="wp1270451"> </a>
+</pre>
+  </div><a name="wp1270452"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1270453"></a>
+
+  <p class="pBody">None</p><a name="wp1270454"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1270455"></a>
+
+  <p class="pBody">The low <code class="cCode">WORD</code> of the return value contains the version information. The high <code class="cCode">WORD</code> of
+  the value contains the <code class="cCode">hInstance</code> of the PerfectFit.</p><a name="wp1270456"></a>
+
+  <p class="pBody">The version information is in a 2-byte format. The low byte contains the major version number, and the high byte contains the minor version
+  number. For example, if you were working with WordPerfect 7.0, the low byte (major version number) would have the value of <code class="cCode">7</code> in
+  it, and the high byte (minor version number) would have the value of <code class="cCode">0</code> in it.</p>
+</body>
+</html>

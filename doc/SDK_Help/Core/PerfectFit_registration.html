@@ -1,0 +1,565 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Registering PerfectFit</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="PerfectFit_reference.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="utlParamHandler.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Registering PerfectFit</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1270135"></a>
+
+  <h3 class="pHeading2">Registering PerfectFit</h3><a name="wp1270136"></a>
+
+  <p class="pBody">If you want to use PerfectFit APIs in your stand-alone application, you must register PerfectFit to work with your application. Doing so
+  lets you watch messages that are passed by PerfectFit to the calling application. It also lets you use a set of function calls to pass command-line
+  parameters and environment variables through to PerfectFit.</p><a name="wp1271143"></a>
+
+  <p class="pBody">Registering PerfectFit to work with your application involves the following steps:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1271294"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_registration.html#wp1270142">Step 1: Pointing a stand-alone application to PerfectFit</a></li>
+      </ul>
+    </div><a name="wp1271558"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_registration.html#wp1270214">Step 2: Passing command-line parameters to PerfectFit</a></li>
+      </ul>
+    </div><a name="wp1271562"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_registration.html#wp1270248">Step 3: Filling the link-window structure</a></li>
+      </ul>
+    </div><a name="wp1271566"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_registration.html#wp1270324">Step 4: Creating the link window</a></li>
+      </ul>
+    </div><a name="wp1271570"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_registration.html#wp1270362">Step 5: Parsing command-line parameters</a></li>
+      </ul>
+    </div><a name="wp1271574"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_registration.html#wp1270389">Step 6: Terminating PerfectFit registration</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1271458"></a>
+
+  <p class="pBody">You can use the following functions for registering PerfectFit:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1271460"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="utlParamHandler.html#wp1270414">utlParamHandler function</a></li>
+      </ul>
+    </div><a name="wp1271462"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WshVersion.html#wp1270448">WshVersion function</a></li>
+      </ul>
+    </div><a name="wp1271464"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WutlAllocTaskParam.html#wp1270462">WutlAllocTaskParam function</a></li>
+      </ul>
+    </div><a name="wp1271466"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WutlFindParams.html#wp1270475">WutlFindParams function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1270142"></a>
+
+  <h5 class="pHeading4">Step 1: Pointing a stand-alone application to PerfectFit</h5><a name="wp1270143"></a>
+
+  <p class="pBody">To you use PerfectFit with your stand-alone application, you must link to PerfectFit dynamically, the act of which writes an entry in the
+  Windows registry.</p><a name="wp1270144"></a>
+
+  <p class="pBody">The following sample code shows how to point a stand-alone application to PerfectFit. The definitions used in this example can be found at
+  the following location: X:\Program&nbsp;Files\Corel\WordPerfect&nbsp;Office&nbsp;X6\SDK\Include\screg.h, where X: is the drive where your
+  Program&nbsp;Files folder is stored.</p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1271229"></a>
+
+    <div class="pSmartList1">
+      Because the shared DLLs are interdependent, you must set the current working folder to the PerfectFit folder so that PerfectFit is loaded. Otherwise,
+      errors may result.
+    </div>
+  </div>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+// Name: FindSharedCodeInRegistry<a name="wp1270145"> </a>
+// Description: Looks in the registry for the location of <a name="wp1270146"> </a>
+// PerfectFit<a name="wp1270147"> </a>
+// Returns: Boolean<a name="wp1270148"> </a>
+// True - A path to PerfectFit was found and returned.<a name="wp1270149"> </a>
+// False - A path to PerfectFit was not found in the registry.<a name="wp1270150"> </a>
+BOOL SHAPI FindPerfectFitInRegistry( LPSTR lpszSCPath,<a name="wp1270151"> </a>
+long lSCPathBufferLen) <a name="wp1270152"> </a>
+{<a name="wp1270153"> </a>
+// Initializations. <a name="wp1270154"> </a>
+HKEY hKey = NULL; <a name="wp1270155"> </a>
+BOOL fRet = FALSE; <a name="wp1270156"> </a>
+DWORD dwType = 0; <a name="wp1270157"> </a>
+// Create a key first <a name="wp1270158"> </a>
+lpszSCPath[0] ='\0'; <a name="wp1270159"> </a>
+if (ERROR_SUCCESS == RegCreateKey( HKEY_LOCAL_MACHINE, <a name="wp1270160"> </a>
+"SOFTWARE\\" PS_COMPANY "\\" PS_LEGACYPRODUCT, <a name="wp1270161"> </a>
+&amp;hKey)) <a name="wp1270162"> </a>
+{ <a name="wp1270163"> </a>
+// Try to find the location for PerfectFit in the registry <a name="wp1270164"> </a>
+if( ERROR_SUCCESS == RegQueryValueEx( <a name="wp1270165"> </a>
+hKey, //hkey <a name="wp1270166"> </a>
+PS_VERSION, // lpszValueName <a name="wp1270167"> </a>
+NULL, // RESERVED <a name="wp1270168"> </a>
+&amp;dwType, // address for type <a name="wp1270169"> </a>
+(LPBYTE)lpszSCPath, // lpbData <a name="wp1270170"> </a>
+(LPDWORD)&amp;lSCPathBufferLen)) // lpcbData <a name="wp1270171"> </a>
+{ <a name="wp1270172"> </a>
+fRet = TRUE; // Found a preferred path! Use it! <a name="wp1270173"> </a>
+} <a name="wp1270174"> </a>
+else <a name="wp1270175"> </a>
+{ <a name="wp1270176"> </a>
+// No luck with the registry. Return False. <a name="wp1270177"> </a>
+fRet = FALSE; <a name="wp1270178"> </a>
+} <a name="wp1270179"> </a>
+// Close the key. <a name="wp1270180"> </a>
+RegCloseKey(hKey); <a name="wp1270181"> </a>
+} <a name="wp1270182"> </a>
+return( fRet ); <a name="wp1270183"> </a>
+} // FindSharedCodeInRegistry<a name="wp1270184"> </a>
+</pre>
+  </div><a name="wp1271206"></a>
+
+  <p class="pBody">The following sample code shows how to load PerfectFit properly.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+HINSTANCE hLib; <a name="wp1270186"> </a>
+// ...<a name="wp1270187"> </a>
+_chdir((LPSTR)lpszSCPath); <a name="wp1270188"> </a>
+lstrcat ((LPSTR)lpszSCPath, "pfit110.dll"); <a name="wp1270189"> </a>
+if ((hLib = LoadLibrary((LPCSTR)lpszSCPath)) &lt;= HINSTANCE_ERROR) <a name="wp1270190"> </a>
+return hLib; <a name="wp1270191"> </a>
+// ...<a name="wp1270192"> </a>
+</pre>
+  </div><a name="wp1270193"></a>
+
+  <p class="pBody">After PerfectFit is loaded, you must get pointers to the functions you want to call by calling the Windows function <code class=
+  "cCode">GetProcAddress()</code>. Before you use this function, you must prototype the PerfectFit functions you want to use. The following sample code shows
+  how to do this.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+// ...<a name="wp1270194"> </a>
+//Prototype for WfsGetCurDir <a name="wp1270195"> </a>
+typedef int (FAR PASCAL *WFSGETCURDIR) (LPSTR); <a name="wp1270196"> </a>
+WFSGETCURDIR lpfnWfsGetCurDir; <a name="wp1270197"> </a>
+HINSTANCE hLib; <a name="wp1270198"> </a>
+char azCurDir[_MAX_PATH]; <a name="wp1270199"> </a>
+// ...<a name="wp1270200"> </a>
+//Get WfsGetCurDir proc address <a name="wp1270201"> </a>
+lpfnWfsGetCurDir = (WFSGETCURDIR)GetProcAddress ( <a name="wp1270202"> </a>
+hLib, "WfsGetCurDir"); <a name="wp1270203"> </a>
+... <a name="wp1270204"> </a>
+(*lpfnWfsGetCurDir)((LPSTR)azCurDir); <a name="wp1270205"> </a>
+... <a name="wp1270206"> </a>
+</pre>
+  </div><a name="wp1270207"></a>
+
+  <p class="pBody">If you use this method to load and access functions in PerfectFit, you must remember to call the Windows function <code class=
+  "cCode">FreeLibrary(&nbsp;)</code> to unload PerfectFit before exiting your program.</p><a name="wp1270214"></a>
+
+  <h5 class="pHeading4">Step 2: Passing command-line parameters to PerfectFit</h5><a name="wp1270215"></a>
+
+  <p class="pBody">If you want to pass command-line parameters to PerfectFit, the calling application must call the <code class=
+  "cCode">WutlFindParams(&nbsp;)</code> PerfectFit function, which allocates memory for task-specific parameters before the actual registration. Calling this
+  function lets PerfectFit see and process the registering application's DOS-environment variables and command-line parameters.</p><a name="wp1271278"></a>
+
+  <p class="pBody">The following sample code shows the part of the function that registers an application with PerfectFit.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+HWND FAR PASCAL SC7xRegister (HANDLE hInst, <a name="wp1270216"> </a>
+LPSTR lpCmdLine, <a name="wp1270217"> </a>
+UTLLPParamHandler lpfnParamHandler, <a name="wp1270218"> </a>
+LPSTR lpszAppName, <a name="wp1270219"> </a>
+LPSTR lpszAppLang, <a name="wp1270220"> </a>
+LPSTR lpszLW_WindowName) <a name="wp1270221"> </a>
+{ <a name="wp1270222"> </a>
+LW lw; // Link window structure; <a name="wp1270223"> </a>
+ATOM atomAppName; <a name="wp1270224"> </a>
+char FAR * EnvArgs [] = {"WPCWIN", <a name="wp1270225"> </a>
+"WPC", <a name="wp1270226"> </a>
+NULL}; <a name="wp1270227"> </a>
+UTLParamCntType ucParams; <a name="wp1270228"> </a>
+memset(&amp;lw;, 0, sizeof(LW)); <a name="wp1270229"> </a>
+ucParams = WutlFindParams (lpCmdLine, <a name="wp1270230"> </a>
+&amp;EnvArgs;[0], <a name="wp1270231"> </a>
+NULL, <a name="wp1270232"> </a>
+lw.hTaskParams = WutlAllocTaskParam(), <a name="wp1270233"> </a>
+(UTLLPParamHandler)lpfnParamHandler); <a name="wp1270234"> </a>
+//This param could also be the <a name="wp1270235"> </a>
+//address of a callback function if <a name="wp1270236"> </a>
+//you wanted to see the cmdline  <a name="wp1270237"> </a>
+//params and process each one in <a name="wp1270238"> </a>
+//the callback. <a name="wp1270239"> </a>
+// ....<a name="wp1270240"> </a>
+} <a name="wp1270241"> </a>
+</pre>
+  </div><a name="wp1270242"></a>
+
+  <p class="pBody">Before continuing with the registration process, you must call the <code class="cCode">WutlFindParams(&nbsp;)</code> function so that the
+  command line parameters are correctly passed.</p><a name="wp1270248"></a>
+
+  <h5 class="pHeading4">Step 3: Filling the link-window structure</h5><a name="wp1270249"></a>
+
+  <p class="pBody">With a successful return value from <code class="cCode">WutlFindParams(&nbsp;)</code>, you are ready to fill the link-window structure. This
+  structure should be initialized to <code class="cCode">NULL</code> values by calling the C-runtime function <code class="cCode">memset</code>. The structure
+  can then be filled out.</p><a name="wp1271314"></a>
+
+  <p class="pBody">The following sample code shows the link-window structure.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct _link window <a name="wp1270250"> </a>
+{ <a name="wp1270251"> </a>
+UINT msgShared; <a name="wp1270252"> </a>
+FARPROC lpfnSubClassWndProc; <a name="wp1270253"> </a>
+FARPROC FAR * lplpfnLinkWndProc; <a name="wp1270254"> </a>
+HANDLE hLangResInst; <a name="wp1270255"> </a>
+AZLANG azLang; <a name="wp1270256"> </a>
+ATOM atomAppName; <a name="wp1270257"> </a>
+ATOM atomTranslName; <a name="wp1270258"> </a>
+DWORD fFlags; <a name="wp1270259"> </a>
+HINSTANCE hInstGlyph; <a name="wp1270260"> </a>
+UTLHTaskParams hTaskParams; <a name="wp1270261"> </a>
+WORD wTokenIdNull; <a name="wp1270262"> </a>
+} LW, FAR* LPLW; <a name="wp1270263"> </a>
+</pre>
+  </div><a name="wp1270264"></a>
+
+  <p class="pBody">Here are the associated types:</p><a name="wp1270270"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1270267"></a>
+
+          <p class="pBody"><code class="cCode">LPLW</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270269"></a>
+
+          <p class="pBody">Acts as a far pointer to the link-window structure</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1270271"></a>
+
+  <p class="pBody">Here are the associated members:</p><a name="wp1270317"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1270274"></a>
+
+          <p class="pBody"><code class="cCode">msgShared</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270276"></a>
+
+          <p class="pBody">Specifies the PerfectFit-registered message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270278"></a>
+
+          <p class="pBody"><code class="cCode">lpfnSubClassWndProc</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270280"></a>
+
+          <p class="pBody">Specifies the optional sub-class-window procedure for the link window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270282"></a>
+
+          <p class="pBody"><code class="cCode">lplpfnLinkWndProc</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270284"></a>
+
+          <p class="pBody">Specifies the optional pointer to the address of the link-window procedure. This is filled by PerfectFit during the creation of the
+          link window. This parameter is the address passed as the default window procedure when trapping PerfectFit messages.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270286"></a>
+
+          <p class="pBody"><code class="cCode">hLangResInst</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270288"></a>
+
+          <p class="pBody">Specifies the handle to the language resource or <code class="cCode">WPRES_SHARED_RESOURCE</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270290"></a>
+
+          <p class="pBody"><code class="cCode">azLang</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270292"></a>
+
+          <p class="pBody">Specifies the two-byte language and terminator. This can be localized to allow multilingual support.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270294"></a>
+
+          <p class="pBody"><code class="cCode">atomAppName</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270296"></a>
+
+          <p class="pBody">Specifies the atom of the applications's signature name</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270298"></a>
+
+          <p class="pBody"><code class="cCode">atomTranslName</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270300"></a>
+
+          <p class="pBody">Specifies the atom of the application's localizable name</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270302"></a>
+
+          <p class="pBody"><code class="cCode">fFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270304"></a>
+
+          <p class="pBody">Specifies the PerfectFit flags set by the application</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270306"></a>
+
+          <p class="pBody"><code class="cCode">hInstGlyph</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270308"></a>
+
+          <p class="pBody">Specifies the Base theta bitmap DLL</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270310"></a>
+
+          <p class="pBody"><code class="cCode">hTaskParams</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270312"></a>
+
+          <p class="pBody">Specifies the handle to a memory block. This memory block holds the specific parameters for the task (that is, your program). These
+          parameters include the .env file switches, DOS-environment variables, and the command-line parameters passed by your application.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270314"></a>
+
+          <p class="pBody"><code class="cCode">wTokenIdNull</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270316"></a>
+
+          <p class="pBody">Specifies the application's <code class="cCode">NULL</code> token</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1270318"></a>
+
+  <p class="pBody">It is the responsibility of the application to determine which language to run in. The two-byte language codes are defined in the scwin.rc
+  file. To choose the language, you can use the command line, an .env file, or an .ini file.</p><a name="wp1270324"></a>
+
+  <h5 class="pHeading4">Step 4: Creating the link window</h5><a name="wp1270325"></a>
+
+  <p class="pBody">After the link window structure has been filled, the Windows function <code class="cCode">CreateWindow(&nbsp;)</code> is called to pass the
+  link-window structure to the PerfectFit link window. PerfectFit uses the information in the link-window structure to create the task data for the
+  application. If <code class="cCode">CreateWindow(&nbsp;)</code> returns a valid window handle, the application is registered with shared code.</p><a name=
+  "wp1271431"></a>
+
+  <p class="pBody">The following sample code shows the remainder of the <code class="cCode">PFRegister(&nbsp;)</code> function.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+lw.lpfnSubClassWndProc = NULL; <a name="wp1270326"> </a>
+lw.lplpfnLinkWndProc = NULL; <a name="wp1270327"> </a>
+lw.hLangResInst = hInst; <a name="wp1270328"> </a>
+if (*lpszAppLang) <a name="wp1270329"> </a>
+{ <a name="wp1270330"> </a>
+lstrcpy ((LPSTR)lw.azLang, lpszAppLang); <a name="wp1270331"> </a>
+} <a name="wp1270332"> </a>
+if (*lpszAppName) <a name="wp1270333"> </a>
+{ <a name="wp1270334"> </a>
+atomAppName = GlobalAddAtom (lpszAppName); <a name="wp1270335"> </a>
+lw.atomAppName = atomAppName; <a name="wp1270336"> </a>
+} <a name="wp1270337"> </a>
+lw.atomTranslName = 0; <a name="wp1270338"> </a>
+hwndLink = CreateWindow ((LPSTR)LINK_WINDOW_CLASS, <a name="wp1270339"> </a>
+lpszLW_WindowName, <a name="wp1270340"> </a>
+WS_POPUP, <a name="wp1270341"> </a>
+-10, <a name="wp1270342"> </a>
+-10, <a name="wp1270343"> </a>
+1, <a name="wp1270344"> </a>
+1, <a name="wp1270345"> </a>
+NULL, <a name="wp1270346"> </a>
+NULL, <a name="wp1270347"> </a>
+hInst, <a name="wp1270348"> </a>
+(LPLW)&amp;lw;); <a name="wp1270349"> </a>
+return hwndLink; <a name="wp1270350"> </a>
+} <a name="wp1270351"> </a>
+</pre>
+  </div><a name="wp1270352"></a>
+
+  <p class="pBody">If a valid window handle is returned by <code class="cCode">CreateWindow(&nbsp;)</code>, the registration was successful. The application
+  takes appropriate action based on the return value.</p><a name="wp1270353"></a>
+
+  <p class="pBody">PerfectFit cannot be used until the registration process has been successfully completed.</p><a name="wp1270362"></a>
+
+  <h5 class="pHeading4">Step 5: Parsing command-line parameters</h5><a name="wp1270363"></a>
+
+  <p class="pBody">On occasion, you may need to use command-line switches to open files, process data, and more. You may also want to pass PerfectFit switches
+  to PerfectFit. Instead of writing a command-line parser, you can use the API in PerfectFit to look at and process individual switches.</p><a name=
+  "wp1270364"></a>
+
+  <p class="pBody">The callback function in your application is used to process the command. You must pass a pointer to the callback function as the last
+  parameter of <code class="cCode">WutlFindParams(&nbsp;)</code>.</p><a name="wp1270365"></a>
+
+  <p class="pBody">If there are command-line parameters, PerfectFit processes each of its specific switches when your application is executed, and it then
+  passes each switch to your callback function. Your callback function is called for each command-line parameter; the callback is not used if there are no
+  parameters.</p><a name="wp1270366"></a>
+
+  <p class="pBody">Your application defines which command-line parameters to process and what to do with the value passed from the switch. The following sample
+  code shows the prototype and code to process a command-line switch and get a file name by using the <code class="cCode">/f</code> switch.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL FAR PASCAL __export CmdLineParamHandler (LPSTR lpszTag, <a name="wp1270367"> </a>
+LPSTR lpszValue, UINT uPriority, UINT uSequence); <a name="wp1270368"> </a>
+//Globals variables <a name="wp1270369"> </a>
+char szDocName[_MAX_PATH] = ""; <a name="wp1270370"> </a>
+BOOL FAR PASCAL __export CmdLineParamHandler (LPSTR lpszTag, <a name="wp1270371"> </a>
+LPSTR lpszValue, UINT uPriority, UINT uSequence) <a name="wp1270372"> </a>
+{ <a name="wp1270373"> </a>
+if (!lstrcmp (lpszTag, "f")) <a name="wp1270374"> </a>
+{ <a name="wp1270375"> </a>
+//Get the file name and save in global variable <a name="wp1270376"> </a>
+//"szDocName" <a name="wp1270377"> </a>
+lstrcpy ((LPSTR)szDocName, lpszValue); <a name="wp1270378"> </a>
+} <a name="wp1270379"> </a>
+return TRUE; <a name="wp1270380"> </a>
+} <a name="wp1270381"> </a>
+</pre>
+  </div><a name="wp1270389"></a>
+
+  <h5 class="pHeading4">Step 6: Terminating PerfectFit registration</h5><a name="wp1270390"></a>
+
+  <p class="pBody">You can use the Windows API <code class="cCode">DestroyWindow(&nbsp;)</code> to destroy the link window and terminate PerfectFit
+  registration.</p>
+</body>
+</html>

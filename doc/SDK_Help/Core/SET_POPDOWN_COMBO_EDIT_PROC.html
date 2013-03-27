@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>SET_POPDOWN_COMBO_EDIT_PROC macro</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="SET_POPDOWN_COMBO_EDIT.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SET_POPDOWN_COMBO_POPDOWN.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> :
+        SET_POPDOWN_COMBO_EDIT_PROC macro</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp541707"></a>
+
+  <h4 class="pHeading3">SET_POPDOWN_COMBO_EDIT_PROC macro</h4><a name="wp541709"></a>
+
+  <p class="pBody">The <code class="cCode">SET_POPDOWN_COMBO_EDIT_PROC</code> macro sets the address of the window procedure for the edit control portion of
+  the pop-down combo box control.</p><a name="wp541711"></a>
+
+  <h5 class="pHeading4">Syntax</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+FARPROC SET_POPDOWN_COMBO_EDIT_PROC (<a name="wp541713"> </a>
+ HWND hPDownCombo,<a name="wp541715"> </a>
+ FARPROC lpfn );<a name="wp541717"> </a>
+</pre>
+  </div><a name="wp541719"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp541722"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp510076"></a>
+
+          <p class="pBody"><code class="cCode">hPDownCombo</code></p>
+        </td>
+
+        <td>
+          <a name="wp510078"></a>
+
+          <p class="pBody">Specifies the handle to the pop-down combo box control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp510084"></a>
+
+          <p class="pBody"><code class="cCode">lpfn</code></p>
+        </td>
+
+        <td>
+          <a name="wp510086"></a>
+
+          <p class="pBody">Specifies the address of window procedure for the edit control</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp541724"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp541726"></a>
+
+  <p class="pBody">This macro returns the address of the previous window procedure for the edit control.</p>
+</body>
+</html>

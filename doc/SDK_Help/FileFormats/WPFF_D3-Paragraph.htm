@@ -1,0 +1,532 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: D3 Paragraph Functions</h2>
+    <p><strong>Paragraph Group - Function 211 (0xD3)</strong></p>
+    <p>The Paragraph Group subfunctions have paragraph orientation.</p>
+    <hr />
+    <h3>0xD300</h3>
+    <p>Modified for WP9</p>
+    <p><strong>Set Line Height</strong></p>
+    <pre>
+WordPerfect 9 and before
+&lt;211 (0xD3)&gt; &lt;0 (0x00)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[ lines per inch (WPU)]
+  0 = automatic line height
+  non-zero = fixed line height.
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+
+WordPerfect 9
+&lt;211 (0xD3)&gt; &lt;0 (0x00)&gt; [size = 18] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+[lines per inch (WPU)] -  0 = automatic line height, or non-zero = fixed line height.
+[minimum lines per inch (WPU)]
+Deletable Data:
+  [old lines per inch (WPU)]
+  [old minimum lines per inch (WPU)]
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD301</h3>
+    <p><strong>Set Line Spacing</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;1 (0x01)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+{ line spacing (WPSP)}
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD302</h3>
+    <p><strong>Set Left Hotzone</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;2 (0x02)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt; left hotzone&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD303</h3>
+    <p><strong>Set Right Hotzone</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;3 (0x03)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt; right hotzone&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD304</h3>
+    <p><strong>Tab Set</strong></p>
+    <pre>
+WordPerfect 9 and before
+
+&lt;211 (0xD3)&gt; &lt;4 (0x04)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+&lt; definition&gt;
+  bit 0: 
+    0 = absolute
+    1 = relative
+[tab adjust value] Set to left margin for relative tabs, ignored if absolute tabs.
+&lt;number of tab type/tab position combinations&gt;
+The following three bytes are repeated for each combination:
+&lt;tab type&gt;
+  bits 0-3:
+    000 = left tab
+    001 = centered tab
+    010 = right tab
+    011 = decimal aligned tab
+    100 = vertical bar tab
+  bit 4: 0 = no dot leader
+  bit 7: 1 = repeated tab
+  If bit 7 is set, bits 0-6 contain a repetition count, using the previous tab type.
+    [tab position or difference if repeated (WPU)] x repetition count
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <p>WordPerfect 9</p>
+    <p>&lt;211 (0xD3)&gt; &lt;4 (0x04)&gt; [size = variable] &lt;flags = 0&gt;</p>
+    <pre>
+[size of non-deletable information]
+&lt; definition&gt;
+  bit 0: 
+    0 = absolute
+    1 = relative
+[tab adjust value] Set to left margin for relative tabs, ignored if absolute tabs.
+&lt;number of tab type/tab position combinations&gt;
+The following three bytes are repeated for each combination:
+&lt;tab type&gt;
+  bits 0-3:
+    000 = left tab
+    001 = centered tab
+    010 = right tab
+    011 = decimal aligned tab
+    100 = vertical bar tab
+  bit 4: 
+</pre>
+    <pre>
+    0 = no dot leader
+  bit 5-6:
+    0 = use pre-WP9 leader method
+    1 = dot leader
+    2 = hyphen leader
+    3 = underscore leader
+</pre>
+    <pre>
+  bit 7: 
+</pre>
+    <pre>
+    1 = repeated tab
+</pre>
+    <pre>
+  If bit 7 is set, bits 0-6 contain a repetition count, using the previous tab type.
+    [tab position or difference if repeated (WPU)] x repetition count
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD305</h3>
+    <p><strong>Set Justification Mode</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;5 (0x05)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new justification mode&gt;
+  0 = left
+  1 = full
+  2 = center
+  3 = right
+  4 = full all lines (kinto waritsuke)
+  5 = reserved (decimal aligned in tables)
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD306</h3>
+    <p><strong>Set Hyphenation Mode</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;6 (0x06)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt; hyphenation state&gt;
+  bit 0: 
+    0 = hyphenation off
+    1 = hyphenation on
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD307</h3>
+    <p><strong>Set Leading Adjustment</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;7 (0x07)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[ leading adjustment/value (signed WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD308</h3>
+    <p><strong>Begin Generated Text</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;8 (0x08)&gt; [size = variable] 
+&lt;flags&gt; 
+  1 = simple paired function
+  81 = If the flags byte is 81 then the following data exists:
+     &lt;number of prefix IDs = 1&gt;
+     [PID for User Assistant (type=0x5b)]
+[size of non-deletable information = 2]
+[size of generate table (WPU)] used only during generate
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD309</h3>
+    <p><strong>End of Generated Text</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;9 (0x09)&gt; [size = 12] 
+&lt;flags&gt;
+  1 = simple paired function
+  81 = If the flags byte is 81 then the following data exists:
+     &lt;number of prefix IDs = 1&gt;
+     [PID for User Assistant (type=0x5b)]
+[size of non-deletable information = 2]
+[size of generate table (WPU-used only during generate)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD30A</h3>
+    <p><strong>Set Spacing After Paragraph</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;10 (0x0A)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 4]
+{spacing after paragraph (WPSP)}
+[new space in paragraph in points (WPUs)] - (optional)
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD30B</h3>
+    <p><strong>Indent First Line of Paragraph</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;11 (0x0B)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[ paragraph indent (signed WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD30C</h3>
+    <p><strong>Left Margin Adjustment</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;12 (0x0C)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[ left margin adjustment (signed WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD30D</h3>
+    <p><strong>Right Margin Adjustment</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;13 (0x0D)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[ right margin adjustment (signed WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD30E</h3>
+    <p><strong>Outline Define</strong></p>
+    <pre>
+
+&lt;211 (0xD3)&gt; &lt;14 (0x0E)&gt; [size = variable] &lt;flags = PRFXID&gt;
+&lt;number of prefix IDs = 9&gt;
+[PID of this outline style (type=0x__)]
+[PIDs of paragraph styles associated with this outline (type=0x__)] x 8
+[size of non-deletable information = 20]
+[hash of this definition]
+&lt;8 numbering methods&gt; x 8
+&lt;outline flags&gt;
+&lt;tab behavior flag&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+
+WordPerfect 9
+&lt;211 (0xD3)&gt; &lt;14 (0x0E)&gt; [size = variable] &lt;flags = PRFXID&gt;
+&lt;number of prefix IDs = 10&gt;
+[PID of this outline style (type=0x__)]
+[PIDs of paragraph styles associated with this outline (type=0x__)] x 9
+[size of non-deletable information = 40]
+[hash of this definition]
+&lt;numbering methods&gt; x 8
+&lt;outline flags&gt;
+&lt;tab behavior flag&gt;
+&lt;leading zero information&gt; x 9
+&lt;level 9 numbering method&gt;
+[new starting level numbers] x 9
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD30F</h3>
+    <p><strong>Paragraph Border</strong></p>
+    <p>Same format as Page Border function 209 (0xD1) subfunction 16 (0x10).</p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;15 (0x0F)&gt; [size = variable] &lt;flags=PRFXID&gt;..
+..
+..
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD310</h3>
+    <p><strong>Define Math Columns</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;16 (0x10)&gt; [size = variable] &lt;flags = 0 or PRFXID&gt;
+&lt;number of PIDs = 1&gt;
+[math formulas PID (type=0x63)]
+[size of non-deletable information = 26]
+[ calculations PID (just a copy)]
+&lt; math definition&gt; x 24
+Each new math definition byte has the following meaning:
+  bits 0-2: number of digits in range of 0-4
+  bit 3: 
+    0 = use parentheses for negative numbers
+    1 = use '-' for negative numbers
+if bit 7 = 0:
+  bits 4-6:
+    1 = text
+    2 = numeric
+    3 = total
+if bit 7 = 1:
+  bits 4-6:
+    0 = calculation, formula 1
+    1 = calculation, formula 2
+    2 = calculation, formula 3
+    3 = calculation, formula 4
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD311</h3>
+    <p><strong>Math On/Off</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;17 (0x11)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt; math state&gt;
+  bit 0: 
+    0 = off
+    1 = on
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD312</h3>
+    <p><strong>Line Numbering Definition</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;18 (0x12)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [PID of the desired line numbering font (type=0x55)] (0 if use flag = 0)
+[size of non-deletable information = 25]
+[hash (matched typeface descriptor)]
+&lt;use flag&gt;
+  0 = use document initial values for font, point size, attributes and colors
+  1 = use values in function
+[copy of prefix ID of the desired line numbering font]
+[desired point size (WPU)]
+&lt;new line numbering state&gt;
+  bit 0: 
+    0 = off
+    1 = on
+  bit 1: 
+    0 = line numbering restart on each page off
+    1 = line numbering restarts on each page state on
+  bit 2: 
+    0 = count blank lines off
+    1 = count blank lines state on
+  bit 3: 
+    0 = numbering in all newspaper columns off
+    1 = numbering in all newspaper columns on
+  bit 4: 
+    0 = numbering footnote/endnote text lines off
+    1 = numbering footnote/endnote text lines on
+  bit 7: 
+    0 = absolute position from left edge of page
+    1 = relative to left margin position
+[ line numbering position (WPU/signed WPU)]
+[ first line number to print]
+&lt; line numbering interval&gt;
+[ matched font index in font list]
+[ matched point size of font (WPU)]
+[ attributes, 1st word]
+  bit 0: 1 = extra large
+  bit 1: 1 = very large
+  bit 2: 1 = large
+  bit 3: 1 = small print
+  bit 4: 1 = fine print
+  bit 5: 1 = superscript
+  bit 6: 1 = subscript
+  bit 7: 1 = outline
+  bit 8: 1 = italics
+  bit 9: 1 = shadow
+  bit 10: 1 = redline
+  bit 11: 1 = double underline
+  bit 12: 1 = bold
+  bit 13: 1 = strikeout
+  bit 14: 1 = underline
+  bit 15: 1 = small caps
+[ attributes, 2nd word]
+  bit 0: 1 = blink
+  bit 1: 1 = reverse video
+&lt; color (RGBS)&gt; x 4
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD313</h3>
+    <p><strong>Force Odd/Even/New</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;19 (0x13)&gt; [size = 11] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;force flag&gt;
+  0 = even
+  1 = odd
+  2 = new
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD314</h3>
+    <p><strong>Endnotes Print Here</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;20 (0x14)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD315</h3>
+    <p><strong>Endnotes Print Here End</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;21 (0x15)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD316</h3>
+    <p><strong>Define Marked Text</strong></p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;22 (0x16)&gt; [size] &lt;flags = PRFXID&gt;
+  &lt;number of prefix IDs&gt;
+     1 = 0x0B - always exists
+     2 = 0x5B - User Assistant can exist as a second prefix
+  [definition PID (type=0x0B)]
+  [User Assistant (type=0x5b)] - optional
+[size of non-deletable information = 1]
+&lt;type flag&gt;
+  0 = ToC
+  1 = List
+  2 = Index
+  3 = ToA
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD317</h3>
+    <p><b>Define Drop Cap</b><br />
+    <br />
+    &lt;211 (0xD3)&gt; &lt;23 (0x17)&gt; [size = variable] &lt;flags = PRFXID&gt;</p>
+    <pre>
+  &lt;number of PIDs = variable (minimum 3)&gt;
+  [typeface descriptor ID (0 if none)]
+  [border style ID (0 if none)]
+  [fill style ID (0 if none)]
+[any override PIDs] x ?
+&lt;number of characters to affect&gt;
+[text attributes first word data]
+[text attributes first word mask]
+[text attributes second word data]
+[text attributes second word mask]
+&lt;drop cap color (RGBS)&gt; x 4
+{drop cap text size (WPSP)}
+{paragraph vertical adjustment (WPSP)}
+[kerning (signed WPU, 1200's)]
+[horizontal position adjustment (65536ths, 0xffff = all in margin)]
+&lt;flags&gt;
+  bits 0-2: currently undefined
+  bit 3: no wrapping (takes precedence over contour wrapping)
+  bit 4: include descender height in square wrap area
+  bit 5: use shade from function
+  bit 6: use color from function
+  bit 7: contour wrapping
+[size of override information]
+[general override flags]
+&lt;border and fill override data&gt; x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD318</h3>
+    <p><strong>Paragraph Text Direction</strong><br />
+    </p>
+    <p>&lt;211 (0xD3)&gt; &lt;24 (0x18)&gt; [size = variable] &lt;flags = 0&gt;</p>
+    <pre>
+[size of non-deletable information = 1]
+&lt;flag&gt;
+  0 = left to right text
+  1 = right to left text
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD319</h3>
+    <p>Asian Wrapping</p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;25 (0x19)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[flags]
+  bit 0: Asia wrapping on/off
+    0 = off
+    1 = on
+  bit 1: Asia wrap type
+    0 = wrap
+    1 = squish
+  bit 2: Asia wrap hanging characters
+    0 = off
+    1 = on
+  bit 3: Wrap alphanumerics
+    0 = break alphanumerics at right margin
+    1 = wrap alphanumerics
+  bit 4: AMF processing
+    0 = off
+    1 = on
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+    <hr />
+    <h3>0xD31A</h3>
+    <p><b>Paragraph Character Count</b><br />
+    </p>
+    <pre>
+&lt;211 (0xD3)&gt; &lt;26 (0x1A)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs = 1&gt;
+  [definition PID]
+[size of non-deletable information = 4]
+[character count]
+[character width (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD3&gt;
+</pre>
+</body>
+</html>

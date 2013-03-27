@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProPureGetNumberFromhOA function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProPureGetLastDate_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProPureGetNumberFromRefHandle_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "New_functions_for_Corel_Quattro_Pro_7_and_8.html">Miscellaneous functions added in Quattro Pro 7 and 8</a> : QProPureGetNumberFromhOA function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1273392"></a>
+
+  <h4 class="pHeading3">QProPureGetNumberFromhOA function</h4><a name="wp1273393"></a>
+
+  <p class="pBody">This function retrieves a number from your Optional Argument Handle, given the specific argument you want through the <code class=
+  "cCode">hOAIndex</code>. If your <code class="cCode">hOA</code> is a <code class="cCode">RefHandle</code>, it retrieves the number from the <a href=
+  "QProPureGetNumberFromRefHandle_function.html#wp1273440">QProPureGetNumberFromRefHandle function</a>.</p><a name="wp1273394"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+LPSTR QProPureGetNumberFromhOA(<a name="wp1273395"> </a>
+OAHandle hOA,<a name="wp1273396"> </a>
+UINT  hOAIndex,<a name="wp1273397"> </a>
+BOOL  TreatBlankAsERR,<a name="wp1273398"> </a>
+BOOL  TreatStringAsZero,<a name="wp1273399"> </a>
+BOOL  BlockOK);<a name="wp1273400"> </a>
+</pre>
+  </div><a name="wp1273401"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1273423"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1273404"></a>
+
+          <p class="pBody"><code class="cCode">hOA</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273406"></a>
+
+          <p class="pBody">Specifies the handle for an optional argument list</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273408"></a>
+
+          <p class="pBody"><code class="cCode">hOAIndex</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273410"></a>
+
+          <p class="pBody">Specifies the offset into list (zero-based)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273412"></a>
+
+          <p class="pBody"><code class="cCode">TreatBlankAsERR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273414"></a>
+
+          <p class="pBody">Acts as a flag that, if set to <code class="cCode">TRUE</code>, treats a blank as <code class="cCode">QProPureERR()</code> if the
+          top/left cell is blank, or as zero otherwise</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273416"></a>
+
+          <p class="pBody"><code class="cCode">TreatStringAsZero</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273418"></a>
+
+          <p class="pBody">Acts as a flag that, if set to <code class="cCode">TRUE</code>, treats a string as a zero, or as <code class=
+          "cCode">QProPureERR()</code> otherwise</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1273420"></a>
+
+          <p class="pBody"><code class="cCode">BlockOK</code></p>
+        </td>
+
+        <td>
+          <a name="wp1273422"></a>
+
+          <p class="pBody">Acts a flag that forces this to return <code class="cCode">QProPureERR()</code> if the <code class="cCode">RefHandle</code> is
+          multi-cell if <code class="cCode">FALSE</code>, or to return the top/left cells contents if a number otherwise</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1273424"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1273425"></a>
+
+  <p class="pBody">This function returns a number if your <code class="cCode">RefHandle</code> contains a string in the top/left cell, or it returns
+  <code class="cCode">QProPureERR()</code> otherwise.</p>
+</body>
+</html>

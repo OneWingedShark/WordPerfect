@@ -1,0 +1,583 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Handling strings</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpsxPVarSetStringWord.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="W6azTowz.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Handling strings</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp551379"></a>
+
+  <h3 class="pHeading2">Handling strings</h3><a name="wp551381"></a>
+
+  <p class="pBody">The string-handling interface provides a set of functions for manipulating WordPerfect <code class="cCode">WORD</code> strings, which are
+  used throughout PerfectFit. In addition to standard types of routines for handling WordPerfect <code class="cCode">WORD</code> strings, there are also a
+  series of routines which provide conversion between WordPerfect <code class="cCode">WORD</code> strings and other standard string formats such as ANSI and
+  OEM.</p><a name="wp551407"></a>
+
+  <p class="pBody">The following string types are supported:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp551411"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_string_handling_API.html#wp1281948">WordPerfect WORD strings</a></li>
+      </ul>
+    </div><a name="wp551415"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_string_handling_API.html#wp551476">document strings</a></li>
+      </ul>
+    </div><a name="wp551419"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_string_handling_API.html#wp551507">ANSI strings</a></li>
+      </ul>
+    </div><a name="wp551423"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_string_handling_API.html#wp551538">OEM strings</a></li>
+      </ul>
+    </div><a name="wp551427"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectFit_string_handling_API.html#wp551569">generic strings</a></li>
+      </ul>
+    </div>
+  </div><a name="wp551445"></a>
+
+  <p class="pBody">These string types are supported through various functions.</p><a name="wp1281948"></a>
+
+  <h5 class="pHeading4">Understanding WordPerfect WORD strings</h5><a name="wp551447"></a>
+
+  <p class="pBody">WordPerfect <code class="cCode">WORD</code> strings are null-terminated strings with a word (double byte) representing each character. Since
+  they have two bytes for each character, the null terminator is two null characters. Each double byte specifies a character and a character set. The high byte
+  is the WordPerfect character set (<code class="cCode">0</code> to <code class="cCode">16</code>), and the low byte is the character number (<code class=
+  "cCode">0</code> to <code class="cCode">255</code>).</p><a name="wp551451"></a>
+
+  <p class="pBody">A <code class="cCode">WORD</code> string is defined as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef unsigned short WZ, FAR* LPWZ; <a name="wp1281789"> </a>
+typedef LPWZ FAR* LPLPWZ; <a name="wp551453"> </a>
+</pre>
+  </div><a name="wp551455"></a>
+
+  <p class="pBody"><code class="cCode">WORD</code> strings have the following types:</p><a name="wp551458"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp522595"></a>
+
+          <p class="pBody"><code class="cCode">WZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522597"></a>
+
+          <p class="pBody">Specifies a <code class="cCode">WORD</code> string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522603"></a>
+
+          <p class="pBody"><code class="cCode">LPWZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522605"></a>
+
+          <p class="pBody">Specifies a far pointer to a <code class="cCode">WORD</code> string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522611"></a>
+
+          <p class="pBody"><code class="cCode">LPLPWZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522613"></a>
+
+          <p class="pBody">Specifies a far pointer to an <code class="cCode">LPWZ</code></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp551476"></a>
+
+  <h5 class="pHeading4">Understanding document strings</h5><a name="wp551478"></a>
+
+  <p class="pBody">Document strings are null-terminated single-byte strings. Each byte consists of a character. These strings can also contain embedded
+  functions. This type of string is the same format as the data that is saved to disk in the document area of a WordPerfect document file. Functions dealing
+  with this string can be used to convert a <code class="cCode">WORD</code> string to document string, which can be saved to disk in WordPerfect document
+  format.</p><a name="wp551480"></a>
+
+  <p class="pBody">A document string is defined as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef unsigned char DZ, FAR* LPDZ; <a name="wp551482"> </a>
+typedef LPDZ FAR* LPLPDZ; <a name="wp551484"> </a>
+</pre>
+  </div><a name="wp551486"></a>
+
+  <p class="pBody">Document strings have the following types:</p><a name="wp551489"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp522624"></a>
+
+          <p class="pBody"><code class="cCode">DZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522626"></a>
+
+          <p class="pBody">Specifies a document string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522632"></a>
+
+          <p class="pBody"><code class="cCode">LPDZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522634"></a>
+
+          <p class="pBody">Specifies a far pointer to a document string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522640"></a>
+
+          <p class="pBody"><code class="cCode">LPLPDZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522642"></a>
+
+          <p class="pBody">Specifies a far pointer to an LPDZ</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp551507"></a>
+
+  <h5 class="pHeading4">Understanding ANSI strings</h5><a name="wp551509"></a>
+
+  <p class="pBody">ANSI strings are null-terminated single-byte strings. Each byte consists of a character from the ANSI character set.</p><a name=
+  "wp551511"></a>
+
+  <p class="pBody">An ANSI string is defined as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef unsigned char AZ, FAR* LPAZ; <a name="wp551513"> </a>
+typedef LPAZ FAR* LPLPAZ; <a name="wp551515"> </a>
+</pre>
+  </div><a name="wp551517"></a>
+
+  <p class="pBody">ANSI strings have the following types:</p><a name="wp551520"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp522653"></a>
+
+          <p class="pBody"><code class="cCode">AZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522655"></a>
+
+          <p class="pBody">Specifies an ANSI string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522661"></a>
+
+          <p class="pBody"><code class="cCode">LPAZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522663"></a>
+
+          <p class="pBody">Specifies a far pointer to an ANSI string</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp551538"></a>
+
+  <h5 class="pHeading4">Understanding OEM strings</h5><a name="wp551540"></a>
+
+  <p class="pBody">OEM strings are null-terminated single-byte strings. Each byte consists of a character from the OEM character set.</p><a name=
+  "wp551542"></a>
+
+  <p class="pBody">An OEM string is defined as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef unsigned char OZ, FAR* LPOZ; <a name="wp551544"> </a>
+typedef LPOZ FAR* LPLPOZ; <a name="wp551546"> </a>
+</pre>
+  </div><a name="wp551548"></a>
+
+  <p class="pBody">OEM strings have the following types:</p><a name="wp551551"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp522674"></a>
+
+          <p class="pBody"><code class="cCode">OZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522676"></a>
+
+          <p class="pBody">Specifies an OEM string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522682"></a>
+
+          <p class="pBody"><code class="cCode">LPOZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522684"></a>
+
+          <p class="pBody">Specifies a far pointer to an OEM string</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp551569"></a>
+
+  <h5 class="pHeading4">Understanding generic strings</h5><a name="wp551571"></a>
+
+  <p class="pBody">Generic strings are null-terminated single-byte strings. They can be ANSI strings or OEM strings, as appropriate.</p><a name="wp551573"></a>
+
+  <p class="pBody">A generic string is defined as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef unsigned char GZ, FAR* LPGZ; <a name="wp551575"> </a>
+typedef LPGZ FAR* LPLPGZ; <a name="wp551577"> </a>
+</pre>
+  </div><a name="wp551579"></a>
+
+  <p class="pBody">Generic strings have the following types:</p><a name="wp551582"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp522695"></a>
+
+          <p class="pBody"><code class="cCode">GZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522697"></a>
+
+          <p class="pBody">Specifies a generic string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522703"></a>
+
+          <p class="pBody"><code class="cCode">LPGZ</code></p>
+        </td>
+
+        <td>
+          <a name="wp522705"></a>
+
+          <p class="pBody">Specifies a far pointer to a generic string</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp551666"></a>
+
+  <h5 class="pHeading4">Understanding the string-support functions</h5><a name="wp551668"></a>
+
+  <p class="pBody">You can use the following string-support functions:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1281769"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6azTowz.html#wp551822">W6azTowz function</a></li>
+      </ul>
+    </div><a name="wp1284154"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6dstrequ.html#wp551859">W6dstrequ function</a></li>
+      </ul>
+    </div><a name="wp1284158"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6dstriequ.html#wp551896">W6dstriequ function</a></li>
+      </ul>
+    </div><a name="wp1284162"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6dstrlen.html#wp551933">W6dstrlen function</a></li>
+      </ul>
+    </div><a name="wp1284166"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6dstrnequ.html#wp551966">W6dstrnequ function</a></li>
+      </ul>
+    </div><a name="wp1284170"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6dstrniequ.html#wp552005">W6dstrniequ function</a></li>
+      </ul>
+    </div><a name="wp1284174"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6ozTowz.html#wp552044">W6ozTowz function</a></li>
+      </ul>
+    </div><a name="wp1284178"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrcat.html#wp552081">W6wstrcat function</a></li>
+      </ul>
+    </div><a name="wp1284182"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrchr.html#wp552118">W6wstrchr function</a></li>
+      </ul>
+    </div><a name="wp1284186"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrrchr.html#wp552155">W6wstrrchr function</a></li>
+      </ul>
+    </div><a name="wp1284190"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrcmp.html#wp552192">W6wstrcmp function</a></li>
+      </ul>
+    </div><a name="wp1284194"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrcpy.html#wp552229">W6wstrcpy function</a></li>
+      </ul>
+    </div><a name="wp1284198"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrequ.html#wp552266">W6wstrequ function</a></li>
+      </ul>
+    </div><a name="wp1284202"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrFixExtChars.html#wp1171753">W6wstrFixExtChars function</a></li>
+      </ul>
+    </div><a name="wp1284206"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstricmp.html#wp552336">W6wstricmp function</a></li>
+      </ul>
+    </div><a name="wp1284210"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstriequ.html#wp1283234">W6wstriequ function</a></li>
+      </ul>
+    </div><a name="wp1284214"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrlen.html#wp552410">W6wstrlen function</a></li>
+      </ul>
+    </div><a name="wp1284218"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrlwr.html#wp552443">W6wstrlwr function</a></li>
+      </ul>
+    </div><a name="wp1284222"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrncat.html#wp552476">W6wstrncat function</a></li>
+      </ul>
+    </div><a name="wp1284226"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrncmp.html#wp552515">W6wstrncmp function</a></li>
+      </ul>
+    </div><a name="wp1284230"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrncpy.html#wp552554">W6wstrncpy function</a></li>
+      </ul>
+    </div><a name="wp1284234"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrnequ.html#wp552593">W6wstrnequ function</a></li>
+      </ul>
+    </div><a name="wp1284238"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrnicmp.html#wp552632">W6wstrnicmp function</a></li>
+      </ul>
+    </div><a name="wp1284242"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrniequ.html#wp552671">W6wstrniequ function</a></li>
+      </ul>
+    </div><a name="wp1284246"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrstr.html#wp552710">W6wstrstr function</a></li>
+      </ul>
+    </div><a name="wp1284250"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrupr.html#wp552747">W6wstrupr function</a></li>
+      </ul>
+    </div><a name="wp1284254"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrccmp.html#wp552780">W6wstrccmp function</a></li>
+      </ul>
+    </div><a name="wp1284258"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrcicmp.html#wp552819">W6wstrcicmp function</a></li>
+      </ul>
+    </div><a name="wp1284262"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wstrchrcnt.html#wp552858">W6wstrchrcnt function</a></li>
+      </ul>
+    </div><a name="wp1284266"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wzToaz.html#wp552891">W6wzToaz function</a></li>
+      </ul>
+    </div><a name="wp1284270"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="W6wzTooz.html#wp552928">W6wzTooz function</a></li>
+      </ul>
+    </div><a name="wp1284274"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Wgstrchr.html#wp552965">Wgstrchr function</a></li>
+      </ul>
+    </div><a name="wp1284278"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Wgstrncat.html#wp553002">Wgstrncat function</a></li>
+      </ul>
+    </div><a name="wp1284282"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Wgstrncpy.html#wp553041">Wgstrncpy function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

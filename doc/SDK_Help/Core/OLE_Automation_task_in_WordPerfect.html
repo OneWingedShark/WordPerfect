@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Performing a sample OLE Automation task</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="PerfectScript_and_OLE_Automation.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Accessing_OLE_Automation_samples.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="OLE_Automation_Intro.html">Understanding OLE
+        Automation</a> : Performing a sample OLE Automation task</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1275280"></a>
+
+  <h4 class="pHeading3">Performing a sample OLE Automation task</h4><a name="wp1275281"></a>
+
+  <p class="pBody">To show you how OLE Automation works with WordPerfect, let's use Visual Basic 6.0 as our developer tool. This section contains a complete
+  example of how to perform a task defined in WordPerfect.</p><a name="wp1275282"></a>
+
+  <p class="pBody">Here is our task:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1275283"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>First, take a Paradox database and merge all its records into a WordPerfect merge data file.</li>
+      </ul>
+    </div><a name="wp1275284"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Next, save the data file to disk and complete the merge process in WordPerfect by creating a form letter to send out to various individuals.</li>
+      </ul>
+    </div><a name="wp1275285"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Finally, print each of the form letters.</li>
+      </ul>
+    </div>
+  </div><a name="wp1275286"></a>
+
+  <p class="pBody">This task requires the <code class="cCode">ImportDatabase</code>, <code class="cCode">FileSave</code>, <code class="cCode">MergeRun</code>,
+  and <code class="cCode">PrintFull</code>, in addition to a few others.</p><a name="wp1275289"></a>
+
+  <p class="pBody">To accomplish this task, we require a Paradox database and a WordPerfect merge form letter. We will create a WordPerfect merge data file
+  from the database, and then we will create a form letter for each name in the database.</p><a name="wp1275290"></a>
+
+  <p class="pBody">Here is the example:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+Private Sub BtnCreateCustomerAd_Click()<a name="wp1275291"> </a>
+'The OLE automation object to use with PerfectScript<a name="wp1275292"> </a>
+Dim WP As Object <a name="wp1275293"> </a>
+'Holds the field names in the database<a name="wp1275294"> </a>
+Dim sFieldNames As String <a name="wp1275295"> </a>
+'Holds the name of the database<a name="wp1275296"> </a>
+Dim sDatabaseName As String<a name="wp1275297"> </a>
+'Holds the secondary merge file name<a name="wp1275298"> </a>
+Dim sDataFile As String<a name="wp1275299"> </a>
+'Holds the merge form file name <a name="wp1275300"> </a>
+Dim sFormFile As String <a name="wp1275301"> </a>
+'Create a new document if you can; already has a WP object defined<a name="wp1275302"> </a>
+CheckOpenDocuments (True) <a name="wp1275303"> </a>
+'Create the WordPerfect object needed to send OLE Automation 
+commands.<a name="wp1275304"> </a>
+Set WP = CreateObject("WordPerfect.PerfectScript")<a name="wp1275305"> </a>
+'Define the field names to put into the secondary merge file.<a name="wp1275306"> </a>
+sFieldNames = "Contact ID,Company Name," <a name="wp1275307"> </a>
+sFieldNames = sFieldNames + "Contact Name,Title,Address,"<a name="wp1275308"> </a>
+sFieldNames = sFieldNames + "City,State,Country,Postal Code"<a name="wp1275309"> </a>
+'sRootPath is a global to our program root path.<a name="wp1275310"> </a>
+sDatabaseName = sRootPath + "data\customer.db" <a name="wp1275311"> </a>
+'All predefined files are stored off this path.<a name="wp1275312"> </a>
+sFormFile = sRootPath + "docs\cstadver.frm" <a name="wp1275313"> </a>
+'Start sending the OLE Automation code to WP.<a name="wp1275314"> </a>
+With WP <a name="wp1275315"> </a>
+'Set the database filename to import.<a name="wp1275316"> </a>
+.ImportSetFileName sDatabaseName <a name="wp1275317"> </a>
+'Set the source; 34 is a Paradox database.<a name="wp1275318"> </a>
+.ImportSetSource 34<a name="wp1275319"> </a>
+'Set the destination; 3 is a secondary merge file.<a name="wp1275320"> </a>
+.ImportSetDestination 3 <a name="wp1275321"> </a>
+'Set the field names to import.<a name="wp1275322"> </a>
+.ImportSetFields sFieldNames<a name="wp1275323"> </a>
+'Set the query.<a name="wp1275324"> </a>
+.ImportSetQuery <a name="wp1275325"> </a>
+'Do the import of the data. This will create the file in <a name="wp1275326"> </a>
+'WP. We must now save it out to disk.<a name="wp1275327"> </a>
+.ImportDoImport <a name="wp1275328"> </a>
+'Save the sec. merge file to disk under this name in WP6 format.<a name="wp1275329"> </a>
+.FileSave sRootPath + "docs\dbdoc.dat", 6 <a name="wp1275330"> </a>
+'Get the name of the file saved. Bypass this step most of the time<a name="wp1275331"> </a>
+'by knowing, as in the above example, the name of the saved file.<a name="wp1275332"> </a>
+sDataFile = .EnvPath + .EnvName <a name="wp1275333"> </a>
+'Close the secondary merge file created.<a name="wp1275334"> </a>
+.Close 0 <a name="wp1275335"> </a>
+'Maximize WP<a name="wp1275336"> </a>
+.AppMaximize <a name="wp1275337"> </a>
+'Select the type of merge to perform 0 is all records.<a name="wp1275338"> </a>
+.MergeSelect 0<a name="wp1275339"> </a>
+'Perform the merge. The first 2 in the command tells PerfectScript to<a name="wp1275340"> </a>
+'merge from a form file on disk. The second 2 tells PerfectScript to<a name="wp1275341"> </a>
+'merge from a secondary file on disk. And the last parameter, a 1,<a name="wp1275342"> </a>
+'tells PerfectScript to create a new document with the 'merged data.<a name="wp1275343"> </a>
+.MergeRun 2, sFormFile, 2, sDataFile, 1 <a name="wp1275344"> </a>
+'Optionally, you can but don't have to delete the secondary merge<a name="wp1275345"> </a>
+'file.<a name="wp1275346"> </a>
+.FileDelete sDataFile <a name="wp1275347"> </a>
+'This is a mandatory command to send at the end of each sequence of<a name="wp1275348"> </a>
+'PerfectScript commands sent through OLE Automation. If you do not<a name="wp1275349"> </a>
+'send this command, WordPerfect will be left in a macro play state 
+and<a name="wp1275350"> </a>
+'will not work properly.<a name="wp1275351"> </a>
+.Quit <a name="wp1275352"> </a>
+'End the OLE Automation command stream.<a name="wp1275353"> </a>
+End With <a name="wp1275354"> </a>
+'Release the OLE Automation object.<a name="wp1275355"> </a>
+Set WP=Nothing <a name="wp1275356"> </a>
+End Sub<a name="wp1275357"> </a>
+</pre>
+  </div>
+</body>
+</html>

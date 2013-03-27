@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>PIDBBM_BTN_DELETE message</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WPBBAR_THIRDPARTY.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="PIDBBM_BTN_INSERT.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Toolbars.html">Creating toolbars</a> : PIDBBM_BTN_DELETE
+        message</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553381"></a>
+
+  <h4 class="pHeading3">PIDBBM_BTN_DELETE message</h4><a name="wp553383"></a>
+
+  <p class="pBody">An application sends this message to remove a button on the toolbar whose ID matches the specified value.</p><a name="wp553385"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp553388"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp523937"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp523939"></a>
+
+          <p class="pBody">Is not used. Should be <code class="cCode">0</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523945"></a>
+
+          <p class="pBody"><code class="cCode">lParam (high)</code></p>
+        </td>
+
+        <td>
+          <a name="wp523947"></a>
+
+          <p class="pBody">Contains either a theta ID or a position (<code class="cCode">0</code> to <code class="cCode">n-1</code>), indicating which button
+          to remove</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523953"></a>
+
+          <p class="pBody"><code class="cCode">lParam (low)</code></p>
+        </td>
+
+        <td>
+          <a name="wp523955"></a>
+
+          <p class="pBody">If set to <code class="cCode">BB_DELETEID</code>, attempts to remove the first button in the list whose ID matches <code class=
+          "cCode">HIWORD</code> (<code class="cCode">lParam</code>). If set to <code class="cCode">BB_DELETEPOSITION</code>, removes the button residing at the
+          specified position.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553390"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp553392"></a>
+
+  <p class="pBody">The return value is non-zero if a button was successfully deleted. Otherwise, <code class="cCode">0</code> is returned.</p>
+</body>
+</html>

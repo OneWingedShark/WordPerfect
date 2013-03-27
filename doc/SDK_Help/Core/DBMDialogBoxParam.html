@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DBMDialogBoxParam function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {margin-left: 2em}
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBMDefDlgProc.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DBMDialogBoxParam2.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dialog_box_manager.html">Creating dialog boxes</a> :
+        DBMDialogBoxParam function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1291274"></a>
+
+  <h4 class="pHeading3">DBMDialogBoxParam function</h4><a name="wp543791"></a>
+
+  <p class="pBody">The <code class="cCode">DBMDialogBoxParam</code> function creates a modal dialog box and passes it a specific <code class=
+  "cCode">LONG</code> value to send in the <code class="cCode">lParam</code> of the <code class="cCode">WM_INITDIALOG</code> message. This function is similar
+  to the Windows <code class="cCode">DialogBoxParam(&nbsp;)</code> function.</p><a name="wp543795"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int FAR PASCAL DBMDialogBoxParam (<a name="wp543797"> </a>
+HANDLE hInstance,<a name="wp543799"> </a>
+UINT usDlgID,<a name="wp543801"> </a>
+HWND hParentWnd,<a name="wp543803"> </a>
+DLGPROC lpfnDlgProc,<a name="wp543805"> </a>
+LONG lnParam );<a name="wp543807"> </a>
+</pre>
+  </div><a name="wp543809"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp543812"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp512660"></a>
+
+          <p class="pBody"><code class="cCode">hInstance</code></p>
+        </td>
+
+        <td>
+          <a name="wp512662"></a>
+
+          <p class="pBody">Specifies the handle of the application instance where the dialog-box template resides</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp512668"></a>
+
+          <p class="pBody"><code class="cCode">usDlgID</code></p>
+        </td>
+
+        <td>
+          <a name="wp512670"></a>
+
+          <p class="pBody">Specifies the dialog box template ID in the resource</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp512676"></a>
+
+          <p class="pBody"><code class="cCode">hParentWnd</code></p>
+        </td>
+
+        <td>
+          <a name="wp512678"></a>
+
+          <p class="pBody">Specifies the handle of the parent window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp512684"></a>
+
+          <p class="pBody"><code class="cCode">lpfnDlgProc</code></p>
+        </td>
+
+        <td>
+          <a name="wp512686"></a>
+
+          <p class="pBody">Specifies the instance address of the dialog box procedure</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp512692"></a>
+
+          <p class="pBody"><code class="cCode">lnParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp512694"></a>
+
+          <p class="pBody">Specifies a <code class="cCode">LONG</code> value, which is to be placed in the <code class="cCode">lParam</code> of the
+          <code class="cCode">WM_INITDIALOG</code> message</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp543814"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp543816"></a>
+
+  <p class="pBody">This function returns the value that was used for the <code class="cCode">nExitCode</code> parameter of <code class=
+  "cCode">DBMEndDialog(&nbsp;)</code>, or <code class="cCode">1</code> if the function could not create the dialog box.</p><a name="wp543818"></a>
+
+  <h5 class="pHeading4">Example</h5><a name="wp543820"></a>
+
+  <p class="pBody">The following example creates a modal dialog box.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+lpfnDialogProc=MakeProcInstance (DialogProc,hInstance);<a name="wp543822"> </a>
+DBMDialogBoxParam(hInstance, RESOURCE_TEMPLATE_NAME, 
+lpfnDialogProc, 0L);<a name="wp543824"> </a>
+FreeProcInstance (lpfnDialogProc);<a name="wp543826"> </a>
+</pre>
+  </div><a name="wp543830"></a>
+
+  <p class="pBody">Several working examples of this function can be found in the sample program.</p><a name="wp543832"></a>
+
+  <h5 class="pHeading4">See also</h5>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp543834"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMCreateDialogParam.html#wp543622">DBMCreateDialogParam function</a></li>
+      </ul>
+    </div><a name="wp1289614"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMDefDlgProc.html#wp543742">DBMDefDlgProc function</a></li>
+      </ul>
+    </div><a name="wp1289615"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMEndDialog.html#wp543909">DBMEndDialog function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

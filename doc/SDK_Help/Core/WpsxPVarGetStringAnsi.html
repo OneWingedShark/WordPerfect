@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpsxPVarGetStringAnsi function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpsxPVarGetInteger.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpsxPVarGetStringWord.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Persistent_macro_variables.html">Using persistent macro
+        variables</a> : WpsxPVarGetStringAnsi function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp550553"></a>
+
+  <h4 class="pHeading3">WpsxPVarGetStringAnsi function</h4><a name="wp550555"></a>
+
+  <p class="pBody">The <code class="cCode">WpsxPVarGetStringAnsi</code> function gets an ANSI string value of the persistent variable. If the variable is not
+  currently a ANSI string type, it is converted into an ANSI string value.</p><a name="wp550557"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+long SHAPI WpsxPVarGetStringAnsi ( PWZ pwzName, PAZ pazData, size_t 
+*pcSize, MAC_VALUE_TYPE eType);<a name="wp550559"> </a>
+</pre>
+  </div><a name="wp550561"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp550564"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp522217"></a>
+
+          <p class="pBody"><code class="cCode">pwzName</code></p>
+        </td>
+
+        <td>
+          <a name="wp522219"></a>
+
+          <p class="pBody">Acts as a pointer to a word string, giving the name of the variable to check</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522225"></a>
+
+          <p class="pBody"><code class="cCode">pazData</code></p>
+        </td>
+
+        <td>
+          <a name="wp522227"></a>
+
+          <p class="pBody">Acts as a pointer to the returned ansi string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522233"></a>
+
+          <p class="pBody"><code class="cCode">pcSize</code></p>
+        </td>
+
+        <td>
+          <a name="wp522235"></a>
+
+          <p class="pBody">Acts as a pointer to the size of the string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522241"></a>
+
+          <p class="pBody"><code class="cCode">eType</code></p>
+        </td>
+
+        <td>
+          <a name="wp522243"></a>
+
+          <p class="pBody">Specifies the requested <code class="cCode">MAC_VALUE_TYPE</code> (<code class="cCode">eValStringAnsi</code>)</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp550566"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1281277"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful or <code class="cCode">FALSE</code> if not successful.</p>
+</body>
+</html>

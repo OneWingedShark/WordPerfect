@@ -1,0 +1,1217 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Packet Data Formats: Prefix Packets 65-82</h2>
+    <p>Reserved packets may appear in a document prefix. Most of the strings in the packet
+    data are strings made up of short values. The high byte of the short value is the WP
+    character set number. The low byte of the short value is the character number. The strings
+    are null terminated with a short value unless otherwise specified.</p>
+    <hr />
+    <h3>Packet Type 65 (0x41)</h3>
+    <p><strong>Graphics Box Style</strong></p>
+    <p>The "Content" prefix ID referred to in this description, is the standard File Name
+    packet. The "Caption" prefix ID referred to in this description is the standard WP Text
+    packet.</p>
+    <p>Several of the fields documented in this packet exist only if various bit flags are
+    set. The condition for the existence of a field and a reference to the controlling flag
+    will precede the data. When computing overall sizes and offsets, remember to keep this
+    fact in mind.</p>
+    <p>If an override bit is set in the box override flags, a mask appears defining which
+    bits within the corresponding data are overridden followed by the actual override data.
+    For example, assume a data byte has two fields, the first field covering bits 0-3 and
+    the second field covering bits 4-7. Assume the first field (bits 0-3) is to be overridden
+    but the second field (bits 4-7) is not. The corresponding override bit will be set in
+    the box override flags word. The data corresponding to this override bit will be a mask
+    byte (value 0x0F) and a data byte, of which only the bottom 4 bits matter.</p>
+    <pre>
+[number of prefix packet IDs] (may be 0)
+  [name/library data prefix IDs] (none currently defined) see box name/library data prefix ID flag field
+below
+  [counter prefix IDs (type=0x11)] (counter currently defined)
+  [positioning data prefix IDs] (none currently defined) see box positioning data prefix ID flag field below
+  [content prefix IDs] (content rendering IDs, actual content not allowed) see box content prefix ID flag
+field below
+  [caption prefix IDs] (WP text packets), (2 possible: default caption initial style, default caption number
+style; actual caption data not allowed) see box caption prefix ID flag field below
+  [border prefix IDs (type=0x30)] (2 possible: border style and border style overrides) see box border prefix
+ID flag field below
+  [fill prefix IDs (type=0x44)] (fill style currently defined) see box fill prefix ID flag field below
+  [wrap prefix IDs] (none currently defined) see box wrap prefix ID flag field below
+  [hypertext prefix IDs] (2 possible) see box hypertext prefix ID flag field below
+</pre>
+    <p><strong>Box name/library data:</strong></p>
+    <pre>
+[total size of box data] (not including this word)
+[size of box name and library data area] (not including this word)
+&lt;box name/library data prefix ID flags&gt; (none currently defined)
+&lt;box library management flags&gt;
+  bit 0: 1 = this is a library style
+  bits 1-7: undefined
+[box name length word]
+  &gt; 0 user-defined box style; a word string containing the name follows
+  0 name is "Figure Box" (English only)
+  -1 name is "Table Box" (English only)
+  -2 name is "Text Box" (English only)
+  -3 name is "User Box" (English only)
+  -4 name is "Equation Box" (English only)
+  -5 name is "Button Box" (English only)
+  &lt; -5 undefined box style name
+[word text of name (if box name length &gt; 0)] x ?
+</pre>
+    <p><strong>Box counter data:</strong></p>
+    <pre>
+[size of box counter area]
+&lt;box counter prefix ID flags&gt;
+  bit 0: 1 = counter prefix ID appears at front of style
+  bits 1-7: currently undefined
+</pre>
+    <p><strong>Box positioning data:</strong></p>
+    <pre>
+[size of box positioning area] (not including this word)
+&lt;box positioning prefix ID flags&gt; no bits currently defined
+&lt;box general positioning flags&gt;
+  bits 0-2: box anchor value
+    0 = page anchor
+    1 = paragraph anchor
+    2 = character anchor
+  bit 3: page offset bit (only used for page anchor boxes)
+    0 = don't use automatic code placement when inserting
+    1 = do use automatic code placement when inserting (will delay box code if necessary)
+  bit 4: overlap flag
+    0 = box is not overlapping another box
+    1 = box is overlapping another box
+  bit 5: auto flag (used in WPwin)
+    0 = place box to the right of the page
+    1 = place the box at the cursor
+  bits 6-7: currently undefined
+
+&lt;box horizontal position flags&gt; horizontal position flags are ignored for character-anchored boxes
+  bits 0-1: horizontal alignment type
+    0 = absolute from left of page
+    1 = aligned to margins
+    2 = aligned to columns
+  bits 2-4: horizontal alignment
+    0 = left
+    1 = right
+    2 = center
+    3 = full
+  bits 5-7: currently undefined
+[box horizontal offset (signed WPU) or absolute position (unsigned WPU)]
+&lt;left column (for page anchored boxes aligned to columns)&gt;
+&lt;right column (for page anchored boxes aligned to columns)&gt;
+&lt;box vertical position flags&gt; vertical position flags are ignored for paragraph- anchored
+boxes
+  bits 0-1: vertical alignment type (ignored for character-anchored boxes)
+    0 = absolute from top of page
+    1 = aligned to margins
+  bits 2-4: vertical alignment
+    0 = top
+    1 = bottom
+    2 = center
+    3 = full/baseline (treated as baseline for character boxes)
+  bit 5: character box vertical effect
+    0 = box affects line height
+    1 = box does not affect line height (still affects cursor position)
+  bits 6-7: currently undefined
+[box vertical offset (signed WPU) or absolute position (unsigned WPU)]
+&lt;box width flags&gt;
+  bit 0: width value flag
+    0 = fixed width (width from width word)
+    1 = automatic width from content
+  bits 1-7: currently undefined
+[box width (unsigned WPU)]
+&lt;box height flags&gt;
+  bit 0: height value flag
+    0 = fixed height (height from height word)
+    1 = automatic height from content
+  bits 1-7: currently undefined
+[box height (unsigned WPU)]
+</pre>
+    <p><strong>Box content data:</strong></p>
+    <pre>
+[size of content area] (not including this word)
+&lt;box content prefix ID flags&gt; (not currently defined)
+&lt;box content type&gt;
+  0 = no content (empty)
+  1 = text content (WP 7.0 document)
+  2 = linked text content (WP 7.0 document)
+  3 = image (graphics) content (WPG2.0 document)
+  4 = equation content
+  5 = presentation content (Draw Presentation document)
+  6 = real-time video content (not used)
+  7 = macro content (WPM document)
+  8 = sound content(WPS document)
+  128 (0x80) = external content (content rendering/editing is handled by an outside application)
+&lt;box content alignment flags&gt;
+  bits 0-1: horizontal alignment of content
+    0 = left
+    1 = right
+    2 = center
+  bits 2-3: vertical alignment of content
+    0 = top
+    1 = bottom
+    2 = center
+  bit 4: if content is scalable, preserve aspect ratio
+    0 = preserve aspect ratio
+    1 = don't preserve aspect ratio
+  bits 5-7: currently undefined
+[total size of content rendering data] (not including this word)
+If box content type is empty, there is no rendering data and this word must be 0.  This word is the same as
+the total size word at the front of all the content rendering data definitions.
+&lt;box content rendering information&gt; (this will be one of the 9 blocks of data defined below under <em>
+    Box Content Rendering Information </em>controlled by the box content type field)
+</pre>
+    <p><strong>Box Content Rendering Information</strong></p>
+    <p>The following paragraphs describe the content rendering information for each content
+    type (see the box content type field above). The general form is a word of total length,
+    followed by a word of fixed-size length, followed by the data.</p>
+    <p><strong>Text Content Rendering Information</strong></p>
+    <pre>
+Exists if box content type field equals 1.
+
+[total size of text rendering information] (not including this word)
+&lt;prefix ID flags&gt;
+  bit 0: 1 = text content prefix ID appears at front of function. 
+This bit must not be set for a style.
+  bit 1: 1 = text content default style prefix ID appears at front of style.  This bit should not be set in
+function override data.
+  bits 2-7: currently undefined
+&lt;text content rendering flag&gt;
+  bit 0: 1 = format text according to simple box rectangle (before corners are applied, and before rotation
+and translation)
+  bit 1: currently undefined
+  bits 2-3: text rotation
+    0 = text not rotated
+    1 = rotated 90
+    2 = rotated 180
+    3 = rotated 270
+  bits 4-7: currently undefined
+</pre>
+    <p><strong>Text Content Override</strong></p>
+    <p>If the text content rendering override bit is set in the box override flags, and
+    the content type of the box is text, the following data is appended to the bottom of
+    the text content rendering flag field:</p>
+    <pre>
+[total size of text content override data] (not including this word)
+[text content override flags]  Bits in this flag determine which of the following data exits. 
+If a bit is set, the corresponding data is appended under this flag field.  If a bit is 0, the corresponding
+data is omitted.
+  bit 15: Prefix ID flag override.  Corresponding data:
+    &lt;mask&gt;
+    &lt;data&gt;
+  bit 14: Text content rendering flag override.  Corresponding data:
+    &lt;mask&gt;
+    &lt;data&gt;
+  bits 13-0: currently undefined
+</pre>
+    <p><strong>Linked Text Content Flags</strong></p>
+    <p>Exists if box content type field equals 2. Currently not used.</p>
+    <p><strong>Image Content Rendering Flags</strong></p>
+    <p>Exists if box content type field equals 3.</p>
+    <pre>
+[total size of graphics rendering information] (not including this word)
+&lt;prefix ID flags&gt;
+  bit 0: 1 = Image content prefix ID appears at front of function. This bit must not be set for a style.
+  bits 1-7: currently undefined
+[image native width (WPU)]
+[image native height (WPU)]
+&lt;image content rendering flags&gt;
+  bits 0-1: area fill handling
+    0 = normal fills
+    1 = no area fills are performed (fills are transparent)
+    2 = non-transparent area fills are always opaque white
+  bit 2: 1 = Invert colors.  The color inversion is performed after the color to black and white conversion,
+if black and white bit is set.
+  bit 3: 1 = colors converted to black and white (black and white threshold)
+  bits 4-5: available
+  bit 6: 1 = mirror contents in y
+  bit 7: 1 = mirror contents in x
+{fixed point x scale factor to apply to image} default = 1.0 (scaled to fit in box)
+{fixed point y scale factor to apply to image} default = 1.0 (scaled to fit in box)
+{signed x translation value to apply to image}  (-1.0 to +1.0) interpreted as fraction of untransformed image
+width.  Default = 0, means no translation.  Positive translation means image is shifted right.
+{signed y translation value to apply to image}  (-1.0 to +1.0) interpreted as fraction of untransformed image
+height.  Default = 0,means no translation.  Positive translation means image is shifted up.
+{fixed point rotation angle to apply to image} (0.0-360.0, counterclockwise) default = 0
+&lt;black and white threshold&gt; (0-255) default = 127. 
+The black and white threshold value ranges from 0-255 and simply defines the luminosity cutoff for mapping to
+black or white. Luminosity is determined by calculating .30 Red + .59  Green + .11 Blue and normalizing to
+0-255 range.
+{fixed point lightness value} (-1.0 to 1.0) 0 indicates no adjustment
+{fixed point contrast value&gt; (-1.0 to 1.0) 0 indicates no adjustment
+&lt;image dither method flags&gt;
+  bits 0-3: dither method
+    0 = use .PRS specified default
+    1 = force halftoning
+    2 = force ordered dither
+    3 = force error-diffusion dither
+  bits 4-7: dither source
+    0 = use .PRS specified default
+    1 = force WP dithering/halftoning
+    2 = force printer dithering/halftoning
+    3 = use external source (e.g., OLE server under Windows)
+{halftone screen LPI}  fixed point value, default = -1.0 for LPI is interpreted to mean use the
+.PRS-specified default.
+{plane 0, halftone screen angle}  fixed point value, default = -1.0 for the screen angle is interpreted to
+mean use the .PRS-specified default.
+{plane 1, halftone screen angle}  fixed point value, default = -1.0
+{plane 2, halftone screen angle}  fixed point value, default = -1.0
+{plane 3, halftone screen angle}  fixed point value, default = -1.0
+The double word fixed point values are 65536ths.  In other words, there is one word of integer and 1 word of
+fraction (65536ths).
+[fractional portion]
+[integer portion]
+</pre>
+    <p><strong>Image Content Override</strong></p>
+    <p>If the image content rendering override bit is set in the box override flags, and
+    the content type of the box is image, the following data is appended after the "plane
+    3, halftone screen angle" field above:</p>
+    <pre>
+[total size of image content override data] (not including this word)
+[image content override flags]
+If the labeled bit in the image content override flags field is set, the corresponding data will be appended
+under this flag field.
+  bit 15: Prefix ID flag override.  If this override bit is set, and bit 0 of the prefix ID flags is
+overridden, the image native size override must also be set.
+    &lt;mask&gt;
+    &lt;data&gt;
+  bit 14: Image native size.  This override bit must be set if bit 0 in the image content prefix id flags is
+overridden.
+    [image native width (WPU)]
+    [image native height (WPU)]
+  bit 13: image content rendering flags override
+    &lt;mask&gt;
+    &lt;data&gt;
+  bit 12: scaling factor override
+    {fixed point x scaling factor}
+    {fixed point y scaling factor}
+  bit 11: translation factor override
+    {x translation factor}
+    {y translation factor}
+  bit 10: rotation angle override
+    {data}
+  bit 9: black and white threshold override
+    &lt;data&gt;
+  bit 8: lightness value override
+    {data}
+  bit 7: contrast value override
+    {data}
+  bit 6: halftone data override
+    {halftone screen LPI}
+    {plane 0 halftone screen angle}
+    {plane 1 halftone screen angle}
+    {plane 2 halftone screen angle}
+    {plane 3 halftone screen angle}
+  bit 5: image dither flags override
+    &lt;mask&gt;
+    &lt;data&gt;
+  bits 4-0: currently undefined
+</pre>
+    <p><strong>Equation Content Rendering Information</strong></p>
+    <p>Used if box content type field equals 4. This is subject to change.</p>
+    <pre>
+[total size of equation rendering data] (not including this word)
+&lt;prefix ID flags&gt;
+  bit 0: 1 = equation markup text prefix ID appears at front of function.  This bit must not be set for a
+style.
+  bit 1: 1 = equation compact box format appears at front of function. This bit must not be set for a style. 
+If bit 0 is set (indicating equation markup text prefix id), bit 2 must be set, even if the prefix ID is
+invalid (0).
+  bit 2:
+    0 = use current document font for equation.  Current document font means the font in effect where the box
+function appears.  For a box template, current document font means the initial document font.
+    1 = typeface descriptor prefix ID appears at front of style
+  bits 3-7: currently undefined
+&lt;equation content rendering flags&gt;
+  bits 0-7: currently undefined
+[equation base font size] (in unsigned WPU)
+&lt;equation color (RGBS)&gt; x 4
+{fixed point rotation value to apply to equation} (0.0-360.0, counter-clockwise)
+</pre>
+    <p><strong>Equation Content Rendering Data Override</strong></p>
+    <p>If the content rendering override bit is set in the box override flags, and the content
+    type of the box is equation, the following data is appended to the fixed-point rotation
+    value to apply to equation field above:</p>
+    <pre>
+[total size of equation content override data] (not including this word)
+[equation content override flags]
+The following data appear according to bits set in the equation content override flags.  This corresponding
+data is appended to this flag field.
+  bit 15: prefix ID flag override
+    &lt;mask&gt;
+    &lt;data&gt;
+  bit 14: equation rendering flags override
+    &lt;mask&gt;
+    &lt;data&gt;
+  bit 13: equation font size override
+    [equation base font size]
+  bit 12: equation color override
+    &lt;equation color (RGBS)&gt; x 4
+  bit 11: equation rotation override
+    {fixed-point rotation angle} (0.0-360.0)
+  bits 10-0: currently undefined
+</pre>
+    <p><strong>Presentation Content Rendering Information</strong></p>
+    <p>Used if Box content type field equals 5. This is subject to change.</p>
+    <pre>
+[total size of presentation rendering data] (not including this word)
+&lt;prefix ID flags&gt;
+  bit 0: 1 = Presentation content prefix ID appears at front of function. This bit must not be set for a
+style.
+  bits 1-7: currently undefined
+&lt;presentation content rendering flags&gt;
+  bit 0: 
+    1 = run presentation in a full sized window/screen
+    0 = run presentation inside the box which encloses it
+</pre>
+    <p><strong>Presentation Content Rendering Data Override</strong></p>
+    <p>Information pending.</p>
+    <p><strong>Video Content Rendering Information</strong></p>
+    <p>Used if box content type field equals 6. Currently not used.</p>
+    <pre>
+[total size of video rendering data] (not including this word)
+&lt;prefix ID flags&gt;
+  bit 0: 1 = Video content prefix ID appears at front of function. This bit must not be set for a style.
+  bits 1-7: currently undefined
+&lt;video content rendering flags&gt;
+  bit 0: 
+    1 = run video in a full sized window/screen
+    0 = run video inside the box which encloses it
+</pre>
+    <p><strong>Video Content Rendering Data Override</strong></p>
+    <p>Information pending.</p>
+    <p><strong>Macro Content Rendering Information</strong></p>
+    <p>Used if box content type field equals 7. Currently not used.</p>
+    <pre>
+[total size of macro rendering data] (not including this word)
+&lt;prefix ID flags&gt;
+  bit 0: 1 = Macro content prefix ID appears at front of function.   
+
+This bit must not be set for a style.
+  bits 1-7: currently undefined
+&lt;macro start action&gt;
+</pre>
+    <p><strong>Macro Content Rendering Data Override</strong></p>
+    <p>Information pending.</p>
+    <p><strong>Sound Content Rendering Information</strong></p>
+    <p>Used if box content type field equals 8. Currently not used.</p>
+    <pre>
+[total size of sound rendering data] (not including this word)
+&lt;prefix ID flags&gt;
+  bit 0: 1 = Sound content prefix ID appears at front of function. This bit must not be set for a style.
+  bits 1-7: currently undefined
+&lt;sound start action&gt;
+</pre>
+    <p><strong>Sound Content Rendering Data Override</strong></p>
+    <p>Information pending.<br />
+    </p>
+    <p><strong>External Content Rendering Information</strong></p>
+    <p>Used if box content type field equals 128 (0x80). Currently not used.<br />
+    </p>
+    <pre>
+[total size of external rendering data] (not including this word)
+&lt;prefix ID flags&gt;
+  bit 0: 1 = External content prefix ID appears at front of function. This bit must not be set for a style.
+  bits 1-7: currently undefined
+</pre>
+    <p><strong>External Content Rendering Data Override</strong></p>
+    <p>Information pending.<br />
+    </p>
+    <p><strong>(Graphics Box Style Packet Continued)</strong></p>
+    <p>Box caption data:</p>
+    <pre>
+[size of caption area] (not including this word)
+&lt;box caption prefix ID flags&gt;
+  bit 0: 1 = Caption data prefix ID appears at front of function. This bit must not be set in a style.
+  bit 1: 1 = Caption default initial style prefix ID appears at front of style.  This should not be set in
+function override data.
+  bit 2: 1 = Caption default number style prefix ID appears at front of style.  This should not be set in
+function override data.
+  bits 3-7: currently undefined
+&lt;caption positioning flags&gt;
+  bits 0-1: side of content that caption appears on.
+    0 = left
+    1 = right
+    2 = top
+    3 = bottom
+  bit 2-3: where caption is in relation to border
+    0 = outside
+    1 = inside
+    2 = on
+  bits 4-5: caption alignment
+    0 = left or top
+    1 = right or bottom
+    2 = center
+  bit 6: caption alignment offset word
+    0 = caption alignment offset word is signed WPU
+    1 = caption alignment offset word is signed 32768ths of box width or height, depending on caption
+rotation
+  bit 7: currently undefined
+&lt;caption formatting flags&gt;
+  bits 0-1: formatting width
+    0 = use caption formatting width word as unsigned WPU
+    1 = use caption formatting width word as unsigned 65336ths
+    2 = format caption as if 65536/65536ths, then use maximum line width (automatic size)
+  bits 2-3: caption rotation
+    0 = caption not rotated
+    1 = rotated 90
+    2 = rotated 180
+    3 = rotated 270
+  bits 4-7: currently undefined 
+[caption formatting width] (the units of measure used here depends on the caption formatting flags field
+above)
+[caption alignment offset] (the units of measure used here depends on the caption formatting flags field
+above)
+</pre>
+    <p><strong>Box border data:</strong></p>
+    <pre>
+[size of border area] (not including this word)
+&lt;box border prefix ID flags&gt;
+  bit 0: 1 = border style prefix ID appears at front of style
+  bits 1-7: currently undefined
+[total size of border template override data] (not including this word, minimum = 2) 
+This word is the same as the total size word at the front of the border template override data definitions. 
+It is not an additional word.  The following word (fill template override flags) is the same as the word
+described in the fill template override data definition. It is not an additional flag word.
+[border template override flags]
+&lt;border template override data&gt; x ? (see <em>Border Template Override Data</em> below)
+</pre>
+    <p><strong>Box fill data:</strong></p>
+    <pre>
+[size of fill area] (not including this word)
+&lt;box fill prefix ID flags&gt;
+  bit 0: 1 = fill style prefix ID appears at front of style
+  bits 1-7: currently undefined
+[total size of fill style override data] (not including this word, minimum value = 2) This word is the same
+as the total size word at the front of the fill template override data definitions.  It is not an additional
+word.
+[fill style override flags] This word is the same as the word described in the fill template override data
+definition.  It is not an additional flag word.
+&lt;fill style override data&gt; x ?
+</pre>
+    <p><strong>Box wrapping data:</strong></p>
+    <pre>
+[size of box wrapping area] (not including this word)
+&lt;box wrapping prefix ID flags&gt; No bits currently defined
+&lt;box wrapping flags&gt;
+  bits 0-3: indicates which side text wraps around box
+    0 = wrap text on side with largest area for text (i.e., most space between side and margin).
+    1 = wrap text on left side
+    2 = wrap text on right side
+    3 = do not wrap text on either side (text flows from above box to below box)
+    4 = wrap text on both sides with text flow crossing the box for each line 
+    5 = Wrap text on both sides with text flow working in a columnar fashion. 
+    6 = no text wrap
+  bits 4-7: method used to generate the wrapping rectangles.
+    0 = Generate one wrap rectangle enclosing the entire box. Always relative to the box, never the content.
+    1 = Generate irregular wrap rectangles via an internal algorithm. If no border style is referenced,
+generate wrap rectangles from contents; otherwise, generate wrap rectangles from border (including rounded
+corners) + border outside spacing.  If there is a border, the wrap rectangle is relative to the box;
+otherwise, it is relative to the content.
+    2 = use user-defined wrap rectangles relative to the box
+    3 = use user-defined wrap rectangles relative to the content
+</pre>
+    <p><strong>Box hypertext data:</strong></p>
+    <p>Hypertext prefix IDs should not exist in a templates, and the hypertext action type
+    should be none in a template.<br />
+    </p>
+    <pre>
+[size of hypertext definition area] (not including this word)
+&lt;hypertext prefix ID flags&gt;
+  bit 0: 1 = filename (doc or macro) prefix ID appears at front of function
+  bit 1: 1 = bookmark name prefix ID appears at front of function
+  bits 2-7: currently undefined
+&lt;hypertext type flag&gt;
+  0 = Hypertext action not defined (only value allowed in style)
+  1 = Hypertext bookmark action
+  2 = Hypertext macro action
+</pre>
+    <p><strong>Border Template Override Data:</strong></p>
+    <p>If the border template override bit is set in the box override flags, the following
+    data appear:<br />
+    </p>
+    <pre>
+[total size of border template override data] (not including this word)
+[border template override flags]
+The following data appear according to bits set in the border template override flags:
+  bit 15: border template prefix ID flags data
+    &lt;mask&gt;
+    &lt;data&gt;
+  bit 14: border general flags data
+    &lt;mask&gt;
+    &lt;data&gt;
+  bit 13: corner radius data
+    [corner radius]
+  bit 12: inside spacing data
+    [left inside spacing]
+    [right inside spacing]
+    [top inside spacing]
+    [bottom inside spacing]
+  bit 11: outside spacing data
+    [left outside spacing]
+    [right outside spacing]
+    [top outside spacing]
+    [bottom outside spacing]
+  bit 10: drop shadow data
+    &lt;drop shadow flag&gt;
+    [drop shadow spacing&gt;
+    &lt;drop shadow color (RGBS)&gt; x 4
+  bit 9: border color data
+    &lt;border color (RGBS)&gt; x 4
+  bits 0-8: currently undefined
+</pre>
+    <p><strong>Box Fill Override Data:</strong></p>
+    <p>If the box fill override bit is set in the box override flags, the following data
+    appear:</p>
+    <pre>
+[total size of fill template override data] (not including this word)
+[border fill override flags]
+</pre>
+    <p>The following data appear according to bits set in the fill template override flags:</p>
+    <pre>
+bit 15: box fill prefix ID flags override
+  &lt;mask&gt;
+  &lt;data&gt;
+bit 14: fill template data override (see <em>Fill Template Override Data </em>below)
+bits 13-0: currently undefined
+</pre>
+    <p><strong>Fill Template Override Data:</strong></p>
+    <p>If the fill template override bit is set in the box fill override flags, the following
+    data appear:</p>
+    <pre>
+[total size of fill template override data] (not including this word)
+[fill template override flags]
+</pre>
+    <p>The following data appear according to bits set in the fill template override flags:</p>
+    <pre>
+bit 15: fill colors override
+  &lt;foreground/start color (RGBS)&gt; x 4
+  &lt;background/end color (RGBS)&gt; x 4
+bits 14-0: currently undefined
+</pre>
+    <p><strong>Box Wrapping Override Data:</strong></p>
+    <p>If the box wrapping override bit is set in the box override flags, the following
+    data appear:</p>
+    <pre>
+[total size of box wrapping override data] (not including this word)
+[box wrapping override flags]
+</pre>
+    <p>The following data appear according to bits set in the box wrapping override flags:</p>
+    <pre>
+bit 15: box wrapping prefix ID override
+  &lt;mask&gt;
+  &lt;data&gt;
+bit 14: wrapping flags
+  &lt;mask&gt;
+  &lt;data&gt;
+bits 13-0: currently undefined
+</pre>
+    <p><strong>Box Hypertext Override Data:</strong></p>
+    <p>If the box hypertext override bit is set in the box override flags, the following
+    data appear:</p>
+    <pre>
+[total size of box hypertext override data] (not including this word)
+[box hypertext override flags]
+</pre>
+    <p>The following data appear according to bits set in the box hypertext override flags:</p>
+    <pre>
+bit 15: box hypertext prefix ID override
+  &lt;mask&gt;
+  &lt;data&gt;
+bit 14: box hypertext type flags override
+  &lt;data&gt;
+bits 13-0: currently undefined
+</pre>
+    <p><strong>Format of Platform-Independent Wrap Rectangles</strong></p>
+    <p>Each wrap rectangle consists of four 16-bit words as follows:</p>
+    <pre>
+[unsigned offset of left side of rectangle from left side of formatted render box]
+[unsigned offset of right side of rectangle from left side of formatted render box]
+[unsigned offset of top side of rectangle from top side of formatted render box]
+[unsigned offset of bottom side of rectangle from top side of formatted render box]
+</pre>
+    <p>Units for the above values are in 65536ths of the appropriate dimension (width or
+    height) of the formatted box in which content is to be rendered. The left offset value
+    and the right offset value are measured in 65536ths of the width of the formatted box.
+    The top offset value and bottom offset value are measured in 65536ths of the height
+    of the formatted box. The right value must be greater than or equal to the left value
+    and the bottom value must be greater than or equal to the top value. Allowable values
+    are from 0 to 65535. For convenience, 65535 is considered 65536.<br />
+    </p>
+    <p><strong>General Rules</strong></p>
+    <p>All currently undefined data should be set to 0 when a new box template or box function
+    is created.</p>
+    <p>For any flag data, only those bits currently defined should be modified. All others
+    should be preserved.</p>
+    <p>Code should be written to preserve fixed and variable length data that may be added
+    later. This means utilizing the value of the total length and the values of the lengths
+    of individual data sections.</p>
+    <p>Names of templates will not be longer than 80 characters (160 bytes), not including
+    length word.</p>
+    <hr />
+    <h3>Packet Type 66 (0x42)</h3>
+    <p><strong>Line Style</strong></p>
+    <p>The following format shows all possible fields. Some of the fields may or may not
+    exist depending on various flag bits.<br />
+    </p>
+    <pre>
+[number of prefix IDs (minimum 0)]
+  [name/library data PID] (none currently defined)
+  [line data PIDs] (none currently defined)
+[total size of line style data] (not including this word nor any previous PID data)
+</pre>
+    <p>Line name and library data area:</p>
+    <pre>
+[size of line name and library data&gt; (not including this word)
+&lt;line name/library data PID flags&gt; (none currently defined, controls name/library data PID above)
+&lt;line library management flags&gt;
+  bit 0: 1 = this is a library style
+  bits 1-7: undefined
+[line name length]
+  &gt; 0 length of style name in bytes
+  0 single line (English only)
+  -1 double line (English only)
+  -2 dashed line (English only)
+  -3 dotted line (English only)
+  -4 thick line (English only)
+  -5 extra thick line (English only)
+  -6 thin/thick double line (English only)
+  -7 thick/thin double line (English only)
+  -8 button top/left line (English only)
+  -9 button bottom/right line (English only)
+[line name] x ?  exists only if line name length &gt; 0
+</pre>
+    <p>Line data area:</p>
+    <pre>
+[size of line data] (not including this word)
+&lt;line data PID flags&gt; (none currently defined, controls line data PIDs above)
+[total width of line definition (WPUs)]
+&lt;number of parallel line segments defined (minimum 1)&gt;
+</pre>
+    <p>When the line definition is used in a border, the first line defined is the innermost
+    and the last line defined the outer-most. When the line definition is used for a horizontal
+    line, the first line defined is the top-most and the last line defined is the bottom-most.
+    When the line definition is used for a vertical line, the first line defined is the
+    left-most and the last line defined is the right-most.</p>
+    <p>The following is repeated for each line piece defined:</p>
+    <pre>
+[size of line segment definition] (not including this word)
+&lt;line segment general flags&gt;
+  Bits 0-1: style type
+    0 = predefined WPG line style (see <em>Predefined WPG Line Style Data</em> below)
+    1 = custom (user-defined) line style, data in segment definition
+  Bits 2-7: currently undefined
+[width (thickness) of line (WPUs, may be zero)]
+[spacing between this border line and the next] Spacing is measured between the two printable edges of the
+lines next to each other.
+&lt;line segment (RGBS)&gt; x 4
+&lt;line segment style definition&gt; x ?  data depends on value in general flags (see <em>Line
+    Segment Styles</em> below)
+</pre>
+    <p><strong>Line Segment Styles</strong></p>
+    <p>One of the following data fields appears in the style definition field above, based
+    on the style type field in the line segment general flags.</p>
+    <p>Predefined WPG line style data (Exists if the line segment general flags field equals
+    0):</p>
+    <pre>
+&lt;WPG line style set (0 for now)&gt;
+&lt;WPG line style Number&gt;
+
+Custom line style data (Exists if the line segment general flags field equals 1):
+</pre>
+    <p>&lt;number of on/off commands (minimum 2)&gt; If the count is zero or 1, the line
+    is solid. Therefore the minimum must be 2. The commands alternate between on and off
+    run lengths for drawing the line.</p>
+    <p>[on/off commands] (run lengths in unsigned WPUs, see <em>Rendition Options</em> in
+    the <em>Graphics File Format</em> section for examples)</p>
+    <hr />
+    <h3>Packet Type 67 (0x43)</h3>
+    <p><strong>Fill Style</strong></p>
+    <p>The following format shows all possible fields. Some of the fields may or may not
+    exist depending on various bit flags.</p>
+    <pre>
+[number of child prefix IDs (minimum 0)]
+  [name/library data PIDs] (none currently defined)
+  [fill data PIDs] (none currently defined)
+[total size of fill style data] (not including this word)
+[size of fill name and library data area] (not including this word)]
+&lt;fill name/library data prefix ID flags] (none currently defined)
+&lt;fill library management flags&gt;
+  bit 0: 1 = this is a library style
+  bits 1-7: undefined
+[fill name length word]
+  &gt; 0 = length of fill style name text in bytes
+  0 = 10% fill (English only)
+  -1 = 20% fill (English only)
+  -2 = 30% fill (English only)
+  -3 = 40% fill (English only)
+  -4 = 50% fill (English only)
+  -5 = 60% fill (English only)
+  -6 = 70% fill (English only)
+  -7 = 80% fill (English only)
+  -8 = 90% fill (English only)
+  -9 = 100% fill (English only)
+  -10 = button fill (English only)
+&lt;word text of name&gt; x ?  (present only if fill name length &gt; 0)
+[size of fill style first variable-length area] (not including this word)
+&lt;fill prefix ID flags&gt; (none currently defined)
+&lt;color 1 (RGBS) (foreground for WPG2, starting for gradient)&gt; x 4
+&lt;color 2 (RGBS) (background for WPG2, ending for gradient)&gt; x 4
+&lt;fill type&gt;
+  0 = WPG2 pattern set/index
+  1 = gradient fill
+[size of fill information] (not including this word)
+&lt;variable fill information, depending on type&gt; x ?  (see <em>Fill Types Data</em> below)
+</pre>
+    <p><strong>Fill Types Data</strong></p>
+    <p>Depending on how the value contained in the fill type field, one of the two following
+    data blocks is inserted into the fill information field above.<br />
+    </p>
+    <p><strong>WPG2 Pattern Fill</strong></p>
+    <p>Used if fill type field equals 0.<br />
+    </p>
+    <pre>
+&lt;WPG2 pattern set (always 0)&gt;
+&lt;WPG2 pattern index&gt;
+</pre>
+    <p><strong>Gradient Fill</strong></p>
+    <p>Used if fill type field equals 1.<br />
+    </p>
+    <pre>
+&lt;flags&gt;
+  bits 0-4:  Gradient type.  These correspond exactly to the gradient types the graphical interface supports.
+    0 = linear
+    1 = radial
+    2 = rectangular
+  bit 5: 1 = rectangular or radial gradient has same aspect ratio as document object
+    0 = square or circular
+  bits 6-7: currently undefined 
+[number of gradient steps] (0 means calculate number of steps)
+{fixed point gradient rotation angle} (0.0-360.0)
+[fractional (65536ths) x offset of gradient starting point from left of object bounding box]
+(for convenience, 65535 is considered 65536)
+[fractional (65536ths) y offset of gradient starting point from top of object bounding box]
+(for convenience, 65535 is considered 65536)
+</pre>
+    <hr />
+    <h3>Packet Type 68 (0x44)</h3>
+    <p><strong>Border Style</strong></p>
+    <p>The following format shows all possible fields. Some of the fields may or may not
+    exist, depending on various bit flags.<br />
+    </p>
+    <pre>
+[number of prefix IDs (minimum 1)
+  [left side line style PID (type=0x42)]
+  [right side line style PID (type=0x42)]
+  [top side line style PID (type=0x42)]
+  [bottom side line style PID (type=0x42)]
+  [separator side line style PID (type=0x42)]
+[total size of border style data] (not including this word)
+[size of border name and library data area] (not including this word)
+&lt;border name and library data prefix ID flags&gt; (none currently defined)
+&lt;border library management flags&gt;
+  bit 0: 1 = this is a library style
+[border name length word]
+  &gt; 0 = length of border style name text in bytes
+  0 = spacing only (no lines)
+  -1 = single border (English only)
+  -2 = double border (English only)
+  -3 = dashed border line (English only)
+  -4 = dotted border (English only)
+  -5 = thick border (English only)
+  -6 = extra thick border (English only)
+  -7 = thin/thick double border (English only)
+  -8 = thick/thin double border (English only)
+  -9 = thick top and bottom border (English only)
+  -10 = button border (English only)
+&lt;word text of name&gt; x ?  (if border name length word &gt; 0)
+[size of border data area] (not including this word)
+&lt;border prefix ID flags&gt;
+  bit 0: 1 = left side line PID appears at front of style
+  bit 1: 1 = right side line PID appears at front of style
+  bit 2: 1 = top side line PID appears at front of style
+  bit 3: 1 = bottom side line PID appears at front of style
+  bit 4: 1 = separator line PID appears at front of style
+  bits 5-7: currently undefined
+&lt;general definition flags&gt;
+  bit 0: 1 = user border color for line colors
+    0 = use colors from individual segment definitions
+  bits 1-7: currently undefined
+[corner radius (WPUs)]
+[left inside spacing]
+[right inside spacing]
+[top inside spacing]
+[bottom inside spacing]
+[left outside spacing]
+[right outside spacing]
+[top outside spacing]
+[bottom outside spacing]
+[separator outside spacing] (Separator spacing is added to both sides of the separator line.)
+&lt;border color (RGBS)&gt; x 4
+&lt;drop shadow flag&gt;
+  0 = no drop shadow effect
+  1 = drop shadow toward upper left corner
+  2 = drop shadow toward lower left corner
+  3 = drop shadow toward lower right corner
+  4 = drop shadow toward upper right corner
+[drop shadow spacing (WPU)]
+&lt;drop shadow color (RGBS)&gt; x 4
+</pre>
+    <hr />
+    <h3>Packet Type 69 (0x45)</h3>
+    <p><strong>Graphics Rule Counter</strong></p>
+    <p>This packet has the same format as the Counters Data packet 17 (0x11).</p>
+    <pre>
+[name] x ?  null terminated
+&lt;number of counter levels valid (1-5)&gt;
+&lt;default numbering method for each level&gt; x 5
+[level name 1] x ?  null terminated
+[level name 2] x ?  null terminated
+[level name 3] x ?  null terminated
+[level name 4] x ?  null terminated
+[level name 5] x ?  null terminated
+</pre>
+    <hr />
+    <h3>Packet Type 70 (0x46)</h3>
+    <p><strong>SGML Tag with Attributes (Parent Packet)</strong></p>
+    <pre>
+
+[number of attributes]
+  [attribute 1 PID] PIDs of attribute values (child packets)
+  [attribute 2 PID]
+  ...
+  [attribute n PID]
+[tag error flag] bitwise error flag for the entire tag
+  0 = no error
+  1 = tag length is exceeded for the tag
+  2 = attribute specification length exceeded for the tag
+  4 = number of IDs in attribute values is exceeded
+  8 = number of entities in attribute values is exceeded
+
+The following information is repeated for each individual attribute.
+[attribute 1 DTD index] index to attribute information in memory
+&lt;attribute 1 error code&gt; error for individual attribute 
+Only bit 7 is bitwise.  If bit 7 is set then both LITDEL and ALITDEL is in the attribute value.
+  0 = no error
+  1 = attribute is unknown to DTD
+  2 = illegal character in attribute name value
+  3 = illegal character in attribute name token value
+  4 = illegal character in attribute number value
+  5 = illegal character in attribute number token value
+  6 = value in attribute exceeds name length limit
+  7 = too many tokens in attribute
+  8 = value in attribute exceeds LITLEN limit
+  9 = no mapping for extended character in attribute
+  10 = attribute has empty attribute value literal
+  11 = token value not in declared value list
+  12 = mismatch between DTD fixed value and attribute value
+  13 = unknown entity type attribute value
+  14 = illegal entity type attribute value
+  15 = entity open in attribute value not expanded
+  16 = character reference open in attribute value not checked
+  17 = attribute is duplicated in tag
+[attribute 2 DTD index]
+&lt;attribute 2 error code&gt;
+...
+[attribute n DTD index]
+&lt;attribute n error code&gt;
+</pre>
+    <pre>
+// <strong>following data was added for WP9</strong>
+&lt;attribute 2 literal delimiter&gt;
+{offset to name 2}
+{size of name 2}
+{size of value 2}
+..    ..
+..[attribute n dtd index] - can get type of attribute from index number
+..&lt;attribute n error code&gt;
+..&lt;attribute n literal delimiter&gt;
+..{offset to name n}
+..{size of name n}
+..{size of value n}
+
+..[attribute 1 name] x ?
+..[attribute 1 value] x ?
+..[attribute 2 name] x ? 
+..[attribute 2 value] x ?
+..    ..
+..[attribute n name] x ?
+..[attribute n value] x ?
+</pre>
+    <p>Defines for tag error flag - bitwise flag</p>
+    <pre>
+  (no error)  0  - No error
+  ERTAGLEN      1  - TAGLEN is exceeded for the tag
+  ERATSPLEN     2  - attribute specification length exceeded for the tag
+  ERIDGPCNT     4  - IDGPCNT (# of ids in attribute values) exceeded
+  ERENGPCNT     8  - ENGPCNT (# of entities in att values) exceeded
+
+Defines for attribute error code - only bit 7 is bitwise.
+
+If bit 7 is set then both LITDEL and ALITDEL is in the attribute value.
+  (no error)    0  - no error
+  ER_UNKATT     1  - Attribute is unknown to DTD
+  ER_ATNAM      2  - illegal character in attribute name value
+  ER_ATNMTK     3  - illegal character in attribute name token value
+  ER_ATNUM      4  - illegal character in attribute number value
+  ER_ATNUMTK    5  - illegal character in attribute number token value
+  ER_NM2LNG     6  - value in attribute exceeds NAMELEN limit
+  ER_2MNYTOK    7  - too many tokens in attribute
+  ER_LITLEN     8  - value in attribute exceeds LITLEN limit
+  ER_ATEXMAP    9  - no mapping for extended character in attribute 
+  ER_EMPTYAT    10 - attribute has empty attribute value literal
+  ER_DECLVL     11 - token value not in declared value list
+  ER_FXDATTR    12 - mismatch between DTD fixed value and attr value
+  ER_UNKENTA    13 - unknown entity type attribute value
+  ER_ILLENTA    14 - illegal entity type attribute value
+  ER_ATENT      15 - entity open in attribute value not expanded
+  ER_ATCREF     16 - char ref open in attribute value not checked
+  ER_ATDUP      17 - attribute is duplicated in tag
+</pre>
+    <hr />
+    <h3>Packet Type 71 (0x47)</h3>
+    <p><strong>SGML Attribute Value (Child Packet)</strong></p>
+    <p>NOTE: This packet is only used prior to and including WordPerfect v8. <strong>This
+        packet is not used after version 8.</strong></p>
+    <pre>
+
+[number of blocks = 1]
+{offset to text}
+{size of text}
+&lt;literal delimiter&gt; 
+  1 = LITDEL present
+  2 = ALITDEL present
+  3 = both present
+[attribute name] x ?
+</pre>
+    <pre>
+&lt;text&gt; x ?
+</pre>
+    <hr />
+    <h3>Packet Type 72 (0x48)</h3>
+    <p><strong>SGML LGC Filename</strong></p>
+    <p>
+    <br />
+    [number of child PIDs = 3]<br />
+    [child ID for LSI filename]<br />
+    [child ID for Document Type name]<br />
+    [child ID for Alias filename]<br />
+    &lt;Reserved&gt; x 6<br />
+    &lt;LGC filename&gt; x ?</p>
+    <hr />
+    <h3>Packet Type 73 (0x49)</h3>
+    <p><strong>SGML External Entity File Reference</strong><br />
+    </p>
+    <pre>
+[number of child IDs = 2]
+[child ID 1 for notation attribute packet (type=0x4A)]
+[child ID for system identifier (filename)]
+[data type] CDATA, SDATA, NDATA and so forth
+  bit 0: available
+  bit 1: reserved
+  bit 2: reserved
+  bit 3: available
+  bit 4: available
+  bit 5: reserved
+  bit 6: available
+  bit 7: available
+  bit 8: 1 = CDATA type entity
+  bit 9: 1 = SDATA type entity
+  bit 10: 1 = NDATA type entity
+  bit 11: 1 = SUBDOC type entity
+  bit 12: reserved
+  bit 13: available
+[entity declaration error] error flag for full declaration
+[number of text strings]
+[size of entity name]
+[size of public ID]
+[size of notation name]
+
+
+
+[external entity name] x ?
+[public ID] x ?
+[notation name] x ?
+</pre>
+    <hr />
+    <h3>Packet Type 74 (0x4A)</h3>
+    <p><strong>SGML Notation with Attributes</strong>
+    <br />
+    </p>
+    <p>Identical to SGML Tag with Attributes packet (0x46).
+    <br />
+    </p>
+    <p><strong>For WordPerfect 11 and earlier</strong></p>
+    <pre>
+[number of attributes]
+  [attribute 1 PID] PIDs of attribute values
+  [attribute 2 PID]
+  ...
+  [attribute n PID]
+  [notation error flag] error flag for entire notation (see packet type 0x46)
+The following information is repeated for each individual attribute:
+[attribute DTD index] index to attribute information in memory
+&lt;attribute error code&gt; error for individual attributes (see packet type 0x46)
+[attribute 2 DTD index]
+&lt;attribute 2 error code&gt;
+..
+..
+[attribute n DTD index]
+&lt;attribute n error code&gt;
+</pre>
+    <p><strong>For WordPerfect 9, 10, and 11</strong></p>
+    <pre>
+[child packet count = 0 ] - if it is a version 8 packet, it will have a count &gt; 0
+[tag error flag] - error flag that encompasses full tag - see note 1
+
+Individual attribute info
+[# of attributes]
+[attribute 1 dtd index] - can get type of attribute from index number
+&lt;attribute 1 error code&gt; - error for each attribute - see note 2
+&lt;attribute 1 literal delimiter&gt;
+    1 = LITDEL present 
+    2 = ALITDEL present
+    3 = both present
+{offset to name 1}
+{size of name 1}
+{size of value 1}
+[attribute 2 dtd index] - can get type of attribute from index number 
+&lt;attribute 2 error code&gt;
+&lt;attribute 2 literal delimiter&gt;
+{offset to name 2}
+{size of name 2}
+{size of value 2}
+..    ..
+..[attribute n dtd index] - can get type of attribute from index number 
+..&lt;attribute n error code&gt;
+..&lt;attribute n literal delimiter&gt;
+..{offset to name n}
+..{size of name n}
+..{size of value n}
+
+..[attribute 1 name] x ?
+..[attribute 1 value] x ?
+..[attribute 2 name] x ?
+..[attribute 2 value] x ?
+..    ..
+..[attribute n name] x ?
+..[attribute n value] x ?
+
+Note 1:  This packet has the same format as the "Tag With Attributes" packet (0x46).
+Note 2:  The attribute prefix ID references a "Attribute Value" packet (0x47).
+</pre>
+    <hr />
+    <h3>Packet Type 75 (0x4B)</h3>
+    <p><strong>SGML DTD Entity Reference</strong>
+    <br />
+    </p>
+    <p><strong>WordPerfect 11 and earlier</strong></p>
+    <pre>
+[entity name] x ?
+
+<strong>WordPerfect 11</strong>
+Extended packet to represent DTD Declared Entity, or Local Entity Declaration
+[entity name]x ? - null terminated name
+[data type] - The data type field matches many of the entity flag bit settings in the TAG_EREF function code.
+    bit 8:  1 = CDATA type entity
+    bit 9:  1 = SDATA type entity
+    bit 10: 1 = NDATA type entity
+    bit 11: 1 = SUBDOC type entity
+    bit 12: reserved (processing instruction entity in entity reference function)
+&lt;declaration type&gt;
+    0 = None
+    1 = CDATA
+    2 = SDATA
+    3 = PI (processing instruction)
+    4 = Start Tag
+    5 = End Tag
+    6 = MS (marked section)
+    7 = MD (markup declaration){replacement text offset}
+{replacement text size}
+[replacement text] x ?
+</pre>
+    <hr />
+    <h3>Packet Type 76 (0x4C)</h3>
+    <p><strong>Box Grouping Information</strong></p>
+    <p>[count] - contains the number of boxes in a group</p>
+    <hr />
+    <h3>Packet Type 77 (0x4D)</h3>
+    <p><strong>Conversion Tab</strong> <strong>Compatibility</strong></p>
+    <p>{Reserved}</p>
+    <hr />
+    <h3>Packet Type 78 (0x4E)</h3>
+    <p><strong>CHECK-AS-YOU-GO</strong></p>
+    <pre>
+[level] - Specifies the current level for Check As You Go (see 0xD45F)
+</pre>
+    <hr />
+    <h3>Packet Type 79 (0x4F)</h3>
+    <p><strong>SGML Encased Object - Box Element Mapping</strong></p>
+    <p>[# of encased SGML objects]<br />
+    [object 1 prefix ID] - prefix ID's of tag attributes (child packets)<br />
+    [object 2 prefix ID] - 0 for prefix ID means that there is not one<br />
+    .. ..<br />
+    [object n prefix ID]<br />
+    {offset to text}<br />
+    Individual SGML object info<br />
+    [object 1 type flag]&nbsp; - flag for each object see note<br />
+    [object 1 dtd index]<br />
+    [object 2 type flag] - flag for each object see note<br />
+    [object 2 dtd index]<br />
+    .. ..<br />
+    [object n type flag] - flag for each object see note<br />
+    [object n dtd index]<br />
+    <br />
+    [object 1 name] x ?<br />
+    [object 2 name] x ?<br />
+    .. ..<br />
+    [object n name] x ?<br />
+    <br />
+    Note - defines for object type values<br />
+    &nbsp;&nbsp;&nbsp;&nbsp; bit 0: Box<br />
+    &nbsp;&nbsp;&nbsp;&nbsp; bit 1: Content<br />
+    &nbsp;&nbsp;&nbsp;&nbsp; bit 2: Caption</p>
+    <hr />
+    <h3>Packet Type 80 (0x50)</h3>
+    <p><strong>SGMLTag Marked Section Parameter Entity</strong></p>
+    <pre>
+[reserved = 0]
+[KeyWord] - marked Section keyword flag
+   bit 0 - CDATA
+   bit 1 - RCDATA
+   bit 2 - IGNORE
+   bit 3 - INCLUDE
+   bit 4 - TEMP
+{offset to name} - offset to start of Parameter Entity Name - allows for expansion
+{size of name} - size of name
+[name] x ? - Null terminated name
+</pre>
+    <hr />
+    <h3>Packet Type 81 (0x51)</h3>
+    <p><strong>SGMLNotation Declaration packet</strong></p>
+    <pre>
+[number of child IDs (1)]
+[child ID for system identifier (filename)]
+[notation declaration error] - Error flag for entire declaration
+{offset to name} - offset allows for future expansion
+{size of name}
+{offset to public identifier}
+{size of public identifier}
+[notation name] x ?
+[public identifier] x ?
+</pre>
+    <hr />
+    <h3>Packet Type 82 (0x52)</h3>
+    <p><strong>Merge ODBC</strong></p>
+    <p>[form file's associated ODBC data source name (DSN)] x ? - Null terminated</p>
+    <p>[database table name] x ? - Null terminated</p>
+</body>
+</html>

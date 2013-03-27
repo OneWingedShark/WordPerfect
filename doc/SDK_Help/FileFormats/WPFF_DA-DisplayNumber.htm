@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: DA Display Number Functions</h2>
+    <p><strong>Display Number Reference Group - Function 218 (0xDA)</strong></p>
+    <p>The Display Number Group subfunctions have character orientation.<br />
+    <br />
+    The subfunctions in this list are paired so that the even-numbered codes are the On
+    functions and the odd numbered codes are the Off functions. Each instance of a subfunction
+    will consist of the On subfunction, the associated information, and the Off subfunction.</p>
+    <p><strong>Subfunctions: 0 (0x00) - 19 (0x13)</strong></p>
+    <table border="1" width="93%" cellpadding="5">
+        <tr valign="top">
+            <td width="21%">
+                <strong>Subfunction</strong></td>
+            <td width="78%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0 (0x00)</td>
+            <td>
+                User-Defined Number Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1 (0x01)</td>
+            <td>
+                User-Defined Number Display Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2 (0x02)</td>
+            <td>
+                Box Number Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3 (0x03)</td>
+            <td>
+                Box Number Display Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4 (0x04)</td>
+            <td>
+                Page Number Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5 (0x05)</td>
+            <td>
+                Page Number Display Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6 (0x06)</td>
+            <td>
+                Secondary Page Number Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7 (0x07)</td>
+            <td>
+                Secondary Page Number Display Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8 (0x08)</td>
+            <td>
+                Chapter Number Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9 (0x09)</td>
+            <td>
+                Chapter Number Display Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                10 (0x0A)</td>
+            <td>
+                Volume Number Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                11 (0x0B)</td>
+            <td>
+                Volume Number Display Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                12 (0x0C)</td>
+            <td>
+                Paragraph Number Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                13 (0x0D)</td>
+            <td>
+                Paragraph Number Display Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                14 (0x0E)</td>
+            <td>
+                Footnote Number Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                15 (0x0F)</td>
+            <td>
+                Footnote Number Display Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                16 (0x10)</td>
+            <td>
+                Endnote Number Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                17 (0x11)</td>
+            <td>
+                Endnote Number Display Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                18 (0x12)</td>
+            <td>
+                Line Number Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                19 (0x13)</td>
+            <td>
+                Line Number Display Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                20 (0x14)</td>
+            <td>
+                Total Number of Pages Display On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                21 (0x15)</td>
+            <td>
+                Total Number of Pages Display Off</td>
+        </tr>
+    </table>
+    <br />
+    <p><code>&lt;218 (0xDA)&gt; &lt;on subfunction&gt; [size = variable] &lt;flags = 3+(0
+        or PRFXID)&gt;</code></p>
+    <p>If the prefix ID bit is set, the following information exists:</p>
+    <pre>&lt;number of prefix IDs = 1&gt;
+  [counter PID (type=0x11)]
+[size of non-deletable information = 1]
+&lt;level number to display (0 - n)&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDA&gt;
+
+&lt;associated display number reference information&gt; x ?
+
+&lt;218 (0xDA)&gt; &lt;off subfunction&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+[size] &lt;0xDA&gt;
+</pre>
+</body>
+</html>

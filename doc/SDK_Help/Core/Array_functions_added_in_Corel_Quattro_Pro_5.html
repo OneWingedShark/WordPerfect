@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>Array functions added in Quattro Pro 5</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProParseCellD_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProPureAllocReturnArray_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : Array functions added in Quattro Pro 5</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp556692"></a>
+
+  <h3 class="pHeading2">Array functions added in Quattro Pro 5</h3><a name="wp1274540"></a>
+
+  <p class="pBody">The following array functions were added in Quattro Pro 5:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1274544"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="QProPureAllocReturnArray_function.html#wp556728">QProPureAllocReturnArray function</a></li>
+      </ul>
+    </div><a name="wp1274548"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="QProPureReturnNumber_function.html#wp556763">QProPureReturnNumber function</a></li>
+      </ul>
+    </div><a name="wp1274552"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="QProPureReturnString_function.html#wp556800">QProPureReturnString function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1274538"></a>
+
+  <p class="pBody">These array functions are callable by PURE and IMPURE functions. Generating array results overrides the declared return type for your
+  function. To return an array, you must complete the following steps:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp556696"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Call the <code class="cCode">QProPureAllocReturnArray</code> function and declare the size of the result array. After <code class=
+        "cCode">QProPureAllocReturnArray</code> has returned <code class="cCode">TRUE</code>, your function is committed to returning an array. You cannot call
+        <code class="cCode">QProPureAllocReturnArray</code> to resize a result array.</li>
+      </ul>
+    </div><a name="wp1274507"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>For each value that you want to return, call the <code class="cCode">QProPureReturnNumber</code> function or the <code class=
+        "cCode">QProPureReturnString</code> function. You cannot return a value more than once at the same position in the result array. Subsequent returns are
+        ignored. The value returned from your function is ignored; returned doubles are popped from the coprocessor/emulator stack and then ignored.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

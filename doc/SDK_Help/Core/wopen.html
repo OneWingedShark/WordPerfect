@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>wopen function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WioSetCurrentDir.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="wclose.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        wopen function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp548444"></a>
+
+  <h4 class="pHeading3">wopen function</h4><a name="wp548446"></a>
+
+  <p class="pBody">The <code class="cCode">wopen</code> function allows the user to open a file by using WordPerfect File I/O.</p><a name="wp548448"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+WFP SHAPI wopen ( <a name="wp548450"> </a>
+WPFNAME name, <a name="wp548452"> </a>
+WUDWORD flags );<a name="wp548454"> </a>
+</pre>
+  </div><a name="wp548456"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1278864"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1278896"></a>
+
+          <p class="pBody"><code class="cCode">name</code></p>
+        </td>
+
+        <td>
+          <a name="wp1278898"></a>
+
+          <p class="pBody">Specifies the path of the file to open or create passed in as a <code class="cCode">WPFNAME</code> structure</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1278900"></a>
+
+          <p class="pBody"><code class="cCode">flags</code></p>
+        </td>
+
+        <td>
+          <a name="wp1278902"></a>
+
+          <p class="pBody">Passes the following flags, which determine the access of the file opened:</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279052"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279056"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_READ</code> - Opens the file with read access</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279048"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279058"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_WRITE</code> - Opens with write privileges</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279044"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279060"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_SHARED</code> - Allocates memory for this file from shared memory</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279040"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279062"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_CREATE</code> - Creates the file if it doesn't exist</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279036"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279064"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_EXCL</code> - Opens only if the file doesn't exist previously</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279032"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279066"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_BUF</code> - Buffers the file I/O</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279028"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279068"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_CACHE</code> - Caches the file</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279024"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279070"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_DELETE</code> - Automatically deletes the file when finished</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279020"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279072"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_TRUNC</code> - Truncates the file to length 0 on open</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279016"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279074"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_MEMORY</code> - Puts this file into memory, not onto disk</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279012"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279076"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_PERSISTENT</code> - Makes this memory file stay around after closing</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279008"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279078"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_DENYNONE</code> - File-sharing mode: Allows reading and writing</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279004"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279080"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_DENYREAD</code> - File-sharing mode: Denies reading the file</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279000"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279082"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_DENYWRITE</code> - File-sharing mode: Denies writing the file</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1278996"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279084"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_DENYALL</code> - File-sharing mode: Denies reading and writing of the file</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1278992"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279086"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_EXPLODEPREFIX</code> - Forces loading of the Prefix area</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1278988"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279088"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_DOCSAVECHECK</code> - Checks the file on saving to see if it is corrupt. Doesn't allow saving of corrupt
+                documents.</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1278984"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279090"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_DOCFILE</code> - Creates the file as an OLE compound file. If file exists, it must already be a compound file.
+                (This option can be used to create a WordPerfect 7 document.)</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1278980"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1279092"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WIO_FLATTFILE</code> - ALWAYS opens the file as a flat file</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1278593"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp548463"></a>
+
+  <p class="pBody">This function returns zero if an error occurs. If there was no error, it returns a WFP, which is a WordPerfect File Pointer to the opened
+  file.</p>
+</body>
+</html>

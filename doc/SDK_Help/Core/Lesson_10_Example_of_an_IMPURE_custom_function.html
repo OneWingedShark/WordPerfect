@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:32" />
+
+  <title>Lesson 10: Example of an IMPURE custom function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Lesson_9_Using_optional_arguments.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Lesson_11_Setting_an_objects_property.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Creating_QP_Add-in_DLLs.html">Creating Quattro Pro Add-in DLLs</a> : Lesson 10: Example of an IMPURE custom function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp533121"></a>
+
+  <h3 class="pHeading2">Lesson 10: Example of an IMPURE custom function</h3><a name="wp533123"></a>
+
+  <p class="pBody">Before beginning this lesson, do the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp533125"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Load the qshell.cpp file into your program editor.</li>
+      </ul>
+    </div><a name="wp533127"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Save qshell.cpp as lesson10.cpp in your data folder.</li>
+      </ul>
+    </div>
+  </div><a name="wp533129"></a>
+
+  <p class="pBody">This lesson shows you how to use an IMPURE function to get the property of an object, in this case the typeface of the active
+  block.</p><a name="wp1270652"></a>
+
+  <h5 class="pHeading4">Step 1</h5><a name="wp533131"></a>
+
+  <p class="pBody">Replace <code class="cCode">DUMMY</code> with <code class="cCode">OBJ</code> in the <code class="cCode">SelfDefStructure</code> of the
+  qshell.cpp file. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533133"> </a>
+// Quattro Pro prescribed header (and other overhead)<a name="wp533135"> </a>
+//===============================================================<a name="wp533137"> </a>
+SelfDefStructure MyFuncs[] = {<a name="wp533139"> </a>
+{<a name="wp533141"> </a>
+"asciiz PASCAL OBJ( )", // Function Command <a name="wp533143"> </a>
+(FarProc)&amp;OBJ, // Pointer to _exported function <a name="wp533145"> </a>
+"Help", // Help Line (samples use Help) <a name="wp533147"> </a>
+"OBJ" // English name (match name above) <a name="wp533149"> </a>
+}, <a name="wp533151"> </a>
+NULL // Always null terminate the list! <a name="wp533153"> </a>
+};<a name="wp533155"> </a>
+</pre>
+  </div><a name="wp533159"></a>
+
+  <p class="pBody">There is no PURE keyword in this function. <code class="cCode">ASCIIZ</code> designates the return type of a string pointer. For information
+  on <code class="cCode">ProcPrototype</code>, see "<a href="Structures_types_enums.html#wp1271647">Understanding structures, types, and
+  enumerations</a>."</p><a name="wp1270693"></a>
+
+  <h5 class="pHeading4">Step 2</h5><a name="wp533161"></a>
+
+  <p class="pBody">Now you must prototype the function in the DLL. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533163"> </a>
+// Add-In function prototypes<a name="wp533165"> </a>
+//===============================================================<a name="wp533167"> </a>
+LPSTR Exported OBJ( );<a name="wp533169"> </a>
+</pre>
+  </div><a name="wp533171"></a>
+
+  <p class="pBody">Now you must tell the DLL what to do when <code class="cCode">OBJ</code> is called.</p><a name="wp1270703"></a>
+
+  <h5 class="pHeading4">Step 3</h5><a name="wp533173"></a>
+
+  <p class="pBody">Change the main function code area to appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533175"> </a>
+// MAIN FUNCTION CODE<a name="wp533177"> </a>
+//===============================================================<a name="wp533179"> </a>
+char szBuffer[255];<a name="wp533181"> </a>
+LPSTR Exported OBJ( )<a name="wp533183"> </a>
+{<a name="wp533185"> </a>
+QProGetProperty("Active_Block", "Font.Typeface", szBuffer, <a name="wp533187"> </a>
+255); <a name="wp533189"> </a>
+return szBuffer; <a name="wp533191"> </a>
+}<a name="wp533193"> </a>
+</pre>
+  </div><a name="wp533195"></a>
+
+  <p class="pBody"><code class="cCode">QProGetProperty("Active_Block", "Font.Typeface", szbuffer, 255)</code> is the function call for the active block's font
+  typeface.</p><a name="wp533197"></a>
+
+  <p class="pBody"><code class="cCode">Return szbuffer</code> returns <code class="cCode">szbuffer</code>, which contains the <code class=
+  "cCode">font.typeface</code> of the active block.</p><a name="wp533199"></a>
+
+  <p class="pBody">In the example, the function <code class="cCode">QProGetProperty("Active_Block", "Font.Typeface", szbuffer, 255)</code> calls for the active
+  block's font typeface and stores it in szbuffer. Return <code class="cCode">szbuffer</code> then returns the <code class="cCode">szbuffer</code>
+  variable.</p><a name="wp1270734"></a>
+
+  <h5 class="pHeading4">Step 4</h5><a name="wp533201"></a>
+
+  <p class="pBody">Save this file as lesson10.cpp.</p><a name="wp1270740"></a>
+
+  <h5 class="pHeading4">Step 5</h5><a name="wp533203"></a>
+
+  <p class="pBody">Create your custom function. Refer to your compiler documentation for further information on making a DLL.</p><a name="wp1270744"></a>
+
+  <h5 class="pHeading4">Step 6</h5><a name="wp533205"></a>
+
+  <p class="pBody">Start Quattro Pro. In this lesson, a macro must be used to get the results of the function <code class="cCode">{Let
+  a1,@lesson10.OBJ}</code>.</p><a name="wp533207"></a>
+
+  <p class="pBody">When this macro is executed, it will return the typeface of the active block to cell A1.</p>
+</body>
+</html>

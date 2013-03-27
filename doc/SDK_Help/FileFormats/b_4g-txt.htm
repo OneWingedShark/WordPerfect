@@ -1,0 +1,3251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect Graphic File Format</title>
+</head>
+<body>
+    <h1>WordPerfect Graphic File Format</h1>
+    <p><a href="_b1over.htm">Back to main page</a></p>
+    <h2><a name="Text_Functions"></a>Text Functions</h2>
+    <p>The topics in this section provide the functions supported and their values.</p>
+    <hr />
+    <h3>Single-Byte Characters: 1-127 (0x01-0x7F)</h3>
+    <p>Prefix character maps are <em>not</em> supported. Any characters not in the default
+    character map must be encased in extended character gates</p>
+    <hr />
+    <h3>Single-Byte Functions: 128-207 (0x80-0xCF)</h3>
+    <p>Soft and hard space codes - 128, 129 (0x80, 0x81) are rendered as ' '.</p>
+    <p>The soft hyphen at end of line and hard hyphen in line codes - 131, 132 (0x83, 0x84)
+    are rendered as '-'.</p>
+    <p>The hard and soft end of center/align - 136, 137 (0x88, 0x89) codes are valid codes
+    in WPG 7/8 text.</p>
+    <p>Hard, soft, deletable, and undeletable codes - 185, 188, 204, 207 (0xB9, 0xBC, 0xCC,
+    0xCF) are also valid in WPG 7/8 text.</p>
+    <hr />
+    <h3>Variable-Length Multi-Byte Functions: 208-226 (0xD0-0xE2)</h3>
+    <p><strong>Paragraph Group: 211 (0xD3)</strong></p>
+    <p>The justification mode code, subfunction 5: Full justification may not be supported
+    by some implementations, and its level of sophistication may differ across others.<br />
+    </p>
+    <p><strong>Character Group: 212 (0xD4)</strong></p>
+    <p>The set underline spaces mode code, subfunction 2, is fully supported.</p>
+    <p>The set underline tabs mode code, subfunction 3, is fully supported.</p>
+    <p>The horizontal advance (relative or absolute) code, subfunction 4, is fully supported
+    (units are 1200ths, regardless of the units of measure defined in the <em>Start WPG</em>
+    record; affected by graphics transformations outside the text region; absolute horizontal
+    positions relative to left edge of text region).</p>
+    <p>The vertical advance (relative or absolute) code, subfunction 5, is fully supported.
+    (units are 1200ths, regardless of the units of measure defined in the <em>Start WPG</em>
+    record; affected by graphics transformations outside the text region; absolute horizontal
+    positions relative to left edge of text region).</p>
+    <p>The font change code, sub-function 26 (0x1A), is fully supported except with regard
+    to the following additional information required at the beginning of the deletable information:</p>
+    <p>&lt;fixed-length part of WP 7/8 typeface descriptor&gt; x 24 (for best-fit matching)</p>
+    <p>[total string length of 4 font name strings] in bytes (including all nulls)</p>
+    <p>[typeface name and pitch/point size] x ? (null-terminated WP word string)</p>
+    <p>[attribute description] x ? (null-terminated WP word string)</p>
+    <p>[extension] x ? (null-terminated WP word string)</p>
+    <p>[group] x (null-terminated WP word string)<br />
+    </p>
+    <p><strong>Note:</strong> If total string length is zero, no strings or nulls follow,
+    and the font is best-fit matched according to the values in the fixed-length part of
+    the typeface descriptor.</p>
+    <p>The font size change code, sub-function 27 (0x1B), is fully supported except for
+    the following additional information required at the beginning of the deletable information:</p>
+    <p>[desired horizontal point size (3600ths of an inch)] (affected by graphics transformations
+    outside the test region)</p>
+    <p>[desired vertical point size (3600ths)] (affected by graphics transformations outside
+    the test region)</p>
+    <p>The overstrike code, subfunction 41 (0x29), is fully supported.</p>
+    <p><strong>Tab Group: 224 (0xE0)</strong></p>
+    <p>The tab/indent/center/align code (subfunction zero) is fully supported for only the
+    following tab types:<br />
+    </p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td valign="top" width="26%">
+                <strong>Type #</strong></td>
+            <td valign="top" width="73%">
+                <strong>Tab Type</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                Back tab (left margin release)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                16 (0x10)</td>
+            <td valign="top">
+                Left-aligned tab</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                48 (0x30)</td>
+            <td valign="top">
+                Left indent</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                56 (0x38)</td>
+            <td valign="top">
+                Left/right indent</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                64 (0x40)</td>
+            <td valign="top">
+                Center (on text region edges)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                72 (0x48)</td>
+            <td valign="top">
+                Center on current position</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                80 (0x50)</td>
+            <td valign="top">
+                Center-aligned tab</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                128 (0x80)</td>
+            <td valign="top">
+                Flush right</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                144 (0x90)</td>
+            <td valign="top">
+                Right-aligned tab</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                208 (0xD0)</td>
+            <td valign="top">
+                Decimal-aligned tab</td>
+        </tr>
+    </table>
+    <p>In addition, the following information must be supplied at the beginning of the deletable
+    information:<br />
+    </p>
+    <p>[horizontal alignment position] (affected by graphics transformations outside the
+    text region; absolute horizontal positions relative to left edge of text region)</p>
+    <p>[WP character set/index of alignment character (ignored if not decimal tab type)]</p>
+    <p>[WP character set/index of dot leader character (ignored if no dot leader)]</p>
+    <p>[# of spaces between dot leader characters (ignored if no dot leader)]</p>
+    <p>[starting position (for conversions)]<br />
+    </p>
+    <p><strong>Platform Group: 225 (0xE1)</strong></p>
+    <p>Style-rendition attribute codes, subfunctions 12-26 (0xC-0x1A), apply various rendition
+    attributes to graphics text just as corresponding top-level WPG 2.0 rendition attribute
+    records are applied to graphic objects. See the Rendition records in <em>Type</em> under
+    <em>Record Header</em> earlier in this section for more information. Any of these functions
+    that have units of measurement should use the units defined in the <em>Start WPG</em>
+    record.</p>
+    <hr />
+    <h3>Fixed-Length Multi-Byte Functions: 240-247 (0xF0-0xF7)</h3>
+    <p>The extended character code 240 (0xF0) is fully supported.</p>
+    <p>Attribute on and attribute off codes 242-243 (0xF2-0xF3) are supported. <em>However,
+        the number of attributes rendered (of the 18 possible) may differ from implementation
+        to implementation.</em></p>
+    <hr />
+    <h3>Functions that may be important for editing graphics text, but can be ignored by
+    WPG 2.0 Rendering Code</h3>
+    <p><strong>Outline Definition</strong></p>
+    <p>The following information must be supplied at the beginning of the deletable data:<br />
+    </p>
+    <p>&lt;type flag&gt;</p>
+    <p>bit 0: set if outline on</p>
+    <p>bit 1: set if outline off</p>
+    <p>bit 2: set if paragraph number definition</p>
+    <p>(the following data exists if bit 2 above is set)</p>
+    <p>&lt;8 new definitions (3 bytes each containing 6.0 level characters)&gt;x24</p>
+    <p>[8 new level numbers]x8</p>
+    <p>&lt;new attach flag&gt;</p>
+    <p>&lt;new outline flag&gt;<br />
+    </p>
+    <p><strong>Corel Presentations Slide Options, Presentations OrgChart Node Options</strong></p>
+    <p>These codes are documented as 0xE11C and 0xE11D in the <a href="WPFF_Index.htm">WordPerfect
+        File Format</a> section.</p>
+    <p><strong>Soft Hyphen in Line and Block ON/OFF</strong></p>
+    <p>No need to render these functions.<br />
+    </p>
+    <p><strong>Date Format, Outline Definition, and the Paragraph Style Begin/End and Part
+        1/Part 2 ON/OFF codes</strong></p>
+    <p>These functions can be ignored by rendering code, because their information should
+    already have been extracted during formatting and inserted between begin and end function
+    gates.</p>
+    <p><strong>Begin/End Date Function, and Begin/End Paragraph Number</strong></p>
+    <p>These functions themselves are ignored, but the text between them is rendered normally.</p>
+    <p><strong>Tab Set, Decimal Alignment Character, and Dot Leader Character</strong></p>
+    <p>These functions can be ignored by rendering code, because their information should
+    have already been extracted during formatting and inserted in the deletable information
+    of the TAB function.</p>
+    <p><strong>Other 7/8 Text Functions</strong></p>
+    <p>Any other 7/8 text functions will be preserved, but are ignored by the WPG 7/8 editing
+    and rendering code.</p>
+    <h2><a name="WPG_Defaults"></a>WPG Defaults</h2>
+    <p>A minimum WPG file contains the fixed 26-byte file prefix, a <em>Start WPG</em> record,
+    and an <em>End WPG</em> record. No other requirements affecting file content exist.
+    Therefore, to assure consistent performance by different products running on different
+    platforms, the following default values are in effect in the absence of various rendition
+    control records.<br />
+    </p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td valign="top" width="50%">
+                <strong>Pen Attributes</strong></td>
+            <td valign="top" width="49%">
+                <strong>Default</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Foreground Color</td>
+            <td valign="top">
+                Black</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Background Color</td>
+            <td valign="top">
+                White</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Foreground Transparency</td>
+            <td valign="top">
+                0% (Opaque)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Background Transparency</td>
+            <td valign="top">
+                0% (Opaque)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Style</td>
+            <td valign="top">
+                Solid</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Pattern</td>
+            <td valign="top">
+                Solid</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Width/Height</td>
+            <td valign="top">
+                0</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td valign="top" width="50%">
+                <strong>Line Attributes</strong></td>
+            <td valign="top" width="49%">
+                <strong>Default</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Line Cap Type</td>
+            <td valign="top">
+                Flat</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Line Join Type</td>
+            <td valign="top">
+                Bevel</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td valign="top" width="51%">
+                <strong>Brush Attributes</strong></td>
+            <td valign="top" width="48%">
+                <strong>Default</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Foreground Color</td>
+            <td valign="top">
+                Black</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Background Color</td>
+            <td valign="top">
+                White</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Foreground Transparency</td>
+            <td valign="top">
+                0% (Opaque)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Background Transparency</td>
+            <td valign="top">
+                0% (Opaque)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Pattern</td>
+            <td valign="top">
+                Solid</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Gradient Reference Anchor</td>
+            <td valign="top">
+                Object</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Gradient Granularity</td>
+            <td valign="top">
+                Maximum</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Gradient Reference Position</td>
+            <td valign="top">
+                32767, 32767 (0x7FFF,0x7FFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Gradient Angle</td>
+            <td valign="top">
+                0</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td valign="top" width="50%">
+                <strong>Text Attributes</strong></td>
+            <td valign="top" width="49%">
+                <strong>Default</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Alignment</td>
+            <td valign="top">
+                Baseline</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Outline Color</td>
+            <td valign="top">
+                Black</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Outline Style</td>
+            <td valign="top">
+                Solid</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Fill Color</td>
+            <td valign="top">
+                Black</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Fill Pattern</td>
+            <td valign="top">
+                Solid</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td valign="top" width="50%">
+                <strong>Miscellaneous</strong></td>
+            <td valign="top" width="49%">
+                <strong>Default</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Clipping</td>
+            <td valign="top">
+                None</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Position Data Precision</td>
+            <td valign="top">
+                Single</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Color Data Precision</td>
+            <td valign="top">
+                Single</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Page Color</td>
+            <td valign="top">
+                White</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Bitmap Data Sample Size</td>
+            <td valign="top">
+                1 Byte</td>
+        </tr>
+    </table>
+    <p><strong>Default Color Map</strong></p>
+    <p>The default color map is divided into sixteen sets of sixteen colors each that make
+    up the 256 RGB values. The first set contains sixteen base colors for color dithering.
+    The next fourteen sets contain shades of gray and thirteen different hues. The last
+    set contains 16 flesh tones.<br />
+    </p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>DITHER COLORS</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                1 (0x01)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                2 (0x02)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                3 (0x03)</td>
+            <td valign="top">
+                191 (0xBF)</td>
+            <td valign="top">
+                191 (0xBF)</td>
+            <td valign="top">
+                191 (0xBF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                4 (0x04)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                5 (0x05)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                6 (0x06)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                7 (0x07)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                8 (0x08)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                9 (0x09)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                10 (0x0A)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                11 (0x0B)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                12 (0x0C)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                13 (0x0D)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                14 (0x0E)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                15 (0x0F)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>GRAY</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                16 (0x10)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                17 (0x11)</td>
+            <td valign="top">
+                17 (0x11)</td>
+            <td valign="top">
+                17 (0x11)</td>
+            <td valign="top">
+                17 (0x11)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                18 (0x12)</td>
+            <td valign="top">
+                34 (0x22)</td>
+            <td valign="top">
+                34 (0x22)</td>
+            <td valign="top">
+                34 (0x22)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                19 (0x13)</td>
+            <td valign="top">
+                51 (0x33)</td>
+            <td valign="top">
+                51 (0x33)</td>
+            <td valign="top">
+                51 (0x33)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                20 (0x14)</td>
+            <td valign="top">
+                68 (0x44)</td>
+            <td valign="top">
+                68 (0x44)</td>
+            <td valign="top">
+                68 (0x44)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                21 (0x15)</td>
+            <td valign="top">
+                85 (0x55)</td>
+            <td valign="top">
+                85 (0x55)</td>
+            <td valign="top">
+                85 (0x55)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                102 (0x66)</td>
+            <td valign="top">
+                102 (0x66)</td>
+            <td valign="top">
+                102 (0x66)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                23 (0x17)</td>
+            <td valign="top">
+                119 (0x77)</td>
+            <td valign="top">
+                119 (0x77)</td>
+            <td valign="top">
+                119 (0x77)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                24 (0x18)</td>
+            <td valign="top">
+                136 (0x88)</td>
+            <td valign="top">
+                136 (0x88)</td>
+            <td valign="top">
+                136 (0x88)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                25 (0x19)</td>
+            <td valign="top">
+                153 (0x99)</td>
+            <td valign="top">
+                153 (0x99)</td>
+            <td valign="top">
+                153 (0x99)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                26 (0x1A)</td>
+            <td valign="top">
+                170 (0xAA)</td>
+            <td valign="top">
+                170 (0xAA)</td>
+            <td valign="top">
+                170 (0xAA)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                27 (0x1B)</td>
+            <td valign="top">
+                187 (0xBB)</td>
+            <td valign="top">
+                187 (0xBB)</td>
+            <td valign="top">
+                187 (0xBB)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                28 (0x1C)</td>
+            <td valign="top">
+                204 (0xCC)</td>
+            <td valign="top">
+                204 (0xCC)</td>
+            <td valign="top">
+                204 (0xCC)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                29 (0x1D)</td>
+            <td valign="top">
+                221 (0xDD)</td>
+            <td valign="top">
+                221 (0xDD)</td>
+            <td valign="top">
+                221 (0xDD)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                30 (0x1E)</td>
+            <td valign="top">
+                238 (0xEE)</td>
+            <td valign="top">
+                238 (0xEE)</td>
+            <td valign="top">
+                238 (0xEE)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                31 (0x1F)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>RED</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                32 (0x20)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                33 (0x21)</td>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                34 (0x22)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                35 (0x23)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                36 (0x24)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                37 (0x25)</td>
+            <td valign="top">
+                233 (0xE9)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                38 (0x26)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                39 (0x27)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                22 (0x16)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                40 (0x28)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                41 (0x29)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                66 (0x42)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                42 (0x2A)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                88 (0x58)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                43 (0x2B)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                132 (0x84)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                45 (0x2D)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                46 (0x2E)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                47 (0x2F)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>ORANGE</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                48 (0x30)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                61 (0x3D)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                49 (0x31)</td>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                72 (0x48)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                50 (0x32)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                83 (0x53)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                51 (0x33)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                94 (0x5E)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                52 (0x34)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                105 (0x69)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                53 (0x35)</td>
+            <td valign="top">
+                233 (0xE9)</td>
+            <td valign="top">
+                116 (0x74)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                54 (0x36)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                55 (0x37)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                138 (0x8A)</td>
+            <td valign="top">
+                22 (0x16)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                56 (0x38)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                149 (0x95)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                57 (0x39)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                160 (0xA0)</td>
+            <td valign="top">
+                66 (0x42)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                58 (0x3A)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                171 (0xAB)</td>
+            <td valign="top">
+                88 (0x58)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                59 (0x3B)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                182 (0xB6)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                60 (0x3C)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                193 (0xC1)</td>
+            <td valign="top">
+                132 (0x84)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                61 (0x3D)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                204 (0xCC)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                62 (0x3E)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                215 (0xD7)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                63 (0x3F)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                226 (0xE2)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>YELLOW</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                64 (0x40)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                65 (0x41)</td>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                67 (0x43)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                68 (0x44)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                69 (0x45)</td>
+            <td valign="top">
+                233 (0xE9)</td>
+            <td valign="top">
+                233 (0xE9)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                70 (0x46)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                71 (0x47)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                22 (0x16)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                72 (0x48)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                73 (0x49)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                66 (0x42)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                74 (0x4A)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                88 (0x58)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                75 (0x4B)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                76 (0x4C)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                132 (0x84)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                77 (0x4D)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                78 (0x4E)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                79 (0x4F)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>YELLOW-GREEN</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                80 (0x50)</td>
+            <td valign="top">
+                61 (0x3D)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                81 (0x51)</td>
+            <td valign="top">
+                72 (0x48)</td>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                82 (0x52)</td>
+            <td valign="top">
+                83 (0x53)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                83 (0x53)</td>
+            <td valign="top">
+                94 (0x5E)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                84 (0x54)</td>
+            <td valign="top">
+                105 (0x69)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                85 (0x55)</td>
+            <td valign="top">
+                116 (0x74)</td>
+            <td valign="top">
+                233 (0xE9)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                86 (0x56)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                87 (0x57)</td>
+            <td valign="top">
+                138 (0x8A)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                22 (0x16)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                149 (0x95)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                89 (0x59)</td>
+            <td valign="top">
+                160 (0xA0)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                66 (0x42)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                90 (0x5A)</td>
+            <td valign="top">
+                171 (0xAB)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                88 (0x58)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                91 (0x5B)</td>
+            <td valign="top">
+                182 (0xB6)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                92 (0x5C)</td>
+            <td valign="top">
+                193 (0xC1)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                132 (0x84)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                93 (0x5D)</td>
+            <td valign="top">
+                204 (0xCC)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                94 (0x5E)</td>
+            <td valign="top">
+                215 (0xD7)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                95 (0x5F)</td>
+            <td valign="top">
+                226 (0xE2)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>GREEN</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                96 (0x60)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                97 (0x61)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                98 (0x62)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                99 (0x63)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                100 (0x64)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                101 (0x65)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                233 (0xE9)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                102 (0x66)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                0 (0x00)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                103 (0x67)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                22 (0x16)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                104 (0x68)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                105 (0x69)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                66 (0x42)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                106 (0x6A)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                88 (0x58)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                107 (0x6B)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                108 (0x6C)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                132 (0x84)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                109 (0x6D)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                111 (0x6F)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>BLUE-GREEN</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                112 (0x70)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                61 (0x3D)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                113 (0x71)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                72 (0x48)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                114 (0x72)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                83 (0x53)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                115 (0x73)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                94 (0x5E)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                116 (0x74)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                105 (0x69)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                117 (0x75)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                233 (0xE9)</td>
+            <td valign="top">
+                116 (0x74)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                118 (0x76)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                119 (0x77)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                138 (0x8A)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                120 (0x78)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                149 (0x95)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                121 (0x79)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                160 (0xA0)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                122 (0x7A)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                171 (0xAB)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                182 (0xB6)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                124 (0x7C)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                193 (0xC1)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                125 (0x7D)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                204 (0xCC)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                126 (0x7E)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                215 (0xD7)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                226 (0xE2)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>CYAN</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                128 (0x80)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                129 (0x81)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                145 (0x91)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                130 (0x82)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                131 (0x83)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                133 (0x85)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                233 (0xE9)</td>
+            <td valign="top">
+                233 (0xE9)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                134 (0x86)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                135 (0x87)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                136 (0x88)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                137 (0x89)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                138 (0x8A)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                139 (0x8B)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                140 (0x8C)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                141 (0x8D)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                142 (0x8E)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                143 (0x8F)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>DARK CYAN</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                144 (0x90)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                86 (0x56)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                100 (0x64)</td>
+            <td valign="top">
+                145 (0x91)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                146 (0x92)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                114 (0x72)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                147 (0x93)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                128 (0x80)</td>
+            <td valign="top">
+                189 (0xB0)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                148 (0x94)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                142 (0x8E)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                149 (0x95)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                156 (0x9C)</td>
+            <td valign="top">
+                233 (0xE4)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                150 (0x96)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                170 (0xAA)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                151 (0x97)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                177 (0xB1)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                152 (0x98)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                184 (0xB8)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                153 (0x99)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                191 (0xBF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                155 (0x9B)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                205 (0xCD)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                156 (0x9C)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                212 (0xD4)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                157 (0x9D)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                219 (0xDB)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                158 (0x9E)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                226 (0xE2)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                159 (0x9F)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                233 (0xE9)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>LIGHT BLUE</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                160 (0xA0)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                43 (0x2B)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                161 (0xA1)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                50 (0x32)</td>
+            <td valign="top">
+                145 (0x91)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                162 (0xA2)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                57 (0x39)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                163 (0xA3)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                64 (0x40)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                164 (0xA4)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                71 (0x47)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                165 (0xA5)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                78 (0x4E)</td>
+            <td valign="top">
+                233 (0xE4)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                166 (0xA6)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                85 (0x55)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                99 (0x63)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                168 (0xA8)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                113 (0x71)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                169 (0xA9)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                170 (0xAA)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                141 (0x8D)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                171 (0xAB)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                155 (0x9B)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                172 (0xAC)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                169 (0xA9)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                173 (0xAD)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                183 (0xB7)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                174 (0xAE)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                197 (0xC5)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                175 (0xAF)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>BLUE</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                177 (0xB1)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                145 (0x91)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                178 (0xB2)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                179 (0xB3)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                180 (0xB4)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                181 (0xB5)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                233 (0xE4)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                182 (0xB6)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                183 (0xB7)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                184 (0xB8)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                185 (0xB9)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                186 (0xBA)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                187 (0xBB)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                188 (0xBC)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                190 (0xBE)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                191 (0xBF)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>PURPLE</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                192 (0xC0)</td>
+            <td valign="top">
+                61 (0x3D)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                193 (0xC1)</td>
+            <td valign="top">
+                72 (0x48)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                145 (0x91)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                194 (0xC2)</td>
+            <td valign="top">
+                83 (0x53)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                195 (0xC3)</td>
+            <td valign="top">
+                94 (0x5E)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                196 (0xC4)</td>
+            <td valign="top">
+                105 (0x69)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                197 (0xC5)</td>
+            <td valign="top">
+                116 (0x74)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                233 (0xE4)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                199 (0xC7)</td>
+            <td valign="top">
+                138 (0x8A)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                200 (0xC8)</td>
+            <td valign="top">
+                149 (0x95)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                201 (0xC9)</td>
+            <td valign="top">
+                160 (0xA0)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                202 (0xCA)</td>
+            <td valign="top">
+                171 (0xAB)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                203 (0xCB)</td>
+            <td valign="top">
+                182 (0xB6)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                204 (0xCC)</td>
+            <td valign="top">
+                193 (0xC1)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                205 (0xCD)</td>
+            <td valign="top">
+                204 (0xCC)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                206 (0xCE)</td>
+            <td valign="top">
+                215 (0xD7)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                207 (0xCF)</td>
+            <td valign="top">
+                226 (0xE2)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="27%">
+                <strong>MAGENTA</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="24%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                208 (0xD0)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                209 (0xD1)</td>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                145 (0x91)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                210 (0xD2)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                212 (0xD4)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                213 (0xD5)</td>
+            <td valign="top">
+                233 (0xE4)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                233 (0xE4)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                214 (0xD6)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                215 (0xD7)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                216 (0xD8)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                217 (0xD9)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                218 (0xDA)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                219 (0xDB)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                220 (0xDC)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                221 (0xDD)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                222 (0xDE)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                223 (0xDF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>PINK</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                224 (0xE0)</td>
+            <td valign="top">
+                123 (0x7B)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                61 (0x3D)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                225 (0xE1)</td>
+            <td valign="top">
+                145 (0x91)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                72 (0x48)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                226 (0xE2)</td>
+            <td valign="top">
+                167 (0xA7)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                83 (0x53)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                227 (0xE3)</td>
+            <td valign="top">
+                189 (0xBD)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                94 (0x5E)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                228 (0xE4)</td>
+            <td valign="top">
+                211 (0xD3)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                105 (0x69)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                229 (0xE5)</td>
+            <td valign="top">
+                233 (0xE4)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                116 (0x74)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                230 (0xE6)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                127 (0x7F)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                231 (0xE7)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                22 (0x16)</td>
+            <td valign="top">
+                138 (0x8A)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                232 (0xE8)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                44 (0x2C)</td>
+            <td valign="top">
+                149 (0x95)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                233 (0xE9)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                66 (0x42)</td>
+            <td valign="top">
+                160 (0xA0)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                234 (0xEA)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                88 (0x58)</td>
+            <td valign="top">
+                171 (0xAB)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                235 (0xEB)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                110 (0x6E)</td>
+            <td valign="top">
+                182 (0xB6)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                236 (0xEC)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                132 (0x84)</td>
+            <td valign="top">
+                193 (0xC1)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                237 (0xED)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                154 (0x9A)</td>
+            <td valign="top">
+                204 (0xCC)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                238 (0xEE)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                215 (0xD7)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                239 (0xEF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                198 (0xC6)</td>
+            <td valign="top">
+                226 (0xE2)</td>
+        </tr>
+    </table>
+    <br />
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td colspan="4" valign="top" width="26%">
+                <strong>FLESH TONES</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                <strong>Index</strong></td>
+            <td valign="top" width="26%">
+                <strong>Red</strong></td>
+            <td valign="top" width="26%">
+                <strong>Green</strong></td>
+            <td valign="top" width="21%">
+                <strong>Blue</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                240 (0xF0)</td>
+            <td valign="top">
+                51 (0x33)</td>
+            <td valign="top">
+                41 (0x29)</td>
+            <td valign="top">
+                15 (0x11)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                241 (0xF1)</td>
+            <td valign="top">
+                71 (0x47)</td>
+            <td valign="top">
+                56 (0x38)</td>
+            <td valign="top">
+                23 (0x17)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                242 (0xF2)</td>
+            <td valign="top">
+                97 (0x61)</td>
+            <td valign="top">
+                69 (0x45)</td>
+            <td valign="top">
+                28 (0x1C)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                243 (0xF3)</td>
+            <td valign="top">
+                115 (0x73)</td>
+            <td valign="top">
+                79 (0x4F)</td>
+            <td valign="top">
+                36 (0x24)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                244 (0xF4)</td>
+            <td valign="top">
+                135 (0x87)</td>
+            <td valign="top">
+                92 (0x5C)</td>
+            <td valign="top">
+                41 (0x29)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                245 (0xF5)</td>
+            <td valign="top">
+                156 (0x9C)</td>
+            <td valign="top">
+                99 (0x63)</td>
+            <td valign="top">
+                43 (0x2B)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                246 (0xF6)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+            <td valign="top">
+                105 (0x69)</td>
+            <td valign="top">
+                43 (0x2B)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                247 (0xF7)</td>
+            <td valign="top">
+                199 (0xC7)</td>
+            <td valign="top">
+                112 (0xD4)</td>
+            <td valign="top">
+                48 (0x30)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                248 (0xF8)</td>
+            <td valign="top">
+                204 (0xCC)</td>
+            <td valign="top">
+                135 (0x87)</td>
+            <td valign="top">
+                71 (0x47)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                249 (0xF9)</td>
+            <td valign="top">
+                212 (0xD4)</td>
+            <td valign="top">
+                143 (0x8F)</td>
+            <td valign="top">
+                87 (0x57)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                250 (0xFA)</td>
+            <td valign="top">
+                219 (0xDB)</td>
+            <td valign="top">
+                156 (0x9C)</td>
+            <td valign="top">
+                105 (0x69)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                251 (0xFB)</td>
+            <td valign="top">
+                227 (0xE3)</td>
+            <td valign="top">
+                168 (0xA8)</td>
+            <td valign="top">
+                120 (0x78)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                252 (0xFC)</td>
+            <td valign="top">
+                232 (0xE8)</td>
+            <td valign="top">
+                179 (0xB3)</td>
+            <td valign="top">
+                140 (0x8C)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                253 (0xFD)</td>
+            <td valign="top">
+                240 (0xF0)</td>
+            <td valign="top">
+                196 (0xC4)</td>
+            <td valign="top">
+                156 (0x9C)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                254 (0xFE)</td>
+            <td valign="top">
+                247 (0xF7)</td>
+            <td valign="top">
+                207 (0xCF)</td>
+            <td valign="top">
+                176 (0xB0)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                255 (0xFF)</td>
+            <td valign="top">
+                224 (0xE0)</td>
+            <td valign="top">
+                199 (0xC7)</td>
+        </tr>
+    </table>
+</body>
+</html>

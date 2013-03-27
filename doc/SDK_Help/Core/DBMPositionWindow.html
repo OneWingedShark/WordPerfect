@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DBMPositionWindow function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {margin-left: 2em}
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBMIsSculpturingSupported.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DBMQueryDlgID.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dialog_box_manager.html">Creating dialog boxes</a> :
+        DBMPositionWindow function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp544154"></a>
+
+  <h4 class="pHeading3">DBMPositionWindow function</h4><a name="wp544156"></a>
+
+  <p class="pBody">This function positions a window relative to another window or relative to the screen. For example, it lets you center one window over
+  another window.</p><a name="wp544160"></a>
+
+  <p class="pBody">Several working examples of this function can be found in the sample program.</p><a name="wp544162"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL FAR PASCAL DBMPositionWindow (<a name="wp544164"> </a>
+HWND hWnd,<a name="wp544166"> </a>
+HWND hRelativeWnd,<a name="wp544168"> </a>
+WORD usPosFlags,<a name="wp544170"> </a>
+BOOL bRepaint );<a name="wp544172"> </a>
+</pre>
+  </div><a name="wp544174"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp544177"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1290593"></a>
+
+          <p class="pBody"><code class="cCode">hWnd</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290595"></a>
+
+          <p class="pBody">Specifies the handle of the window to position</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290597"></a>
+
+          <p class="pBody"><code class="cCode">hRelativeWnd</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290599"></a>
+
+          <p class="pBody">Specifies the handle of the window to position relative to</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290601"></a>
+
+          <p class="pBody"><code class="cCode">usPosFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290603"></a>
+
+          <p class="pBody">Takes flags to determine the positioning of the window. The flags can be combined using the bitwise <code class=
+          "cCode">OR</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290605"></a>
+
+          <p class="pBody"><code class="cCode">bRepaint</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290607"></a>
+
+          <p class="pBody">Can be set to <code class="cCode">TRUE</code> to repaint the window, <code class="cCode">FALSE</code> otherwise</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp544179"></a>
+
+  <p class="pBody">The <code class="cCode">usPosFlags</code> parameter takes the following flags.</p><a name="wp1290588"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1290670"></a>
+
+          <h5 class="pHeading4">Flag</h5>
+        </th>
+
+        <th>
+          <a name="wp1290672"></a>
+
+          <h5 class="pHeading4">Definition</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290638"></a>
+
+          <p class="pBody"><code class="cCode">DBMPOS_FROMDLG</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290640"></a>
+
+          <p class="pBody">Uses settings in dialog-box definition</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290642"></a>
+
+          <p class="pBody"><code class="cCode">DBMPOS_LEFT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290644"></a>
+
+          <p class="pBody">Sets the left edge of <code class="cCode">hRelativeWnd</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290646"></a>
+
+          <p class="pBody"><code class="cCode">DBMPOS_RIGHT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290648"></a>
+
+          <p class="pBody">Sets the right edge of <code class="cCode">hRelativeWnd</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290650"></a>
+
+          <p class="pBody"><code class="cCode">DBMPOS_CENTER</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290652"></a>
+
+          <p class="pBody">Sets the horizontal center of <code class="cCode">hRelativeWnd</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290654"></a>
+
+          <p class="pBody"><code class="cCode">DBMPOS_TOP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290656"></a>
+
+          <p class="pBody">Sets the top edge of <code class="cCode">hRelativeWnd</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290658"></a>
+
+          <p class="pBody"><code class="cCode">DBMPOS_BOTTOM</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290660"></a>
+
+          <p class="pBody">Sets the bottom edge of <code class="cCode">hRelativeWnd</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290662"></a>
+
+          <p class="pBody"><code class="cCode">DBMPOS_VCENTER</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290664"></a>
+
+          <p class="pBody">Sets the vertical center of <code class="cCode">hRelativeWnd</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290666"></a>
+
+          <p class="pBody"><code class="cCode">DBMPOS_FULL_CENTER</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290668"></a>
+
+          <p class="pBody">Sets the horizontal and vertical center of <code class="cCode">hRelativeWnd</code></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1290494"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp544181"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, <code class="cCode">FALSE</code> otherwise.</p><a name="wp544183"></a>
+
+  <h5 class="pHeading4">See also</h5>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp544185"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMCenterWindow.html#wp543579">DBMCenterWindow function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

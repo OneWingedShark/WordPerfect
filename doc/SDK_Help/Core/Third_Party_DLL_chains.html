@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Understanding Third Party DLL chains</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Understanding_WOAPI.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="PerfectScript_command_flow.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Understanding_TPH.html">Understanding Third
+        Party Handlers</a> : Understanding Third Party DLL chains</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1269313"></a>
+
+  <h4 class="pHeading3">Understanding Third Party DLL chains</h4><a name="wp1269317"></a>
+
+  <p class="pBody">Corel&nbsp;WordPerfect&nbsp;Office applications allow up to 16 Third Party DLLs to monitor their command flow. A set of such DLLs is known
+  as a Third Party DLL chain. When a Corel&nbsp;WordPerfect&nbsp;Office application is loaded into memory, PerfectFit tries to load each DLL in that
+  applications chain. The Third Party DLL chain is located in the Windows registry.</p><a name="wp1269321"></a>
+
+  <p class="pBody">A DLL must be properly installed to be loaded and used. Installation of a Third Party DLL includes 1) making the DLL available to the user,
+  and 2) adding the DLL to the Third Party DLL chain in the Windows registry. Adding a DLL to the chain simply means adding an entry to the Windows registry in
+  the correct location. The entry can be added manually by using the regedit.exe program that ships with Microsoft Windows or by using the Registry Editor that
+  is provided with this SDK, or it can be added programmatically by using Windows registry API calls. Documentation for the Windows registry API calls can be
+  found in the documentation for your development platform. Each entry in the chain is labeled <code class="cCode">DLL1</code> through <code class=
+  "cCode">DLL16</code>.</p><a name="wp1269325"></a>
+
+  <p class="pBody">For each new DLL entry for a Corel&nbsp;WordPerfect&nbsp;Office application, the Windows registry must contain the following
+  information:</p><a name="wp1270357"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1270364"></a>
+
+          <h5 class="pHeading4">Item</h5>
+        </td>
+
+        <td>
+          <a name="wp1270366"></a>
+
+          <h5 class="pHeading4">Content</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270368"></a>
+
+          <p class="pBody"><code class="cCode">Key</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270373"></a>
+
+          <p class="pBody"><code class="cCode">HKEY_LOCAL_MACHINE</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270375"></a>
+
+          <p class="pBody"><code class="cCode">SubKey</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270402"></a>
+
+          <p class="pBody">The SubKey content varies with the application:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1270485"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li>WordPerfect - <code class="cCode">Software\Corel\WordPerfect\16\Third Party</code></li>
+              </ul>
+            </div><a name="wp1270403"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li>Presentations - <code class="cCode">Software\Presentations\16\Third Party</code></li>
+              </ul>
+            </div><a name="wp1270378"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li>Quattro Pro - does not currently support the Corel&nbsp;WordPerfect&nbsp;Office WOAPI protocol</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270415"></a>
+
+          <p class="pBody"><code class="cCode">ValueName</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270417"></a>
+
+          <p class="pBody"><code class="cCode">DLLn</code> (where <code class="cCode">n</code> is a number from 1 to 16)</p><a name="wp1270501"></a>
+
+          <p class="pBody">The DLLn values do not need to be in consecutive order.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270419"></a>
+
+          <p class="pBody"><code class="cCode">ValueType</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270421"></a>
+
+          <p class="pBody">NULL terminated string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270380"></a>
+
+          <p class="pBody"><code class="cCode">ValueData</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270382"></a>
+
+          <p class="pBody">The filename. A path is recommended but not required. If a path is not included, PerfectFit uses the standard Windows search
+          priorities.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1269341"></a>
+
+  <p class="pBody">While a DLL entry is required for each application, a separate DLL is not. A single DLL can be written to support multiple
+  Corel&nbsp;WordPerfect&nbsp;Office WOAPI applications. It does this by watching for a unique identifier, known as an atom, which is sent with each command by
+  the Corel&nbsp;WordPerfect&nbsp;Office application. The DLL can use this atom to determine who sent the command. It is the responsibility of the DLL to
+  determine the sender of the command so that it can handle the command properly.</p>
+</body>
+</html>

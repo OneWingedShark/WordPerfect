@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Fixed-Length Multi-Byte Functions</h2>
+    <p>Codes for fixed-length multi-byte functions (240 (0xF0) through 255 (0xFF)) always
+    appear twice. The first occurrence is the begin gate, and a second occurrence is the
+    end gate. The length of each function is fixed and listed after the function code.</p>
+    <hr />
+    <h4>0xF0</h4>
+    <p><strong>Extended Character</strong></p>
+    <pre>
+Size = 4
+&lt;240 (0xF0)&gt;
+[WP character] = (&lt;character&gt; &lt;WP character set number&gt;)
+&lt;240 (0xF0)&gt;
+</pre>
+    <hr />
+    <h4>0xF1</h4>
+    <p><strong>Undo</strong></p>
+    <pre>
+Size = 5
+&lt;241 (0xF1)&gt;
+&lt;undo type&gt;
+  0 = start of invalid text
+  1 = end of invalid text
+  2 = start of valid text
+  3 = end valid text
+[undo level] Internal number used to determine which functions were inserted or deleted as part of a single
+operation.  When undo is performed, everything at the same level is undone.
+&lt;241 (0xF1)&gt;
+</pre>
+    <hr />
+    <h4>0xF2</h4>
+    <p><strong>Attribute On</strong></p>
+    <pre>
+Size = 3
+&lt;242 (0xF2)&gt;
+&lt;attribute&gt;
+  bit 7: 1 = Ignore the attributed text on/off codes.  Used when an attributed block of text
+becomes a subset of a larger attribute block of the same type, such as bolding a sentence
+that contains a word already bolded.  Bit 7 of the enclosed Bold On code would be set to 1.
+  bit 6: reserved
+  bits 0-5: attribute
+    0 = extra large (chapter heading)
+    1 = very large (heading)
+    2 = large (sub-heading)
+    3 = small print
+    4 = fine print
+    5 = superscript
+    6 = subscript
+    7 = outline
+    8 = italics
+    9 = shadow
+    10 = redline
+    11 = double underline
+    12 = bold
+    13 = strikeout
+    14 = underline
+    15 = small caps
+    16 = blink
+    17 = reverse video
+&lt;242 (0xF2)&gt;
+</pre>
+    <hr />
+    <h4>0xF3</h4>
+    <p><strong>Attribute Off</strong></p>
+    <pre>
+Size = 3
+&lt;243 (0xF3)&gt;
+&lt;attribute&gt; See Attribute On for description of attributes.
+&lt;243 (0xF3)&gt;
+</pre>
+    <hr />
+    <h4>0xFB</h4>
+    <p><strong>Highlight On</strong></p>
+    <pre>
+Size = 6
+&lt;251 (0xFB)&gt;
+RGBs
+  &lt;Red&gt; - 0xFF
+  &lt;Green&gt; - 0xFF
+  &lt;Blue&gt; - 0x00
+&lt;shading&gt; - 0x64 (percent shading, max value cannot exceed 0x64)
+&lt;251 (0xFB)&gt;
+</pre>
+    <hr />
+    <h4>0xFC</h4>
+    <p><strong>Highlight Off</strong></p>
+    <pre>
+Size = 6
+&lt;252 (0xFC)&gt;
+RGBs
+  &lt;Red&gt; - 0xFF
+  &lt;Green&gt; - 0xFF
+  &lt;Blue&gt; - 0x00
+&lt;shading&gt; - 0x64 (percent shading, max value cannot exceed 0x64)
+&lt;252 (0xFC)&gt;
+</pre>
+    <hr />
+    <h4>0xF4 - 0xFF</h4>
+    <p><strong>Reserved - 245 (0xF4) to 255 (0xFF)</strong></p>
+    <table border="1" width="97%" cellpadding="5">
+        <tr valign="top">
+            <td width="21%">
+                <strong>Function</strong></td>
+            <td width="78%">
+                <strong>Size</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                244 (0xF4)</td>
+            <td>
+                Size = 3</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                245 (0xF5)</td>
+            <td>
+                Size = 3</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                246 (0xF6)</td>
+            <td>
+                Size = 4</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                247 (0xF7)</td>
+            <td>
+                Size = 4</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                248 (0xF8)</td>
+            <td>
+                Size = 4</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                249 (0xF9)</td>
+            <td>
+                Size = 5</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                250 (0xFA)</td>
+            <td>
+                Size = 5</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                253 (0xFD)</td>
+            <td>
+                Size = 8</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                254 (0xFE)</td>
+            <td>
+                Size = 8</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                255 (0xFF)</td>
+            <td>
+                Cannot be used. -1 is reserved so no size is assigned to this value.</td>
+        </tr>
+    </table>
+</body>
+</html>

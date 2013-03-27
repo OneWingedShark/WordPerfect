@@ -1,0 +1,1156 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format DLL</title>
+</head>
+<body>
+    <h1>WordPerfect File Format DLL</h1>
+    <p><a href="WpFormat.htm">Back to main page</a></p>
+    <h2>Generic WordPerfect Files</h2>
+    <p>The WordPerfect File Format DLL (WPFormat.dll) now supports for the creation of generic
+    WordPerfect files. Use of these functions will require a good general understanding
+    of the WordPerfect (WP) File Format and the WP file structure. Applications can use
+    these functions to create simple WordPerfect documents. The functions provided, insert
+    codes in the <em>Document Area</em> of the WordPerfect file. The <em>Prefix</em> and
+    <em>Index</em> areas are not used.</p>
+    <p>The following generic WordPerfect functions are provided.</p>
+    <hr />
+    <h3>InitWPFileGeneric</h3>
+    <p>Creates a new WP file using lpszFileName.</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+HANDLE WINAPI InitWPFileGeneric (BYTE bWPVersion, LPSTR lpszFileName);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+InitWPFileGeneric: function (bWPVersion: BYTE; lpszFileName: PChar): THandle far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>bMajorVersion</em> - 1 = WP 6.0, WP 6.1, and WP 7.0
+  <em>bMinorVersion</em> - 0 = WP 6.0, 1 = WP 6.1 and WP 7.0
+  <em>lpszFileName</em> - Filename for the generic WP file.
+
+</pre>
+    <p><strong>Return Values</strong></p>
+    <p>The handle to the file, otherwise INVALID_HANDLE_VALUE.</p>
+    <p><strong>Note</strong></p>
+    <p>Must be called before making any other function call from this DLL. Use function
+    CloseGenericWPFile to close the file.</p>
+    <hr />
+    <h3>CloseGenericWPFile</h3>
+    <p>Closes the WP file opened using InitWPFile();</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI CloseWPFileGeneric (HANDLE hFile);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <p>CloseWPFileGeneric: procedure&nbsp; (hFile: THANDLE); far stdcall;<br />
+    </p>
+    <p><strong>Parameters</strong></p>
+    <pre>
+<em>hFile</em> - Handle to the WP File.
+
+</pre>
+    <p><strong>Note</strong></p>
+    <p>Call at the end of creating the InitWPFileGeneric.</p>
+    <hr />
+    <h3>WPAddText</h3>
+    <p>Adds text to a generic WP file.</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPAddText (HANDLE hFile, LPSTR lpszText);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPAddText: procedure (hFile: THANDLE; lpszText: PChar); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFile();
+  <em>lpszText</em> - text to add to file's doc area
+</pre>
+    <p><strong>Extended Character Support</strong></p>
+    <p>WordPerfect supports ASCII characters in the normal range (33 - 127). Characters
+    128 and above are interpreted by WP as <em>Single or Multi-Byte Functions</em>. Characters
+    in the Extended Character Set must be converted to WordPerfect Characters (see the WPFormat.dll
+    function <em>WPInsertWPChar</em>, or function 0xF0 - Extended Character function in
+    the Fixed-Length Multi-Byte Functions file format documentation).</p>
+    <p>Because WordPerfect interprets values 128 and above as function values, characters
+    in the extended range must be handled by the Third Party application. WPAddText will
+    convert specific values to the appropriate WP values. This version of WPFormat.dll contains
+    support for 26 extended characters. This support is limited to systems using the 1252
+    code page. These 26 extended characters are mapped to the lower ASCII range between
+    0 and 32. WPAddText will also convert some lower range (0 - 32) ASCII character values
+    (space - ASCII 32 and CR/LF - ASCII 13/10) to appropriate Single-Byte Function codes.</p>
+    <p>If your application uses code page 1252, your application must handle all other extended
+    (128+) and lower range (0 - 32) characters, substituting a valid character values. If
+    WPAddText function finds any extended characters besides those listed below, these characters
+    are replaced with a <em>#</em> symbol. All other extended characters would otherwise
+    be interpreted as a Single-byte function or the beginning of Multi-byte Function and
+    might consequently corrupt the WordPerfect document.</p>
+    <p>Lower range characters:</p>
+    <pre>
+   Space, character 32 is converted to Single-Byte Function 0x80 - Soft Space.
+   CR/LF, characters 13/10 are converted to Single-Byte Function 0xCC - Hard EOL.
+   </pre>
+    <p>The valid extended characters are: </p>
+    <pre>
+
+  &Ccedil; - 128
+  &uuml; - 129
+  &eacute; - 130
+  &acirc; - 131
+  &auml; - 132
+  &agrave; - 133
+  &aring; - 134
+  &ccedil; - 135
+  &ecirc; - 136
+  &euml; - 137
+  &egrave; - 138
+  &Auml; - 142
+  &Aring; - 143
+  &Eacute; - 144
+  &aelig; - 145
+  &AElig; - 146
+  &ouml; - 148
+  &ugrave; - 151
+  &Ouml; - 153
+  &Uuml; - 154
+  &aacute; - 160
+  &iacute; - 161
+  &uacute; - 163
+  &ntilde; - 164
+  &Ntilde; - 165
+  &szlig; - 225
+</pre>
+    <p>If your system does not use codepage 1252, your application must handle all characters
+    above 127. ASCII 32 and CR/LF will be handled by WPFormat.dll.</p>
+    <hr />
+    <h3>WPAddHardReturn</h3>
+    <p>Adds hard return to document</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+Single-Byte Function - 0xCC
+</pre>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPAddHardReturn (HANDLE hFile);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPAddHardReturn: procedure (hFile: THANDLE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+</pre>
+    <hr />
+    <h3>WPAddHardPage</h3>
+    <p>Adds hard page break to document</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+Hard EOP - 0xD009
+</pre>
+    <pre>
+<strong>C Prototype</strong>
+</pre>
+    <pre>
+void WINAPI WPAddHardPage (HANDLE hFile);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPAddHardPage: procedure  (hFile: THANDLE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+</pre>
+    <hr />
+    <h3>WPMarginSet</h3>
+    <p>Set document margins</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+Top/Bottom Margin Set - 0xD100/0xD101
+</pre>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPMarginSet (HANDLE hFile, BYTE bMarginType, WORD wMarginInWPUs);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPMarginSet: procedure (hFile: THANDLE; bMarginType: BYTE; wMarginInWPUs: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+  <em>bMarginType</em> - 
+        1 = TOP_MARGIN
+        2 = BOTTOM_MARGIN
+        3 = LEFT_MARGIN
+        4 = RIGHT_MARGIN
+  <em>wMarginInWPUs</em> - value of specific margin in WordPerfect Units
+
+Defines used with WPMarginSet function
+  TOP_MARGIN            0x01
+  BOTTOM_MARGIN         0x02
+  LEFT_MARGIN           0x03
+  RIGHT_MARGIN          0x04
+
+  QuarterInch           300     // .25 * 1200
+  HalfInch              600     // .50 * 1200
+  ThreeQuarterInch      900     // .75 * 1200
+</pre>
+    <hr />
+    <h3>WPInsertSearchCode</h3>
+    <p>Insert MacroFunc search code</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+Macro Function - 0xD43E/3F
+</pre>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPInsertSearchCode (HANDLE hFile, WORD wSearchCode);
+</pre>
+    <pre>
+<strong>Pascal Prototype</strong>
+</pre>
+    <pre>
+WPInsertSearchCode: procedure (hFile: THANDLE; wSearchCode: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+  <em>wSearchCode</em> - in range 0xD000 to 0xFFFD, values defined in srchtbl.h
+</pre>
+    <hr />
+    <h3>WPTextAttribute</h3>
+    <p>Insert attribute code on/off</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+Attribute - 0xF2/F3
+</pre>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPTextAttribute (HANDLE hFile, BYTE bToggle, ATTRIBUTES bAttributeType);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPTextAttribute: procedure (hFile: THANDLE; bToggle: BYTE ; bAttributeType: INTEGER); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+  <em>bToggle</em> - 0 = Off, 1 = On
+  <em>bAttributeType</em> - type of attribute (see ATTRIBUTES in the wpformat.h file)
+</pre>
+    <hr />
+    <h3>WPInsertWPChar</h3>
+    <p>Insert character from a WP Character set</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+0xF0 - Extended Character
+</pre>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPInsertWPChar(HANDLE hFile, WORD wCharacter);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPInsertWPChar: procedure (hFile: THANDLE; wCharacter: WORD ); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+  <em>wCharacter</em> - Extended character value
+     &lt;character&gt;&lt;character set number&gt;
+</pre>
+    <hr />
+    <h3>WPChangePaperType</h3>
+    <p>Change the paper type and orientation</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+Form - 0xD111
+</pre>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPChangePaperType(HANDLE hFile, BYTE bType);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPChangePaperType: procedure (hFile: THANDLE; bType: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+  <em>bType</em> - 
+        Letter_Portrait = 0
+        Letter_Landscape = 1
+        Legal_Portrait = 2
+        Legal_Landscape = 3
+</pre>
+    <p><strong>Notes</strong></p>
+    <pre>
+No processing is done for Letter_Portrait. The form defaults are for this type, the function does not need to
+be added for this type.
+</pre>
+    <pre>
+Defines for WPChangePaperType
+  Letter_Portrait               0
+  Letter_Landscape              1
+  Legal_Portrait                2
+  Legal_Landscape               3
+</pre>
+    <hr />
+    <h3>WPThirdPartyCode</h3>
+    <p>Change the paper type and orientation</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+Third Party - 0xE10B
+</pre>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPThirdPartyCode(HANDLE hFile, LPSTR lpszString, WORD wCompanyID);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPThirdPartyCode: procedure (hFile: THANDLE; lpszString: LPSTR; wCompanyID: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+  <em>lpszString</em> - Text / Data to store in 3rd Party code
+  <em>wCompanyID</em> - Company id, call Corel Solution Partners for your code
+</pre>
+    <hr />
+    <h3>WPSetTabType</h3>
+    <p>Insert a tab in a WP document</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+Tab - 0xE000
+</pre>
+    <pre>
+<strong>C Prototype</strong>
+</pre>
+    <pre>
+void WINAPI WPSetTabType(HANDLE hFile, BYTE bDotLeader, BYTE bTabDefinition, BYTE bHardSoftType);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetTabType: procedure (hFile: THANDLE; bDotLeader: BYTE; bTabDefinition: BYTE; bHardSoftType: BYTE); far
+stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+  <em>bDotLeader</em> - 0 = not set, 1 = set
+  <em>bTabDef</em> - Tab Type
+    Back_Tab            = 0x00
+    Table_Tab           = 0x08
+    Left_Tab            = 0x10
+    Bar_Tab             = 0x20
+    Left_Indent         = 0x30
+    LeftRight_Indent    = 0x38
+    Ctr_On_Margins      = 0x40
+    Ctr_On_CurPos       = 0x48
+    Ctr_Tab             = 0x50
+    Flush_Right         = 0x80
+    Right_Tab           = 0x90
+    Decimal_Tab         = 0x1A
+  <em>bHardSoftTab</em> - 0 = Hd Tab, 1 = Soft
+
+Defines for WPSetTabType
+  Back_Tab              0x00    
+  Table_Tab             0x08
+  Left_Tab              0x10
+  Bar_Tab               0x20
+  Left_Indent           0x30
+  LeftRight_Indent      0x38
+  Ctr_On_Margins        0x40
+  Ctr_On_CurPos         0x48
+  Ctr_Tab               0x50
+  Flush_Right           0x80
+  Right_Tab             0x90
+  Decimal_Tab   0x1A
+  Hard_Type             0x00
+  Soft_Type             0x01
+</pre>
+    <hr />
+    <h3>WPUnderline_Space_Tab</h3>
+    <p>Toggle underline spaces or tabs</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+Set Underline Space/Tab Mode - 0xD402/0xD403
+</pre>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPUnderline_Space_Tab(HANDLE hFile, BYTE bType, BYTE bToggle);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPUnderline_Space_Tab: procedure (hFile: THANDLE; bType: BYTE; bToggle: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+  <em>bType</em> - UND_SPACES = 0x02,  UND_TABS = 0x03
+  <em>bToggle</em> - OFF = 0, ON = 1
+
+Defines for WPUnderline_Space_Tab
+  UND_SPACES 0x02
+  UND_TABS 0x03
+</pre>
+    <hr />
+    <h3>WPAdvance</h3>
+    <p>Set vertical or horizontal advance</p>
+    <p><strong>File Format</strong></p>
+    <pre>
+Horizontal/Vertical Advance to Page Position - 0xD404/0xD405
+</pre>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPAdvance(HANDLE hFile, BYTE bType, BYTE bAdvDef, WORD wPosAdjInWPUs);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPAdvance: procedure (hFile: THANDLE; bType: BYTE; bAdvDef: BYTE; wPosAdjInWPUs: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle of the WP File from InitWPFileGeneric();
+  <em>bType</em> - Adv_Horizontal = 0x04, Adv_Vertical = 0x05
+  <em>bAdvDef</em> - Adv_Relative = 0x00, Adv_Absolute = 0x01
+  <em>wPosAdjInWPUs</em> - value of adjustment in WordPerfect Units
+
+Previously defined WPU values
+  QuarterInch           300     // .25 * 1200
+  HalfInch              600     // .50 * 1200
+  ThreeQuarterInch      900     // .75 * 1200
+
+Defines for WPAdvance
+  Adv_Horizontal        = 0x04
+  Adv_Vertical          = 0x05
+  Adv_Relative          = 0x00
+  Adv_Absolute          = 0x01
+</pre>
+    <hr />
+    <h3>WPChangeFontColor</h3>
+    <p>Change the text color in the WP document</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPChangeFontColor(HANDLE hFile, BYTE bRed, BYTE bGreen, BYTE bBlue);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPChangeFontColor: procedure (hFile: THANDLE; bRed: BYTE; bGreen: BYTE; bBlue: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  RGB Values
+    <em>bRed</em> - value (0-255)
+    <em>bGreen</em> - value (0-255)
+    <em>bBlue</em> - value (0-255)
+</pre>
+    <hr />
+    <h3>WPChangeFontShading</h3>
+    <p>Change the text/font shading in the document</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPChangeFontShading(HANDLE hFile, BYTE bPercentShading);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPChangeFontShading: procedure (hFile: THANDLE; bPercentShading: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  <em>bPercentShanding</em> - value must be between 0-100
+</pre>
+    <hr />
+    <h3>WPCenterCurrentPageTtoB</h3>
+    <p>Center the current page in a WP Document</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPCenterCurrentPageTtoB(HANDLE hFile, BYTE bToggle);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPCenterCurrentPageTtoB: procedure (hFile: THANDLE; bToggle: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  <em>bToggle</em> - 0 = OFF, 1 = ON
+</pre>
+    <hr />
+    <h3>WPCenterPageTtoB</h3>
+    <p>Center all pages in a WP document</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPCenterPageTtoB(HANDLE hFile, BYTE bToggle);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPCenterPageTtoB: procedure (hFile: THANDLE; bToggle: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  <em>bToggle</em> - 0 = OFF, 1 = ON
+</pre>
+    <hr />
+    <h3>WPWidowOrphan</h3>
+    <p>Toggle Widow/Orphan</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPWidowOrphan(HANDLE hFile, BYTE bToggle);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPWidowOrphan: procedure (hFile: THANDLE; bToggle: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  <em>bToggle</em> - 0 = OFF, 1 = ON
+</pre>
+    <hr />
+    <h3>WPSetBindingWidth</h3>
+    <p>Set the document binding width and position</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI    WPSetBindingWidth(HANDLE hFile, BYTE bBindingPos, WORD wBindingWidthInWPUs);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetBindingWidth: procedure (hFile: THANDLE; bBindingPos: BYTE; wBindingWidthInWPUs: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  <em>bBindingPos</em> - 0 = Left, 1 = right, 2 = top, 3 = bottom
+  <em>wBindingWidthInWPUs</em> - Binding width value in WPUs
+
+Previously defined WPU values
+  QuarterInch           300     // .25 * 1200
+  HalfInch              600     // .50 * 1200
+  ThreeQuarterInch      900     // .75 * 1200
+</pre>
+    <hr />
+    <h3>WPColDef</h3>
+    <p>Define text columns</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPColDef(HANDLE hFile, BYTE bColumnType, BYTE bNumColumns);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPColDef: procedure (hFile: THANDLE; bColumnType: BYTE; bNumColumns: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  <em>bColumnType</em> - 
+        0 = Newspaper
+        1 = newspaper with vertical balance
+        2 = parallel
+        3 = parallel with protect.
+  <em>bNumColumns</em> - Number of columns to be defined.  If this value is zero or one, columns will be turned off. 
+If this value is zero or one, do not call WPColInsertColInfo.
+</pre>
+    <p><strong>Notes</strong></p>
+    <pre>
+Calling WPColDef twice without calling WPColDefEnd will produce a corrupt document. 
+</pre>
+    <hr />
+    <h3>WPColDefEnd</h3>
+    <p>End the column definition. This function is called after WPColDef. This function
+    is called once for each WPColDef.</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPColDefEnd(HANDLE hFile);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPColDefEnd: procedure (hFile: THANDLE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+</pre>
+    <hr />
+    <h3>WPColInsertColInfo</h3>
+    <p>Insert information for each column defined. If defining two or more columns, this
+    function must be called for each column defined. For the last column defined, bWidthDef
+    and wColWidthBetween must be set to NULL values indicating the last column.</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPColInsertColInfo(HANDLE hFile, BYTE bColDef, WORD wColWidth, BYTE bWidthDef, WORD
+wColWidthBetween);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPColInsertColInfo: procedure (hFile: THANDLE; bColDef: BYTE; wColWidth: WORD; bWidthDef: BYTE;
+wColWidthBetween: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <p><em>hFile</em> - Handle to the WP File</p>
+    <p><em>bColDef</em> - column n definition</p>
+    <p>0 = fixed point value (WPFP)</p>
+    <p>1 = fixed width (WPU)</p>
+    <p><em>wColWidth</em> - column n width value (in WPFP or WPU)</p>
+    <p><em>bWidthDef</em> - width between columns n and n+1 definition,</p>
+    <p>0 = fixed point value (WPFP)</p>
+    <p>1 = fixed width (WPU)</p>
+    <p><em>wColWidthBetween</em> - width between columns n and n+1 value (in WPFP or WPU)</p>
+    <hr />
+    <h3>WPInsertHd_EOC</h3>
+    <p>Insert an End of Column code ( move to next column )</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPInsertHd_EOC(HANDLE hFile);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPInsertHd_EOC: procedure (hFile: THANDLE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+</pre>
+    <hr />
+    <h3>WPSetJustification</h3>
+    <p>Set the text justification mode</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSetJustification(HANDLE hFile, BYTE bJustificationType);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetJustification: procedure (hFile: THANDLE; bJustificationType: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  <em>bJustificationType</em>
+        0 = left
+        1 = full
+        2 = center
+        3 = right
+        4 = all
+</pre>
+    <hr />
+    <h3>WPSetParaFirstLineIndent</h3>
+    <p>Set first line paragraph indent</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSetParaFirstLineIndent(HANDLE hFile, SHORT wParagraphIndent);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetParaFirstLineIndent: procedure (hFile: THANDLE; wParagraphIndent: smallint); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  <em>wParagraphIndent</em> - this value must be a signed WPU value, range: -900u - 7200u
+</pre>
+    <p>Previously defined WPU values</p>
+    <pre>
+  QuarterInch          300     // .25 * 1200
+  HalfInch              600     // .50 * 1200
+  ThreeQuarterInch      900     // .75 * 1200
+</pre>
+    <hr />
+    <h3>WPLineNumbering</h3>
+    <p>Turn on line numbering in a document</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPLineNumbering(HANDLE hFile, BYTE bToggle, BYTE bRestartEachPage, BYTE bCountBlankLines, BYTE
+bNumberInNewspaperCol, BYTE bLeftEdgePosition, SHORT wLineNumPosInWPUs, WORD wFirstLineToPrint, BYTE
+bLineNumInterval);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPLineNumbering: procedure (hFile: THANDLE; bToggle: BYTE; bRestartEachPage: BYTE; bCountBlankLines: BYTE;
+bNumberInNewspaperCol: BYTE; bLeftEdgePosition: BYTE; wLineNumPosInWPUs: WORD; wFirstLineToPrint: WORD;
+bLineNumInterval: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <p><em>hFile</em> - Handle to the WP File</p>
+    <p><em>bToggle</em> - 0 = off, 1 = on</p>
+    <p><em>bRestartEachPage</em> - 0 = off, 1 = on</p>
+    <p><em>bCountBlankLines</em> - 0 = off, 1 = on</p>
+    <p><em>bNumberInNewspaperCol</em> - 0 = off, 1 = on</p>
+    <p><em>bLeftEdgePosition</em> - 0 = absolute, 1 = relative to left margin</p>
+    <p><em>wLineNumPosInWPUs</em> - SIGNED WPUs from left edge of page</p>
+    <p><em>wFirstLineToPrint</em> - first line to start numbering</p>
+    <p><em>bLineNumInterval</em> - specify the interval between printed line numbers</p>
+    <hr />
+    <h3>WPPageNumPos</h3>
+    <p>Set the page numbering position</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPPageNumPos(HANDLE hFile, BYTE bPageNumberPosition);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPPageNumPos: procedure (hFile: THANDLE; bPageNumberPosition: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  <em>bPageNumberPosition</em> 
+        0 = none
+        1 = left
+        2 = top center
+        3 = top right
+        4 = top outside left and right
+        5 = bottom left
+        6 = bottom center
+        7 = bottom right
+        8 = bottom outside left &amp; right
+        9 = top inside left &amp; right
+        10 = bottom inside left &amp; right
+</pre>
+    <hr />
+    <h3>WPSuppressPgFeatures</h3>
+    <p>Suppress headers footers and page numbers</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSuppressPgFeatures(HANDLE hFile, BYTE bSupPageNum, BYTE bSupCurrentPageNum, BYTE bSupHeaderA,
+BYTE bSupHeaderB, BYTE bSupFooterA, BYTE bSupFooterB, BYTE bSupWaterMarkA, BYTE bSupWaterMarkB);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSuppressPgFeatures: procedure (hFile: THANDLE; bSupPageNum: BYTE; bSupCurrentPageNum: BYTE; bSupHeaderA:
+BYTE; bSupHeaderB: BYTE; bSupFooterA: BYTE; bSupFooterB: BYTE; bSupWaterMarkA: BYTE; bSupWaterMarkB: BYTE);
+far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <p><em>hFile</em> - Handle to the WP File</p>
+    <p><em>bSupPageNum</em> - 0 = off, 1 = on</p>
+    <p><em>bSupCurrentPageNum</em> - 0 = off, 1 = on</p>
+    <p><em>bSupHeaderA</em> - 0 = off, 1 = on</p>
+    <p><em>bSupHeaderB</em> - 0 = off, 1 = on</p>
+    <p><em>bSupFooterA</em> - 0 = off, 1 = on</p>
+    <p><em>bSupFooterB</em> - 0 = off, 1 = on</p>
+    <p><em>bSupWaterMarkA</em> - 0 = off, 1 = on</p>
+    <p><em>bSupWaterMarkB</em> - 0 = off, 1 = on</p>
+    <hr />
+    <h3>WPDoubleSidedPrint</h3>
+    <p>Toggle double sided print on or off</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPDoubleSidedPrint(HANDLE hFile, BYTE bToggle, BYTE bPrintMode);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPDoubleSidedPrint: procedure (hFile: THANDLE; bToggle: BYTE; bPrintMode: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <p><em>hFile</em> - Handle to the WP File</p>
+    <p><em>bToggle</em> - 0 = Off, 1 = on</p>
+    <p><em>bPrintMode</em> - new double sided print mode, 0 = long edge duplexing, 1 = short
+    edge duplexing</p>
+    <hr />
+    <h3>WPSubdividePage</h3>
+    <p>Subdivide a WP document into logical pages</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSubdividePage(HANDLE hFile, BYTE NumberColumns, BYTE NumberRows);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSubdividePage: procedure (hFile: THANDLE; NumberColumns: BYTE; NumberRows: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <p><em>hFile</em> - Handle to the WP File</p>
+    <p><em>NumberColumns</em> - number of subdivide columns, minimum is 1</p>
+    <p><em>NumberRows</em> - number of subdivide rows, minimum is 1</p>
+    <p><strong>Note</strong></p>
+    <p>Be sure to accomidate margin widths</p>
+    <hr />
+    <h3>WPSetLineHeight</h3>
+    <p>Set the document's line height</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSetLineHeight(HANDLE hFile, WORD wFixedLineHeightInWPUs);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetLineHeight: procedure (hFile: THANDLE; wFixedLineHeightInWPUs: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <p><em>hFile</em> - Handle to the WP File</p>
+    <p><em>wFixedLineHeightInWPUs</em> - value of fixed line height in WPUs,</p>
+    <p>0 = automatic line height (default)</p>
+    <p>Non-Zero = fixed line height value, regardless of font size</p>
+    <hr />
+    <h3>WPSetLineSpacing</h3>
+    <p>Set the amount of white space between lines</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSetLineSpacing(HANDLE hFile, DWORD LineSpacing);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetLineSpacing: procedure (hFile: THANDLE; LineSpacing: DWORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File
+  <em>LineSpacing</em> - white space value in WPSPs
+</pre>
+    <hr />
+    <h3>WPAdjustMargins</h3>
+    <p>Set a left of right margin adjustment</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPAdjustMargins(HANDLE hFile, BYTE MarginType, WORD MarginAdjInWPUs);
+</pre>
+    <pre>
+<strong>Pascal Prototype</strong>
+</pre>
+    <pre>
+WPAdjustMargins: procedure (hFile: THANDLE; MarginType: BYTE; MarginAdjInWPUs: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <p><em>hFile</em> - Handle to the WP File</p>
+    <p><em>MarginType</em> - 1 = left, 2 = right</p>
+    <p><em>MarginAdjInWPUs</em> - value of adjustment in WPUs</p>
+    <hr />
+    <h3>WPSetTabsBegin</h3>
+    <p>Create a tab setting</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSetTabsBegin(HANDLE hFile, BYTE bPositionDef, WORD wRelativeAdjValue, BYTE
+bNumberOfTabCombinations);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetTabsBegin: procedure (hFile: THANDLE; bPositionDef: BYTE; wRelativeAdjValue: WORD;
+bNumberOfTabCombinations: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>bPositionDef</em> - 0 = absolute, 1 = relative
+  <em>wRelativeAdjValue</em> - If bPositionDef is 1, this value should match the document's left margin. If
+bPositionDef is 0,  this value should be zero.
+  <em>bNumberOfTabCombinations</em> - the number of tab type / tab position combinations.  This value should match the
+number of times function WPSetTabInfo is called.  If tabs will Repeat (see function WPSetTabInfo), the
+minimum value is at least 2.
+</pre>
+    <hr />
+    <h3>WPSetTabEnd</h3>
+    <p>End the tab set</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSetTabEnd(HANDLE hFile);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetTabEnd: procedure (hFile: THANDLE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+</pre>
+    <p><strong>Notes</strong></p>
+    <p>This function must be called following the WPSetTabsBegin and WPSetTabInfo functions.
+    </p>
+    <hr />
+    <h3>WPSetTabInfo</h3>
+    <p>Set tab information</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSetTabInfo(HANDLE hFile, BYTE bTabType, BYTE bDotLeader, BYTE bRepeated, WORD
+wTabPositionInWPUs);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetTabInfo: procedure (hFile: THANDLE; bTabType: BYTE; bDotLeader: BYTE; bRepeated: BYTE;
+                         wTabPositionInWPUs: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>bTabType</em> - type of tab being created, 
+    0 = left tab
+    1 = centered tab
+    2 = right tab
+    3 = decimal aligned tab
+    4 = vertical bar tab
+    n = the number of times to repeat the tab (if bRepeated is set to 1)
+  <em>bDotLeader</em> - 0 = off, 1 = on
+  <em>bRepeated</em> - 0 = off, 1 = on
+  <em>wTabPositionInWPUs</em> - value of tab position or difference if repeated
+</pre>
+    <p><strong>Note</strong></p>
+    <p>For each tab type/change this function must be called. If a tab will be repeated,
+    the function must be called twice, once for the initial tab set value, and the second
+    to set the repeat values. The number of times this function is called should match the
+    value of bNumberOfTabCombinations in function WPSetTabBegin. This function must be called
+    after WPSetTabsBegin and before WPSetTabEnd</p>
+    <hr />
+    <h3>WPSetHyphenationMode</h3>
+    <p>Turn Hyphenation on/off</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSetHyphenationMode(HANDLE hFile, BYTE bToggle);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetHyphenationMode: procedure (hFile: THANDLE; bToggle: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>bToggle</em> - 0 = off, 1 = on
+</pre>
+    <hr />
+    <h3>WPSetLeadingAdjustment</h3>
+    <p>Set Leading Adjustment</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSetLeadingAdjustment(HANDLE hFile, SHORT sAdjValueInSignedWPUs);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSetLeadingAdjustment: procedure (hFile: THANDLE; sAdjValueInSignedWPUs: SHORTINT); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>sAdjValueInSignedWPUs</em> - The value of the leading adjustment, this value should be in signed WPUs.
+</pre>
+    <hr />
+    <h3>WPAlignmentCharacter</h3>
+    <p>Specify the tab alignmen character</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPAlignmentCharacter(HANDLE hFile, WORD wAlignChar);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPAlignmentCharacter: procedure (hFile: THANDLE; wAlignChar: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>wAlignChar</em> - specify the TabSet alignment character,
+    &lt;character number&gt;&lt;character set number&gt;
+</pre>
+    <hr />
+    <h3>WPThousandSeparator</h3>
+    <p>Change the thousand separator character</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPThousandSeparator(HANDLE hFile, WORD wThouChar);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPThousandSeparator: procedure (hFile: THANDLE; wThouChar: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>wThouChar</em> - Specify the thousand separating character
+     &lt;character number&gt;&lt;character set number&gt;  
+</pre>
+    <hr />
+    <h3>WPKerning</h3>
+    <p>Adjust the spacing between letter pairs</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPKerning(HANDLE hFile, BYTE bToggle);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPKerning: procedure (hFile: THANDLE; bToggle: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>bToggle</em> - 0 = Off, 1 = On  
+</pre>
+    <hr />
+    <h3>WPLanguage</h3>
+    <p>Change the language for all or part of a document</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPLanguage(HANDLE hFile, WORD wLangCode);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPLanguage: procedure (hFile: THANDLE; wLangCode: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>wLangCode</em> -   
+    AF = Afrikaans
+    CA = Catalan
+    CZ = Czech
+    HR = Croatian
+    DK = Danish
+    NL = Dutch
+    EN = English
+    OZ = English-Australia
+    CE = English-Canada
+    UK = English-UK
+    SU = Finnish
+    LF = French-Canada
+    FR = French-National
+    GA = Galician
+    DE = German-National
+    SD = German-Switzerland
+    GR = Greek
+    MA = Hungarian
+    IS = Icelandic
+    IT = Italian
+    JP = Japanese
+    NO = Norwegian
+    PL = Polish
+    BR = Portuguese-Brazil
+    PO = Portuguese-Portugal
+    RU = Russian
+    SL = Slovak
+    SO = Slovenian
+    ES = Spanish
+    SV = Swedish
+    TR = Turkish
+    YK = Ukrainian
+</pre>
+    <p><strong>Note</strong></p>
+    <p>This code can only be used with installed language modules</p>
+    <hr />
+    <h3>WPDotLeaderCharacter</h3>
+    <p>Change the character used as the dot leader character</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPDotLeaderCharacter(HANDLE hFile, WORD wDotChar, BYTE bSpacesBetween);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPDotLeaderCharacter: procedure (hFile: THANDLE; wDotChar: WORD; bSpacesBetween: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>wDotChar</em> - specify the character used for the dot leader
+     &lt;character number&gt;&lt;character set number&gt;       
+  <em>bSpaceBetween</em> - the number of spaces between the dot character  
+</pre>
+    <hr />
+    <h3>WPConditionalEOP</h3>
+    <p>Keep the specified number of lines together on a page. (Widow/Orphan)</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPConditionalEOP(HANDLE hFile, BYTE bNumNotBroken);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPConditionalEOP: procedure (hFile: THANDLE; bNumNotBroken: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>bNumNotBroken</em> - number of lines to keep together
+</pre>
+    <hr />
+    <h3>WPCharacterSpaceWidth</h3>
+    <p>Increase or decrease the spacing of words and characters, values greater than 100
+    increase the space, values less than 100 decrease the space.</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPCharacterSpaceWidth(HANDLE hFile, WORD wPctgCharWidth, WORD wPctgSpaceWidth);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPCharacterSpaceWidth: procedure (hFile: THANDLE; wPctgCharWidth: WORD; wPctgSpaceWidth: WORD); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>wPctgCharWidth</em> - specify the percentage of optimal, the spacing between characters range: 0% -
+  wPctgSpaceWidth - specify the percentage of optimal, the spacing between characters range: 0% - 250%
+</pre>
+    <hr />
+    <h3>WPSpaceExpansion</h3>
+    <p>Change space expansion</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPSpaceExpansion(HANDLE hFile, WORD wMinPctgSpaceWidth, WORD wMaxPctgSpaceWidth);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPSpaceExpansion: procedure (hFile: THANDLE; wMinPctgSpaceWidth: WORD; wMaxPctgSpaceWidth: WORD); far
+stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>wMinPctgSpaceWidth</em> - minimum percent of space width, default = 60, range: 0% - 100%
+  <em>wMaxPctgSpaceWidth</em> - maximum percent of space width, default = 400, range: 100% - 9999%
+</pre>
+    <hr />
+    <h3>WPBlockProtect</h3>
+    <p>Protect a block of text from being split across page boundaries</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPBlockProtect(HANDLE hFile, BYTE bToggle);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPBlockProtect: procedure (hFile: THANDLE; bToggle: BYTE); far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>bToggle</em> - 0 = Off, 1 = On
+</pre>
+    <hr />
+    <h3>WPOverStrike</h3>
+    <p>Create an OverStrike character</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+int WINAPI WPOverStrike(HANDLE hFile, LPSTR lpCharacters);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <pre>
+WPOverStrike: function (hFile: THANDLE; lpCharacters: LPSTR):integer; far stdcall;
+</pre>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to the WP File.
+  <em>lpCharacters</em> - string of characters used to construct the overstrike character.
+</pre>
+    <p><strong>Return Values</strong></p>
+    <pre>
+   1 = success, 0 = failure
+</pre>
+    <p><strong>Note</strong></p>
+    <p>The maximum number of characters that can be passed to the function is 44.</p>
+    <hr />
+    <h3>WPLogicalPageFlow</h3>
+    <p>Use different page size or formats</p>
+    <p><strong>C Prototype</strong></p>
+    <pre>
+void WINAPI WPLogicalPageFlow(HANDLE hFile, WORD wDirection);
+</pre>
+    <p><strong>Pascal Prototype</strong></p>
+    <p><strong>Parameters</strong></p>
+    <pre>
+  <em>hFile</em> - Handle to open WP File
+  <em>wDirection</em> - 0 = left to right, top to bottom, 1 = top to bottom, right to left,
+  2 = right to left, top to bottom
+</pre>
+</body>
+</html>

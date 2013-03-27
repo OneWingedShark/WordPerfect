@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidMenuDisplayPopup function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidMenuDestroy.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidMenuGetCount.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Menus.html">Creating menus</a> : WpidMenuDisplayPopup function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp549249"></a>
+
+  <h4 class="pHeading3">WpidMenuDisplayPopup function</h4><a name="wp549251"></a>
+
+  <p class="pBody">The <code class="cCode">WpidMenuDisplayPopup</code> function displays the designated pop-up menu.</p><a name="wp549253"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL FAR PASCAL WpidMenuDisplayPopup ( <a name="wp549255"> </a>
+WMEMOBJECT WPMenu, <a name="wp549257"> </a>
+WORD wMenuID, <a name="wp549259"> </a>
+DWORD dwFlags, <a name="wp549261"> </a>
+HWND hwnd ); <a name="wp549263"> </a>
+</pre>
+  </div><a name="wp549265"></a>
+
+  <h5 class="pHeading4">Parameter</h5><a name="wp549268"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp520441"></a>
+
+          <p class="pBody"><code class="cCode">s WPMenu</code></p>
+        </td>
+
+        <td>
+          <a name="wp520443"></a>
+
+          <p class="pBody">Specifies the handle to menu object memory</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520449"></a>
+
+          <p class="pBody"><code class="cCode">wMenuID</code></p>
+        </td>
+
+        <td>
+          <a name="wp520451"></a>
+
+          <p class="pBody">Specifies the menu ID of the pop-up menu to display</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520457"></a>
+
+          <p class="pBody"><code class="cCode">dwFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp520459"></a>
+
+          <p class="pBody">Allows the following flags:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp520461"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_BYCOMMAND</code></li>
+              </ul>
+            </div><a name="wp520463"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_BYPOSITION</code></li>
+              </ul>
+            </div><a name="wp520465"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_EMBEDDEDMENU</code></li>
+              </ul>
+            </div><a name="wp520467"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_ENABLED</code></li>
+              </ul>
+            </div><a name="wp520469"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_POPUP</code></li>
+              </ul>
+            </div><a name="wp520471"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_SEPARATOR</code></li>
+              </ul>
+            </div><a name="wp520473"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_STRING</code></li>
+              </ul>
+            </div><a name="wp520475"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_SYSMENU</code></li>
+              </ul>
+            </div><a name="wp520477"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNCHECKED</code></li>
+              </ul>
+            </div><a name="wp520479"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNHILITE</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520485"></a>
+
+          <p class="pBody"><code class="cCode">hwnd</code></p>
+        </td>
+
+        <td>
+          <a name="wp520487"></a>
+
+          <p class="pBody">Specifies the window that has the menu resource selected as its menu</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp549270"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp549272"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful or <code class="cCode">FALSE</code> if unsuccessful.</p>
+</body>
+</html>

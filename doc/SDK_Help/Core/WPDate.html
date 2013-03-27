@@ -1,0 +1,235 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WPDate structure</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="RGB_STRUCT.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DDWDATA.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> : WPDate
+        structure</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1313582"></a>
+
+  <h4 class="pHeading3">WPDate structure</h4><a name="wp1313583"></a>
+
+  <p class="pBody">The <code class="cCode">WPDate</code> structure contains the information used by the date control.</p><a name="wp1313584"></a>
+
+  <h5 class="pHeading4">Definition</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct<a name="wp1313585"> </a>
+{<a name="wp1313586"> </a>
+ WORD wYear;<a name="wp1313587"> </a>
+BYTE bMonth;<a name="wp1313588"> </a>
+BYTE bDay;<a name="wp1313589"> </a>
+BYTE bHour;<a name="wp1313590"> </a>
+BYTE bMinute;<a name="wp1313591"> </a>
+BYTE bSecond;<a name="wp1313592"> </a>
+BYTE bDayOfWeek;<a name="wp1313593"> </a>
+BYTE bTimeZone;<a name="wp1313594"> </a>
+BYTE bUnused;<a name="wp1313595"> </a>
+} WPDATE, FAR* LPWPDATE;<a name="wp1313596"> </a>
+</pre>
+  </div><a name="wp1313597"></a>
+
+  <h5 class="pHeading4">Types</h5><a name="wp1313607"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313600"></a>
+
+          <p class="pBody"><code class="cCode">WPDATE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313602"></a>
+
+          <p class="pBody">Specifies the <code class="cCode">WPDATE</code> structure type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313604"></a>
+
+          <p class="pBody"><code class="cCode">LPWPDATE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313606"></a>
+
+          <p class="pBody">Acts as a far pointer to a <code class="cCode">WPDATE</code> structure</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1313608"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp1313646"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313611"></a>
+
+          <p class="pBody"><code class="cCode">wYear</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313613"></a>
+
+          <p class="pBody">Specifies the current year</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313615"></a>
+
+          <p class="pBody"><code class="cCode">bMonth</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313617"></a>
+
+          <p class="pBody">Specifies the current month</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313619"></a>
+
+          <p class="pBody"><code class="cCode">bDay</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313621"></a>
+
+          <p class="pBody">Specifies the current day</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313623"></a>
+
+          <p class="pBody"><code class="cCode">bHour</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313625"></a>
+
+          <p class="pBody">Specifies the current hour</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313627"></a>
+
+          <p class="pBody"><code class="cCode">bMinute</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313629"></a>
+
+          <p class="pBody">Specifies the current minute</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313631"></a>
+
+          <p class="pBody"><code class="cCode">bSecond</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313633"></a>
+
+          <p class="pBody">Specifies the current second</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313635"></a>
+
+          <p class="pBody"><code class="cCode">bDayOfWeek</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313637"></a>
+
+          <p class="pBody">Specifies the current day of the week</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313639"></a>
+
+          <p class="pBody"><code class="cCode">bTimeZone</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313641"></a>
+
+          <p class="pBody">Specifies the current time zone</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313643"></a>
+
+          <p class="pBody"><code class="cCode">bUnused</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313645"></a>
+
+          <p class="pBody">Is reserved</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1313647"></a>
+
+  <p class="pBody">The date control works only with the first three items (<code class="cCode">wYear</code>, <code class="cCode">bMonth</code>, <code class=
+  "cCode">bDay</code>).</p>
+</body>
+</html>

@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:27" />
+
+  <title>TPHVersion function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Functions_needing_to_be_defined_in_a_Third_Party_DLL.html"><img alt="Previous Document" border="0" src="images/prev.gif" width=
+      "18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="TPHCompatibility.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Third_Party_DLL_Entry_Points.html">Using entry points in Third Party Handler DLLs</a> : <a href=
+        "Functions_needing_to_be_defined_in_a_Third_Party_DLL.html">Defining required functions in Third Party Handler DLLs</a> : TPHVersion function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp554116"></a>
+
+  <h4 class="pHeading3">TPHVersion function</h4><a name="wp554118"></a>
+
+  <p class="pBody">PerfectFit calls this function during DLL initialization. This function must be defined even though it is currently not used by
+  PerfectFit.</p><a name="wp1269518"></a>
+
+  <p class="pBody"><code class="cCode">TPHVersion</code> allows a Third Party Handler DLL to register its major and minor version numbers with PerfectFit.
+  After the version numbers are registered, a value greater than <code class="cCode">0</code> is returned.</p><a name="wp1269525"></a>
+
+  <p class="pBody">The ordinal value for <code class="cCode">TPHVersion</code> must be <code class="cCode">1</code>. The ordinal value defines the location of
+  the function name in the application's string table.</p><a name="wp554120"></a>
+
+  <h5 class="pHeading4">C Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DWORD FAR PASCAL TPHVersion ( VOID );<a name="wp554122"> </a>
+</pre>
+  </div><a name="wp554124"></a>
+
+  <h5 class="pHeading4">Pascal Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+function TPHVersion: DWORD;<a name="wp554126"> </a>
+</pre>
+  </div><a name="wp554128"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp554130"></a>
+
+  <p class="pBody">None</p><a name="wp554132"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp554134"></a>
+
+  <p class="pBody">Any positive value</p><a name="wp554136"></a>
+
+  <h5 class="pHeading4">C sample</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DWORD FAR PASCAL TPHVersion ( VOID )<a name="wp554138"> </a>
+{<a name="wp554140"> </a>
+  return 1L;<a name="wp554142"> </a>
+} <a name="wp554144"> </a>
+</pre>
+  </div><a name="wp554146"></a>
+
+  <h5 class="pHeading4">Pascal sample</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+function TPHVersion: DWORD;<a name="wp554148"> </a>
+begin<a name="wp554150"> </a>
+  result := 1;<a name="wp554152"> </a>
+end;<a name="wp554154"> </a>
+</pre>
+  </div>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>ViewMgrCreate function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="View_Manager_functions.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WvwrViewFile.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Viewer_interface.html">Providing access to viewer functionality
+        through the View Manager</a> : ViewMgrCreate function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553881"></a>
+
+  <h4 class="pHeading3">ViewMgrCreate function</h4><a name="wp553883"></a>
+
+  <p class="pBody">The <code class="cCode">ViewMgrCreate</code> function creates a View Manager and Viewer window, using the specified location and size
+  parameters. The Viewer window is created with a caption of "Viewer" and a blank client area. A handle to the View Manager is returned to the application. The
+  application uses this handle in subsequent requests to the View Manager.</p><a name="wp553885"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+HWND WvwrViewMgrCreate ( HWND hwndParent,  <a name="wp553887"> </a>
+WSWORD wnd_left,  <a name="wp553889"> </a>
+WSWORD wnd_top,  <a name="wp553891"> </a>
+WSWORD wnd_wd,  <a name="wp553893"> </a>
+WSWORD wnd_ht,  <a name="wp553895"> </a>
+BOOL visible,  <a name="wp553897"> </a>
+DWORD style ); <a name="wp553899"> </a>
+</pre>
+  </div><a name="wp553901"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp553904"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp524195"></a>
+
+          <p class="pBody"><code class="cCode">hwndParent</code></p>
+        </td>
+
+        <td>
+          <a name="wp524197"></a>
+
+          <p class="pBody">Specifies the handle to the parent window of the View Manager</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524203"></a>
+
+          <p class="pBody"><code class="cCode">wnd_left</code></p>
+        </td>
+
+        <td>
+          <a name="wp524205"></a>
+
+          <p class="pBody">Specifies the x-coordinate (in pixels) for the upper-left corner of the Viewer window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524211"></a>
+
+          <p class="pBody"><code class="cCode">wnd_top</code></p>
+        </td>
+
+        <td>
+          <a name="wp524213"></a>
+
+          <p class="pBody">Specifies the y-coordinate (in pixels) for the upper-left corner of the Viewer window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524219"></a>
+
+          <p class="pBody"><code class="cCode">wnd_wd</code></p>
+        </td>
+
+        <td>
+          <a name="wp524221"></a>
+
+          <p class="pBody">Specifies the width of the Viewer window (in pixels)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524227"></a>
+
+          <p class="pBody"><code class="cCode">wnd_ht</code></p>
+        </td>
+
+        <td>
+          <a name="wp524229"></a>
+
+          <p class="pBody">Specifies the height of the Viewer window (in pixels)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524235"></a>
+
+          <p class="pBody"><code class="cCode">visible</code></p>
+        </td>
+
+        <td>
+          <a name="wp524237"></a>
+
+          <p class="pBody">Indicates whether the Viewer window should be visible at this time. Usually, this value is <code class="cCode">TRUE</code>. If it is
+          <code class="cCode">FALSE</code>, the application must call <code class="cCode">ShowWindow(&nbsp;)</code> to display the Viewer window.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524243"></a>
+
+          <p class="pBody"><code class="cCode">style</code></p>
+        </td>
+
+        <td>
+          <a name="wp524245"></a>
+
+          <p class="pBody">Is used to specify any special window style bits necessary for this window. Usually this value is zero (<code class=
+          "cCode">NULL</code>). If zero, the View Manager uses its default style for the window, which is as follows: <code class="cCode">WS_POPUP | WS_CAPTION
+          | WS_SYSMENU | WS_THICKFRAME | _MAXIMIZEBOX</code>. If a non-zero style is specified, all desired style bits should be specified. The standard style
+          options for the Windows <code class="cCode">CreateWindow(&nbsp;)</code> API call should be used.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553906"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp553908"></a>
+
+  <p class="pBody">If successful, a non-zero handle to the View Manager is returned. This handle is needed in subsequent calls to the View Manager. If an error
+  occurs, zero is returned.</p>
+</body>
+</html>

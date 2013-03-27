@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Understanding custom functions</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Structures_types_enums.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Borland_and_Microsoft_C.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Quattro_Pro_Add-ins.html">Understanding
+        Quattro Pro Add-ins</a> : Understanding custom functions</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1271860"></a>
+
+  <h4 class="pHeading3">Understanding custom functions</h4><a name="wp1271861"></a>
+
+  <p class="pBody">These functions are designed by the developer to perform some required task. Each custom function in a given DLL must be in the export list
+  of the corresponding DEF file. When using Microsoft Visual C++, using the defined values to export these functions is not enough; you must still place your
+  custom functions in the <code class="cCode">EXPORTS</code> section of the DEF file.</p><a name="wp1271862"></a>
+
+  <p class="pBody">To support and speed up custom function development, you can use the New Project Expert to create your Add-in DLLs; it can walk you through
+  the basic steps of creating an Add-in DLL, leaving you with only the task of creating the code required to add your features to Quattro Pro. A number of
+  supporting files are included with this SDK. The main supporting file is the qshell.cpp source code mentioned earlier. This file contains most of the
+  supporting code needed for custom functions.</p><a name="wp1271863"></a>
+
+  <h5 class="pHeading4">Creating custom functions with the QSHELL file</h5><a name="wp1273648"></a>
+
+  <p class="pBody">You can use the QSHELL file to create a custom function.</p><a name="wp1271864"></a>
+
+  <p class="pBody">First, define the function in the <code class="cCode">SelfDefStructure</code> array and <code class="cCode">Functions</code>.</p><a name=
+  "wp1271865"></a>
+
+  <p class="pBody">Next, code your custom function.</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1271866"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>If you are not using any import functions, make a DEF file and compile and link the DLL.</li>
+      </ul>
+    </div><a name="wp1271867"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>If you are using import functions, use the DEF file created with the project.</li>
+      </ul>
+    </div><a name="wp1271868"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>If you need to add your own import functions to the list in Quattro Pro, or if you need to modify the DEF file for some other reason, make a copy
+        of the original DEF file, and then modify and use that copy.</li>
+      </ul>
+    </div>
+  </div><a name="wp1271869"></a>
+
+  <p class="pBody">Along with QSHELL, there are two supporting files: qprowin.h and qprowin.lib.</p><a name="wp1271870"></a>
+
+  <p class="pBody">The qprowin.h file contains all of the definitions necessary for working with Quattro Pro and the Quattro Pro definition file.</p><a name=
+  "wp1271872"></a>
+
+  <p class="pBody">The <a href="Creating_QP_Add-in_DLLs.html#wp532095">Quattro Pro Add-in DLL tutorial</a> steps you through several lesson examples that
+  detail different aspects of coding custom commands and defining them in Quattro Pro. Besides the lessons, it provides several source code samples, showing
+  simple working examples of various <code class="cCode">QPROWIN</code> import functions.</p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1271877"></a>
+
+    <div class="pSmartList1">
+      With Microsoft Visual C++, the <code class="cCode">IMPORTS</code> keyword cannot be used in the DEF file. You must link with the qprowin.lib file to use
+      the supporting Quattro Pro functions described in this section.
+    </div>
+  </div><a name="wp1271893"></a>
+
+  <p class="pBody">The following is important information to know when coding custom functions in your DLL.</p><a name="wp1271894"></a>
+
+  <h5 class="pHeading4">Retrieving data from cells</h5><a name="wp1271895"></a>
+
+  <p class="pBody">Retrieving cell data is done by using import functions. Cell data can be real numbers, strings, or blocks. There are functions provided that
+  return this data as a type double. Because there is no type-checking, your custom function could access any type of cell data this way. However, there are
+  import functions and defines provided that allow you to get cell data of a given type without having to convert a double value received by your custom
+  function. Some examples of these specialized import functions and defines are as follows:</p><a name="wp1271909"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1273701"></a>
+
+          <h5 class="pHeading4">Import function</h5>
+        </td>
+
+        <td>
+          <a name="wp1273703"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271898"></a>
+
+          <p class="pBody"><code class="cCode">QProPureGetCellNumberValue</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271900"></a>
+
+          <p class="pBody">Receives a number</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271902"></a>
+
+          <p class="pBody"><code class="cCode">QProPureGetStringValue</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271904"></a>
+
+          <p class="pBody">Receives a string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271906"></a>
+
+          <p class="pBody"><code class="cCode">RefHandle</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271908"></a>
+
+          <p class="pBody">Receives a block declaration</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1271910"></a>
+
+  <p class="pBody"><code class="cCode">QProPureGetCellNumberValue</code> and <code class="cCode">QProPureGetStringValue</code> are provided for retrieving
+  numeric and string data, respectively. <code class="cCode">RefHandle</code> is used to retrieve a block of cells or to reference information out of a block
+  of cells; for example, <code class="cCode">A1..A5</code> is a reference handle.</p><a name="wp1271911"></a>
+
+  <h5 class="pHeading4">Working with blocks</h5><a name="wp1271912"></a>
+
+  <p class="pBody">Unlike functions that take only real or string arguments, functions that take a block argument involve a reference handle. This reference
+  handle - for example, <code class="cCode">A1..A5</code> - is then used by other qprowin.def import functions to arrive at some useful values.</p><a name=
+  "wp1271913"></a>
+
+  <p class="pBody">One example of using a reference handle is to obtain an individual cell from the reference. Using two qprowin.def import functions -
+  <code class="cCode">QProPureRowCount</code> and <code class="cCode">QProPureColumnCount</code> - as the offsets, the custom function can get a requested cell
+  from the <code class="cCode">RefHandle</code> block. Lesson 7 <a href="Creating_QP_Add-in_DLLs.html#wp532095">in the Quattro Pro Add-in DLL tutorial</a>
+  shows an example of using both of these import functions.</p><a name="wp1271915"></a>
+
+  <p class="pBody">Through non-continuous selections, an active block may refer to more than a single item or group of cells. That is, if you have selected
+  <code class="cCode">A1..A5</code> and <code class="cCode">B10..B15</code>, then their combined selection is considered as the active block.</p><a name=
+  "wp1271916"></a>
+
+  <h5 class="pHeading4">Handling reference pointers correctly</h5><a name="wp1271917"></a>
+
+  <p class="pBody">It is not recommended that a DLL return a pointer to memory that it does not own. For example, the following code should never be used in a
+  custom function:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+     LPSTR findfirst(LPSTR px, char c)<a name="wp1271918"> </a>
+     {<a name="wp1271919"> </a>
+           while (*px &amp;&amp; *px!=c )<a name="wp1271920"> </a>
+                px++;<a name="wp1271921"> </a>
+           return px;<a name="wp1271922"> </a>
+     }<a name="wp1271923"> </a>
+</pre>
+  </div><a name="wp1271924"></a>
+
+  <p class="pBody">The correct way to program the previous function above would be as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+     char px[100];<a name="wp1271925"> </a>
+     LPSTR findfirst(LPSTR ix,char c)<a name="wp1271926"> </a>
+     {<a name="wp1271927"> </a>
+          lstrcpy (px,ix);<a name="wp1271928"> </a>
+          while (*px &amp;&amp; *px!=c )<a name="wp1271929"> </a>
+               px++;<a name="wp1271930"> </a>
+          return px;<a name="wp1271931"> </a>
+     }<a name="wp1271932"> </a>
+</pre>
+  </div><a name="wp1271939"></a>
+
+  <h5 class="pHeading4">Working with return values</h5><a name="wp1271940"></a>
+
+  <p class="pBody">After your custom function retrieves and processes the function's arguments, a return value to Quattro Pro is typical. DLL functions can
+  return numbers, strings, arrays of numbers, or the special values <code class="cCode">ERR</code> or <code class="cCode">NA</code>. <code class=
+  "cCode">QProPureERR</code> and <code class="cCode">QProPureNA</code> are provided for returning <code class="cCode">ERR</code> and <code class=
+  "cCode">NA</code>, respectively.</p>
+</body>
+</html>

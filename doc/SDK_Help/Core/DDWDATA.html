@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DDWDATA structure</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WPDate.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WECODETAB.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> : DDWDATA
+        structure</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1313664"></a>
+
+  <h4 class="pHeading3">DDWDATA structure</h4><a name="wp1313665"></a>
+
+  <p class="pBody">The <code class="cCode">DDWDATA</code> structure is maintained for each drag/drop well control and is used to pass messages from the control
+  to its parent and to receive data back from the parent.</p><a name="wp1313666"></a>
+
+  <h5 class="pHeading4">Definition</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct<a name="wp1313667"> </a>
+{<a name="wp1313668"> </a>
+HWND hwnd;<a name="wp1313669"> </a>
+UINT uiId;<a name="wp1313670"> </a>
+DWORD dwRsvp;<a name="wp1313671"> </a>
+HINSTANCE hInstIcon;<a name="wp1313672"> </a>
+WORD idIcon;<a name="wp1313673"> </a>
+HICON hIcon;<a name="wp1313674"> </a>
+WORD wIndex;<a name="wp1313675"> </a>
+LPDDROPOBJECT lpObject;<a name="wp1313676"> </a>
+} DDWDATA, FAR* LPDDWDATA;<a name="wp1313677"> </a>
+</pre>
+  </div><a name="wp1313678"></a>
+
+  <h5 class="pHeading4">Types</h5><a name="wp1313688"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313681"></a>
+
+          <p class="pBody"><code class="cCode">DDWDATA</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313683"></a>
+
+          <p class="pBody">Specifies the <code class="cCode">DDWDATA</code> structure</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313685"></a>
+
+          <p class="pBody"><code class="cCode">LPDDWDATA</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313687"></a>
+
+          <p class="pBody">Acts as a long pointer to a <code class="cCode">DDWDATA</code> structure</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1313689"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp1313724"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313692"></a>
+
+          <p class="pBody"><code class="cCode">hwnd</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313694"></a>
+
+          <p class="pBody">Specifies the window handle of the drag/drop well control sending the message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313696"></a>
+
+          <p class="pBody"><code class="cCode">uiId</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313698"></a>
+
+          <p class="pBody">Specifies the ID of the drag/drop well control sending the message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313700"></a>
+
+          <p class="pBody"><code class="cCode">dwRsvp</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313702"></a>
+
+          <p class="pBody">On a <code class="cCode">WPMSG_DD_RSVP</code> message, contains the response sent by the window that the cursor is over</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313704"></a>
+
+          <p class="pBody"><code class="cCode">hInstIcon</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313706"></a>
+
+          <p class="pBody">Specifies the instance handle for this icon. On the <code class="cCode">WPMSG_DD_ICONHINST</code> message, the <code class=
+          "cCode">hInstance</code> of the module containing the icon should be placed in this field.</p><a name="wp1313707"></a>
+
+          <p class="pBody">The <code class="cCode">hInstance</code> can be the actual <code class="cCode">hInstance</code> or <code class=
+          "cCode">WPRES_TASK</code>, <code class="cCode">WPRES_SHARED_RESOURCE</code>, and so on.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313709"></a>
+
+          <p class="pBody"><code class="cCode">idIcon</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313711"></a>
+
+          <p class="pBody">Specifies the identifier for icon (<code class="cCode">0</code> for a named icon)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313713"></a>
+
+          <p class="pBody"><code class="cCode">hIcon</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313715"></a>
+
+          <p class="pBody">Specifies the handle to the icon that is displayed for this control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313717"></a>
+
+          <p class="pBody"><code class="cCode">wIndex</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313719"></a>
+
+          <p class="pBody">Is used on <code class="cCode">WPMSG_DD_DEST</code> messages from a drag/drop list box to indicate the item that the cursor is
+          over</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313721"></a>
+
+          <p class="pBody"><code class="cCode">lpObject</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313723"></a>
+
+          <p class="pBody">Acts as a pointer to the object being dragged</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

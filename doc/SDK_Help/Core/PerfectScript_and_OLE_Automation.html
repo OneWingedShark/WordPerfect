@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Using PerfectScript with OLE Automation</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="OLE_Automation_Intro.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="OLE_Automation_task_in_WordPerfect.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="OLE_Automation_Intro.html">Understanding OLE
+        Automation</a> : Using PerfectScript with OLE Automation</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1274960"></a>
+
+  <h4 class="pHeading3">Using PerfectScript with OLE Automation</h4><a name="wp1275565"></a>
+
+  <p class="pBody">Understanding PerfectScript (see "<a href="PerfectScript_macros.html#wp529958">Understanding PerfectScript macros</a>") is the key to using
+  OLE Automation to integrate with Corel&nbsp;WordPerfect&nbsp;Office.</p><a name="wp1274961"></a>
+
+  <p class="pBody">The SDK provides two useful tools for working with PerfectScript:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1275596"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectScript_and_OLE_Automation.html#wp1275614">the External Command Inserter</a></li>
+      </ul>
+    </div><a name="wp1275600"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectScript_and_OLE_Automation.html#wp1275605">the Command Recorder</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1275614"></a>
+
+  <h5 class="pHeading4">Understanding the External Command Inserter</h5><a name="wp1275628"></a>
+
+  <p class="pBody">The Command Inserter can be used to insert OLE Automation code for C++, Delphi, and Visual Basic either into the SDK application or directly
+  into supported external developer applications. If you are familiar with PerfectScript, then using this feature will allow you to have more control over what
+  commands are sent to the Corel&nbsp;WordPerfect&nbsp;Office application.</p><a name="wp1275626"></a>
+
+  <p class="pBody">Currently, the External Command Inserter works with the following developer tools: Paradox, Quattro Pro, Microsoft Excel, Microsoft Visual
+  Basic, and Borland Delphi. If you have a code window open in any of these applications (in Microsoft Excel and Quattro Pro, the spreadsheet is the code
+  window), the External Command Inserter will insert the code into the window. If more than one of these applications are running, you are prompted to choose
+  which tool you want to use to insert the code. If none of these applications are running when you try to use the External Command Inserter, an error message
+  is displayed.</p><a name="wp1275699"></a>
+
+  <p class="pBody">You can choose parameters for the commands you want to insert. Be sure to click Update after you select a parameter; otherwise, the
+  parameter is not inserted into the PerfectScript string or, ultimately, the Code Window, and the resulting command may yield incorrect or unexpected
+  results.</p><a name="wp1275617"></a>
+
+  <p class="pBody">Occasionally, you may want to insert a PerfectScript command without its parameters. The External Command Inserter cannot insert blank
+  parameters into the Code Window; however, it can insert a placeholder in the form of a semicolon ( <code class="cCode">;</code> ) so that PerfectScript can
+  determine the order of the parameters it receives.</p><a name="wp1275605"></a>
+
+  <h5 class="pHeading4">Understanding the Command Recorder</h5><a name="wp1274968"></a>
+
+  <p class="pBody">The Command Recorder allows you to output OLE Automation code that works with Corel&nbsp;WordPerfect&nbsp;Office, faster and easier than
+  ever before. The Command Recorder can take actions performed in WordPerfect or Presentations and insert the equivalent OLE Automation code into the SDK
+  application or external applications such as C++, Delphi, or Visual Basic.</p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1274976"></a>
+
+    <div class="pSmartList1">
+      If you perform any unnecessary steps during the recording process, you must edit the OLE Automation code generated by the Command Recorder.
+    </div><a name="wp1275725"></a>
+
+    <div class="pSmartList1">
+      The Command Recorder requires you to use the values for the enumerations sent through OLE Automation; you cannot use the named enumerations used by
+      PerfectScript. For example, the <code class="cCode">FileOpen</code> PerfectScript command has two parameters: the filename and an enumerated value that
+      denotes the current format of the document. In PerfectScript, you can specify the named enumeration for the format of the document (for example,
+      <code class="cCode">WordPerfect_6</code>). However, for OLE Automation, you must use the associated enumeration value (for example, <code class=
+      "cCode">3</code>); otherwise, WordPerfect cannot execute the command. To insert enumeration values rather than named enumerations, use the External
+      Command Inserter.
+    </div>
+  </div>
+</body>
+</html>

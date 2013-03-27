@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: DD Style Functions</h2>
+    <p><strong>Style Group - Function 221 (0xDD)</strong></p>
+    <p>The Style Group subfunctions have page orientation.</p>
+    <hr />
+    <h3>0xDD00</h3>
+    <p><strong>Style Begin On</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;0 (0x00)&gt; [size = variable] &lt;flags = PRFXID+2
+(encased/paired function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [style PID (type=0x30)]
+[size of non-deletable information = 3]
+[hash of this Begin On]
+&lt;system style number (-1 if normal)&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD01</h3>
+    <p><strong>Style Begin Off</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;1 (0x01)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD02</h3>
+    <p><strong>Style End On</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;2 (0x02)&gt; [size = variable] &lt;flags = PRFXID+ 2 (encased/Paired Function&gt;
+  &lt;number of PIDs = 1&gt;
+  [style PID (type=0x30)]
+[size of non-deletable information = 3]
+[hash of this End On]
+&lt;system style number (-1 is normal)&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD03</h3>
+    <p><strong>Style</strong></p>
+    <p><strong>End Off</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;3 (0x03)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD04</h3>
+    <p><strong>Paragraph Style Begin On (Part 1)</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;4 (0x04)&gt; [size = variable] &lt;flags = PRFXID+2 (encased/paired function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [paragraph style PID (type=0x30)]
+[size of non-deletable information = 3]
+[hash of this paragraph style Begin On]
+&lt;system style number (-1 if normal)&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD05</h3>
+    <p><strong>Paragraph Style Begin Off (Part 1)</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;5 (0x05)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD06</h3>
+    <p><strong>Paragraph Style Begin On (Part 2)</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;6 (0x06)&gt; [size = 12] &lt;flags = PRFXID+2 (encased/paired function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [paragraph style PID (type=0x30)]
+[size of non-deletable information = 2]
+[hash of this paragraph style End On]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD07</h3>
+    <p><strong>Paragraph Style Begin Off (Part 2)</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;7 (0x07)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD08</h3>
+    <p><strong>Paragraph Style End On</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;8 (0x08)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 4]
+[paragraph style PID (type=0x30)]
+[hash of this paragraph style End On]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD09</h3>
+    <p><strong>Paragraph Style End Off</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;9 (0x09)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD0A</h3>
+    <p><strong>Global On</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;10 (0x0A)&gt; [size = variable] &lt;flags = PRFXID+3 (encased function)&gt;
+  &lt;number of PIDs = 1&gt;
+  [style PID (type=0x30)]
+[size of non-deletable information = 3]
+[hash of this Global On]
+&lt;system style number)&gt;
+  1 = normal
+  16 = footnote number
+  17 = endnote number
+  18 = figure box number
+  19 = table box number
+  20 = text box number
+  21 = user box number
+  22 = equation box number
+  23 = hypertext
+  24 = table of contents level 1
+  25 = table of contents level 2
+  26 = table of contents level 3
+  27 = table of contents level 4
+  28 = table of contents level 5
+  29 = index level 1
+  30 = index level 2
+  31 = list
+  32 = table of authorities
+  33 = document
+  34 = box text
+  35 = caption
+  36 = footnote
+  37 = endnote
+  38 = comment
+  39 = header a
+  40 = header b
+  41 = footer a
+  42 = footer b
+  43 = watermark a
+  44 = watermark b
+  45 = paragraph
+  46 = outline
+  47 = legal
+  48 = bullets
+  49 = headings
+  50 = legal 2
+  51 = numbers
+  52 = level 1 style (indented)
+  53 = level 2 style (indented)
+  54 = level 3 style (indented)
+  55 = level 4 style (indented)
+  56 = level 5 style (indented)
+  57 = level 6 style (indented)
+  58 = level 7 style (indented)
+  59 = level 8 style (indented)
+  60 = level 1 style (not indented)
+  61 = level 2 style (not indented)
+  62 = level 3 style (not indented)
+  63 = level 4 style (not indented)
+  64 = level 5 style (not indented)
+  65 = level 6 style (not indented)
+  66 = level 7 style (not indented)
+  67 = level 8 style (not indented)
+  68 = heading level 1 style
+  69 = heading level 2 style
+  70 = heading level 3 style
+  71 = heading level 4 style
+  72 = heading level 5 style
+  73 = heading level 6 style
+  74 = heading level 7 style
+  75 = heading level 8 style
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+    <hr />
+    <h3>0xDD0B</h3>
+    <p><strong>Global Off</strong></p>
+    <pre>
+&lt;221 (0xDD)&gt; &lt;11 (0x0B)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDD&gt;
+</pre>
+</body>
+</html>

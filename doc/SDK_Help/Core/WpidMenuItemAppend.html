@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidMenuItemAppend function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidMenuGetCount.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidMenuItemCheck.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Menus.html">Creating menus</a> : WpidMenuItemAppend function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp549329"></a>
+
+  <h4 class="pHeading3">WpidMenuItemAppend function</h4><a name="wp549331"></a>
+
+  <p class="pBody">The <code class="cCode">WpidMenuItemAppend</code> function appends a menu item to the end of the designated top-level menu or
+  submenu.</p><a name="wp549333"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL FAR PASCAL WpidMenuItemAppend ( <a name="wp549335"> </a>
+WMEMOBJECT WPMenu, <a name="wp549337"> </a>
+WORD wMenuID, <a name="wp549339"> </a>
+DWORD dwFlags, <a name="wp549341"> </a>
+WORD wMenuItemID, <a name="wp549343"> </a>
+WORD idChild, <a name="wp549345"> </a>
+LPSTR lpazText, <a name="wp549347"> </a>
+DWORD dwData ); <a name="wp549349"> </a>
+</pre>
+  </div><a name="wp549351"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp549354"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp520547"></a>
+
+          <p class="pBody"><code class="cCode">WPMenu</code></p>
+        </td>
+
+        <td>
+          <a name="wp520549"></a>
+
+          <p class="pBody">Specifies the handle to menu object memory</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520555"></a>
+
+          <p class="pBody"><code class="cCode">wMenuID</code></p>
+        </td>
+
+        <td>
+          <a name="wp520557"></a>
+
+          <p class="pBody">Specifies the ID for the menu where the item is appended. Must be a top-level or submenu theta ID. <code class="cCode">ZERO</code>
+          is used to designate the top-level menu.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520563"></a>
+
+          <p class="pBody"><code class="cCode">dwFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp520565"></a>
+
+          <p class="pBody">Allows the following flags:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp520567"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_ENABLED</code></li>
+              </ul>
+            </div><a name="wp520569"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNCHECKED</code></li>
+              </ul>
+            </div><a name="wp520571"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_STRING</code></li>
+              </ul>
+            </div><a name="wp520573"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_GRAYED</code></li>
+              </ul>
+            </div><a name="wp520575"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_DISABLED</code></li>
+              </ul>
+            </div><a name="wp520577"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_BITMAP</code></li>
+              </ul>
+            </div><a name="wp520579"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_CHECKED</code></li>
+              </ul>
+            </div><a name="wp520581"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_POPUP</code></li>
+              </ul>
+            </div><a name="wp520583"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_MENUBARBREAK</code></li>
+              </ul>
+            </div><a name="wp520585"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_MENUBREAK</code></li>
+              </ul>
+            </div><a name="wp520587"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_OWNERDRAW</code></li>
+              </ul>
+            </div><a name="wp520589"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_SEPARATOR</code></li>
+              </ul>
+            </div><a name="wp520591"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_SYSMENU</code></li>
+              </ul>
+            </div><a name="wp520593"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_EMBEDDEDMENU</code></li>
+              </ul>
+            </div><a name="wp520595"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_AUTOSEPARATOR</code></li>
+              </ul>
+            </div><a name="wp520597"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_AUTOMNEMONICS</code></li>
+              </ul>
+            </div><a name="wp520599"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNREMOVEABLE</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520605"></a>
+
+          <p class="pBody"><code class="cCode">wMenuItemID</code></p>
+        </td>
+
+        <td>
+          <a name="wp520607"></a>
+
+          <p class="pBody">Specifies the ID of the item to append. Must be a valid theta or dynatheta value.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520613"></a>
+
+          <p class="pBody"><code class="cCode">idChild</code></p>
+        </td>
+
+        <td>
+          <a name="wp520615"></a>
+
+          <p class="pBody">Specifies the submenu for this menu item (if any); otherwise, is <code class="cCode">0</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520621"></a>
+
+          <p class="pBody"><code class="cCode">lpazText</code></p>
+        </td>
+
+        <td>
+          <a name="wp520623"></a>
+
+          <p class="pBody">Specifies the text for this menu item. Is not used; can be set to <code class="cCode">NULL</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520629"></a>
+
+          <p class="pBody"><code class="cCode">dwData</code></p>
+        </td>
+
+        <td>
+          <a name="wp520631"></a>
+
+          <p class="pBody">Allows user-specified data. Is not used; should be set to <code class="cCode">0L</code>.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp549356"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp549358"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful or <code class="cCode">FALSE</code> if unsuccessful.</p>
+</body>
+</html>

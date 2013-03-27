@@ -1,0 +1,1064 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: Table Formula Functions</h2>
+    <p>Table formula codes and their operation are shown below. These codes are used by
+    <em>New Cell Formula</em> (function 0xD0 subfunction 0x81) and <em>Floating Cell Begin</em>
+    (function 0xD4 subfunction 0x44) in <em>Variable-Length Multi-Byte Functions</em>. Values
+    are shown in decimal. All string lengths are 16-bit values. All strings are WP word
+    strings, except code 30, which is a byte string. The expression "cell#" denotes "row,
+    column" where row and column are each signed 16-bit numbers.</p>
+    <p><strong>Formula Format</strong></p>
+    <table border="1" width="88%" cellpadding="5">
+        <tr valign="top">
+            <th width="31%">Formula Code</th>
+            <th width="36%">Description</th>
+            <th width="31%">Length</th>
+        </tr>
+        <tr valign="top">
+            <td>
+                [1]</td>
+            <td>
+                "+" add/concatenate</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [2]</td>
+            <td>
+                "" subtract/string strip</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [3]</td>
+            <td>
+                "*" multiply</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [4]</td>
+            <td>
+                "/" divide</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [5]</td>
+            <td>
+                "" unary minus</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [6]</td>
+            <td>
+                "%" percent</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [7]</td>
+            <td>
+                SUM( )</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [8,string w/length]</td>
+            <td>
+                number constant</td>
+            <td>
+                1 byte + string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [9,string w/length]</td>
+            <td>
+                string constant</td>
+            <td>
+                1 byte + string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [10,string w/length]</td>
+            <td>
+                name reference</td>
+            <td>
+                1 byte + string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [11]</td>
+            <td>
+                "^" power</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [12,function#]</td>
+            <td>
+                group 1 functions</td>
+            <td>
+                2 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [13,function#]</td>
+            <td>
+                group 2 functions</td>
+            <td>
+                2 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [14,dir,cnt,type,27,cell#]</td>
+            <td>
+                "+" shortcut code</td>
+            <td>
+                9 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [15]</td>
+            <td>
+                "%" modulus</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [16]</td>
+            <td>
+                "!" not</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [17]</td>
+            <td>
+                "&amp;" and</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [18]</td>
+            <td>
+                "|" or</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [19]</td>
+            <td>
+                "^^" xor</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [20]</td>
+            <td>
+                IF ( )</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [21,function#]</td>
+            <td>
+                compare</td>
+            <td>
+                2 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [21,1]</td>
+            <td colspan="2">
+                "=" equal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [21,2]</td>
+            <td colspan="2">
+                "&lt;&gt;" not equal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [21,3]</td>
+            <td colspan="2">
+                "&gt;" greater than</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [21,4]</td>
+            <td colspan="2">
+                "&gt;=" greater than or equal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [21,5]</td>
+            <td colspan="2">
+                "&lt;" less than</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [21,6]</td>
+            <td colspan="2">
+                "&lt;=" less than or equal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [22]</td>
+            <td>
+                "," comma</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [23]</td>
+            <td>
+                "(" left parenthesis</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [24]</td>
+            <td>
+                ")" right parenthesis</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [25,space#]</td>
+            <td>
+                space(s)</td>
+            <td>
+                2 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [26,string w/length]</td>
+            <td>
+                formula error</td>
+            <td>
+                1 byte + string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                not used[27,cell#]</td>
+            <td>
+                cell reference</td>
+            <td>
+                5 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                not used[28,cell#,cell#]</td>
+            <td>
+                range reference</td>
+            <td>
+                9 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [29]</td>
+            <td>
+                "!=" not equal</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [30,fp,byte string w/len]</td>
+            <td>
+                floating point constant</td>
+            <td>
+                9 bytes + string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [31,argument number]</td>
+            <td>
+                user argument reference</td>
+            <td>
+                2 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [32,string w/length]</td>
+            <td>
+                user function call</td>
+            <td>
+                1 byte + string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [33,temp#,string w/length]</td>
+            <td>
+                temp function definition</td>
+            <td>
+                2 bytes + string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [34,temp#,string w/length]</td>
+            <td>
+                temp function</td>
+            <td>
+                2 bytes + string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [35]</td>
+            <td>
+                floating point constant 0.0</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [36]</td>
+            <td>
+                "{" left brace</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [37]</td>
+            <td>
+                "}" right brace</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [38]</td>
+            <td>
+                "!" factorial</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [39]</td>
+            <td>
+                "&lt;" lookup operator</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [40]</td>
+            <td>
+                "&gt;" lookup operator</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [41,WP attribute#]</td>
+            <td>
+                attribute on</td>
+            <td>
+                2 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [42,WP attribute#]</td>
+            <td>
+                attribute off</td>
+            <td>
+                2 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [43,WP attribute mask]</td>
+            <td>
+                total attribute mask</td>
+            <td>
+                3 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [44]</td>
+            <td>
+                conditional attribute</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [45]</td>
+            <td>
+                * (assumed)</td>
+            <td>
+                1 byte</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="3">
+                <strong>NOTE:</strong><br />
+                For codes 48-67:<br />
+                bit 0 set if absolute col (bottom-right cell of range)<br />
+                bit 1 set if absolute row (bottom-right cell of range)<br />
+                bit 2 set if absolute col (top-left cell in range)<br />
+                bit 3 set if absolute row (top-left cell in range)
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [48-63,cell#,cell#]</td>
+            <td>
+                range reference</td>
+            <td>
+                9 bytes</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [64-67,cell#]</td>
+            <td>
+                cell reference</td>
+            <td>
+                5 bytes</td>
+        </tr>
+    </table>
+    <br />
+    <p><strong>Function Number Values for Code 12</strong></p>
+    <table border="1" width="92%" cellpadding="5">
+        <tr valign="top">
+            <td width="6%">
+                1</td>
+            <td width="13%">
+                MINUS</td>
+            <td width="6%">
+                8</td>
+            <td width="14%">
+                AND</td>
+            <td width="9%">
+                15</td>
+            <td width="51%">
+                ISNA</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2</td>
+            <td>
+                ABS</td>
+            <td>
+                9</td>
+            <td>
+                OR</td>
+            <td>
+                16</td>
+            <td>
+                TIME</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3</td>
+            <td>
+                INT</td>
+            <td>
+                10</td>
+            <td>
+                AVE</td>
+            <td>
+                17</td>
+            <td>
+                DATE</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4</td>
+            <td>
+                SIGN</td>
+            <td>
+                11</td>
+            <td>
+                COUNT</td>
+            <td>
+                18</td>
+            <td>
+                FACT</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5</td>
+            <td>
+                NOT</td>
+            <td>
+                12</td>
+            <td>
+                MIN</td>
+            <td>
+                19</td>
+            <td>
+                ROW</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6</td>
+            <td>
+                TRUE</td>
+            <td>
+                13</td>
+            <td>
+                MAX</td>
+            <td>
+                20</td>
+            <td>
+                COLUMN</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7</td>
+            <td>
+                FALSE</td>
+            <td>
+                14</td>
+            <td>
+                NA</td>
+            <td colspan="2">
+            </td>
+        </tr>
+    </table>
+    <br />
+    <p><strong>Function Number Values for Code 13</strong></p>
+    <table border="1" width="87%" cellpadding="5">
+        <tr valign="top">
+            <td width="6%">
+                1</td>
+            <td width="18%">
+                POWER</td>
+            <td width="6%">
+                28</td>
+            <td width="21%">
+                MDY</td>
+            <td width="6%">
+                55</td>
+            <td width="41%">
+                BLOCK</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2</td>
+            <td>
+                LN</td>
+            <td>
+                29</td>
+            <td>
+                MONTH</td>
+            <td>
+                56</td>
+            <td>
+                CURSOR</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3</td>
+            <td>
+                LOG</td>
+            <td>
+                30</td>
+            <td>
+                DAY</td>
+            <td>
+                57</td>
+            <td>
+                DDB</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4</td>
+            <td>
+                SQRT</td>
+            <td>
+                31</td>
+            <td>
+                YEAR</td>
+            <td>
+                58</td>
+            <td>
+                SLN</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5</td>
+            <td>
+                PI</td>
+            <td>
+                32</td>
+            <td>
+                DATETEXT</td>
+            <td>
+                59</td>
+            <td>
+                SYD</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6</td>
+            <td>
+                EXP</td>
+            <td>
+                33</td>
+            <td>
+                DATEVALUE</td>
+            <td>
+                60</td>
+            <td>
+                RATE</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7</td>
+            <td>
+                SIN</td>
+            <td>
+                34</td>
+            <td>
+                VAR</td>
+            <td>
+                61</td>
+            <td>
+                STATUS</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8</td>
+            <td>
+                COS</td>
+            <td>
+                35</td>
+            <td>
+                RANDOM</td>
+            <td>
+                62</td>
+            <td>
+                FOREACH</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9</td>
+            <td>
+                TAN</td>
+            <td>
+                36</td>
+            <td>
+                CURRENCY</td>
+            <td>
+                63</td>
+            <td>
+                DEGREES</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                10</td>
+            <td>
+                MOD</td>
+            <td>
+                37</td>
+            <td>
+                ITERATION</td>
+            <td>
+                64</td>
+            <td>
+                HOUR</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                11</td>
+            <td>
+                ASIN</td>
+            <td>
+                38</td>
+            <td>
+                ISVALUE</td>
+            <td>
+                65</td>
+            <td>
+                MINUTE</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                12</td>
+            <td>
+                ACOS</td>
+            <td>
+                39</td>
+            <td>
+                ISTEXT</td>
+            <td>
+                66</td>
+            <td>
+                SECOND</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                13</td>
+            <td>
+                ATAN</td>
+            <td>
+                40</td>
+            <td>
+                REPLACE</td>
+            <td>
+                67</td>
+            <td>
+                HMS</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                14</td>
+            <td>
+                TERM</td>
+            <td>
+                41</td>
+            <td>
+                RADIANS</td>
+            <td>
+                68</td>
+            <td>
+                TIMETEXT</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                15</td>
+            <td>
+                PV</td>
+            <td>
+                42</td>
+            <td>
+                CELL</td>
+            <td>
+                69</td>
+            <td>
+                TIMEVALUE</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                16</td>
+            <td>
+                PMT</td>
+            <td>
+                43</td>
+            <td>
+                SUBTRACT</td>
+            <td>
+                70</td>
+            <td>
+                PRODUCT</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                17</td>
+            <td>
+                FV</td>
+            <td>
+                44</td>
+            <td>
+                IRR</td>
+            <td>
+                71</td>
+            <td>
+                QUOTIENT</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                18</td>
+            <td>
+                NPV</td>
+            <td>
+                45</td>
+            <td>
+                FIND</td>
+            <td>
+                72</td>
+            <td>
+                VARP</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                19</td>
+            <td>
+                LOOKUP</td>
+            <td>
+                46</td>
+            <td>
+                LEFT</td>
+            <td>
+                73</td>
+            <td>
+                STDEVP</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                20</td>
+            <td>
+                INDEX</td>
+            <td>
+                47</td>
+            <td>
+                RIGHT</td>
+            <td>
+                74</td>
+            <td>
+                ATAN2</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                21</td>
+            <td>
+                ROUND</td>
+            <td>
+                48</td>
+            <td>
+                UPPER</td>
+            <td>
+                75</td>
+            <td>
+                MATCH</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                22</td>
+            <td>
+                STDEV</td>
+            <td>
+                49</td>
+            <td>
+                LOWER</td>
+            <td>
+                76</td>
+            <td>
+                MATCH2</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                23</td>
+            <td>
+                CONCEDE</td>
+            <td>
+                50</td>
+            <td>
+                PROPER</td>
+            <td>
+                77</td>
+            <td>
+                LOOKUP2</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                24</td>
+            <td>
+                MID</td>
+            <td>
+                51</td>
+            <td>
+                CHAR</td>
+            <td>
+                78</td>
+            <td>
+                LINK</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                25</td>
+            <td>
+                LENGTH</td>
+            <td>
+                52</td>
+            <td>
+                CODE</td>
+            <td>
+                79</td>
+            <td>
+                ISERR</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                26</td>
+            <td>
+                VALUE</td>
+            <td>
+                53</td>
+            <td>
+                TRIM</td>
+            <td>
+                80</td>
+            <td>
+                ISERR2</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                27</td>
+            <td>
+                TEXT</td>
+            <td>
+                54</td>
+            <td>
+                REPEAT</td>
+            <td>
+                81</td>
+            <td>
+                CHOOSE</td>
+        </tr>
+    </table>
+    <br />
+    <p><strong>Order of Operator Execution</strong></p>
+    <table border="1" width="89%" cellpadding="5">
+        <tr valign="top">
+            <td width="32%">
+                <strong>Operator</strong></td>
+            <td width="24%">
+                <strong>Associatively</strong></td>
+            <td width="42%">
+                <strong>Level</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                ! (factorial), % (percent)</td>
+            <td>
+                left to right</td>
+            <td>
+                immediate</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                ! (not), (negate)</td>
+            <td>
+                right to left</td>
+            <td>
+                16</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                ^</td>
+            <td>
+                left to right</td>
+            <td>
+                15</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                *, /, % (modulus)</td>
+            <td>
+                left to right</td>
+            <td>
+                14</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                +, (subtract)</td>
+            <td>
+                left to right</td>
+            <td>
+                13</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;&lt;, &gt;&gt;</td>
+            <td>
+                left to right</td>
+            <td>
+                12 (n/a)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;, &lt;=, &gt;, &gt;=</td>
+            <td>
+                left to right</td>
+            <td>
+                11</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                =, &lt;&gt; (or !=)</td>
+            <td>
+                left to right</td>
+            <td>
+                10</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &amp;&amp; (or &amp;)</td>
+            <td>
+                left to right</td>
+            <td>
+                9</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                ^^</td>
+            <td>
+                left to right</td>
+            <td>
+                8</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                || (or |)</td>
+            <td>
+                left to right</td>
+            <td>
+                7</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                ?;</td>
+            <td>
+                right to left</td>
+            <td>
+                6 (n/a)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                :=</td>
+            <td>
+                right to left</td>
+            <td>
+                5</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                ( )</td>
+            <td>
+                left to right</td>
+            <td>
+                4</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                ,</td>
+            <td>
+                left to right</td>
+            <td>
+                3</td>
+        </tr>
+    </table>
+</body>
+</html>

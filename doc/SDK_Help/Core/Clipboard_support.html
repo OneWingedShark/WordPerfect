@@ -1,0 +1,460 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Providing Clipboard support</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {margin-left: 2em}
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WutlAboutBox.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WclpIsWPTextFormatAvailable.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Providing Clipboard support</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp539108"></a>
+
+  <h3 class="pHeading2">Providing Clipboard support</h3><a name="wp539110"></a>
+
+  <p class="pBody">Clipboard support for WPGroup products is provided through a set of specifications for Clipboard formats and a set of functions that work
+  with the standard Windows Clipboard APIs.</p><a name="wp539112"></a>
+
+  <p class="pBody">Applications using PerfectFit require support for a wide variety of Clipboard formats (graphics, OLE and DDE objects, and sound capability,
+  as well as text formats). Applications must also have control over the order in which formats are placed on the Clipboard.</p><a name="wp539182"></a>
+
+  <h5 class="pHeading4">Understanding Clipboard file formats</h5><a name="wp1272452"></a>
+
+  <p class="pBody">In addition to all of the standard Clipboard file formats that are defined by the Windows operating system (CF_TEXT, CF_BITMAP,
+  CF_METAFILEPICT, and so forth), the following Clipboard formats have been defined specific to Corel&nbsp;WordPerfect&nbsp;Office products.</p><a name=
+  "wp1272568"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1272481"></a>
+
+          <h5 class="pHeading4">File format</h5>
+        </th>
+
+        <th>
+          <a name="wp1272680"></a>
+
+          <h5 class="pHeading4">Associated string</h5>
+        </th>
+
+        <th>
+          <a name="wp1272483"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272561"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP11DOC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272682"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Document (11)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272563"></a>
+
+          <p class="pBody">This is the current Clipboard format for WordPerfect 11 documents. This format is a <code class="cCode">DWORD</code>-length field
+          indicating the length of the WordPerfect document, followed by a complete document in WordPerfect format. The document data includes a document
+          prefix, including any prefix packets required, followed by the body of the document. For a complete description of the WordPerfect 11 file format,
+          see the File Format Software Developerment Kit.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272485"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP10DOC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272684"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Document (10)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272487"></a>
+
+          <p class="pBody">This is the current Clipboard format for WordPerfect 10 documents. This format is a <code class="cCode">DWOR</code>-length field
+          indicating the length of the WordPerfect document, followed by a complete document in WordPerfect format. The document data includes a document
+          prefix, including any prefix packets required, followed by the body of the document. For a complete description of the WordPerfect 10 file format,
+          see the File Format Software Development Kit.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272489"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP9DOC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272686"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Document (9)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272491"></a>
+
+          <p class="pBody">This is the current Clipboard format for WordPerfect 9 documents. This format is a <code class="cCode">DWORD</code>-length field
+          indicating the length of the WordPerfect document, followed by a complete document in WordPerfect format. The document data includes a document
+          prefix, including any prefix packets required, followed by the body of the document. For a complete description of the WordPerfect 9 file format, see
+          the File Format Software Development Kit.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272493"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP8DOC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272688"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Document (8)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272495"></a>
+
+          <p class="pBody">This is the current Clipboard format for Corel WordPerfect 8 documents. This format is a <code class="cCode">DWORD</code>-length
+          field indicating the length of the WordPerfect document, followed by a complete document in WordPerfect format. The document data includes a document
+          prefix, including any prefix packets required, followed by the body of the document. For a complete description of the WordPerfect 8 file format see
+          the File Format Software Development Kit.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272497"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP7DOC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272690"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Document (7)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272499"></a>
+
+          <p class="pBody">This is the current Clipboard format for WordPerfect 7 documents. This format is a <code class="cCode">DWORD</code>-length field
+          indicating the length of the WordPerfect document, followed by a complete document in WordPerfect format. The document data includes a document
+          prefix, including any prefix packets required, followed by the body of the document. For a complete description of the WordPerfect 7 file format, see
+          the File Format Software Development Kit.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272501"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP6DOC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272692"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Document (6.x)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272503"></a>
+
+          <p class="pBody">This Clipboard format was used by WordPerfect 6.x for Windows and applications using shared code 1.x. WPGroup will not use it in any
+          future products and recommends that developers not use this format. This format is a <code class="cCode">DWORD</code>-length field indicating the
+          length of the WordPerfect document, followed by a complete document in WordPerfect format. For a complete description of the WordPerfect 6.x document
+          format, see the File Format Software Development Kit.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272505"></a>
+
+          <p class="pBody"><code class="cCode">CF_WPDOC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272694"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Document"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272507"></a>
+
+          <p class="pBody">This Clipboard format was used by WordPerfect 5.x for Windows and applications using shared code 1.x. WPGroup will not use it in any
+          future products and recommends that developers not use this format. This format is essentially a complete WordPerfect 5.x document as it would be
+          stored on disk, except that it is stored in a global memory block. The memory block must be null filled at the end. This format is the same as
+          <code class="cCode">CF_WP6DOC</code> except that no length is indicated at the beginning.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272509"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP11TEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272696"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Text (11)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272511"></a>
+
+          <p class="pBody">This Clipboard format is a WordPerfect 11 word-string terminated with two null bytes. Two-byte function codes may also be included.
+          See the STRFUNCS.HTM file included with the PerfectFit Software Development Kit for a complete list of two-byte function codes and their values.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272513"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP10TEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272698"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Text (10)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272515"></a>
+
+          <p class="pBody">This Clipboard format is a WordPerfect 10 word-string terminated with two null bytes. Two-byte function codes may also be included.
+          See the STRFUNCS.HTM file included with the PerfectFit Software Development Kit for a complete list of two-byte function codes and their values.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272517"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP9TEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272700"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Text (9)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272519"></a>
+
+          <p class="pBody">This Clipboard format is a WordPerfect 9 word-string terminated with two null bytes. Two-byte function codes may also be included.
+          See the STRFUNCS.HTM file included with the PerfectFit Software Development Kit for a complete list of two-byte function codes and their values.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272521"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP8TEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272702"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Text (8)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272523"></a>
+
+          <p class="pBody">This Clipboard format is a WordPerfect 8 word-string terminated with two null bytes. Two-byte function codes may also be included.
+          See the STRFUNCS.HTM file included with the PerfectFit Software Development Kit for a complete list of two-byte function codes and their values.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272525"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP7TEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272704"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Text (7.x)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272527"></a>
+
+          <p class="pBody">This Clipboard format is a WordPerfect 7.x word-string terminated with two null bytes. Two-byte function codes may also be included.
+          See the STRFUNCS.HTM file included with the PerfectFit Software Development Kit for a complete list of two-byte function codes and their values.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272529"></a>
+
+          <p class="pBody"><code class="cCode">CF_WP6TEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272706"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Text (6.x)"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272531"></a>
+
+          <p class="pBody">This Clipboard format is a WordPerfect 6.x word-string terminated with two null bytes. Two-byte function codes may also be included.
+          See the STRFUNCS.HTM file included with the PerfectFit Software Development Kit for a complete list of two-byte function codes and their values.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272533"></a>
+
+          <p class="pBody"><code class="cCode">CF_WPTEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272708"></a>
+
+          <p class="pBody"><code class="cCode">"WordPerfect Text"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272535"></a>
+
+          <p class="pBody">This Clipboard format contains WordPerfect 5.x text only (no prefix, limited function codes, null-terminated). It is used by
+          WordPerfect 5.x for Windows and possibly by other products that use PerfectFit. It is recommended that developers not use this format.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272537"></a>
+
+          <p class="pBody"><code class="cCode">CF_RTF</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272710"></a>
+
+          <p class="pBody"><code class="cCode">"Rich Text Format"</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272539"></a>
+
+          <p class="pBody">This Clipboard format is the Microsoft Rich Text Format (.rtf).</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1272541"></a>
+
+          <p class="pBody"><code class="cCode">CF_WPG20</code></p>
+        </td>
+
+        <td>
+          <a name="wp1272712"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp1272543"></a>
+
+          <p class="pBody">This is the Clipboard format for WordPerfect graphics (.wpg). Its format is the same as a .wpg 2.0 file.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp539279"></a>
+
+  <h5 class="pHeading4">Understanding the functions for providing Clipboard support</h5><a name="wp539281"></a>
+
+  <p class="pBody">The following functions are contained in the PerfectFit image:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1272927"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WclpIsWPTextFormatAvailable.html#wp539283">WclpIsWPTextFormatAvailable function</a></li>
+      </ul>
+    </div><a name="wp1273277"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WclpIsWPGraphicFormatAvailable.html#wp539303">WclpIsWPGraphicFormatAvailable function</a></li>
+      </ul>
+    </div><a name="wp1273281"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WclpCFtoCV.html#wp539319">WclpCFtoCV function</a></li>
+      </ul>
+    </div><a name="wp1273285"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WcvtConvertHandle.html#wp539362">WcvtConvertHandle function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1272911"></a>
+
+  <p class="pBody">To use these functions, an application must first register with PerfectFit. For information on registering PerfectFit, see "<a href=
+  "PerfectFit_registration.html#wp1270135">Registering PerfectFit</a>."</p>
+</body>
+</html>

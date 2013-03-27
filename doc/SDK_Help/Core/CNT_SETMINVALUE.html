@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>CNT_SETMINVALUE message</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="CNT_SETMAXVALUE.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="CNT_SETSTEPVALUE.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> :
+        CNT_SETMINVALUE message</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp540476"></a>
+
+  <h4 class="pHeading3">CNT_SETMINVALUE message</h4><a name="wp540478"></a>
+
+  <p class="pBody">The <code class="cCode">CNT_SETMINVALUE</code> message sets the current minimum setting for a standard counter control.</p><a name=
+  "wp540480"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp540483"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp509067"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp509069"></a>
+
+          <p class="pBody">Is set to <code class="cCode">0</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp509075"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp509077"></a>
+
+          <p class="pBody">Specifies the new minimum setting. If the current maximum value is less than the new minimum value, the maximum value is set to be
+          equal to the minimum value.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp540485"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp540487"></a>
+
+  <p class="pBody">This message returns <code class="cCode">CNT_ERR_BADCOMMAND</code> for an owner-drawn counter control.</p>
+</body>
+</html>

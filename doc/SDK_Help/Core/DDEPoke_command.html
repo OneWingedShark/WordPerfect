@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:20:43" />
+
+  <title>DDEPoke command</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DDEExecuteExt_command.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DDERequest_command.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="WordPerfect_Office_Dynamic_Data_Exchange.html">Using Dynamic Data Exchange (DDE)</a> : <a href=
+        "PerfectScript_support_for_DDE.html">Using PerfectScript to set up a DDE client</a> : DDEPoke command</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp555676"></a>
+
+  <h4 class="pHeading3">DDEPoke command</h4><a name="wp555678"></a>
+
+  <p class="pBody">The <code class="cCode">DDEPoke</code> command sends data to be stored in an application-specific variable. The valid variables that can be
+  set using this command are defined by the receiving application. For more information, consult the documentation for the receiving application.</p><a name=
+  "wp555680"></a>
+
+  <h5 class="pHeading4">Syntax</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DDEPOKE( ConversationId; ItemName; Data )<a name="wp555682"> </a>
+</pre>
+  </div><a name="wp555684"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp555687"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp526412"></a>
+
+          <p class="pBody"><code class="cCode">ConversationId</code></p>
+        </td>
+
+        <td>
+          <a name="wp526414"></a>
+
+          <p class="pBody">Specifies the handle to the DDE conversation obtained in the <code class="cCode">DDEInitiate()</code> call</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526420"></a>
+
+          <p class="pBody"><code class="cCode">ItemName</code></p>
+        </td>
+
+        <td>
+          <a name="wp526422"></a>
+
+          <p class="pBody">Specifies a variable in another application into which you want to place data</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526428"></a>
+
+          <p class="pBody"><code class="cCode">Data</code></p>
+        </td>
+
+        <td>
+          <a name="wp526430"></a>
+
+          <p class="pBody">Specifies an ANSI string representing the data you want to store in the other application</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

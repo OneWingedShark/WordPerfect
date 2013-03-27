@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>HLS_STRUCT structure</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="CMYK_STRUCT.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="HSB_STRUCT.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> : HLS_STRUCT
+        structure</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1313208"></a>
+
+  <h4 class="pHeading3">HLS_STRUCT structure</h4><a name="wp1313209"></a>
+
+  <p class="pBody">The <code class="cCode">HLS_STRUCT</code> structure holds HLS values for the color-conversion functions available to a color wheel
+  control.</p><a name="wp1313210"></a>
+
+  <h5 class="pHeading4">Definition</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct tabHLS_STRUCT<a name="wp1313211"> </a>
+{<a name="wp1313212"> </a>
+WORD hue;<a name="wp1313213"> </a>
+BYTE lightness;<a name="wp1313214"> </a>
+BYTE saturation;<a name="wp1313215"> </a>
+} HLS_STRUCT, FAR* LPHLS_STRUCT;<a name="wp1313216"> </a>
+</pre>
+  </div><a name="wp1313217"></a>
+
+  <h5 class="pHeading4">Types</h5><a name="wp1313227"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313220"></a>
+
+          <p class="pBody"><code class="cCode">HLS_STRUCT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313222"></a>
+
+          <p class="pBody">Specifies the <code class="cCode">HLS_STRUCT</code> structure type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313224"></a>
+
+          <p class="pBody"><code class="cCode">LPHLS_STRUCT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313226"></a>
+
+          <p class="pBody">Acts as a far pointer to an <code class="cCode">HLS_STRUCT</code> structure</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1313228"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp1313242"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313231"></a>
+
+          <p class="pBody"><code class="cCode">hue</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313233"></a>
+
+          <p class="pBody">Specifies the value of the predominant wavelength. Values range from <code class="cCode">0</code> to <code class=
+          "cCode">360</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313235"></a>
+
+          <p class="pBody"><code class="cCode">lightness</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313237"></a>
+
+          <p class="pBody">Specifies the value of the amount of light reflection. Values range from <code class="cCode">0</code> to <code class=
+          "cCode">100</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313239"></a>
+
+          <p class="pBody"><code class="cCode">saturation</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313241"></a>
+
+          <p class="pBody">Specifies the value of the color strength. Values range from <code class="cCode">0</code> to <code class="cCode">100</code>.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

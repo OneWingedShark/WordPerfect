@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>MAC_VALUE_TYPE persistent macro variable definition</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Persistent_macro_variable_functions.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="MacMacroSystemReturnType.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Persistent_macro_variables.html">Using persistent macro
+        variables</a> : MAC_VALUE_TYPE persistent macro variable definition</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1268988"></a>
+
+  <h4 class="pHeading3">MAC_VALUE_TYPE persistent macro variable definition</h4><a name="wp1268989"></a>
+
+  <p class="pBody"><code class="cCode">MAC_VALUE_TYPE</code> is an enumerated type that defines the various parameter types supported by a command.</p><a name=
+  "wp1268990"></a>
+
+  <h5 class="pHeading4">C Structure</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef enum<a name="wp1268991"> </a>
+{<a name="wp1268992"> </a>
+eValArrayDefinition = VALUE_VARIABLE_TYPES (0x80), <a name="wp1268993"> </a>
+eValBoolean, <a name="wp1268994"> </a>
+eValCentimeters, <a name="wp1268995"> </a>
+eValFloat, <a name="wp1268996"> </a>
+eValInches, <a name="wp1268997"> </a>
+eValInteger, <a name="wp1268998"> </a>
+eValMillimeters, <a name="wp1268999"> </a>
+eValPoints, <a name="wp1269000"> </a>
+eValString, <a name="wp1269001"> </a>
+eValStringAnsi, <a name="wp1269002"> </a>
+eValStringOem, <a name="wp1269003"> </a>
+eValWPUnits, <a name="wp1269004"> </a>
+} MAC_VALUE_TYPE; <a name="wp1269005"> </a>
+</pre>
+  </div><a name="wp1269006"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp1280640"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1280593"></a>
+
+          <p class="pBody"><code class="cCode">eValArrayDefinition</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280595"></a>
+
+          <p class="pBody">Indicates an array definition variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280597"></a>
+
+          <p class="pBody"><code class="cCode">eValBoolean</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280599"></a>
+
+          <p class="pBody">Indicates a Boolean variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280601"></a>
+
+          <p class="pBody"><code class="cCode">eValCentimeters</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280603"></a>
+
+          <p class="pBody">Indicates a double variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280605"></a>
+
+          <p class="pBody"><code class="cCode">eValFloat</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280607"></a>
+
+          <p class="pBody">Indicates a double variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280609"></a>
+
+          <p class="pBody"><code class="cCode">eValInches</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280611"></a>
+
+          <p class="pBody">Indicates a double variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280613"></a>
+
+          <p class="pBody"><code class="cCode">eValInteger</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280615"></a>
+
+          <p class="pBody">Indicates a signed 32-bit variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280617"></a>
+
+          <p class="pBody"><code class="cCode">eValMillimeters</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280619"></a>
+
+          <p class="pBody">Indicates a double variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280621"></a>
+
+          <p class="pBody"><code class="cCode">eValPoints</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280623"></a>
+
+          <p class="pBody">Indicates a double variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280625"></a>
+
+          <p class="pBody"><code class="cCode">eValString</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280627"></a>
+
+          <p class="pBody">Indicates a null-terminated Word String variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280629"></a>
+
+          <p class="pBody"><code class="cCode">eValStringAnsi</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280631"></a>
+
+          <p class="pBody">Indicates a null-terminated ANSI string variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280633"></a>
+
+          <p class="pBody"><code class="cCode">eValStringOem</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280635"></a>
+
+          <p class="pBody">Indicates a null-terminated OEM string variable type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280637"></a>
+
+          <p class="pBody"><code class="cCode">eValWPUnits</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280639"></a>
+
+          <p class="pBody">Indicates a signed 32-bit variable type</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

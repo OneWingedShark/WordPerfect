@@ -1,0 +1,872 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: DE Merge Functions</h2>
+    <p><strong>Merge Group - Function 222 (0xDE)</strong></p>
+    <p>The Merge Group subfunctions have character orientation.</p>
+    <hr />
+    <h3>Non-Paired Merge Subfunctions: 0 (0x00) - 31 (0x1F)</h3>
+    <table border="1" width="94%" cellpadding="5">
+        <tr valign="top">
+            <td width="21%">
+                <strong>Subfunction</strong></td>
+            <td width="78%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0 (0x00)</td>
+            <td>
+                Beep</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1 (0x01)</td>
+            <td>
+                Break</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2 (0x02)</td>
+            <td>
+                Cancel Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3 (0x03)</td>
+            <td>
+                Cancel On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4 (0x04)</td>
+            <td>
+                Continue</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5 (0x05)</td>
+            <td>
+                Date</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6 (0x06)</td>
+            <td>
+                Default</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7 (0x07)</td>
+            <td>
+                Display Stop</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8 (0x08)</td>
+            <td>
+                Else</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9 (0x09)</td>
+            <td>
+                End Case</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                10 (0x0A)</td>
+            <td>
+                End Field</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                11 (0x0B)</td>
+            <td>
+                End FOR</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                12 (0x0C)</td>
+            <td>
+                End IF</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                13 (0x0D)</td>
+            <td>
+                End Record</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                14 (0x0E)</td>
+            <td>
+                End WHILE</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                15 (0x0F)</td>
+            <td>
+                Next</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                16 (0x10)</td>
+            <td>
+                Next Record</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                17 (0x11)</td>
+            <td>
+                Page Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                18 (0x12)</td>
+            <td>
+                Page On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                19 (0x13)</td>
+            <td>
+                Print</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                20 (0x14)</td>
+            <td>
+                Quit</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                21 (0x15)</td>
+            <td>
+                Process On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                22 (0x16)</td>
+            <td>
+                Return</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                23 (0x17)</td>
+            <td>
+                Return Cancel</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                24 (0x18)</td>
+            <td>
+                Return Error</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                25 (0x19)</td>
+            <td>
+                Rewrite</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                26 (0x1A)</td>
+            <td>
+                Step Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                27 (0x1B)</td>
+            <td>
+                Step On</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                28 (0x1C)</td>
+            <td>
+                Stop</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                29 (0x1D)</td>
+            <td>
+                Process Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                30 (0x1E)</td>
+            <td>
+                FEP Off (for Asia)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                31 (0x1F)</td>
+            <td>
+                FEP On (for Asia)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                32 (0x20)</td>
+            <td>
+                Row Repeat (Asia)</td>
+        </tr>
+    </table>
+    <p><code>&lt;222 (0xDE)&gt; &lt;subfunction&gt; [size = variable] &lt;flags = 0&gt;</code></p>
+    <pre>
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDE&gt;
+</pre>
+    <hr />
+    <h3>Paired Merge Subfunctions: 48 (0x30) - 148 (0x94)</h3>
+    <p>The subfunctions in this list are paired so that the even-numbered codes are the
+    On functions and the odd numbered codes are the Off functions. Each instance of a subfunction
+    will consist of the On subfunction, a string of information, and the Off subfunction.
+    The detailed structure is shown following the table of subfunctions below. The string
+    information required by each merge code is documented in parentheses next to the On
+    function code. Square brackets are used to indicate optional string data. The parentheses
+    and square brackets are not included in the actual string data.<br />
+    </p>
+    <table border="1" width="94%" cellpadding="5">
+        <tr valign="top">
+            <td width="21%">
+                <strong>Subfunction</strong></td>
+            <td width="78%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                48 (0x30)</td>
+            <td>
+                ASSIGN On (var;expr)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                49 (0x31)</td>
+            <td>
+                ASSIGN Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                50 (0x32)</td>
+            <td>
+                CALL On (label)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                51 (0x33)</td>
+            <td>
+                CALL Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                52 (0x34)</td>
+            <td>
+                CAPS On (expr)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                53 (0x35)</td>
+            <td>
+                CAPS Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                54 (0x36)</td>
+            <td>
+                CASE On (exp;case1;label;...;ELSE;label)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                55 (0x37)</td>
+            <td>
+                CASE Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                56 (0x38)</td>
+            <td>
+                CASEOF On (expr[;...;expr])</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                57 (0x39)</td>
+            <td>
+                CASEOF Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                58 (0x3A)</td>
+            <td>
+                CHAINMACRO On (macroname)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                59 (0x3B)</td>
+            <td>
+                CHAINMACRO Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                60 (0x3C)</td>
+            <td>
+                CHAINDATA On (filename)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                61 (0x3D)</td>
+            <td>
+                CHAINDATA Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                62 (0x3E)</td>
+            <td>
+                CHAINFORM On (filename)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                63 (0x3F)</td>
+            <td>
+                CHAINFORM Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                64 (0x40)</td>
+            <td>
+                CHAR On (var;[;prompt][;title])</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                65 (0x41)</td>
+            <td>
+                CHAR Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                66 (0x42)</td>
+            <td>
+                CODES On (merge codes)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                67 (0x43)</td>
+            <td>
+                CODES Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                68 (0x44)</td>
+            <td>
+                COMMENT On (comment)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                69 (0x45)</td>
+            <td>
+                COMMENT Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                70 (0x46)</td>
+            <td>
+                CTON On (character)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                71 (0x47)</td>
+            <td>
+                CTON Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                72 (0x48)</td>
+            <td>
+                DOCUMENT On (filename)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                73 (0x49)</td>
+            <td>
+                DOCUMENT Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                74 (0x4A)</td>
+            <td>
+                EMBEDMACRO On (macro commands)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                75 (0x4B)</td>
+            <td>
+                EMBEDMACRO Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                76 (0x4C)</td>
+            <td>
+                FIELD On (field)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                77 (0x4D)</td>
+            <td>
+                FIELD Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                78 (0x4E)</td>
+            <td>
+                FIELDNAMES On (name1;...;nameN)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                79 (0x4F)</td>
+            <td>
+                FIELDNAMES Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                80 (0x50)</td>
+            <td>
+                FIRSTCAP On (string)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                81 (0x51)</td>
+            <td>
+                FIRSTCAP Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                82 (0x52)</td>
+            <td>
+                FOR On (var;start;stop;step)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                83 (0x53)</td>
+            <td>
+                FOR Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                84 (0x54)</td>
+            <td>
+                FOREACH On (var;expr;expr;...)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                85 (0x55)</td>
+            <td>
+                FOREACH Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                86 (0x56)</td>
+            <td>
+                GETSTRING On (variable[;prompt][;title])</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                87 (0x57)</td>
+            <td>
+                GETSTRING Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                88 (0x58)</td>
+            <td>
+                GO On (label)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                89 (0x59)</td>
+            <td>
+                GO Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                90 (0x5A)</td>
+            <td>
+                IF On (expr)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                91 (0x5B)</td>
+            <td>
+                IF Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                92 (0x5C)</td>
+            <td>
+                IFBLANK On (field)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                93 (0x5D)</td>
+            <td>
+                IFBLANK Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                94 (0x5E)</td>
+            <td>
+                IFEXISTS On (var)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                95 (0x5F)</td>
+            <td>
+                IFEXISTS Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                96 (0x60)</td>
+            <td>
+                IFNOTBLANK On (field)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                97 (0x61)</td>
+            <td>
+                IFNOTBLANK Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                98 (0x62)</td>
+            <td>
+                INSERT On (WP text)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                99 (0x63)</td>
+            <td>
+                INSERT Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                100 (0x64)</td>
+            <td>
+                KEYBOARD On ([prompt])</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                101 (0x65)</td>
+            <td>
+                KEYBOARD Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                102 (0x66)</td>
+            <td>
+                LABEL On (label)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                103 (0x67)</td>
+            <td>
+                LABEL Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                104 (0x68)</td>
+            <td>
+                LOCAL On (var)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                105 (0x69)</td>
+            <td>
+                LOCAL Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                106 (0x6A)</td>
+            <td>
+                LOOK On (var)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                107 (0x6B)</td>
+            <td>
+                LOOK Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                108 (0x6C)</td>
+            <td>
+                MRGCMND On (merge codes)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                109 (0x6D)</td>
+            <td>
+                MRGCMND Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                110 (0x6E)</td>
+            <td>
+                NESTDATA On (filename)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                111 (0x6F)</td>
+            <td>
+                NESTDATA Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                112 (0x70)</td>
+            <td>
+                NESTFORM On (filename)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                113 (0x71)</td>
+            <td>
+                NESTFORM Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                114 (0x72)</td>
+            <td>
+                NESTMACRO On (macroname)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                115 (0x73)</td>
+            <td>
+                NESTMACRO Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                116 (0x74)</td>
+            <td>
+                NTOC On (number)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                117 (0x75)</td>
+            <td>
+                NTOC Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                118 (0x76)</td>
+            <td>
+                ONCANCEL On (action)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                119 (0x77)</td>
+            <td>
+                ONCANCEL Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                120 (0x78)</td>
+            <td>
+                ONERROR On (action)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                121 (0x79)</td>
+            <td>
+                ONERROR Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                122 (0x7A)</td>
+            <td>
+                PROMPT On (message)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                123 (0x7B)</td>
+            <td>
+                PROMPT Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                124 (0x7C)</td>
+            <td>
+                STATUSPROMPT On (message)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                125 (0x7D)</td>
+            <td>
+                STATUSPROMPT Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                126 (0x7E)</td>
+            <td>
+                STRLEN On (expr)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                127 (0x7F)</td>
+            <td>
+                STRLEN Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                128 (0x80)</td>
+            <td>
+                STRPOS On (expr;subexpr)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                129 (0x81)</td>
+            <td>
+                STRPOS Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                130 (0x82)</td>
+            <td>
+                SUBSTDATA On (filename)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                131 (0x83)</td>
+            <td>
+                SUBSTDATA Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                132 (0x84)</td>
+            <td>
+                SUBSTFORM On (filename)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                133 (0x85)</td>
+            <td>
+                SUBSTFORM Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                134 (0x86)</td>
+            <td>
+                SUBSTR On (expr;start;length)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                135 (0x87)</td>
+            <td>
+                SUBSTR Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                136 (0x88)</td>
+            <td>
+                SYSTEM On (sysvar)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                137 (0x89)</td>
+            <td>
+                SYSTEM Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                138 (0x8A)</td>
+            <td>
+                TOLOWER On (expr)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                139 (0x8B)</td>
+            <td>
+                TOLOWER Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                140 (0x8C)</td>
+            <td>
+                TOUPPER On (string)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                141 (0x8D)</td>
+            <td>
+                TOUPPER Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                142 (0x8E)</td>
+            <td>
+                VARIABLE On (var)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                143 (0x8F)</td>
+            <td>
+                VARIABLE Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                144 (0x90)</td>
+            <td>
+                WAIT On (10ths second)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                145 (0x91)</td>
+            <td>
+                WAIT Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                146 (0x92)</td>
+            <td>
+                WHILE On (expr)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                147 (0x93)</td>
+            <td>
+                WHILE Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                148 (0x94)</td>
+            <td>
+                POSTNET On (string)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                149 (0x95)</td>
+            <td>
+                POSTNET Off</td>
+        </tr>
+    </table>
+    <pre>
+&lt;222 (0xDE)&gt; &lt;on subfunction&gt; [size = variable] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDE&gt;
+
+&lt;associated string information&gt; x ?
+
+&lt;222 (0xDE)&gt; &lt;off subfunction&gt; [size = 10] &lt;flags = 1 (simple paired function)&gt;
+[size of non-deletable information = 0]
+[size] &lt;0xDE&gt;
+</pre>
+</body>
+</html>

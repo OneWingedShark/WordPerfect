@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProGetGroup function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Group_name_functions_added_in_Corel_Quattro_Pro_5.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18"
+      height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProGetGroupedPages_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "Group_name_functions_added_in_Corel_Quattro_Pro_5.html">Group-name functions added in Quattro Pro 5</a> : QProGetGroup function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp557182"></a>
+
+  <h4 class="pHeading3">QProGetGroup function</h4><a name="wp557184"></a>
+
+  <p class="pBody">This function sets up a pointer to the name of the group that contains the current page. The function returns <code class=
+  "cCode">FALSE</code> if the page is not contained within a group. If a page is contained in more than one group, then this function returns an arbitrary
+  choice of the containing groups.</p><a name="wp557186"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL QProGetGroup(<a name="wp557188"> </a>
+UINT  NotebookIndex,<a name="wp557190"> </a>
+UINT  SheetIndex,<a name="wp557192"> </a>
+LPSTR  pGroupName,<a name="wp557194"> </a>
+UINT  NameMax);<a name="wp557196"> </a>
+</pre>
+  </div><a name="wp557198"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp557201"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp527228"></a>
+
+          <p class="pBody"><code class="cCode">NotebookIndex</code></p>
+        </td>
+
+        <td>
+          <a name="wp527230"></a>
+
+          <p class="pBody">Specifies the referenced notebook</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp527236"></a>
+
+          <p class="pBody"><code class="cCode">SheetIndex</code></p>
+        </td>
+
+        <td>
+          <a name="wp527238"></a>
+
+          <p class="pBody">Specifies the index (<code class="cCode">0</code> to <code class="cCode">255</code>) of desired sheet</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp527244"></a>
+
+          <p class="pBody"><code class="cCode">pGroupName</code></p>
+        </td>
+
+        <td>
+          <a name="wp527246"></a>
+
+          <p class="pBody">Specifies the resulting group name</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp527252"></a>
+
+          <p class="pBody"><code class="cCode">NameMax</code></p>
+        </td>
+
+        <td>
+          <a name="wp527254"></a>
+
+          <p class="pBody">Specifies the maximum length of result string</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp557203"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp557205"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, or it returns <code class="cCode">FALSE</code> if no cells are
+  allocated.</p>
+</body>
+</html>

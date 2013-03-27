@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WPBBAR_BUTTON structure</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WPBBAR_BBARINFO.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WPBBAR_THIRDPARTY.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Toolbars.html">Creating toolbars</a> : WPBBAR_BUTTON structure</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1284474"></a>
+
+  <h4 class="pHeading3">WPBBAR_BUTTON structure</h4><a name="wp1284475"></a>
+
+  <p class="pBody">The <code class="cCode">WPBBAR_BUTTON</code> structure contains the bitmap and text information needed by a program to define an individual
+  button on the toolbar. For information how and when to use this structure, see the PerfectFit API functions <a href=
+  "WpidBBarGetBtnInfo.html#wp553555">WpidBBarGetBtnInfo(&nbsp;)</a> and <a href="WpidBBarSetBtnInfo.html#wp553594">WpidBBarSetBtnInfo(&nbsp;).</a></p><a name=
+  "wp553244"></a>
+
+  <h5 class="pHeading4">Structure</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct{  <a name="wp553246"> </a>
+WORD idButton; <a name="wp553248"> </a>
+WORD fFlags; <a name="wp553250"> </a>
+HBITMAP hbmpGlyph; <a name="wp553252"> </a>
+char azButtonText[PID_MAXLENBBARTEXT+1]; <a name="wp553254"> </a>
+char cSizeIndex; <a name="wp553256"> </a>
+RECT rect; <a name="wp553258"> </a>
+WPBBAR_BTN_FACE face; <a name="wp553260"> </a>
+HWND hwnd; <a name="wp553262"> </a>
+DWORD dwReserved; <a name="wp553264"> </a>
+DWORD dwUserData; <a name="wp553266"> </a>
+DWORD fCtrlStyle; <a name="wp553268"> </a>
+} WPBBAR_BUTTON, FAR *PWPBBAR_BUTTON, <a name="wp553270"> </a>
+NEAR *NPWPBBAR_BUTTON, FAR *LPWPBBAR_BUTTON;<a name="wp553272"> </a>
+</pre>
+  </div><a name="wp553274"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp553277"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp523778"></a>
+
+          <p class="pBody"><code class="cCode">idButton</code></p>
+        </td>
+
+        <td>
+          <a name="wp523780"></a>
+
+          <p class="pBody">Identifier for this button (token ID)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523786"></a>
+
+          <p class="pBody"><code class="cCode">fFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp523788"></a>
+
+          <p class="pBody">Any combination of the flags in the table that follows</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523794"></a>
+
+          <p class="pBody"><code class="cCode">hbmpGlyph</code></p>
+        </td>
+
+        <td>
+          <a name="wp523796"></a>
+
+          <p class="pBody">Handle to the bitmap for this button</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523802"></a>
+
+          <p class="pBody"><code class="cCode">azButtonText[&nbsp;]</code></p>
+        </td>
+
+        <td>
+          <a name="wp523804"></a>
+
+          <p class="pBody">Text for this button</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523810"></a>
+
+          <p class="pBody"><code class="cCode">cSizeIndex</code></p>
+        </td>
+
+        <td>
+          <a name="wp523812"></a>
+
+          <p class="pBody">Index into <code class="cCode">WPBBAR_SIZEINFO</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523818"></a>
+
+          <p class="pBody"><code class="cCode">rect</code></p>
+        </td>
+
+        <td>
+          <a name="wp523820"></a>
+
+          <p class="pBody">Size and position of the button at the moment this message is sent. Coordinates are relative to the upper-left corner of the
+          toolbar.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523826"></a>
+
+          <p class="pBody"><code class="cCode">dwReserved</code></p>
+        </td>
+
+        <td>
+          <a name="wp523828"></a>
+
+          <p class="pBody">Reserved</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523834"></a>
+
+          <p class="pBody"><code class="cCode">dwUserData</code></p>
+        </td>
+
+        <td>
+          <a name="wp523836"></a>
+
+          <p class="pBody">Application defined</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523842"></a>
+
+          <p class="pBody"><code class="cCode">fCtrlStyle</code></p>
+        </td>
+
+        <td>
+          <a name="wp523844"></a>
+
+          <p class="pBody">Custom control styles</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553279"></a>
+
+  <p class="pBody">The button flags can have one or more of the following bits set:</p><a name="wp553282"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp523855"></a>
+
+          <h5 class="pHeading4">Flag</h5>
+        </td>
+
+        <td>
+          <a name="wp523857"></a>
+
+          <h5 class="pHeading4">Definition</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523863"></a>
+
+          <p class="pBody"><code class="cCode">BB_TOGGLEBUTTON</code></p>
+        </td>
+
+        <td>
+          <a name="wp523865"></a>
+
+          <p class="pBody">Specifies that the action of the button is such that it alternates between up and down whenever it is pressed</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523871"></a>
+
+          <p class="pBody"><code class="cCode">BB_BUTTONDISABLED</code></p>
+        </td>
+
+        <td>
+          <a name="wp523873"></a>
+
+          <p class="pBody">Specifies that the button is inactive and dimmed</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523879"></a>
+
+          <p class="pBody"><code class="cCode">BB_DORMANTSTATEDOWN</code></p>
+        </td>
+
+        <td>
+          <a name="wp523881"></a>
+
+          <p class="pBody">Specifies that a toggle button is in the down state</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523887"></a>
+
+          <p class="pBody"><code class="cCode">BB_ACTIVESTATEDOWN</code></p>
+        </td>
+
+        <td>
+          <a name="wp523889"></a>
+
+          <p class="pBody">Specifies the state of the button before the user has released the mouse</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

@@ -1,0 +1,495 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Creating toolbars</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Wgstrncpy.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WPBBAR_BBARINFO.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Creating toolbars</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553082"></a>
+
+  <h3 class="pHeading2">Creating toolbars</h3><a name="wp553084"></a>
+
+  <p class="pBody">This section describes how to manipulate the toolbars in an application. A toolbar (sometimes known as a button bar, power bar, tool
+  palette, or control palette) is a feature that Windows applications provide to allow shortcuts to commonly accessed commands.</p><a name="wp553086"></a>
+
+  <p class="pBody">A toolbar is generally a strip of buttons under the menu bar or along an edge of the main application window, with icons or text (or both)
+  that the user can click to execute program functions. The PerfectFit toolbar provides a superset of the functionality provided by previous WordPerfect
+  toolbars. However, its API is fundamentally different and should be much easier to install and maintain in an application.</p><a name="wp553088"></a>
+
+  <p class="pBody">Currently, toolbars should be manipulated only by third-party DLL and macro developers by using the APIs and macro commands provided.
+  Toolbars are based on thetas and the information contained in them. To understand thetas, you must first understand how commands are executed in a
+  WordPerfect tokenized application.</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1284540"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Toolbars.html#wp1284335">Understanding tokenized applications</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1284339"></a>
+
+  <p class="pBody">Before you attempt to create a toolbar, it's important to understand the features that are available to you.</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1284546"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Toolbars.html#wp553120">Understanding toolbar styles</a></li>
+      </ul>
+    </div><a name="wp1284628"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Toolbars.html#wp553143">Understanding toolbar structures</a></li>
+      </ul>
+    </div><a name="wp1284632"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Toolbars.html#wp1284494">Understanding toolbar messages</a></li>
+      </ul>
+    </div><a name="wp1284636"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Toolbars.html#wp1284570">Understanding toolbar functions</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1284335"></a>
+
+  <h5 class="pHeading4">Understanding tokenized applications</h5><a name="wp553090"></a>
+
+  <p class="pBody">In a tokenized application, menu selections, toolbar selections, or macro commands are the methods used to execute commands. These commands
+  have low-level groups of information associated with them to provide a high-level interface to the user.</p><a name="wp553092"></a>
+
+  <p class="pBody">A theta is defined as a structured group of information that is referenced by a command ID. It contains the interface information associated
+  with that ID. Most commands executed in a WordPerfect tokenized application are thetas. The following information is contained in the theta structure:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1284323"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>names and parameters for macro commands</li>
+      </ul>
+    </div><a name="wp1284324"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>the name of the theta</li>
+      </ul>
+    </div><a name="wp1284325"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>text for the command's menu</li>
+      </ul>
+    </div><a name="wp1284326"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>a bitmap for the command's toolbar</li>
+      </ul>
+    </div><a name="wp1284327"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>text for the command's toolbar</li>
+      </ul>
+    </div><a name="wp1284328"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Help text for the command's long prompt</li>
+      </ul>
+    </div>
+  </div><a name="wp553108"></a>
+
+  <p class="pBody">When you add thetas to the toolbar, you can add existing thetas created by WordPerfect or the dynathetas for your own application. For more
+  information about dynathetas, see "<a href="Dynatheta_Functions.html#wp1270883">Setting up dynathetas</a>."</p><a name="wp553120"></a>
+
+  <h5 class="pHeading4">Understanding toolbar styles</h5><a name="wp553122"></a>
+
+  <p class="pBody">The <code class="cCode">Windows API CreateWindow(&nbsp;)</code> function is used to create a new toolbar. The styles listed below should be
+  used when defining the display styles of a newly created toolbar. The Shared Code API <code class="cCode">WpidGetBBarStyle(&nbsp;)</code> function returns a
+  combination of these styles for existing toolbars.</p><a name="wp553125"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp523482"></a>
+
+          <h5 class="pHeading4">Style</h5>
+        </td>
+
+        <td>
+          <a name="wp523484"></a>
+
+          <h5 class="pHeading4">Value</h5>
+        </td>
+
+        <td>
+          <a name="wp523486"></a>
+
+          <h5 class="pHeading4">Definition</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523494"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_GLYPH</code></p>
+        </td>
+
+        <td>
+          <a name="wp523496"></a>
+
+          <p class="pBody"><code class="cCode">0x0001</code></p>
+        </td>
+
+        <td>
+          <a name="wp523498"></a>
+
+          <p class="pBody">Displays button graphics</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523506"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_TEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp523508"></a>
+
+          <p class="pBody"><code class="cCode">0x0002</code></p>
+        </td>
+
+        <td>
+          <a name="wp523510"></a>
+
+          <p class="pBody">Displays button text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523518"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_GLYPHANDTEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp523520"></a>
+
+          <p class="pBody"><code class="cCode">0x0003</code></p>
+        </td>
+
+        <td>
+          <a name="wp523522"></a>
+
+          <p class="pBody">Displays graphics and text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523530"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_NOSCROLLER</code></p>
+        </td>
+
+        <td>
+          <a name="wp523532"></a>
+
+          <p class="pBody"><code class="cCode">0x0004</code></p>
+        </td>
+
+        <td>
+          <a name="wp523534"></a>
+
+          <p class="pBody">Does not display a horizontal or vertical scroller on the bar</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523542"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_EDIT</code></p>
+        </td>
+
+        <td>
+          <a name="wp523544"></a>
+
+          <p class="pBody"><code class="cCode">0x0008</code></p>
+        </td>
+
+        <td>
+          <a name="wp523546"></a>
+
+          <p class="pBody">Specifies that the user is editing the toolbar. This is available for read only.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523554"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_DISABLED</code></p>
+        </td>
+
+        <td>
+          <a name="wp523556"></a>
+
+          <p class="pBody"><code class="cCode">0x0080</code></p>
+        </td>
+
+        <td>
+          <a name="wp523558"></a>
+
+          <p class="pBody">Accepts no mouse input</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523566"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_PALETTE</code></p>
+        </td>
+
+        <td>
+          <a name="wp523568"></a>
+
+          <p class="pBody"><code class="cCode">0x0100</code></p>
+        </td>
+
+        <td>
+          <a name="wp523570"></a>
+
+          <p class="pBody">Displays the toolbar in palette mode</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523578"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_LEFTEMBED</code></p>
+        </td>
+
+        <td>
+          <a name="wp523580"></a>
+
+          <p class="pBody"><code class="cCode">0x0200</code></p>
+        </td>
+
+        <td>
+          <a name="wp523582"></a>
+
+          <p class="pBody">Displays the toolbar at the left edge of the application window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523590"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_TOPEMBED</code></p>
+        </td>
+
+        <td>
+          <a name="wp523592"></a>
+
+          <p class="pBody"><code class="cCode">0x0400</code></p>
+        </td>
+
+        <td>
+          <a name="wp523594"></a>
+
+          <p class="pBody">Displays the toolbar at top edge (below the menu) of the application window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523602"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_RIGHTEMBED</code></p>
+        </td>
+
+        <td>
+          <a name="wp523604"></a>
+
+          <p class="pBody"><code class="cCode">0x0800</code></p>
+        </td>
+
+        <td>
+          <a name="wp523606"></a>
+
+          <p class="pBody">Displays the toolbar at the right edge of the application window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523614"></a>
+
+          <p class="pBody"><code class="cCode">PIDBBS_BOTTOMEMBED</code></p>
+        </td>
+
+        <td>
+          <a name="wp523616"></a>
+
+          <p class="pBody"><code class="cCode">0x1000</code></p>
+        </td>
+
+        <td>
+          <a name="wp523618"></a>
+
+          <p class="pBody">Displays the toolbar at the bottom edge of the application window</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553143"></a>
+
+  <h5 class="pHeading4">Understanding toolbar structures</h5><a name="wp553145"></a>
+
+  <p class="pBody">You can use the following toolbar structures:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1284389"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WPBBAR_BBARINFO.html#wp553171">WPBBAR_BBARINFO structure</a></li>
+      </ul>
+    </div><a name="wp1284833"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WPBBAR_BUTTON.html#wp1284474">WPBBAR_BUTTON structure</a></li>
+      </ul>
+    </div><a name="wp1284837"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WPBBAR_THIRDPARTY.html#wp553300">WPBBAR_THIRDPARTY structure</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1284494"></a>
+
+  <h5 class="pHeading4">Understanding toolbar messages</h5><a name="wp1284495"></a>
+
+  <p class="pBody">The following messages can be sent to a toolbar:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1284516"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PIDBBM_BTN_DELETE.html#wp553381">PIDBBM_BTN_DELETE message</a></li>
+      </ul>
+    </div><a name="wp1285102"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PIDBBM_BTN_INSERT.html#wp553410">PIDBBM_BTN_INSERT message</a></li>
+      </ul>
+    </div><a name="wp1285106"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PIDBBM_GETBBARINFO.html#wp553439">PIDBBM_GETBBARINFO message</a></li>
+      </ul>
+    </div><a name="wp1285110"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PIDBBM_GETBUTTONPOSITION.html#wp553468">PIDBBM_GETBUTTONPOSITION message</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1284570"></a>
+
+  <h5 class="pHeading4">Understanding toolbar functions</h5><a name="wp1284571"></a>
+
+  <p class="pBody">You can use the following toolbar functions:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1284596"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidBBarGetBtnInfo.html#wp553555">WpidBBarGetBtnInfo function</a></li>
+      </ul>
+    </div><a name="wp1285496"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidBBarSetBtnInfo.html#wp553594">WpidBBarSetBtnInfo function</a></li>
+      </ul>
+    </div><a name="wp1285500"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidBBarShowWindow.html#wp553637">WpidBBarShowWindow function</a></li>
+      </ul>
+    </div><a name="wp1285504"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidButtonBarSave.html#wp553674">WpidButtonBarSave function</a></li>
+      </ul>
+    </div><a name="wp1285508"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidGetBBarStyle.html#wp553713">WpidGetBBarStyle function</a></li>
+      </ul>
+    </div><a name="wp1285512"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidSetBBarStyle.html#wp553746">WpidSetBBarStyle function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

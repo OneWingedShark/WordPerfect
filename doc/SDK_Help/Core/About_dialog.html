@@ -1,0 +1,246 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Creating About boxes</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WutlFindParams.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+
+      <td width="23"><a href="WutlAboutBox.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Creating About boxes</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp538957"></a>
+
+  <h3 class="pHeading2">Creating About boxes</h3><a name="wp538959"></a>
+
+  <p class="pBody">Because there are so many different methods used to display information in an About box, WordPerfect has developed an About Box API that
+  allows a common look and feel for all applications that work with WordPerfect products.</p><a name="wp538961"></a>
+
+  <p class="pBody">This API allows a program to pass and display various fields on the About box, such as the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp538963"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>license and PIN number</li>
+      </ul>
+    </div><a name="wp538965"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>application program date</li>
+      </ul>
+    </div><a name="wp538967"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>PerfectFit date stamp</li>
+      </ul>
+    </div><a name="wp538969"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>network name (if applicable)</li>
+      </ul>
+    </div><a name="wp538971"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>user-login alias</li>
+      </ul>
+    </div><a name="wp538973"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>free memory resources</li>
+      </ul>
+    </div><a name="wp538975"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>free GDI resources</li>
+      </ul>
+    </div><a name="wp538977"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>free USER resources</li>
+      </ul>
+    </div><a name="wp538979"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>application-specific bitmap</li>
+      </ul>
+    </div>
+  </div><a name="wp538981"></a>
+
+  <p class="pBody">The following table describes the flag values available to About boxes.</p><a name="wp538984"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp507212"></a>
+
+          <h5 class="pHeading4">Flag value</h5>
+        </td>
+
+        <td>
+          <a name="wp507214"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507220"></a>
+
+          <p class="pBody"><code class="cCode">UTL_ABOUT_ICON</code></p>
+        </td>
+
+        <td>
+          <a name="wp507222"></a>
+
+          <p class="pBody">Specifies that the <code class="cCode">hBmp</code> parameter is really an icon</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507228"></a>
+
+          <p class="pBody"><code class="cCode">UTL_ABOUT_LICENSE</code></p>
+        </td>
+
+        <td>
+          <a name="wp507230"></a>
+
+          <p class="pBody">Shows the license number or PIN. If you specify this flag, an Edit license/PIN number button is displayed on the dialog box.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507236"></a>
+
+          <p class="pBody"><code class="cCode">UTL_ABOUT_APPDATE</code></p>
+        </td>
+
+        <td>
+          <a name="wp507238"></a>
+
+          <p class="pBody">Shows the application date stamp and location</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507244"></a>
+
+          <p class="pBody"><code class="cCode">UTL_ABOUT_SCDATE</code></p>
+        </td>
+
+        <td>
+          <a name="wp507246"></a>
+
+          <p class="pBody">Shows the PerfectFit date stamp and location</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507252"></a>
+
+          <p class="pBody"><code class="cCode">UTL_ABOUT_NETNAME</code></p>
+        </td>
+
+        <td>
+          <a name="wp507254"></a>
+
+          <p class="pBody">Shows the network name</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507260"></a>
+
+          <p class="pBody"><code class="cCode">UTL_ABOUT_LOGINA</code></p>
+        </td>
+
+        <td>
+          <a name="wp507262"></a>
+
+          <p class="pBody">Shows the network-login alias</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507268"></a>
+
+          <p class="pBody"><code class="cCode">UTL_ABOUT_MEM</code></p>
+        </td>
+
+        <td>
+          <a name="wp507270"></a>
+
+          <p class="pBody">Shows free memory resources</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507276"></a>
+
+          <p class="pBody"><code class="cCode">UTL_ABOUT_ALL</code></p>
+        </td>
+
+        <td>
+          <a name="wp507278"></a>
+
+          <p class="pBody">Includes all <code class="cCode">AboutDlg</code> bits listed above except <code class="cCode">UTL_ABOUT_ICON</code></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp539016"></a>
+
+  <h5 class="pHeading4">Understanding the functions for creating About boxes</h5><a name="wp1272875"></a>
+
+  <p class="pBody">You can use the following function for creating About boxes:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1271879"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WutlAboutBox.html#wp539018">WutlAboutBox function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

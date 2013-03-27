@@ -1,0 +1,64 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>Quattro Pro File Format</title>
+</head>
+<body>
+    <h1>Quattro Pro File Format</h1>
+    <p><a href="qpff_Index.htm">Back to main page</a></p>
+    <h2>Column Records - 0x0A00-0x0BFF</h2>
+    <p>The following are column records, which span from 0x0A00 to 0x0BFF.</p>
+    <hr />
+    <h3>0x0A01</h3>
+    <p><strong>BOC : Beginning of column</strong></p>
+    <p>The data in each column (cells are stored in column order) begins with a BOC record.
+    The position of each BOC record is stored in the filePos field of the BLOCK record.</p>
+    <p>[record type = 2561 (0x0a01)]</p>
+    <p>[body length = 10]</p>
+    <p>[column] column number for all cell records to follow until EOC</p>
+    <p>[first row] index of first row</p>
+    <p>[last row] index of last row</p>
+    <hr />
+    <h3>0x0A02</h3>
+    <p><strong>EOC : End of column</strong></p>
+    <p>Marks the end of a column begun by corresponding BOC record</p>
+    <p>&nbsp;</p>
+    <p>[record type = 2562 (0x0a02)]</p>
+    <p>[body length = 8]</p>
+    <p>{prev end} file position of previous EOC (or corresponding beginning of column record
+    if this is the first column)</p>
+    <p>{nested end} always zero</p>
+    <hr />
+    <h3>0x0A03</h3>
+    <p><strong>COLUMN_FORMAT</strong></p>
+    <p>[record type = 2563 (0x0a03)]</p>
+    <p>[body length = 2]</p>
+    <p>[index] -1 = use sheet default</p>
+    <hr />
+    <h3>0x0A04</h3>
+    <p><strong>COLUMN_WIDTH</strong></p>
+    <p><strong><u>UNIMPLEMENTED</u></strong></p>
+    <p>[record type = 2564 (0x0a04)]</p>
+    <p>[body length = variable]</p>
+    <p>QUIP width column width</p>
+    <hr />
+    <h3>0x0A05</h3>
+    <p><strong>COLUMN_INFO</strong></p>
+    <p><strong><u>UNIMPLEMENTED</u></strong></p>
+    <p>[record type = 2565 (0x0a05)]</p>
+    <p>[body length = 2]</p>
+    <p>[flags]</p>
+    <p>bits 0-3: hidden</p>
+    <p>0 = normal</p>
+    <p>1 = hidden</p>
+    <p>2 = very hidden (only showable through Microsoft Visual Basic routine)</p>
+    <p>15 = use sheet default</p>
+    <p>bits 4-7: outline level</p>
+    <p>bit 8: collapsed</p>
+    <p>1 = collapsed in outlining</p>
+    <p>bits 9-15: reserved</p>
+</body>
+</html>

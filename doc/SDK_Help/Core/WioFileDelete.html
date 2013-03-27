@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WioFileDelete function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WioFileCopy.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WioFileError.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        WioFileDelete function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp548134"></a>
+
+  <h4 class="pHeading3">WioFileDelete function</h4><a name="wp1277880"></a>
+
+  <p class="pBody">The <code class="cCode">WioFileDelete</code> function deletes the specified file.</p><a name="wp1277881"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int FAR PASCAL WioFileDelete ( LPAZ lpazFileName );<a name="wp1277882"> </a>
+</pre>
+  </div><a name="wp548142"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp548145"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp519412"></a>
+
+          <p class="pBody"><code class="cCode">lpazFileName</code></p>
+        </td>
+
+        <td>
+          <a name="wp519414"></a>
+
+          <p class="pBody">Specifies the path and filename of the file to delete</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp548147"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp548149"></a>
+
+  <p class="pBody"><code class="cCode">WioFileDelete(&nbsp;)</code> returns zero if no errors occur. If there was an error, it returns <code class=
+  "cCode">-1</code>. Use <code class="cCode">WioFileError(&nbsp;)</code> to determine the type of error that occurred.</p>
+</body>
+</html>

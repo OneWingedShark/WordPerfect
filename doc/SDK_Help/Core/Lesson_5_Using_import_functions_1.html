@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:32" />
+
+  <title>Lesson 5: Using import functions, Part 1</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Lesson_4_Using_variable_arguments.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Lesson_6_Using_import_functions_2.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Creating_QP_Add-in_DLLs.html">Creating Quattro Pro Add-in DLLs</a> : Lesson 5: Using import functions, Part 1</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp532551"></a>
+
+  <h3 class="pHeading2">Lesson 5: Using import functions, Part 1</h3><a name="wp532553"></a>
+
+  <p class="pBody">Before beginning this lesson, do the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp532555"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Load the qshell.cpp file into your program editor.</li>
+      </ul>
+    </div><a name="wp532557"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Save qshell.cpp as lesson05.cpp in your data folder.</li>
+      </ul>
+    </div>
+  </div><a name="wp532559"></a>
+
+  <p class="pBody">This custom function returns the number of rows in a selected block. To do so, it will use one of the many import functions. This lesson is
+  intended to show the use of the import functions within a PURE function.</p><a name="wp1270025"></a>
+
+  <h5 class="pHeading4">Step 1</h5><a name="wp532561"></a>
+
+  <p class="pBody">Replace <code class="cCode">DUMMY</code> with <code class="cCode">ROWS</code> in the <code class="cCode">SelfDefStructure</code> of the
+  qshell.cpp file. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532563"> </a>
+// Quattro Pro prescribed header (and other overhead)<a name="wp532565"> </a>
+//===============================================================<a name="wp532567"> </a>
+SelfDefStructure MyFuncs[] = {<a name="wp532569"> </a>
+{<a name="wp532571"> </a>
+"PURE int PASCAL ROWS(RefHandle)", // Function Command <a name="wp532573"> </a>
+(FarProc)&amp;ROWS, // Pointer to _exported function <a name="wp532575"> </a>
+"Help", // Help Line <a name="wp532577"> </a>
+"ROWS" // English name (match name above) <a name="wp532579"> </a>
+}, <a name="wp532581"> </a>
+NULL // Always null terminate the list! <a name="wp532583"> </a>
+};<a name="wp532585"> </a>
+</pre>
+  </div><a name="wp532589"></a>
+
+  <p class="pBody">You've just set up a custom function named <code class="cCode">ROWS</code>. <code class="cCode">RefHandle</code> is the handle to a range of
+  cells. This value is decoded by an import function. For information on Quattro Pro import functions, see "<a href=
+  "Quattro_Pro_import_functions.html#wp555750">Using Quattro Pro import functions</a>."</p><a name="wp1270054"></a>
+
+  <h5 class="pHeading4">Step 2</h5><a name="wp532591"></a>
+
+  <p class="pBody">Now you must prototype the function in the DLL. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532593"> </a>
+// Add-In function prototypes<a name="wp532595"> </a>
+//===============================================================<a name="wp532597"> </a>
+int Exported ROWS(RefHandle hRange);<a name="wp532599"> </a>
+</pre>
+  </div><a name="wp532601"></a>
+
+  <p class="pBody">Now you must tell the DLL what to do when <code class="cCode">ROWS</code> is called.</p><a name="wp1270066"></a>
+
+  <h5 class="pHeading4">Step 3</h5><a name="wp532603"></a>
+
+  <p class="pBody">Change the main function code area to appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532605"> </a>
+// MAIN FUNCTION CODE<a name="wp532607"> </a>
+//===============================================================<a name="wp532609"> </a>
+int Exported ROWS(RefHandle hRange)<a name="wp532611"> </a>
+{<a name="wp532613"> </a>
+return QProPureRowCount(hRange); <a name="wp532615"> </a>
+}<a name="wp532617"> </a>
+</pre>
+  </div><a name="wp532619"></a>
+
+  <p class="pBody"><code class="cCode">ROWS(RefHandle hRange)</code> accepts a single argument, which is a cell reference such as <code class=
+  "cCode">A1..A5</code>. Return <code class="cCode">QProPureRowCount(hRange)</code> returns the number of rows in the block.</p><a name="wp1270082"></a>
+
+  <h5 class="pHeading4">Step 4</h5><a name="wp532621"></a>
+
+  <p class="pBody">Save this file as lesson05.cpp.</p><a name="wp1270086"></a>
+
+  <h5 class="pHeading4">Step 5</h5><a name="wp532623"></a>
+
+  <p class="pBody">Create your custom function. Refer to your compiler documentation for further information on making a DLL.</p><a name="wp1270090"></a>
+
+  <h5 class="pHeading4">Step 6</h5><a name="wp532625"></a>
+
+  <p class="pBody">Start Quattro Pro and type <code class="cCode">@LESSON05.ROWS(A1..A5)</code> in any cell. The number <code class="cCode">5</code> should
+  appear in the cell.</p>
+</body>
+</html>

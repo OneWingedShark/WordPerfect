@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="main.css" type="text/css" />
+    <title>What's New?</title>
+</head>
+<body>
+    <h1>
+        What's New?</h1>
+    <p>
+        The following is a basic log of changes to the WordPerfect Office SDK.</p>
+    <h2>
+        For X6</h2>
+    <h3>
+        GM</h3>
+    <h4>
+        Multiple Instances</h4>
+    <p>
+        Any Third-Party Handler (TPH) DLL that was originally written based on a prior version of the WordPerfect Office SDK if not updated before compiling will default
+        to only load in the first launched instance of WordPerfect. Third party developers will need to implement the new TPHMultipleInstance() DLL-exported function to
+        bypass this restriction. It is recommended that this new function be added to the Third-Party Handler DLL if, and only if, no runtime conflicts are anticipated.</p>
+    <ul>
+        <li>Potential areas of conflict:
+            <ul>
+                <li>Registry access may return corrupt, incorrect or invalid results if the TPH DLL accesses it from within multiple versions of WordPerfect.</li>
+                <li>Single-process designed databases accessed by the TPH may be locked in one instance, thereby preventing or blocking other instances from accessing the data correctly,
+                    or in the worst case corrupt the database.</li>
+                <li>TPH DLL will be unable to open files for read unless changed to use sharing semantics.</li>
+                <li>TPH DLL will be unable to open files writing without sharing semantics. However, if using sharing flags, shared writing can cause file corruption unless proper
+                    design is implemented for the file sharing.</li>
+            </ul>
+            <li>Note: The use of operating system synchronization mechanisms, such as mutexes, can help prevent such conflicts by the use of locking semantics.</li>
+        </li>
+    </ul>
+    <p>
+        If you believe your DLL is ready for multiple instances of WordPerfect, the required changes are minimal.</p>
+    <ul>
+        <li>Your DLL must implement the new <a href="Core/TPHMultipleInstance.html">TPHMultipleInstance()</a> function.
+            <ul>
+                <li>API passes in one parameter: the classname of the calling instance of WordPerfect. Note that each instance of WordPerfect now has a unique classname, not simply
+                    'WordPerfect.xx.00' (where 'xx' is the current version number). The classname should be saved internally for later use, as it is typically used in conjunction with
+                    a Win32 'FindWindow' call to get an HWND handle from WordPerfect.</li>
+            </ul>
+            <li>Be sure, of course, to test your DLL while running under multiple instances of WordPerfect, to ensure that changes made to one instance do not unintentionally interfere
+                with other instances.</li>
+        </li>
+    </ul>
+    <p>
+        The sample TPHs shipped with the new SDK will contain sample implementations and additional relevant information.</p>
+    <h4>
+        Versioning Independence</h4>
+    <p>
+        The new WordPerfect Office X6 SDK will allow TPH DLLs to work with versions X4 and later of WordPerfect without recompilation of the third-party developer's code.
+        As a result:</p>
+    <ul>
+        <li>If you have hard-coded checks for version numbers, you can leave the minimum version number at 15 (last version compiled, but no earlier than X4).</li>
+    </ul>
+    <h4>
+        SDK Documentation</h4>
+    <p>
+        Documentation has been revised and added to the provided SDK help. See the new <a href="Core/SDK_TOC.html">Table Of Contents</a> to see
+        the additional documentation.</p>
+    <h2>
+        For X5</h2>
+    <h3>
+        GM</h3>
+    <p>
+        New versions of the token-calling functions were created to solve a re-entrancy issue caused by using global variables when sending of tokens to WordPerfect.</p>
+    <ul>
+        <li>InitTkn() will be deprecated in a future version of the WordPerfect Office SDK in favor of InitTkn_().</li>
+        <li>AddTknParm() will be deprecated in a future version of the WordPerfect Office SDK in favor of AddTknParm_().</li>
+        <li>SendTkn() will be deprecated in a future version of the WordPerfect Office SDK in favor of SendTkn_().</li>
+        <li>FreeTkn() will be deprecated in a future version of the WordPerfect Office SDK in favor of FreeTkn_().</li>
+    </ul>
+    <h3>
+        SP1</h3>
+    <p>
+        The WordPerfect Office X5 SDK Service Pack 1 includes changes since the GM version.</p>
+    <ul>
+        <li>Fixes for Delphi projects and versioning
+            <ul>
+                <li>Fixed issues with X5 versions of Delphi examples for Third-Party Handler DLL for WordPerfect.</li>
+                <li>Re-added utility for creating link to sample Customer (SetSdkAlias.exe) in Samples\DB</li>
+                <li>Fixed issues with third-party DLL working with multiple versions of WordPerfect.</li>
+                <li>Fixed issue in WpFormat.dll - original release for X5 created incorrect packing of structures within file format (DelphiOle example)</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+</html>

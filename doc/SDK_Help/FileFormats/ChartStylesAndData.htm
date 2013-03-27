@@ -1,0 +1,1840 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>Chart Styles and Data</title>
+</head>
+<body>
+    <h1>Chart Styles and Data</h1>
+    <p>This section contains the format for the chart style records that include information
+    to change the style or appearance of a data chart, organizational chart, or text chart.
+    These chart style records are contained inside the <em>Chart Style</em> record, record
+    number 16 (0x10). See <em>Record Type 16 (0x10) Chart Style</em> in <em>Record Descriptions</em>
+    in the <em>Record Area</em> section of this documentation for the complete format.</p>
+    <h4>Chart Records</h4>
+    <p>Each record in the file is preceded by a prefix indicating the record type and length
+    of the record.</p>
+    <p>Example of a chart data record:</p>
+    <ul>
+    <li>Record Type (byte)</li>
+    <li>Record Length (byte, short integer, or long integer)</li>
+    <li>Record Data (variable length)</li>
+    </ul>
+    <p>Code <em>must</em> be written to handle future record types that are not yet implemented
+    (and extensions of current record types) by looking for the length value and skipping
+    the associated (or extra) information. All extensions of current record types must be
+    added to the end of the record.</p>
+    <p>The length may be byte, short integer, or long integer, depending on the number of
+    bytes that follow the record type. The prefix for each record has one of the following
+    structures.<br />
+    </p>
+    <p>For records with byte lengths:<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th>Byte</th>
+            <th>Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                0</td>
+            <td>
+                Record type</td>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                Byte length 0-254 (0-0xFE)</td>
+        </tr>
+    </table>
+    <p>For records with short integer lengths:<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th>Byte</th>
+            <th>Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                0</td>
+            <td>
+                Record type</td>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                0xFF (signals that short or long integer follows)</td>
+        </tr>
+        <tr>
+            <td>
+                2</td>
+            <td>
+                Record length, low byte</td>
+        </tr>
+        <tr>
+            <td>
+                3</td>
+            <td>
+                Record length, high byte 0-127 (0-0x7F)</td>
+        </tr>
+    </table>
+    <p>For records with long integer lengths:<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th>Byte</th>
+            <th>Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                0</td>
+            <td>
+                Record type</td>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                0xFF (signals that short or long integer follows)</td>
+        </tr>
+        <tr>
+            <td>
+                2</td>
+            <td>
+                Record length, low byte of high short integer</td>
+        </tr>
+        <tr>
+            <td>
+                3</td>
+            <td>
+                Record length, high byte of high short integer (high bit is set to indicate long
+                integer length)</td>
+        </tr>
+        <tr>
+            <td>
+                4</td>
+            <td>
+                Record length, low byte of low short integer</td>
+        </tr>
+        <tr>
+            <td>
+                5</td>
+            <td>
+                Record length, high byte of low short integer</td>
+        </tr>
+    </table>
+    <p>For records with long integer lengths, the high bit of the high byte of the high
+    short integer is always set, and is not considered part of the length. Thus, the high
+    short integer of a long integer length can range from 0 (0x0) to 32767 (0x7FFF).<br />
+    </p>
+    <h4>General Notes</h4>
+    <p>Angles are specified in degrees (0-360). Rotation is counterclockwise with 0 degrees
+    being horizontal and to the right.</p>
+    <p>Colors are saved as four bytes using RGBT (Red, Green Blue, Transparency). See <em>
+        Data Precision</em> under <em>Record Data</em> in the <em>Record Area</em> section
+    for more information on RGBT colors. All colors are in single-precision values only
+    in the chart style records.</p>
+    <h2>Record Types</h2>
+    <p>The following is a short list of chart record types. Detailed information about each
+    record type follows this list.<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th width="18%"><strong>Type #</strong></th>
+            <th width="46%"><strong>Record Type</strong></th>
+            <th width="34%"><strong>Usage</strong></th>
+        </tr>
+        <tr>
+            <td>
+                0 (0x00)</td>
+            <td>
+                Start Chart</td>
+            <td>
+                All charts</td>
+        </tr>
+        <tr>
+            <td>
+                1 (0x01)</td>
+            <td>
+                Reserved</td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                2 (0x02)</td>
+            <td>
+                Axis Definition</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                3 (0x03)</td>
+            <td>
+                Frame/Base Definition</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                4 (0x04)</td>
+            <td>
+                Grid Definition</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                5 (0x05)</td>
+            <td>
+                Chart Styles</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                6 (0x06)</td>
+            <td>
+                Chart Sizes</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                7 (0x07)</td>
+            <td>
+                Viewing Information</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                8 (0x08)</td>
+            <td>
+                Item Definition</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                9 (0x09)</td>
+            <td>
+                Surface/Table Color Table</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                10 (0x0A)</td>
+            <td>
+                Pie Information</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                11 (0x0B)</td>
+            <td>
+                Pie Style</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                12 (0x0C)</td>
+            <td>
+                Attribute Record</td>
+            <td>
+                All charts</td>
+        </tr>
+        <tr>
+            <td>
+                13 (0x0D)</td>
+            <td>
+                Text Box Definition</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                14 (0x0E)</td>
+            <td>
+                Text Initial Codes</td>
+            <td>
+                Data and organization charts</td>
+        </tr>
+        <tr>
+            <td>
+                15 (0x0F)</td>
+            <td>
+                Text/Box Position</td>
+            <td>
+                All charts</td>
+        </tr>
+        <tr>
+            <td>
+                16 (0x10)</td>
+            <td>
+                Organizational Chart View</td>
+            <td>
+                Organization charts</td>
+        </tr>
+        <tr>
+            <td>
+                17 (0x11)</td>
+            <td>
+                Organizational Chart Text/Box</td>
+            <td>
+                Organization charts</td>
+        </tr>
+        <tr>
+            <td>
+                18 (0x12)</td>
+            <td>
+                Organizational Chart Connectors</td>
+            <td>
+                Organization charts</td>
+        </tr>
+        <tr>
+            <td>
+                19 (0x13)</td>
+            <td>
+                Text Chart Highlight Box</td>
+            <td>
+                Text charts</td>
+        </tr>
+        <tr>
+            <td>
+                20 (0x14)</td>
+            <td>
+                Paragraph Definition</td>
+            <td>
+                Text charts</td>
+        </tr>
+        <tr>
+            <td>
+                21 (0x15)</td>
+            <td>
+                Justification</td>
+            <td>
+                Text charts</td>
+        </tr>
+        <tr>
+            <td>
+                22 (0x16)</td>
+            <td>
+                X Name Information</td>
+            <td>
+                Data charts</td>
+        </tr>
+        <tr>
+            <td>
+                23 (0x17)</td>
+            <td>
+                Style Revision Number</td>
+            <td>
+                All charts</td>
+        </tr>
+    </table>
+    <p>The first record types must be the Start Chart record, followed by the Revision Number
+    (record type 23 (0x17)). There can be more than one record of each type.</p>
+    <hr />
+    <h3>Record Type 0 (0x00)</h3>
+    <p><strong>Start Chart</strong></p>
+    <h4>Description</h4>
+    <p>Indicates what kind of chart the data represents. Must appear as the first record.</p>
+    <h4>Structure</h4>
+    <p>&lt;kind of chart&gt;</p>
+    <p>0 = data (bar, pie, etc.)</p>
+    <p>1 = text</p>
+    <p>2 = organizational<br />
+    </p>
+    <h4>Note</h4>
+    <p>The Start Chart record must be followed by the Style Revision Number record (record
+    type 23 (0x17)).</p>
+    <hr />
+    <h3>Record Type 1 (0x01)</h3>
+    <p><strong>Reserved</strong></p>
+    <hr />
+    <h3>Record Type 2 (0x02)</h3>
+    <p><strong>Axis Definition</strong></p>
+    <h4>Description</h4>
+    <p>Defines the attributes of one chart axis.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;which axis&gt;</p>
+    <p>0 = Y axis left</p>
+    <p>1 = Y axis right</p>
+    <p>2 = X axis</p>
+    <p>[scale factor]</p>
+    <p>[axis maximum value]</p>
+    <p>[axis minimum value]</p>
+    <p>[axis major increment value]</p>
+    <p>&lt;# of minor increments&gt;</p>
+    <p>&lt;axis flags&gt;</p>
+    <p>bit 0: AXMANUAL</p>
+    <p>bit 1: AXLOGSCL</p>
+    <p>bit 2: AXZEROSTRT</p>
+    <hr />
+    <h3>Record Type 3 (0x03)</h3>
+    <p><strong>Frame/Base Definition</strong></p>
+    <h4>Description</h4>
+    <p>Defines the attributes of the chart frames and base. A frame is the backdrop around
+    the chart that the grid lines are drawn on. On a two-dimensional chart there is only
+    the back and/or front. On a three-dimensional chart there can also be left, right, top,
+    and bottom frames.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;which frame flags&gt;</p>
+    <p>bit 0: back</p>
+    <p>bit 1: left side</p>
+    <p>bit 2: right side</p>
+    <p>bit 3: front side</p>
+    <p>bit 4: top side</p>
+    <p>bit 5: bottom side</p>
+    <p>&lt;base&gt;</p>
+    <p>0 = off</p>
+    <p>1 = on</p>
+    <p>[height of the base (0-100%)]</p>
+    <p>[base entity flags]</p>
+    <p>[frame entity flags]</p>
+    <hr />
+    <h3>Record Type 4 (0x04)</h3>
+    <p><strong>Grid Definition</strong></p>
+    <h4>Description</h4>
+    <p>Defines the attributes of a grid.</p>
+    <h4>Structure</h4>
+    <p>&lt;which grid&gt;</p>
+    <p>0 = Y left axis</p>
+    <p>1 = Y right axis</p>
+    <p>2 = X axis</p>
+    <p>&lt;major grid&gt;</p>
+    <p>0 = none</p>
+    <p>1 = solid</p>
+    <p>2 = dashed</p>
+    <p>3 = dotted</p>
+    <p>&lt;minor grid&gt;</p>
+    <p>0 = none</p>
+    <p>1 = solid</p>
+    <p>2 = dashed</p>
+    <p>3 = dotted</p>
+    <p>&lt;major tick&gt;</p>
+    <p>0 = none</p>
+    <p>1 = in</p>
+    <p>2 = out</p>
+    <p>3 = both</p>
+    <p>&lt;minor tick&gt;</p>
+    <p>0 = none</p>
+    <p>1 = in</p>
+    <p>2 = out</p>
+    <p>3 = both</p>
+    <p>&lt;major grid/tick color&gt; x 4</p>
+    <p>&lt;minor grid/tick color&gt; x 4</p>
+    <hr />
+    <h3>Record Type 5 (0x05)</h3>
+    <p><strong>Chart Styles</strong> </p>
+    <h4>Description</h4>
+    <p>Contains information to define different chart styles.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;type of chart (entire chart)&gt;</p>
+    <p>0 = bar chart</p>
+    <p>1 = line chart</p>
+    <p>2 = area chart</p>
+    <p>3 = scatter chart</p>
+    <p>4 = hi-lo chart</p>
+    <p>5 = mixed chart</p>
+    <p>6 = surface chart</p>
+    <p>7 = table chart</p>
+    <p>8 = pie chart</p>
+    <p>&lt;style of chart&gt;</p>
+    <p>0 = overlap chart</p>
+    <p>1 = cluster chart</p>
+    <p>2 = stacked chart</p>
+    <p>3 = 100% stacked chart</p>
+    <p>[table/surface options (bit fields)]</p>
+    <p>bit 0: single grid</p>
+    <p>bit 1: full grid</p>
+    <p>bit 2: use table colors</p>
+    <p>bit 3: outline surface patches</p>
+    <p>&lt;hi-lo style&gt;</p>
+    <p>0 = line</p>
+    <p>1 = bar</p>
+    <p>2 = error</p>
+    <p>3 = area</p>
+    <hr />
+    <h3>Record Type 6 (0x06)</h3>
+    <p><strong>Chart Sizes</strong></p>
+    <h4>Description</h4>
+    <p>Defines the sizes, 1-100 (0x01 - 0x64), of the chart items. These values represent
+    a percentage of the total space available for the item. For example, if the bar width
+    is 100 (0x64), the bars would fill all the space and be touching each other.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;bar width&gt;</p>
+    <p>&lt;bar depth&gt;</p>
+    <p>&lt;overlap size&gt;</p>
+    <p>&lt;line height&gt;</p>
+    <hr />
+    <h3>Record Type 7 (0x07)</h3>
+    <p><strong>Viewing Information</strong></p>
+    <h4>Description</h4>
+    <p>Contains information pertaining to the view of the chart.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[view (bit fields)]</p>
+    <p>bit 0: three-dimensional</p>
+    <p>bit 1: axes at right angles</p>
+    <p>bit 2: horizontal</p>
+    <p>bit 3: show table with chart</p>
+    <p>bit 4: show data values</p>
+    <p>bit 5: place data values inside</p>
+    <p>[eye point (X,Y,Z) x 3]</p>
+    <p>[up vector (X,Y,Z) x 3]</p>
+    <p>[X shear]</p>
+    <p>[Y shear]</p>
+    <hr />
+    <h3>Record Type 8 (0x08)</h3>
+    <p><strong>Item Definition</strong></p>
+    <h4>Description</h4>
+    <p>Defines each item (row).<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[item # (row)]</p>
+    <p>&lt;item type (for mixed charts)&gt;</p>
+    <p>0 = bar item</p>
+    <p>1 = reserved</p>
+    <p>2 = line item</p>
+    <p>3 = area item</p>
+    <p>4 = scatter item</p>
+    <p>5 = hi-lo item</p>
+    <p>6 = reserved</p>
+    <p>7 = reserved</p>
+    <p>&lt;axis type&gt;</p>
+    <p>0 = Y axis left</p>
+    <p>1 = Y axis right</p>
+    <p>2 = X axis</p>
+    <p>&lt;bar style (for bar items)&gt;</p>
+    <p>0 = rectangle bar</p>
+    <p>1 = cylindrical bar</p>
+    <p>2 = pyramid bar</p>
+    <p>3 = octagonal bar</p>
+    <p>&lt;marker style (for scatter items)&gt;</p>
+    <p>0 = box</p>
+    <p>1 = triangle</p>
+    <p>2 = cross</p>
+    <p>3 = diamond</p>
+    <p>4 = asterisk</p>
+    <p>5 = circle</p>
+    <p>6 = sun</p>
+    <p>7 = 5 point star</p>
+    <p>8 = 6 point star</p>
+    <p>9 = wedge</p>
+    <p>10 = X</p>
+    <p>&lt;2D line color&gt; x 4</p>
+    <p>&lt;2D line width&gt;</p>
+    <p>&lt;2D line style&gt;</p>
+    <p>&lt;flags&gt;</p>
+    <p>bit 0: lines in line charts</p>
+    <p>bit 1: markers in line charts</p>
+    <p>bit 2: lines in scatter charts</p>
+    <p>bit 3: markers in scatter charts</p>
+    <p>&lt;marker size&gt;</p>
+    <p>[entity flags]</p>
+    <hr />
+    <h3>Record Type 9 (0x09)</h3>
+    <p><strong>Surface/Table Color Table</strong></p>
+    <h4>Description</h4>
+    <p>Contains the color table for Surface/Table charts (10 colors).<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;red intensity of color 1&gt;</p>
+    <p>&lt;green intensity of color 1&gt;</p>
+    <p>&lt;blue intensity of color 1&gt;</p>
+    <p>&lt;transparency value of color 1&gt;</p>
+    <p>&lt;red intensity of color 2&gt;</p>
+    <p>&lt;green intensity of color 2&gt;</p>
+    <p>&lt;blue intensity of color 2&gt;</p>
+    <p>&lt;transparency value of color 2&gt;</p>
+    <p>..</p>
+    <p>..</p>
+    <p>..</p>
+    <p>&lt;red intensity of color 10&gt;</p>
+    <p>&lt;green intensity of color 10&gt;</p>
+    <p>&lt;blue intensity of color 10&gt;</p>
+    <p>&lt;transparency value of color 10&gt;</p>
+    <p>&lt;table cell fill color&gt; x 4</p>
+    <p>&lt;table cell line color&gt; x 4</p>
+    <p>&lt;surface outline color&gt; x 4<br />
+    </p>
+    <p><strong>Note</strong></p>
+    <p>The first 8 of the 10 color entries at the beginning of this record define bullet
+    colors for levels 1-8.</p>
+    <hr />
+    <h3>Record Type 10 (0x0A)</h3>
+    <p><strong>Pie Information</strong></p>
+    <h4>Description</h4>
+    <p>Contains pie chart information.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[pie # (column)]</p>
+    <p>[starting angle]</p>
+    <p>[tilt amount]</p>
+    <p>&lt;3D depth, 1-100 (1-0x64)&gt;</p>
+    <p>&lt;pie size, 1-100 (1-0x64)&gt;</p>
+    <p>&lt;slice # to link&gt;</p>
+    <p>&lt;flags&gt;</p>
+    <p>bit 0: column</p>
+    <p>bit 1: linked</p>
+    <p>bit 2: show slice labels</p>
+    <p>bit 3: sort slices large to small</p>
+    <p>&lt;array of exploded distances (center point can range from 0-200)&gt; x 24</p>
+    <hr />
+    <h3>Record Type 11 (0x0B)</h3>
+    <p><strong>Pie Style</strong></p>
+    <h4>Description</h4>
+    <p>Contains pie style information.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;style (bit fields)&gt;</p>
+    <p>bit 0: proportional pies</p>
+    <p>bit 1: stack pie labels</p>
+    <p>&lt;value labels&gt;</p>
+    <p>0 = in</p>
+    <p>1 = out</p>
+    <p>2 = none</p>
+    <p>&lt;percentage labels&gt;</p>
+    <p>0 = in</p>
+    <p>1 = out</p>
+    <p>2 = none</p>
+    <p>&lt;label labels&gt;</p>
+    <p>0 = in</p>
+    <p>1 = out</p>
+    <p>2 = none</p>
+    <p>&lt;pointer style&gt;</p>
+    <p>0 = none</p>
+    <p>1 = short</p>
+    <p>2 = medium</p>
+    <p>3 = long</p>
+    <hr />
+    <h3>Record Type 12 (0x0C)</h3>
+    <p><strong>Attribute Record</strong></p>
+    <h4>Description</h4>
+    <p>Contains attribute record information.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;category (what these attributes apply to)&gt;</p>
+    <p>0 = base</p>
+    <p>1 = frame</p>
+    <p>2 = row items</p>
+    <p>3 = text initial codes</p>
+    <p>4 = text box</p>
+    <p>5 = text chart highlight box</p>
+    <p>[sub-category]</p>
+    <p>(for row items)</p>
+    <p>row #</p>
+    <p>(for text initial codes and text box)</p>
+    <p>(for data charts)</p>
+    <p>0 = title</p>
+    <p>1 = sub-title</p>
+    <p>2 = Y<sub>1</sub> axis title</p>
+    <p>3 = Y<sub>2</sub> axis title</p>
+    <p>4 = X axis title</p>
+    <p>5 = legend</p>
+    <p>6 = all other (cell values, X-names, Y-axis labels..)</p>
+    <p>(for text chart highlight box)</p>
+    <p>0 = title level (first level)</p>
+    <p>1 = body (all other levels)</p>
+    <p>[attribute map]</p>
+    <p>bit 2: brush background color</p>
+    <p>bit 3: # of gradient colors/# of gradient steps/gradient color # 1/gradient color
+    # 2</p>
+    <p>bit 4: gradient reference point (X)/gradient reference point (Y)</p>
+    <p>bit 5: gradient angle</p>
+    <p>bit 6: gradient type/gradient flag</p>
+    <p>bit 7: brush pattern</p>
+    <p>bit 8: reserved</p>
+    <p>bit 9: reserved</p>
+    <p>bit 10: pen background color</p>
+    <p>bit 11: pen foreground color</p>
+    <p>bit 12: pen horizontal width/pen vertical width</p>
+    <p>bit 13: pen pattern</p>
+    <p>bit 14: pen style</p>
+    <p>bit 15: line end style/line join style</p>
+    <p>&lt;line end style (if bit 15 set&gt;</p>
+    <p>&lt;line join style (if bit 15 set)&gt;</p>
+    <p>[pen style (if bit 14 set)]</p>
+    <p>[pen pattern (if bit 13 set)]</p>
+    <p>[pen horizontal width (if bit 12 set)]</p>
+    <p>[pen vertical width (if bit 12 set)]</p>
+    <p>&lt;pen foreground color (if bit 11 set)&gt; x 4</p>
+    <p>&lt;pen background color (if bit 10 set)&gt; x 4</p>
+    <p>[brush pattern (if bit 7 set)]</p>
+    <p>&lt;gradient type (if bit 7 set)&gt;</p>
+    <p>&lt;gradient flag (if bit 6 set)&gt;</p>
+    <p>[gradient angle (if bit 5 set)] x 2</p>
+    <p>[gradient reference point (X) (if bit 4 set)]</p>
+    <p>[gradient reference point (Y) (if bit 4 set)]</p>
+    <p>[# of gradient colors (if bit 3 set)]</p>
+    <p>[# of gradient steps (if bit 3 set)]</p>
+    <p>&lt;gradient color # 1 (if bit 3 set)&gt; x 4</p>
+    <p>&lt;gradient color # 2 (if bit 3 set)&gt; x 4</p>
+    <p>&lt;brush background color (if bit 2 set)&gt; x 4</p>
+    <hr />
+    <h3>Record Type 13 (0x0D)</h3>
+    <p><strong>Text Box Definition</strong></p>
+    <h4>Description</h4>
+    <p>Defines text boxes.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;text type&gt;</p>
+    <p>(for data charts)</p>
+    <p>0 = title</p>
+    <p>1 = sub-title</p>
+    <p>2 = Y<sub>1</sub> axis title</p>
+    <p>3 = Y<sub>2</sub> axis title</p>
+    <p>4 = X axis title</p>
+    <p>5 = legend</p>
+    <p>6 = cell values</p>
+    <p>(for organization charts)</p>
+    <p>0 = all</p>
+    <p>(for text charts)</p>
+    <p>0 = all</p>
+    <p>&lt;text box style&gt;</p>
+    <p>0 = rectangle</p>
+    <p>1 = rounded rectangle</p>
+    <p>2 = octagon</p>
+    <p>255 (0xFF) = none</p>
+    <p>&lt;text box border style&gt;</p>
+    <p>0 = none</p>
+    <p>1 = single line</p>
+    <p>2 = double line</p>
+    <p>3 = dotted line</p>
+    <p>4 = dashed line</p>
+    <p>5 = thick line</p>
+    <p>6 = shadow</p>
+    <p>7 = bevel</p>
+    <p>&lt;text box border color&gt; x 4</p>
+    <p>&lt;flags&gt;</p>
+    <p>(for bullet/organization charts)</p>
+    <p>None</p>
+    <hr />
+    <h3>Record Type 14 (0x0E)</h3>
+    <p><strong>Text Initial Codes</strong> </p>
+    <h4>Description</h4>
+    <p>Contains initial codes for various labels.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;text type&gt;</p>
+    <p>(for data charts)</p>
+    <p>0 = title</p>
+    <p>1 = subtitle</p>
+    <p>2 = Y<sub>1</sub> axis title</p>
+    <p>3 = Y<sub>2</sub> axis title</p>
+    <p>4 = X axis title</p>
+    <p>5 = legend</p>
+    <p>6 = all other (cell values, X-names, Y-axis labels..)</p>
+    <p>(for organization charts)</p>
+    <p>0 = all text within a node</p>
+    <p>(for text charts)</p>
+    <p>None</p>
+    <p>[initial text attributes (bit fields)]</p>
+    <p>bit 7: outline</p>
+    <p>bit 8: italics</p>
+    <p>bit 9: shadow</p>
+    <p>bit 10: reserved</p>
+    <p>bit 11: double underline</p>
+    <p>bit 12: bold</p>
+    <p>bit 13: reserved</p>
+    <p>bit 14: underline</p>
+    <p>bit 15: small caps</p>
+    <p>[font cell height (3600ths), beginning of font descriptor]</p>
+    <p>[font optimal width (1200ths)]</p>
+    <p>[cap height (3600ths)]</p>
+    <p>[X height (3600ths)]</p>
+    <p>[descender height (3600ths)]</p>
+    <p>[italic adjustment (1200ths)]</p>
+    <p>&lt;typeface descriptor&gt; x 3</p>
+    <p>Low short integer:</p>
+    <p>bit 0: 1 casual</p>
+    <p>bit 1: 1 connected letters</p>
+    <p>bit 2: 1 decorative</p>
+    <p>bit 3: 1 formal</p>
+    <p>bit 4: 1 future</p>
+    <p>bit 5: 1 old style</p>
+    <p>bit 6: 1 script or calligraphic</p>
+    <p>bit 7: 1 cupped</p>
+    <p>bit 8: 1 exaggerated</p>
+    <p>bit 9: 1 hairline</p>
+    <p>bit 10: 1 slab</p>
+    <p>bit 11: 1 slanted</p>
+    <p>bit 12: 1 transitional</p>
+    <p>bit 13: 1 triangular</p>
+    <p>bit 14: 1 curved or bowed diagonals</p>
+    <p>bit 15: 1 non-connecting enclosures</p>
+    <p>High byte:</p>
+    <p>bit 0: 1 round</p>
+    <p>bit 1: 1 square</p>
+    <p>bit 2: 1 angular</p>
+    <p>bit 3: 1 exaggerated</p>
+    <p>bit 4: 1 uniform</p>
+    <p>bit 5: 1 ball terminals</p>
+    <p>bit 6: 1 tails</p>
+    <p>bit 7: 1 reserved; must = 0</p>
+    <p>&lt;typeface definition flags&gt;</p>
+    <p>&lt;hash of typeface name&gt;</p>
+    <p>&lt;font quality&gt;</p>
+    <p>[hash of font name]</p>
+    <p>[character set completeness flags] x 2<br />
+    </p>
+    <table border="1" width="73%">
+        <tr>
+            <th width="30%">
+                Low Short Integer</th>
+            <th width="30%">
+                High Short Integer</th>
+            <th width="38%">
+                Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                Bit n =</td>
+            <td>
+                Bit n =</td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                0</td>
+            <td>
+                0</td>
+            <td>
+                charset not supported</td>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                0</td>
+            <td>
+                charset supported 1%-25%</td>
+        </tr>
+        <tr>
+            <td>
+                0</td>
+            <td>
+                1</td>
+            <td>
+                charset supported 26%-59%</td>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                1</td>
+            <td>
+                charset supported 60%-100%</td>
+        </tr>
+    </table>
+    <p>[point size (3600ths)]</p>
+    <p>&lt;typeface definition flags, end of font descriptor&gt;</p>
+    <p>bit 1: small caps font</p>
+    <p>bit 2: shadow font</p>
+    <p>bit 4: outline font</p>
+    <p>bit 8: italic or oblique</p>
+    <p>bit 16: PS font (font descriptor only)</p>
+    <p>Weight -- high three bits</p>
+    <p>00000000b extra light</p>
+    <p>00100000b light</p>
+    <p>01000000b normal</p>
+    <p>01100000b demi-bold</p>
+    <p>10000000b bold</p>
+    <p>10100000b heavy</p>
+    <p>11000000b black</p>
+    <p>11100000b ultra-black</p>
+    <p>[entity flags]</p>
+    <p>bit 14: fill</p>
+    <p>bit 15: reserved</p>
+    <p>bit 16: frame<br />
+    </p>
+    <p><strong>Note</strong></p>
+    <p>In the Character Set Completeness Flags field, the "n" in "Bit n =" equals the number
+    of the character set. For example, if you wanted to check the completeness of character
+    set zero (the ASCII character set), you would look at bit zero (0) of the low and high
+    short integers.</p>
+    <hr />
+    <h3>Record Type 15 (0x0F)</h3>
+    <p><strong>Text/Box Position</strong> </p>
+    <h4>Description</h4>
+    <p>Contains position information for the various labels.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;text type&gt;</p>
+    <p>0 = title</p>
+    <p>1 = sub-title</p>
+    <p>2 = Y<sub>1</sub> axis title</p>
+    <p>3 = Y<sub>2</sub> axis title</p>
+    <p>4 = X axis title</p>
+    <p>5 = legend</p>
+    <p>6 = cell values</p>
+    <p>&lt;horizontal position&gt;</p>
+    <p>0 = left</p>
+    <p>1 = center</p>
+    <p>2 = right</p>
+    <p>&lt;vertical position&gt;</p>
+    <p>0 = top</p>
+    <p>1 = middle</p>
+    <p>2 = bottom</p>
+    <p>&lt;flags&gt;</p>
+    <p>(for legend)</p>
+    <p>bit 0: If &lt;text type&gt; = 5, display legend</p>
+    <p>bit 1: If &lt;text type&gt; = 5, vertical shape</p>
+    <p>bit 2: If &lt;text type&gt; = 5, inside chart</p>
+    <p>0 For Y<sub>1</sub> and Y<sub>2</sub> axis titles: on side of axis</p>
+    <hr />
+    <h3>Record Type 16 (0x10)</h3>
+    <p><strong>Organizational Chart View</strong> </p>
+    <h4>Description</h4>
+    <p>Contains viewing information for the organizational chart.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;orientation&gt;</p>
+    <p>0 = top to bottom</p>
+    <p>1 = bottom to top</p>
+    <p>2 = left to right</p>
+    <p>3 = right to left</p>
+    <p>&lt;reserved&gt;</p>
+    <p>&lt;display levels&gt;</p>
+    <p>0-9 = # of levels to display from top</p>
+    <p>&lt;top level arrangement&gt;</p>
+    <p>0 = single</p>
+    <p>1 = staggered</p>
+    <p>16 (0x10) = left</p>
+    <p>17 (0x11) = right</p>
+    <p>18 (0x12) = double</p>
+    <p>&lt;middle level arrangement&gt;</p>
+    <p>0 = single</p>
+    <p>1 = staggered</p>
+    <p>16 (0x10) = left</p>
+    <p>17 (0x11) = right</p>
+    <p>18 (0x12) = double</p>
+    <p>&lt;last level arrangement&gt;</p>
+    <p>0 = single</p>
+    <p>1 = staggered</p>
+    <p>16 (0x10) = left</p>
+    <p>17 (0x11) = right</p>
+    <p>18 (0x12) = double</p>
+    <hr />
+    <h3>Record Type 17 (0x11)</h3>
+    <p><strong>Organizational Chart Text/Box</strong> </p>
+    <h4>Description</h4>
+    <p>Contains rendition and position information for text and boxes.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;justification within box&gt;</p>
+    <p>0 = left</p>
+    <p>1 = center</p>
+    <p>2 = right</p>
+    <p>&lt;vertical alignment within box&gt;</p>
+    <p>0 = top</p>
+    <p>1 = middle</p>
+    <p>2 = bottom</p>
+    <p>&lt;box width (relative widths for all boxes)&gt;</p>
+    <p>0 = large to small</p>
+    <p>1 = all the same</p>
+    <p>2 = fit text</p>
+    <p>&lt;box height (relative heights for all boxes)&gt;</p>
+    <p>0 = large to small</p>
+    <p>1 = all the same</p>
+    <p>2 = fit text</p>
+    <p>&lt;box display flag (for complete chart)&gt;</p>
+    <p>0 = don't display any boxes</p>
+    <p>1 = display top box only</p>
+    <p>2 = display top and middle boxes</p>
+    <p>3 = display all boxes</p>
+    <hr />
+    <h3>Record Type 18 (0x12)</h3>
+    <p><strong>Organizational Chart Connectors</strong> </p>
+    <h4>Description</h4>
+    <p>Contains information for rendering connectors.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;connector type&gt;</p>
+    <p>0 = definition for complete chart</p>
+    <p>&lt;connector style&gt;</p>
+    <p>0 = right angles</p>
+    <p>1 = indirect</p>
+    <p>2 = direct</p>
+    <p>&lt;staff connector line style (only three supported)&gt;</p>
+    <p>1 = solid</p>
+    <p>3 = dashed</p>
+    <p>6 = dotted</p>
+    <p>&lt;flags&gt;</p>
+    <p>bit 0: show arrows</p>
+    <p>&lt;connector line color&gt; x 4</p>
+    <hr />
+    <h3>Record Type 19 (0x13)</h3>
+    <p><strong>Text Chart Highlight Box</strong> </p>
+    <h4>Description</h4>
+    <p>Contains rendition and position information for the highlight box.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;box type&gt;</p>
+    <p>0 = title level (first level)</p>
+    <p>1 = body (all other levels)</p>
+    <p>2 = all (title and body)</p>
+    <p>3 = none</p>
+    <p>&lt;box position&gt;</p>
+    <p>0 = above</p>
+    <p>1 = behind</p>
+    <p>2 = below</p>
+    <p>3 = above/below</p>
+    <p>&lt;flags&gt;</p>
+    <p>bit 0: fit box to text</p>
+    <hr />
+    <h3>Record Type 20 (0x14)</h3>
+    <p><strong>Paragraph Definition</strong> </p>
+    <h4>Description</h4>
+    <p>Contains paragraph number definitions for bullet charts.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;reserved&gt;</p>
+    <p>[new 8 level #s (same as WP7 paragraph definition)] x 8</p>
+    <p>&lt;new 8 definitions, each definition is three bytes (same as WP7 paragraph definition)&gt;
+    x 24</p>
+    <p>2nd byte:</p>
+    <p>'I' = uppercase Roman</p>
+    <p>'i' = lowercase Roman</p>
+    <p>'A' = uppercase letter</p>
+    <p>'a' = lowercase letter</p>
+    <p>'1' = Arabic...</p>
+    <p>1st and 3rd bytes:</p>
+    <p>ASCII punctuation...</p>
+    <p>&lt;new attach flag (bit fields)&gt;</p>
+    <p>bit set = attach previous level</p>
+    <p>&lt;new outline flag&gt;</p>
+    <p>1 = tab to level of previous paragraph #<br />
+    </p>
+    <p><strong>Note</strong></p>
+    <p>On the first and third bytes of the New 8 Definitions field, spaces do not appear
+    in paragraph numbers. If the first byte is zero, the second and third bytes are characters
+    to be used as bullets.</p>
+    <hr />
+    <h3>Record Type 21 (0x15)</h3>
+    <p><strong>Justification</strong> </p>
+    <h4>Description</h4>
+    <p>Contains justification information for bullet charts.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;flag (bit fields)&gt;</p>
+    <p>bit 0: use justification below for level 1, else no justification</p>
+    <p>bit 1: use justification below for level 2, else no justification</p>
+    <p>bit 2: use justification below for level 3, else no justification</p>
+    <p>bit 3: use justification below for level 4, else no justification</p>
+    <p>&lt;level 1 justification&gt;</p>
+    <p>0 = left</p>
+    <p>1 = full</p>
+    <p>2 = center</p>
+    <p>3 = right</p>
+    <p>&lt;level 2 justification (see level 1 for legal values)&gt;</p>
+    <p>&lt;level 3 justification (see level 1 for legal values)&gt;</p>
+    <p>&lt;level 4 justification (see level 1 for legal values)&gt;</p>
+    <hr />
+    <h3>Record Type 22 (0x16)</h3>
+    <p><strong>X Name Information</strong> </p>
+    <h4>Description</h4>
+    <h4>Structure</h4>
+    <p>&lt;flags&gt;</p>
+    <p>bit 0: stagger</p>
+    <p>bit 1: display all ticks</p>
+    <p>[interval]</p>
+    <hr />
+    <h3>Record Type 23 (0x17)</h3>
+    <p><strong>Style Revision Number</strong> </p>
+    <h4>Description</h4>
+    <p>Contains the chart style format revision number. This record must follow the Start
+    Chart record. The current Chart Style format revision number is 1.1.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;major revision&gt;</p>
+    <p>&lt;minor revision&gt;<br />
+    </p>
+    <p><strong>Note</strong></p>
+    <p>This revision number is not to be confused with an application revision number, such
+    as WordPerfect 7.0, nor is it to be confused with the WPG file format revision number.
+    It is the revision number of the Chart Style format.</p>
+    <h2>Record Types for Chart Data</h2>
+    <p>This section describes the format for the chart data records. The record types are
+    contained within the WPG <em>Chart Data</em> record, type 17 (0x11), and make up the
+    data description. See <em>Record Type 17 (0x11) Chart Data</em> in <em>Record Descriptions</em>
+    in the <em>Record Area</em> section of this documentation for the complete format of
+    this record.</p>
+    <p>All records in this section begin with a short integer that indicates the type of
+    record, followed by a short integer that indicates the size of the record body.</p>
+    <p><strong>Record Descriptions</strong></p>
+    <p>The following is a short list of the <em>Chart Data</em> record types. Detailed information
+    about each record type follows this list.<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th width="24%">Type #</th>
+            <th width="75%">Record Description</th>
+        </tr>
+        <tr>
+            <td>
+                0 (0x00)</td>
+            <td>
+                External Link/Import (must be first section)</td>
+        </tr>
+        <tr>
+            <td>
+                1 (0x01)</td>
+            <td>
+                Spreadsheet Information</td>
+        </tr>
+        <tr>
+            <td>
+                2 (0x02)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                3 (0x03)</td>
+            <td>
+                Column Information</td>
+        </tr>
+        <tr>
+            <td>
+                4 (0x04)</td>
+            <td>
+                Row Information</td>
+        </tr>
+        <tr>
+            <td>
+                5 (0x05)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                6 (0x06)</td>
+            <td>
+                Start of Cells Marker (must be last section)</td>
+        </tr>
+        <tr>
+            <td>
+                7 (0x07)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                8 (0x08)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                9 (0x09)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                10 (0x0A)</td>
+            <td>
+                Chart Titles</td>
+        </tr>
+        <tr>
+            <td>
+                11 (0x0B)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                12 (0x0C)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                13 (0x0D)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                14 (0x0E)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                15 (0x0F)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                16 (0x10)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                17 (0x11)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                18 (0x12)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                19 (0x13)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                20 (0x14)</td>
+            <td>
+                Custom Date Format code</td>
+        </tr>
+    </table>
+    <p>The first record type <em>must</em> be the External Link/Import record. If it is
+    not the first record, the Hot-Linking feature will not work properly. There can be more
+    than one record of each type except for the Start of Cells Marker record.</p>
+    <hr />
+    <h3>Record Type 0 (0x00)</h3>
+    <p><strong>External Link/Import<br />
+    </strong></p>
+    <h4>Description</h4>
+    <p>Contains external linking/importing information.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[beginning row of imported block]</p>
+    <p>[ending row of imported block]</p>
+    <p>[beginning column of imported block]</p>
+    <p>[ending column of imported block]</p>
+    <p>&lt;beginning sheet of imported block&gt;</p>
+    <p>&lt;ending sheet of imported block&gt;</p>
+    <p>[row # for insertion point of import]</p>
+    <p>[column # for insertion point of import]</p>
+    <p>[MS-DOS date of file when last imported]</p>
+    <p>[MS-DOS time of file when last imported]</p>
+    <p>[link status (0 - no link, 1 - warm-link)]</p>
+    <p>[clear status (1 - clear spreadsheet before importing)]</p>
+    <p>[transpose status (1 - transpose data on import)]</p>
+    <p>[chart link #]</p>
+    <p>If # = 0, not linked to a chart</p>
+    <p>If # &gt; 0, chart # linked to</p>
+    <p>&lt;range name to import (ASCII null terminated)&gt; x 21</p>
+    <p>&lt;full path of import filename (ASCII null terminated)&gt; x 81</p>
+    <hr />
+    <h3>Record Type 1 (0x01)</h3>
+    <p><strong>Spreadsheet Information</strong> </p>
+    <h4>Description</h4>
+    <p>Contains current spreadsheet global settings.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[column # of upper-left cell in display window]</p>
+    <p>[row # of upper-left cell in display window]</p>
+    <p>[default column width (in characters)]</p>
+    <p>[current row]</p>
+    <p>[current column]</p>
+    <p>[top, left, bottom, and right of current selection block] x 4</p>
+    <p>[current blocking mode]</p>
+    <p>0 = none</p>
+    <p>1 = cells</p>
+    <p>2 = rows</p>
+    <p>3 = columns</p>
+    <p>4 = sheet</p>
+    <p>&lt;auto redraw flag (0 = none, 1 = auto redraw)&gt;</p>
+    <hr />
+    <h3>Record Type 2 (0x02)</h3>
+    <p><strong>Reserved</strong></p>
+    <hr />
+    <h3>Record Type 3 (0x03)</h3>
+    <p><strong>Column Information</strong> </p>
+    <h4>Description</h4>
+    <p>Contains column information for a single column.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[column #]</p>
+    <p>&lt;column status bits&gt;</p>
+    <p>bit 0: If 0, include column</p>
+    <p>If 1, exclude column</p>
+    <p>&lt;reserved&gt;</p>
+    <p>[format/type of column data (see <em>Status Definition</em> later in this section)]</p>
+    <p>[reserved]</p>
+    <p>[length of column formula (in short integers, not bytes)]</p>
+    <p>[column formula (stored as a series of short integers)] x ? See <em>Row/Column Formula
+        Definition</em>later in this section</p>
+    <hr />
+    <h3>Record Type 4 (0x04)</h3>
+    <p><strong>Row Information</strong> </p>
+    <h4>Description</h4>
+    <p>Contains row information for a single row.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[row #]</p>
+    <p>&lt;row status bits&gt;</p>
+    <p>bit 0: If 0, include row</p>
+    <p>If 1, exclude row</p>
+    <p>&lt;reserved&gt;</p>
+    <p>[format/type of Row data (see <em>Status Definition</em> later in this section)]</p>
+    <p>[reserved]</p>
+    <p>[length of Row formula (in short integers, not bytes)]</p>
+    <p>[row formula (stored as a series of short integers, see <em>Row/Column Formula Definition</em>
+    later in this section)]</p>
+    <hr />
+    <h3>Record Type 5 (0x05)</h3>
+    <p><strong>Reserved</strong></p>
+    <hr />
+    <h3>Record Type 6 (0x06)</h3>
+    <p><strong>Start of Cells Marker</strong> </p>
+    <h4>Description</h4>
+    <p>Signals the beginning of the cell data. Cells are stored in row order in the file
+    beginning with 0,0. Only cells that contain data are saved in the file. Each cell is
+    stored in the following format:<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;cell Type (see <em>Cell Type Flags</em> later in this section)&gt;</p>
+    <p>[cell row (zero offset)]</p>
+    <p>[cell column (zero offset)]</p>
+    <p>[cell format (see <em>Status Definition</em> later in this section)]</p>
+    <p>cell value (see <em>Notes</em>)<br />
+    </p>
+    <p><strong>Notes</strong></p>
+    <p>If the current cell is not adjacent to the previous cell (see <em>Cell Type Flags</em>
+    later in this section), the Cell Row and Cell Column fields follow.</p>
+    <p>If the current cell format is different from the previous cell format (see <em>Cell
+        Type Flags</em> later in this section), the Cell Format field follows.</p>
+    <p>"Cell value" does not exist if "Cell Type" is none. The cell value is stored last
+    in one of the formats shown in the table below.<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th width="36%">
+                Cell Type</th>
+            <th width="63%">
+                Cell Value Format</th>
+        </tr>
+        <tr>
+            <td>
+                Word string</td>
+            <td>
+                [length of string (in short integers, not bytes)]
+                <p>[cell string (word string)] x ?</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Byte string
+                <p>(standard string)</p>
+            </td>
+            <td>
+                [length of string (in bytes)]
+                <p>&lt;cell string&gt; x ?</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Double value</td>
+            <td>
+                IEEE 8-byte floating-point value</td>
+        </tr>
+        <tr>
+            <td>
+                Floating-point value</td>
+            <td>
+                {IEEE 4-byte floating-point value}</td>
+        </tr>
+        <tr>
+            <td>
+                Integer value</td>
+            <td>
+                [signed 2-byte cell value]</td>
+        </tr>
+    </table>
+    <p>A row and column number of -1 (0xFFFF) signals the end of the cell data and the end
+    of the chart data section.</p>
+    <hr />
+    <h3>Record Type 10 (0x0A)</h3>
+    <p><strong>Chart Titles</strong> </p>
+    <h4>Description</h4>
+    <p>Contains all titles for the associated chart.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;# of titles in this record (for now, always = 6)&gt;</p>
+    <p>&lt;size of chart title 1 (in short integers, not bytes)&gt;</p>
+    <p>[chart title 1 (word string)] x ?</p>
+    <p>&lt;size of chart title 2 (in short integers, not bytes)&gt;</p>
+    <p>[chart title 2 (word string)] x ?</p>
+    <p>..</p>
+    <p>..</p>
+    <p>..<br />
+    </p>
+    <p><strong>Notes</strong></p>
+    <p>Titles are stored in the following order:</p>
+    <p>1 - Main chart title</p>
+    <p>2 - Chart subtitle</p>
+    <p>3 - Y<sub>1</sub> Axis title</p>
+    <p>4 - Y<sub>2</sub> Axis title</p>
+    <p>5 - X Axis title</p>
+    <p>6 - Legend title</p>
+    <hr />
+    <h3>Record Type 20 (0x14)</h3>
+    <p><strong>Custom Date Format Code</strong> </p>
+    <h4>Description</h4>
+    <p>Contains WordPerfect date codes for the custom date format.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>&lt;# of strings in this record&gt;</p>
+    <p>&lt;length of WPCorp date string 1&gt;</p>
+    <p>&lt;WPCorp date format string 1&gt; x ?</p>
+    <p>&lt;length of WPCorp date string 2&gt;</p>
+    <p>&lt;WPCorp date format string 2&gt; x ?</p>
+    <p>..</p>
+    <p>..</p>
+    <p>..<br />
+    </p>
+    <h2>Reference Information</h2>
+    <p>This section provides reference information.</p>
+    <hr />
+    <h3>Status</h3>
+    <p>A short integer associated with each cell (and each row and column) indicates the
+    type of value stored in the cell and the formatting options that apply to that value.<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th width="12%">Bit</th>
+            <th colspan="2" width="40%">Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                0-3</td>
+            <td>
+                If cell type is NUMBER:</td>
+            <td width="46%">
+                # of digits to display (see bit 4).</td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                If cell type is DATE:</td>
+            <td>
+                Specifies one of the 16 date format types.</td>
+        </tr>
+        <tr>
+            <td>
+                4</td>
+            <td>
+                If cell type is NUMBER:</td>
+            <td>
+                If bit 4 is set, use precision indicated in bits 0-3.
+                <p>If bit 4 is not set, use floating precision.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+            </td>
+            <td>
+                If cell type is DATE:</td>
+            <td>
+                If bit 4 is set, use date format indicated in bits 0-3.
+                <p>If bit 4 is not set, use default date format.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                5</td>
+            <td colspan="2">
+                If set, display # in exponential notation</td>
+        </tr>
+        <tr>
+            <td>
+                6</td>
+            <td>
+                If set, display cell as a DATE</td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                7</td>
+            <td>
+                Reserved</td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                8</td>
+            <td colspan="2">
+                If set, display # with a dollar sign</td>
+        </tr>
+        <tr>
+            <td>
+                9</td>
+            <td colspan="2">
+                If set, display # with thousands separators</td>
+        </tr>
+        <tr>
+            <td>
+                10</td>
+            <td>
+                If set, display # as a percent</td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                11</td>
+            <td colspan="2">
+                If set, display negative #s in parentheses</td>
+        </tr>
+        <tr>
+            <td>
+                12</td>
+            <td>
+                Reserved</td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                13-15</td>
+            <td>
+                Cell type:</td>
+            <td>
+                0 - NULL cell.
+                <p>1 - NUMBER cell.</p>
+                <p>2 - STRING cell.</p>
+                <p>3 - ERROR cell.</p>
+                <p>7 - ROW/COL FORMULA (only in rows or columns).</p>
+            </td>
+        </tr>
+    </table>
+    <br />
+    <hr />
+    <h3>Row/Column Formulas</h3>
+    <p>Row/Column formulas apply to an entire row or column. They are stored as a series
+    of tokens as defined below. Each token is a short integer.<br />
+    </p>
+    <h4>[Function Tokens]</h4>
+    <p>Single tokens (no data follows).<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th width="20%">Token</th>
+            <th width="79%">Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                1 (0x01)</td>
+            <td>
+                Absolute value</td>
+        </tr>
+        <tr>
+            <td>
+                2 (0x02)</td>
+            <td>
+                Average</td>
+        </tr>
+        <tr>
+            <td>
+                3 (0x03)</td>
+            <td>
+                Cosine</td>
+        </tr>
+        <tr>
+            <td>
+                4 (0x04)</td>
+            <td>
+                Cumulative total</td>
+        </tr>
+        <tr>
+            <td>
+                5 (0x05)</td>
+            <td>
+                Difference</td>
+        </tr>
+        <tr>
+            <td>
+                6 (0x06)</td>
+            <td>
+                Exponential curve fit</td>
+        </tr>
+        <tr>
+            <td>
+                7 (0x07)</td>
+            <td>
+                Linear curve fit</td>
+        </tr>
+        <tr>
+            <td>
+                8 (0x08)</td>
+            <td>
+                Log curve fit</td>
+        </tr>
+        <tr>
+            <td>
+                9 (0x09)</td>
+            <td>
+                Polynomial curve fit</td>
+        </tr>
+        <tr>
+            <td>
+                10 (0x0A)</td>
+            <td>
+                Power curve fit</td>
+        </tr>
+        <tr>
+            <td>
+                11 (0x0B)</td>
+            <td>
+                Maximum</td>
+        </tr>
+        <tr>
+            <td>
+                12 (0x0C)</td>
+            <td>
+                Minimum</td>
+        </tr>
+        <tr>
+            <td>
+                13 (0x0D)</td>
+            <td>
+                Moving average</td>
+        </tr>
+        <tr>
+            <td>
+                14 (0x0E)</td>
+            <td>
+                Percent of total</td>
+        </tr>
+        <tr>
+            <td>
+                15 (0x0F)</td>
+            <td>
+                Sine</td>
+        </tr>
+        <tr>
+            <td>
+                16 (0x10)</td>
+            <td>
+                Sum</td>
+        </tr>
+    </table>
+    <h4>[Reference Tokens]</h4>
+    <p>Refer to rows (or columns) in the spreadsheet.<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th width="21%">Token</th>
+            <th width="78%">Related Arguments</th>
+        </tr>
+        <tr>
+            <td>
+                100 (0x64)</td>
+            <td>
+                [relative row (or column)]</td>
+        </tr>
+        <tr>
+            <td>
+                101 (0x65)</td>
+            <td>
+                [absolute row (or column)]</td>
+        </tr>
+        <tr>
+            <td>
+                102 (0x66)</td>
+            <td>
+                [relative row (or column) range (beginning)]
+                <p>[relative row (or column) range (ending)]</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                103 (0x67)</td>
+            <td>
+                [absolute row (or column) range (beginning)]
+                <p>[absolute row (or column) range (ending)]</p>
+            </td>
+        </tr>
+    </table>
+    <h4>[Misc. Tokens]</h4>
+    <table border="1" width="98%">
+        <tr>
+            <th width="24%">Token</th>
+            <th width="29%">Meaning</th>
+            <th width="46%">Related Arguments</th>
+        </tr>
+        <tr>
+            <td>
+                106 (0x6A)</td>
+            <td>
+                Value</td>
+            <td>
+                [a # (used as an argument)]</td>
+        </tr>
+        <tr>
+            <td>
+                120 (0x78)</td>
+            <td>
+                Missing</td>
+            <td>
+            </td>
+        </tr>
+    </table>
+    <p>The "Missing" token represents a missing argument that was optional.<br />
+    </p>
+    <h4>Examples</h4>
+    <p>Example 1 shows a formula in row 5 that sums rows 1:4 would be stored as follows:<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th width="23%">Value</th>
+            <th width="76%">Size/Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                16 (0x10)</td>
+            <td>
+                [sum]</td>
+        </tr>
+        <tr>
+            <td>
+                102 (0x66)</td>
+            <td>
+                [relative row range]</td>
+        </tr>
+        <tr>
+            <td>
+                -4 (0xFFFC)</td>
+            <td>
+                [four rows back from current row]</td>
+        </tr>
+        <tr>
+            <td>
+                -1 (0xFFFF)</td>
+            <td>
+                [one row back from current row]</td>
+        </tr>
+    </table>
+    <p>Example 2 shows a formula in row 5 that fits a 2nd order polynomial of rows 4 with
+    a forecast of 5 would be stored as follows:<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th width="27%">Value</th>
+            <th width="72%">Size/Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                9 (0x09)</td>
+            <td>
+                [polynomial curve fit]</td>
+        </tr>
+        <tr>
+            <td>
+                100 (0x64)</td>
+            <td>
+                [relative row]</td>
+        </tr>
+        <tr>
+            <td>
+                -1 (0xFFFF)</td>
+            <td>
+                [one row back from current row]</td>
+        </tr>
+        <tr>
+            <td>
+                106 (0x6A)</td>
+            <td>
+                [value]</td>
+        </tr>
+        <tr>
+            <td>
+                2 (0x02)</td>
+            <td>
+                [2nd order]</td>
+        </tr>
+        <tr>
+            <td>
+                106 (0x6A)</td>
+            <td>
+                [value]</td>
+        </tr>
+        <tr>
+            <td>
+                5 (0x05)</td>
+            <td>
+                [forecast 5 periods]</td>
+        </tr>
+    </table>
+    <br />
+    <hr />
+    <h3>Cell Type Flags</h3>
+    <p>The first byte of each cell is the Cell Type. The bits in this byte allow standard
+    chart data to be stored in a compact format. Most chart data are together in a block
+    and have the same format. Therefore, only the Cell Type byte and the data need to be
+    written in these cases. Whenever there is a break in the block of cells, bit 5 and 6
+    are clear and the row and column for the cell have to be written. Also, whenever there
+    is a break in the format, bit 7 is clear and the cell format needs to be written.<br />
+    </p>
+    <table border="1" width="98%">
+        <tr>
+            <th width="12%">Bit</th>
+            <th width="87%">Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                0-4</td>
+            <td>
+                Data type: 0 = None (no cell data exists, only formatting information).
+                <p>1 = DOUBLE - cell contains an IEEE 8-byte double value</p>
+                <p>2 = FLOAT - cell contains an IEEE 4-byte floating-point value</p>
+                <p>3 = INT - cell contains a signed-integer value</p>
+                <p>4 = WORDSTR - cell contains a WP WORD string</p>
+                <p>5 = BYTESTR - cell contains a BYTE string.</p>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                5</td>
+            <td>
+                If set, the column for this cell is the same as the previous cell plus 1. If this
+                bit is set, no row or column is stored in the file for this cell.</td>
+        </tr>
+        <tr>
+            <td>
+                6</td>
+            <td>
+                If set, the row for this cell is the same as the previous cell plus 1. If this bit
+                is set, no row or column is stored in the file for this cell.</td>
+        </tr>
+        <tr>
+            <td>
+                7</td>
+            <td>
+                If set, the format of this cell is the same as the format for the previous cell.
+                If this bit is set, the format word is not stored in the file for this cell.</td>
+        </tr>
+    </table>
+</body>
+</html>

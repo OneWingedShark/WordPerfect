@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidMenuItemDelete function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidMenuItemCheck.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="wMenuItemID.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Menus.html">Creating menus</a> : WpidMenuItemDelete function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp549417"></a>
+
+  <h4 class="pHeading3">WpidMenuItemDelete function</h4><a name="wp549419"></a>
+
+  <p class="pBody">The <code class="cCode">WpidMenuItemDelete</code> function deletes an item and its children (if any) from a menu</p><a name="wp549421"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DWORD FAR PASCAL WpidMenuItemDelete ( <a name="wp549423"> </a>
+WMEMOBJECT WPMenu, <a name="wp549425"> </a>
+WORD wMenuID, <a name="wp549427"> </a>
+DWORD dwFlags, <a name="wp549429"> </a>
+WORD wMenuItemID ); <a name="wp549431"> </a>
+</pre>
+  </div><a name="wp549433"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp549436"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp520683"></a>
+
+          <p class="pBody"><code class="cCode">WPMenu</code></p>
+        </td>
+
+        <td>
+          <a name="wp520685"></a>
+
+          <p class="pBody">Specifies the handle to menu object memory</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520691"></a>
+
+          <p class="pBody"><code class="cCode">wMenuID</code></p>
+        </td>
+
+        <td>
+          <a name="wp520693"></a>
+
+          <p class="pBody">Specifies the menu ID where the menu item resides. This is the menu where the item to delete resides. It must be a valid theta or
+          dynatheta value. <code class="cCode">0</code> is used to designate the top-level menu.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520699"></a>
+
+          <p class="pBody"><code class="cCode">dwFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp520701"></a>
+
+          <p class="pBody">Allows the following flags:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp520703"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_BYCOMMAND</code></li>
+              </ul>
+            </div><a name="wp520705"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_BYPOSITION</code></li>
+              </ul>
+            </div><a name="wp520707"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_EMBEDDEDMENU</code></li>
+              </ul>
+            </div><a name="wp520709"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_ENABLED</code></li>
+              </ul>
+            </div><a name="wp520711"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_POPUP</code></li>
+              </ul>
+            </div><a name="wp520713"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_SEPARATOR</code></li>
+              </ul>
+            </div><a name="wp520715"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_STRING</code></li>
+              </ul>
+            </div><a name="wp520717"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_SYSMENU</code></li>
+              </ul>
+            </div><a name="wp520719"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNCHECKED</code></li>
+              </ul>
+            </div><a name="wp520721"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNHILITE</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

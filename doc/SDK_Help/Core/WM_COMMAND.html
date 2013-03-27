@@ -1,0 +1,1330 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WM_COMMAND notification</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBM_SBAR_CONTROL.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Recessed_box_control_functions.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> : WM_COMMAND
+        notification</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1310884"></a>
+
+  <h4 class="pHeading3">WM_COMMAND notification</h4><a name="wp1302815"></a>
+
+  <p class="pBody">The <code class="cCode">WM_COMMAND</code> notification is sent from the control to its parent window whenever certain events occur. Its
+  members depend on the type of control referenced.</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1302819"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1302846">Members for bitmap display controls</a></li>
+      </ul>
+    </div><a name="wp1302823"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1302867">Members for color wheel controls</a></li>
+      </ul>
+    </div><a name="wp1302827"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1302884">Members for counter controls</a></li>
+      </ul>
+    </div><a name="wp1302831"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1302933">Members for date controls</a></li>
+      </ul>
+    </div><a name="wp1302835"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1302974">Members for drag/drop well controls</a></li>
+      </ul>
+    </div><a name="wp1302839"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1303026">Members for filename entry controls</a></li>
+      </ul>
+    </div><a name="wp1302843"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1303047">Members for pop-up/pop-down controls</a></li>
+      </ul>
+    </div><a name="wp1306497"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1306468">Members for window editor controls</a></li>
+      </ul>
+    </div><a name="wp1311144"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1311390">Members for WP combo box controls</a></li>
+      </ul>
+    </div><a name="wp1311400"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1312181">Members for WP list box controls</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1302846"></a>
+
+  <h5 class="pHeading4">Members for bitmap display controls</h5><a name="wp1302847"></a>
+
+  <p class="pBody">The following members are available to bitmap display controls.</p><a name="wp1302865"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1302850"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1302852"></a>
+
+          <p class="pBody">Contains the window ID of the bitmap display control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302854"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1302856"></a>
+
+          <p class="pBody">Contains the <code class="cCode">LOWORD</code> and <code class="cCode">HIWORD</code> values. The <code class="cCode">LOWORD</code>
+          contains the handle to the window. The <code class="cCode">HIWORD</code> contains one of the following values:</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302858"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302860"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">BMPN_CLICKED</code> - Specifies that the left mouse button was clicked on the control</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302862"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302864"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">BMPN_DOUBLECLICKED</code> - Specifies that the left mouse button was double-clicked on the control</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1302867"></a>
+
+  <h5 class="pHeading4">Members for color wheel controls</h5><a name="wp1302868"></a>
+
+  <p class="pBody">The following members are available to color wheel controls.</p><a name="wp1302882"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1302871"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1302873"></a>
+
+          <p class="pBody">Contains the window ID of the color wheel control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302875"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1302877"></a>
+
+          <p class="pBody">Contains the <code class="cCode">LOWORD</code> and <code class="cCode">HIWORD</code> values. The <code class="cCode">LOWORD</code>
+          contains the handle to the window. The <code class="cCode">HIWORD</code> contains the following value:</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302879"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302881"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">HLSN_NEWVALUE</code> - Is issued by a <code class="cCode">WCWP_COLOR</code> control when the user has selected a new
+                HLS value</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1302884"></a>
+
+  <h5 class="pHeading4">Members for counter controls</h5><a name="wp1302885"></a>
+
+  <p class="pBody">The following members are available to counter controls.</p><a name="wp1302931"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1302888"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1302890"></a>
+
+          <p class="pBody">Contains the window ID of the counter control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302892"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1302894"></a>
+
+          <p class="pBody">Contains the <code class="cCode">LOWORD</code> and <code class="cCode">HIWORD</code> values. The <code class="cCode">LOWORD</code>
+          contains the handle to the window. The <code class="cCode">HIWORD</code> contains one of the following values:</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302896"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302898"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CNTN_CHANGE</code> - Is sent to the parent when the contents of the control change</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302900"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302902"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CNTN_ERRSPACE</code> - Is sent to the parent when the control is out of memory</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302904"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302906"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CNTN_HSCROLL</code> - Is sent to the parent when the edit portion of the counter control scrolls horizontally</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302908"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302910"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CNTN_KILLFOCUS</code> - Is sent to the parent when the control loses focus</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302912"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302914"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CNTN_MAXTEXT</code> - Is sent to the parent when the number of characters entered has exceeded the limits of the
+                control</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302916"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302918"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CNTN_SETFOCUS</code> - Is sent to the parent when the control gets focus</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302920"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302922"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CNTN_STEPDOWN</code> - Is sent to the parent when the user presses the decrement button</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302924"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302926"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CNTN_STEPUP</code> - Is sent to parent when user presses the increment button</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302928"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302930"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">CNTN_UPDATE</code> - Is sent to the parent when the contents of the control have changed, but the display has not yet
+                been updated</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1302933"></a>
+
+  <h5 class="pHeading4">Members for date controls</h5><a name="wp1302934"></a>
+
+  <p class="pBody">The following members are available to date controls.</p><a name="wp1302972"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1302937"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1302939"></a>
+
+          <p class="pBody">Contains the window ID of the date control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302941"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1302943"></a>
+
+          <p class="pBody">Contains the <code class="cCode">LOWORD</code> and <code class="cCode">HIWORD</code> values. The <code class="cCode">LOWORD</code>
+          contains the handle to the window. The <code class="cCode">HIWORD</code> contains one of the following values, all of which act the same as the
+          Windows edit control:</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302945"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302947"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">EN_CHANGE</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302949"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302951"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">EN_ERRSPACE</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302953"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302955"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">EN_HSCROLL</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302957"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302959"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">EN_MAXTEXT</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302961"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302963"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">EN_SETFOCUS</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302965"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302967"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">EN_UPDATE</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302969"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302971"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">EN_KILLFOCUS</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1302974"></a>
+
+  <h5 class="pHeading4">Members for drag/drop well controls</h5><a name="wp1302975"></a>
+
+  <p class="pBody">The following members are available to drag/drop well controls.</p><a name="wp1302997"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1302978"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1302980"></a>
+
+          <p class="pBody">Contains the window ID of the column manager control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302982"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1302984"></a>
+
+          <p class="pBody">Contains the <code class="cCode">LOWORD</code> and <code class="cCode">HIWORD</code> values. The <code class="cCode">LOWORD</code>
+          contains the handle to the window. The <code class="cCode">HIWORD</code> contains one of the following values:</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302986"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302988"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">DDWN_DBLCLK</code> - Specifies that the control was double-clicked</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302990"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302992"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">DDWN_PROMPT_BEGIN</code> - Specifies that the mouse has passed into the control</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1302994"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1302996"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">DDWN_PROMPT_END</code> - Specifies that the mouse has passed out of the control</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1302998"></a>
+
+  <p class="pBody">The drag/drop well control also sends notifications and requests to its parent via the shared code registered message. For these messages,
+  <code class="cCode">lParam</code> contains the address of the <code class="cCode">DDWDATA</code> structure associated with the control, while <code class=
+  "cCode">wParam</code> is one of the values in the following table.</p><a name="wp1303024"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1303001"></a>
+
+          <h5 class="pHeading4">Value</h5>
+        </td>
+
+        <td>
+          <a name="wp1303003"></a>
+
+          <h5 class="pHeading4">Definition</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303005"></a>
+
+          <p class="pBody"><code class="cCode">WPMSG_DD_ICONHINST</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303007"></a>
+
+          <p class="pBody">Specifies that the <code class="cCode">hInst</code> where the control's icon resides should be returned in the <code class=
+          "cCode">hInstIcon</code> field. <code class="cCode">WPRES_SHARED</code>, <code class="cCode">WPRES_SHARED_RESOURCE</code>, <code class=
+          "cCode">WPRES_TASK</code>, or <code class="cCode">WPRES_TASK_RESOURCE</code> can be used. If this message is not handled, <code class=
+          "cCode">WPRES_SHARED_RESOURCE</code> is assumed.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303009"></a>
+
+          <p class="pBody"><code class="cCode">WPMSG_DD_GETOBJECT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303011"></a>
+
+          <p class="pBody">Acts as a pointer to the drag/drop object that should be returned in the <code class="cCode">lpObject</code> member of <code class=
+          "cCode">DDWDATA</code>. The <code class="cCode">hCursor</code> field of the object can be the handle to the cursor to be displayed or <code class=
+          "cCode">1</code> to use the control's icon as the cursor.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303013"></a>
+
+          <p class="pBody"><code class="cCode">WPMSG_DD_RSVP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303015"></a>
+
+          <p class="pBody">Specifies that the <code class="cCode">dwRsvp</code> in <code class="cCode">DDWDATA</code> contains the response to a <code class=
+          "cCode">DDREQ</code> message from the potential drag/drop client. <code class="cCode">DDRSVP_FORMAT</code> or <code class=
+          "cCode">DDRSVP_RENDER</code> flags can be set. <code class="cCode">DDRSVP_ACCEPT</code> can be set when the object is dropped. The <code class=
+          "cCode">hObject</code> member of <code class="cCode">DDWDATA</code> should not be changed.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303017"></a>
+
+          <p class="pBody"><code class="cCode">WPMSG_DD_FREEOBJECT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303019"></a>
+
+          <p class="pBody">Indicates that the user released the mouse button. This means that the object may have been dropped (in which case, a <code class=
+          "cCode">WPMSG_DD_RSVP</code> would have been sent) or that the mouse button was released over a window that could not accept the object.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303021"></a>
+
+          <p class="pBody"><code class="cCode">WPMSG_DD_DEST</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303023"></a>
+
+          <p class="pBody">Is sent to the parent of a control that is a drag/drop destination. All drag/drop well controls are potential destinations; the
+          parent must respond properly to <code class="cCode">WPMSG_DD_DEST</code> messages to actually enable drag/drop. A WP list box can be a drag/drop
+          destination if the <code class="cCode">WLB_DRAGDROP</code> message is sent to it to enable drag/drop. The parent should process the drag/drop message
+          packaged inside the <code class="cCode">DDWDATA</code> structure in <code class="cCode">WPMSG_DD_DEST</code> appropriately and then return the
+          response in the <code class="cCode">dwRsvp</code> member of the <code class="cCode">DDWDATA</code> structure that was sent.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1303026"></a>
+
+  <h5 class="pHeading4">Members for filename entry controls</h5><a name="wp1303027"></a>
+
+  <p class="pBody">The following members are available to filename entry controls.</p><a name="wp1303045"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1303030"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303032"></a>
+
+          <p class="pBody">Contains the window ID of the filename entry control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303034"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303036"></a>
+
+          <p class="pBody">Contains the <code class="cCode">LOWORD</code> and <code class="cCode">HIWORD</code> values. The <code class="cCode">LOWORD</code>
+          contains the handle to the window. The <code class="cCode">HIWORD</code> contains one fo the following values:</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303038"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1303040"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">FNEN_DLGDISMISS</code> - Specifies that the Select file or Select directory dialog box was dismissed</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303042"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1303044"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">FNEN_DLGRAISE</code> - Specifies that the Select file or Select directory dialog box was raised</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1303047"></a>
+
+  <h5 class="pHeading4">Members for pop-up/pop-down controls</h5><a name="wp1303048"></a>
+
+  <p class="pBody">When a menu item is selected from the menu portion of a pop-up/pop-down control, the control's parent gets a <code class=
+  "cCode">WM_COMMAND</code> message with the menu ID in <code class="cCode">wParam</code>.</p><a name="wp1303049"></a>
+
+  <p class="pBody">For a pop-down combo box control, the edit control portion is a Window Editor control that receives and sends Window Editor messages and
+  notifications.</p><a name="wp1303050"></a>
+
+  <p class="pBody">For pop-up and pop-down controls, a normal <code class="cCode">WM_COMMAND</code> notification, <code class="cCode">WPN_MENUCLOSE</code>, is
+  sent to the parent whenever the menu is closed.</p><a name="wp1306468"></a>
+
+  <h5 class="pHeading4">Members for window editor controls</h5><a name="wp1306489"></a>
+
+  <p class="pBody">The following members are available to window editor controls.</p><a name="wp1306478"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1306471"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306473"></a>
+
+          <p class="pBody">Contains the window ID of the column manager control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306475"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306477"></a>
+
+          <p class="pBody">Has a <code class="cCode">LOWORD</code> containing the handle to the window</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1306534"></a>
+
+  <p class="pBody">When a window editor in a dialog box is clicked, a <code class="cCode">WM_COMMAND</code> message is sent to the parent with <code class=
+  "cCode">wParam</code> set to <code class="cCode">IDCANCEL</code> and the <code class="cCode">HIWORD</code> of <code class="cCode">lParam</code> set to
+  <code class="cCode">BN_CLICKED</code>.</p><a name="wp542798"></a>
+
+  <p class="pBody">If the <code class="cCode">ES_WANTRETURN</code> style is not set when a window editor in a dialog box is clicked, a <code class=
+  "cCode">WM_COMMAND</code> message is sent to the parent with <code class="cCode">wParam</code> set to either <code class="cCode">IDOK</code> or the ID
+  returned from a <code class="cCode">DM_GETDEFID</code>. The <code class="cCode">HIWORD</code> of <code class="cCode">lParam</code> is set to <code class=
+  "cCode">BN_CLICKED</code>.</p><a name="wp1311390"></a>
+
+  <h5 class="pHeading4">Members for WP combo box controls</h5><a name="wp1312234"></a>
+
+  <p class="pBody">The following members are available to WP combo box controls.</p><a name="wp1311646"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1311607"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1311609"></a>
+
+          <p class="pBody">Contains the window ID of the WP combo box control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311611"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1311613"></a>
+
+          <p class="pBody">Has a <code class="cCode">LOWORD</code> containing the handle to the window and a <code class="cCode">HIWORD</code> containing one
+          of the following values:</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311615"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1311617"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WCBN_CLOSEUP</code> - Is equivalent to <code class="cCode">CBN_CLOSEUP</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311619"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1311621"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WCBN_DBLCLK</code> - Is equivalent to <code class="cCode">CBN_DBLCLK</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311623"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1311625"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WCBN_DROPDOWN</code> - Is equivalent to <code class="cCode">CBN_DROPDOWN</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311627"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1311629"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WCBN_EDITCHANGE</code> - Is equivalent to <code class="cCode">CBN_EDITCHANGE</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311631"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1311633"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WCBN_ERRSPACE</code> - Is equivalent to <code class="cCode">CBN_ERRSPACE</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311635"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1311637"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WCBN_KILLFOCUS</code> - Is equivalent to <code class="cCode">CBN_KILLFOCUS</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311639"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1311641"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WCBN_SELCHANGE</code> - Is equivalent to <code class="cCode">CBN_SELCHANGE</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311643"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1311645"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WCBN_SETFOCUS</code> - Is equivalent to <code class="cCode">CBN_SETFOCUS</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1312181"></a>
+
+  <h5 class="pHeading4">Members for WP list box controls</h5><a name="wp1312233"></a>
+
+  <p class="pBody">The following members are available to WP list box controls.</p><a name="wp1312191"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1312184"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312186"></a>
+
+          <p class="pBody">Contains the window ID of the column manager control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312188"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312190"></a>
+
+          <p class="pBody">Has a <code class="cCode">LOWORD</code> containing the handle to the window and a <code class="cCode">HIWORD</code> containing one
+          of the following values:</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312349"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp1312353"></a>
+
+          <p class="pBody"><code class="cCode">WLBN_DBLCLK</code> - Is equivalent to <code class="cCode">LBN_DBLCLK</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312345"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp1312355"></a>
+
+          <p class="pBody"><code class="cCode">WLBN_ERRSPACE</code> - Is equivalent to <code class="cCode">LBN_ERRSPACE</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312341"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp1312357"></a>
+
+          <p class="pBody"><code class="cCode">WLBN_KILLFOCUS</code> - Is equivalent to <code class="cCode">LBN_KILLFOCUS</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312337"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp1312359"></a>
+
+          <p class="pBody"><code class="cCode">WLBN_SELCANCEL</code> - Is equivalent to <code class="cCode">LBN_SELCANCEL</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312333"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp1312361"></a>
+
+          <p class="pBody"><code class="cCode">WLBN_SELCHANGE</code> - Is equivalent to <code class="cCode">LBN_SELCHANGE</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312329"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp1312363"></a>
+
+          <p class="pBody"><code class="cCode">WLBN_SETFOCUS</code> - Is equivalent to <code class="cCode">LBN_SETFOCUS</code></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

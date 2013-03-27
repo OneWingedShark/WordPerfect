@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:27" />
+
+  <title>TPHExit function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="TPHEntry.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="TPHHandleToken.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Third_Party_DLL_Entry_Points.html">Using entry points in Third Party Handler DLLs</a> : <a href=
+        "Functions_needing_to_be_defined_in_a_Third_Party_DLL.html">Defining required functions in Third Party Handler DLLs</a> : TPHExit function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp554388"></a>
+
+  <h4 class="pHeading3">TPHExit function</h4><a name="wp554390"></a>
+
+  <p class="pBody">PerfectFit calls this function during DLL uninitialization. This function allows the DLL to execute any code for clean-up purposes before
+  the DLL is unloaded (for example, closing files or destroying dialog boxes).</p><a name="wp1269757"></a>
+
+  <p class="pBody">This function must be exported as ordinal value <code class="cCode">5</code>.</p><a name="wp554392"></a>
+
+  <h5 class="pHeading4">C Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+WORD FAR PASCAL TPHExit ( VOID );<a name="wp554394"> </a>
+</pre>
+  </div><a name="wp554396"></a>
+
+  <h5 class="pHeading4">Pascal Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+function TPHExit: WORD;<a name="wp554398"> </a>
+</pre>
+  </div><a name="wp554400"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp554402"></a>
+
+  <p class="pBody">None</p><a name="wp554404"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp554406"></a>
+
+  <p class="pBody">A value of <code class="cCode">1</code> should be returned.</p><a name="wp554408"></a>
+
+  <h5 class="pHeading4">C sample</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+WORD FAR PASCAL TPHExit ( VOID )<a name="wp554410"> </a>
+{<a name="wp554412"> </a>
+  /* Free the requestor */<a name="wp554414"> </a>
+  GlobalDeleteAtom (aMyAtom);<a name="wp554416"> </a>
+  return 1;<a name="wp554418"> </a>
+} <a name="wp554420"> </a>
+</pre>
+  </div><a name="wp554422"></a>
+
+  <h5 class="pHeading4">Pascal sample</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+function TPHExit: WORD;<a name="wp554424"> </a>
+begin<a name="wp554426"> </a>
+  { Free the requestor }<a name="wp554428"> </a>
+  GlobalDeleteAtom (aMyAtom);<a name="wp554430"> </a>
+  result:= 1;<a name="wp554432"> </a>
+end;<a name="wp554434"> </a>
+</pre>
+  </div>
+</body>
+</html>

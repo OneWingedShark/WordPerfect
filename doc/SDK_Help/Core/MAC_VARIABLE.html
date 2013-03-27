@@ -1,0 +1,290 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:27" />
+
+  <title>MAC_VARIABLE functional element</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="MAC_VALUE_TYPE.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="TPH_RETURNVAL.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Third_Party_DLL_Entry_Points.html">Using entry points in Third Party Handler DLLs</a> : <a href=
+        "Structures_Types_and_Constants_used_by_functions.html">Choosing elements for required functions in Third Party Handler DLLs</a> : MAC_VARIABLE
+        functional element</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1271387"></a>
+
+  <h4 class="pHeading3">MAC_VARIABLE functional element</h4><a name="wp555128"></a>
+
+  <p class="pBody">The <code class="cCode">MAC_VARIABLE</code> functional element contains return value data for value-returning PerfectScript
+  commands.</p><a name="wp555130"></a>
+
+  <h5 class="pHeading4">C structure</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct_tagMAC_VARIABLE<a name="wp555132"> </a>
+{<a name="wp555134"> </a>
+HSZ   hszCommand;<a name="wp555136"> </a>
+MAC_IPCVERSION  Version;<a name="wp555138"> </a>
+HSZ   hszRequestor;<a name="wp555140"> </a>
+MAC_MACROID  dwMacroID;<a name="wp555142"> </a>
+ATOM   atomApp;<a name="wp555144"> </a>
+WORD   wReserved;<a name="wp555146"> </a>
+MAC_VALUE_TYPE  eType;<a name="wp555148"> </a>
+MAC_TOKENID  wSysVarID;<a name="wp555150"> </a>
+MAC_SYMBOLNAME wzSymbolName;<a name="wp555152"> </a>
+union<a name="wp555154"> </a>
+{<a name="wp555156"> </a>
+BOOL  fData;<a name="wp555158"> </a>
+VALUE_FLOAT drData;<a name="wp555160"> </a>
+VALUE_INT lData;<a name="wp555162"> </a>
+struct<a name="wp555164"> </a>
+{<a name="wp555166"> </a>
+WORD  wStrLen;<a name="wp555168"> </a>
+union<a name="wp555170"> </a>
+{<a name="wp555172"> </a>
+WZ wzData[1];<a name="wp555174"> </a>
+AZ azData[1];<a name="wp555176"> </a>
+} uStr;<a name="wp555178"> </a>
+} stData;<a name="wp555180"> </a>
+} uValue;<a name="wp555182"> </a>
+} MAC_VARIABLE, FAR*LPMAC_VARIABLE;<a name="wp555184"> </a>
+</pre>
+  </div><a name="wp555186"></a>
+
+  <h5 class="pHeading4">Pascal record</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+MAC_VARIABLE = record<a name="wp555188"> </a>
+hszCommand  : longint;<a name="wp555190"> </a>
+dwVerion  : DWord;<a name="wp555192"> </a>
+hszRequestor  : longint;<a name="wp555194"> </a>
+dwMacroID  : longint;<a name="wp555196"> </a>
+atomApp   : TAtom;<a name="wp555198"> </a>
+wReserved  : Word;<a name="wp555200"> </a>
+eType   : Word;<a name="wp555202"> </a>
+wSysVarID  : Word;<a name="wp555204"> </a>
+wzSymbolName  : array [0..MAC_NAME_WZCOUNT+1] of WZ;<a name="wp555206"> </a>
+case TMacVariableData of<a name="wp555208"> </a>
+TPHBOOL : ( fData  : Boolean );<a name="wp555210"> </a>
+TPHFLOAT : ( drData  : Double );<a name="wp555212"> </a>
+TPHINT : ( lData  : longint );<a name="wp555214"> </a>
+TPHSTDATA: ( stData  : TstData );<a name="wp555216"> </a>
+end;<a name="wp555218"> </a>
+</pre>
+  </div><a name="wp555220"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp1270827"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1271175"></a>
+
+          <p class="pBody"><code class="cCode">hszCommand</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271177"></a>
+
+          <p class="pBody">Specifies the handle to the string representing the command type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271179"></a>
+
+          <p class="pBody"><code class="cCode">Version</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271181"></a>
+
+          <p class="pBody">Specifies the version of IPC. Set to 0.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271183"></a>
+
+          <p class="pBody"><code class="cCode">hszRequestor</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271185"></a>
+
+          <p class="pBody">Specifies the handle to a string representing the name of the requesting application</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271187"></a>
+
+          <p class="pBody"><code class="cCode">dwMacroID</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271189"></a>
+
+          <p class="pBody">Specifies the application defined macro identifier</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271191"></a>
+
+          <p class="pBody"><code class="cCode">atomApp</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271193"></a>
+
+          <p class="pBody">Specifies the application where the request is bound</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271195"></a>
+
+          <p class="pBody"><code class="cCode">wReserved</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271197"></a>
+
+          <p class="pBody">Reserved. Set to 0</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271199"></a>
+
+          <p class="pBody"><code class="cCode">eType</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271201"></a>
+
+          <p class="pBody">Specifies the return value type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271203"></a>
+
+          <p class="pBody"><code class="cCode">wSysVarID</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271205"></a>
+
+          <p class="pBody">Acts as a system variable identifier</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271207"></a>
+
+          <p class="pBody"><code class="cCode">wzSymoblName</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271209"></a>
+
+          <p class="pBody">Specifies the word string containing the symbol name</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271211"></a>
+
+          <p class="pBody"><code class="cCode">uValue</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271213"></a>
+
+          <p class="pBody">Acts as a union containing the actual return value:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1271259"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">fData</code> = Specifies Boolean type data</li>
+              </ul>
+            </div><a name="wp1271267"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">drData</code> = Specifies floating-point data</li>
+              </ul>
+            </div><a name="wp1271272"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">lData</code> = Specifies integer data</li>
+              </ul>
+            </div><a name="wp1271277"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">stData</code> = Specifies string data</li>
+              </ul>
+            </div><a name="wp1271282"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">wStrLen</code> = Specifies character length of string data</li>
+              </ul>
+            </div><a name="wp1271287"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">uStr</code> = Acts as a union flagging the string type (<code class="cCode">wzData</code> for a word string or
+                <code class="cCode">azData</code> for an ANSI string)</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

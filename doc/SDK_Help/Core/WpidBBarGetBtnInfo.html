@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidBBarGetBtnInfo function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="PIDBBM_GETBUTTONPOSITION.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidBBarSetBtnInfo.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Toolbars.html">Creating toolbars</a> : WpidBBarGetBtnInfo
+        function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553555"></a>
+
+  <h4 class="pHeading3">WpidBBarGetBtnInfo function</h4><a name="wp553557"></a>
+
+  <p class="pBody">The <code class="cCode">WpidBBarGetBtnInfo</code> function gets the button data for the specified button by filling the <code class=
+  "cCode">WPBBAR_BUTTON</code> structure. <code class="cCode">lpBtn</code> holds the button data for the button specified. This function should be used to get
+  button data instead of the message <code class="cCode">PIDBBM_GETBUTTONINFO</code>.</p><a name="wp553559"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+LRESULT SHAPI WpidBBarGetBtnInfo ( <a name="wp553561"> </a>
+HWND hwndBBar, <a name="wp553563"> </a>
+int iBtn, <a name="wp553565"> </a>
+LPWPBBAR_BUTTON lpBtn); <a name="wp553567"> </a>
+</pre>
+  </div><a name="wp553569"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp553572"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp524037"></a>
+
+          <p class="pBody"><code class="cCode">hwndBBar</code></p>
+        </td>
+
+        <td>
+          <a name="wp524039"></a>
+
+          <p class="pBody">Specifies the handle to a toolbar window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524045"></a>
+
+          <p class="pBody"><code class="cCode">iBtn</code></p>
+        </td>
+
+        <td>
+          <a name="wp524047"></a>
+
+          <p class="pBody">Specifies the the index (zero-based) count of the requested button</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524053"></a>
+
+          <p class="pBody"><code class="cCode">lpBtn</code></p>
+        </td>
+
+        <td>
+          <a name="wp524055"></a>
+
+          <p class="pBody">Specifies the long pointer to <code class="cCode">WPBBAR_BUTTON</code> structure</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553574"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp553576"></a>
+
+  <p class="pBody"><code class="cCode">TRUE</code> is returned if successful, <code class="cCode">FALSE</code> if an error occurs. The only time an error
+  should occur is when a program requests data on a button that is not on the toolbar.</p>
+</body>
+</html>

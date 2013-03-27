@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Avoiding DDE Reentrancy errors</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Terminating_a_DDE_conversation.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Third_Party_DLL_Entry_Points.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href=
+        "Dynamic_Data_Exchange_DDE_Intro.html">Understanding Dynamic Data Exchange (DDE)</a> : Avoiding DDE Reentrancy errors</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1276902"></a>
+
+  <h4 class="pHeading3">Avoiding DDE Reentrancy errors</h4><a name="wp534336"></a>
+
+  <p class="pBody">During the processing of a DDE transaction (<code class="cCode">Request</code> or <code class="cCode">Execute</code>),
+  Corel&nbsp;WordPerfect&nbsp;Office applications may yield processor time and allow other applications to run. This is significant in the event that the
+  client sends DDE commands to Corel&nbsp;WordPerfect&nbsp;Office applications based on messages that the client receives in its window procedure. Although the
+  Corel&nbsp;WordPerfect&nbsp;Office application is performing a command on the client's behalf, it is possible for the client to receive messages in its
+  Window procedure before the call to <code class="cCode">DDE Execute</code> or <code class="cCode">DDE Request</code> has completed. Because DDE does not
+  allow a client to send a command for a particular conversation while another command for the same conversation is in process, the client application should
+  make sure that a <code class="cCode">DDE Execute</code> or <code class="cCode">DDE Request</code> command is not currently in process before sending another
+  such command through DDE. Otherwise, a <code class="cCode">DDE Reentrancy</code> error will result, and the command may not execute successfully.</p>
+</body>
+</html>

@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>SquashFilename function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WfneGetEditHwnd.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="BMPM_SETFILE.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> :
+        SquashFilename function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1313787"></a>
+
+  <h4 class="pHeading3">SquashFilename function</h4><a name="wp1313788"></a>
+
+  <p class="pBody">The <code class="cCode">SquashFilename</code> function shortens the string representing a pathname into a string that fits the destination
+  area in a static path control.</p><a name="wp1313789"></a>
+
+  <p class="pBody"></p><a name="wp1313790"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int FAR PASCAL SquashFilename (<a name="wp1313791"> </a>
+HDC hDC,<a name="wp1313792"> </a>
+LPSTR lpInStr,<a name="wp1313793"> </a>
+LPSTR lpOutStr,<a name="wp1313794"> </a>
+WORD wMaxWidth );<a name="wp1313795"> </a>
+</pre>
+  </div><a name="wp1313796"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1313814"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313799"></a>
+
+          <p class="pBody"><code class="cCode">hDC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313801"></a>
+
+          <p class="pBody">Specifies the device context to be used. If this value is <code class="cCode">0</code>, then <code class="cCode">wMaxWidth</code> is
+          assumed to be a maximum number of characters. If <code class="cCode">hDC</code> is a valid device context, then <code class="cCode">wMaxWidth</code>
+          is assumed to be a pixel width.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313803"></a>
+
+          <p class="pBody"><code class="cCode">lpInStr</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313805"></a>
+
+          <p class="pBody">Specifies the string (a path) that needs to be shortened</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313807"></a>
+
+          <p class="pBody"><code class="cCode">lpOutStr</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313809"></a>
+
+          <p class="pBody">Acts as a long pointer to a buffer to receive the shortened path</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313811"></a>
+
+          <p class="pBody"><code class="cCode">wMaxWidth</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313813"></a>
+
+          <p class="pBody">Specifies the maximum size of the destination area in pixels</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1313815"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1313816"></a>
+
+  <p class="pBody">This function returns the number of characters in the output buffer if successful.</p>
+</body>
+</html>

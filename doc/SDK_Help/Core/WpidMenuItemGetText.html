@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidMenuItemGetText function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidMenuItemGetSubMenu.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidMenuItemInsert.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Menus.html">Creating menus</a> : WpidMenuItemGetText function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp549683"></a>
+
+  <h4 class="pHeading3">WpidMenuItemGetText function</h4><a name="wp549685"></a>
+
+  <p class="pBody">The <code class="cCode">WpidMenuItemGetText</code> function copies the text for a menu item to the given buffer. The text returned includes
+  the accelerator text. The menu text and accelerator information is delimited by the hexadecimal value <code class="cCode">0x08</code>.</p><a name=
+  "wp549687"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL FAR PASCAL WpidMenuItemGetText ( <a name="wp549689"> </a>
+WMEMOBJECT WPMenu, <a name="wp549691"> </a>
+WORD wMenuID, <a name="wp549693"> </a>
+DWORD dwFlags, <a name="wp549695"> </a>
+WORD wMenuItemID, <a name="wp549697"> </a>
+LPGZ lpazBuffer, <a name="wp549699"> </a>
+int maxBuffer ); <a name="wp549701"> </a>
+</pre>
+  </div><a name="wp549703"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp549706"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp520999"></a>
+
+          <p class="pBody"><code class="cCode">WPMenu</code></p>
+        </td>
+
+        <td>
+          <a name="wp521001"></a>
+
+          <p class="pBody">Specifies the handle to menu object memory</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521007"></a>
+
+          <p class="pBody"><code class="cCode">wMenuID</code></p>
+        </td>
+
+        <td>
+          <a name="wp521009"></a>
+
+          <p class="pBody">Specifies the menu ID where the menu item resides</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521015"></a>
+
+          <p class="pBody"><code class="cCode">dwFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp521017"></a>
+
+          <p class="pBody">Allows the following flags:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp521019"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_ENABLED</code></li>
+              </ul>
+            </div><a name="wp521021"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNCHECKED</code></li>
+              </ul>
+            </div><a name="wp521023"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_BYCOMMAND</code></li>
+              </ul>
+            </div><a name="wp521025"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNHILITE</code></li>
+              </ul>
+            </div><a name="wp521027"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_STRING</code></li>
+              </ul>
+            </div><a name="wp521029"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_GRAYED</code></li>
+              </ul>
+            </div><a name="wp521031"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_DISABLED</code></li>
+              </ul>
+            </div><a name="wp521033"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_BITMAP</code></li>
+              </ul>
+            </div><a name="wp521035"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_CHECKED</code></li>
+              </ul>
+            </div><a name="wp521037"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_POPUP</code></li>
+              </ul>
+            </div><a name="wp521039"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_MENUBARBREAK</code></li>
+              </ul>
+            </div><a name="wp521041"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_MENUBREAK</code></li>
+              </ul>
+            </div><a name="wp521043"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_HILITE</code></li>
+              </ul>
+            </div><a name="wp521045"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_OWNERDRAW</code></li>
+              </ul>
+            </div><a name="wp521047"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_BYPOSITION</code></li>
+              </ul>
+            </div><a name="wp521049"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_SEPARATOR</code></li>
+              </ul>
+            </div><a name="wp521051"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_SYSMENU</code></li>
+              </ul>
+            </div><a name="wp521053"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_EMBEDDEDMENU</code></li>
+              </ul>
+            </div><a name="wp521055"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_AUTOSEPARATOR</code></li>
+              </ul>
+            </div><a name="wp521057"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_AUTOMNEMONICS</code></li>
+              </ul>
+            </div><a name="wp521059"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNREMOVEABLE</code></li>
+              </ul>
+            </div><a name="wp521061"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_MDIWINDOWMENU</code></li>
+              </ul>
+            </div><a name="wp521063"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_OLEMENU</code></li>
+              </ul>
+            </div><a name="wp521065"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_EDITOR</code></li>
+              </ul>
+            </div><a name="wp521067"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_HEADER</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521073"></a>
+
+          <p class="pBody"><code class="cCode">wMenuItemID</code></p>
+        </td>
+
+        <td>
+          <a name="wp521075"></a>
+
+          <p class="pBody">Specifies the ID of the item where the string will be read from</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521081"></a>
+
+          <p class="pBody"><code class="cCode">lpazBuffer</code></p>
+        </td>
+
+        <td>
+          <a name="wp521083"></a>
+
+          <p class="pBody">Specifies the buffer to receive the string from the item</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521089"></a>
+
+          <p class="pBody"><code class="cCode">maxBuffer</code></p>
+        </td>
+
+        <td>
+          <a name="wp521091"></a>
+
+          <p class="pBody">Specifies the maximum size of the given buffer</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp549708"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp549710"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful and <code class="cCode">FALSE</code> if unsuccessful.</p>
+</body>
+</html>

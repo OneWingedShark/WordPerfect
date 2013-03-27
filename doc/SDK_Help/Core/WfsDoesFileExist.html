@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WfsDoesFileExist function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WfsDoesExistEx.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WfsExpandPath.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        WfsDoesFileExist function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp547368"></a>
+
+  <h4 class="pHeading3">WfsDoesFileExist function</h4><a name="wp547370"></a>
+
+  <p class="pBody">Indicates whether the specified file exists. Tests only for valid files; to test for directories, use <code class=
+  "cCode">WfsDoesDirExist(&nbsp;)</code>. The input parameter for this function is assumed to be an ANSI string.</p><a name="wp547372"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL SHAPI WfsDoesFileExist ( LPSTR lpszFileName );<a name="wp547374"> </a>
+</pre>
+  </div><a name="wp547376"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp547379"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp518482"></a>
+
+          <p class="pBody"><code class="cCode">lpszFileName</code></p>
+        </td>
+
+        <td>
+          <a name="wp518484"></a>
+
+          <p class="pBody">Acts as a pointer to the name of the file to verify. The length of this filename cannot be greater than <code class=
+          "cCode">FS_FILENAME_LEN</code> (<code class="cCode">155</code>).</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp547381"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp547383"></a>
+
+  <p class="pBody"><code class="cCode">TRUE</code> is returned if the specified file exists, <code class="cCode">FALSE</code> if the file does not exist.</p>
+</body>
+</html>

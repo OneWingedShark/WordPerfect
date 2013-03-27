@@ -1,0 +1,489 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>Quattro Pro File Format</title>
+</head>
+<body>
+    <h1>Quattro Pro File Format</h1>
+    <p><a href="qpff_Index.htm">Back to main page</a></p>
+    <h2>Data Types</h2>
+    <p>This section contains common type definitions used throughout the set of file format
+    records. A type definition is no more than an abbreviation. Where the sum of bit field
+    sizes falls short of the type size, the remaining bits are always reserved. Any field
+    labeled reserved may contain any value when reading, but 0 should always be written,
+    except as may be redefined in future versions of Quattro Pro.<br />
+    </p>
+    <hr />
+    <h3>QBRDR</h3>
+    <p><b>Description:</b> cell border data</p>
+    <p>&lt;type&gt;</p>
+    <p>bits 0-4: line line type</p>
+    <p>bits 5-7: marg spacing inside line in pixels</p>
+    <hr />
+    <h3>QPOINT</h3>
+    <p>{x}</p>
+    <p>{y}</p>
+    <hr />
+    <h3>QSTR</h3>
+    <p><b>Description:</b> text string</p>
+    <p>[count] number of characters (not bytes) in the string</p>
+    <p>&lt;string type&gt;<br />
+    &nbsp; bit 0: unicode string<br />
+    &nbsp; bit 1: rich text string follows<br />
+    &nbsp; bit 2: not number value<br />
+    &nbsp; bits 3-4: unused<br />
+    &nbsp; bits 5-7: prefix</p>
+    <p>&lt;char&gt; first character of the string</p>
+    <hr />
+    <h3>QFORMULA</h3>
+    <p>[length] number of bytes in formula</p>
+    <p>[refPos] starting position of references</p>
+    <p>&lt;formula byte codes&gt; x length</p>
+    <hr />
+    <h3>QCELL3D</h3>
+    <p><b>Description:</b> cell location</p>
+    <p>[column]</p>
+    <p>[sheet]</p>
+    <p>{row}</p>
+    <hr />
+    <h3>QRANGE3D</h3>
+    <p><b>Description:</b> reference to a block of cells</p>
+    <p>QCELL3D top left</p>
+    <p>QCELL3D bottom right</p>
+    <hr />
+    <h3>SSREFHDR</h3>
+    <p><b>Description:</b> reference information</p>
+    <p>[reference info]</p>
+    <p>bits 0-9: used as defined in each reference structure</p>
+    <p>bit 10: absolute delete for non-name reference</p>
+    <p>bit 11: undoable delete</p>
+    <p>bit 12-15:</p>
+    <p>0 = REF_CELL</p>
+    <p>1 = REF_RANGE, range reference</p>
+    <p>2 = REF_NAME, name reference</p>
+    <p>3 = REF_COLL, collection reference</p>
+    <p>4 = REF_COLLPTR, a pointer to a collection</p>
+    <p>following types used in named item</p>
+    <p>5 = REF_DDELINK, a DDE link</p>
+    <p>6 = REF_OUTPUT, an output range</p>
+    <p>7 = REF_SELLIST, SelList</p>
+    <hr />
+    <h3>SSRANGE</h3>
+    <p><b>Description:</b> specifies a 3-dimensional range of cells</p>
+    <p>SSREFHDR refHdr</p>
+    <p>QRANGE3D range</p>
+    <hr />
+    <h3>SSREF</h3>
+    <p><b>Description:</b> spreadsheet reference</p>
+    <p>SSREFHDR header</p>
+    <p>&lt;body&gt; x ? Data depends on type specified in header</p>
+    <hr />
+    <h3>QCOLLECTION</h3>
+    <p><b>Description:</b> list of range references that act as one reference</p>
+    <p>[count] number of ranges</p>
+    <p>SSRANGE range reference</p>
+    <hr />
+    <h3>FONTINFO</h3>
+    <p><b>Description:</b> font information</p>
+    <p>[name]</p>
+    <p>[font ID]</p>
+    <p>&lt;font family&gt;</p>
+    <p>&lt;char set&gt;</p>
+    <p>{font size}</p>
+    <p>&lt;flags&gt;</p>
+    <p>bits 0-3: underline type</p>
+    <p>0 = none</p>
+    <p>1 = single</p>
+    <p>2 = double</p>
+    <p>3 = single full,</p>
+    <p>4 = double full,</p>
+    <p>5 = single (no white space)</p>
+    <p>6 = double (no white space)</p>
+    <p>15 = default</p>
+    <p>bits 4-7: accounting</p>
+    <p>&lt;superSub&gt;</p>
+    <p>&lt;style&gt;</p>
+    <p>bits 0-1: italic type</p>
+    <p>0 = none</p>
+    <p>1 = italic</p>
+    <p>2 = italic2</p>
+    <p>3 = default</p>
+    <p>bits 2-3: outline type</p>
+    <p>0 = none</p>
+    <p>1 = outline</p>
+    <p>2 = shadow</p>
+    <p>3 = default</p>
+    <p>bits 4-5: strike type</p>
+    <p>0 = none</p>
+    <p>1 = strikeout</p>
+    <p>2 = redline</p>
+    <p>3 = default</p>
+    <p>bits 6-7: reserved</p>
+    <p>&lt;language&gt; language code</p>
+    <p>[weight] bold weight (0 to 1000, 400 = normal, 700 = bold)</p>
+    <hr />
+    <h3>RTFToken</h3>
+    <p><b>Description:</b> token and included RTF for User Defined Formats</p>
+    <p>&lt;code&gt; format code</p>
+    <p>[data] optional data dependent on the format code</p>
+    <p>&lt;rtfNum&gt; number of the RTF attribute to use on this token</p>
+    <hr />
+    <h3>SD_TEXT</h3>
+    <p><b>Description:</b> attributes of a font</p>
+    <p>&lt;font&gt;</p>
+    <p>bit 0: bold</p>
+    <p>bit 1: italic</p>
+    <p>bit 2: underline</p>
+    <p>bit 3: subscript</p>
+    <p>bit 4: superscript</p>
+    <p>bit 5: strikethrough</p>
+    <p>bit 6: double underline</p>
+    <p>bit 7: outline</p>
+    <p>bit 8: shadow</p>
+    <p>bit 9: accounting1</p>
+    <p>bit 10: accounting2</p>
+    <p>bits 11-15: unused</p>
+    <hr />
+    <h3>RTFIsDefined</h3>
+    <p><b>Description:</b> tells which portion of an RTF data overrides the default</p>
+    <p>&lt;font&gt;</p>
+    <p>bit 0: bold</p>
+    <p>bit 1: italic</p>
+    <p>bit 2: underline</p>
+    <p>bit 3: subscript</p>
+    <p>bit 4: superscript</p>
+    <p>bit 5: strikethrough</p>
+    <p>bit 6: double underline</p>
+    <p>bit 7: outline</p>
+    <p>bit 8: shadow</p>
+    <p>bit 9: accounting1</p>
+    <p>bit 10: accounting2</p>
+    <p>bit 11: size</p>
+    <p>bit 12: text color</p>
+    <p>bit 13: face name</p>
+    <p>bits 14-15: unused</p>
+    <hr />
+    <h3>QRTFATTR</h3>
+    <p><b>Description:</b> attribute information for an RTF run</p>
+    <p>[size] point size of the font</p>
+    <p>SD_TEXT attrs</p>
+    <p>&lt;face name&gt; x ?</p>
+    <p>COLORREF rgbText text color</p>
+    <p>RTFIsDefined RID which id the attributes, point size, face name and color is overriding</p>
+    <hr />
+    <h3>CROSSTAB_REPORT</h3>
+    <p><b>Description:</b> information about the report</p>
+    <p>MEM_STR report name</p>
+    <p>{width} width of the report, in number of columns</p>
+    <p>{height} height of the report, in number of rows</p>
+    <p>{last data mining row}</p>
+    <p>{last data mining column}</p>
+    <p>MEM_STR range destination range in which report was generated previously</p>
+    <p>CROSSTAB_TABLE_PROPS cross tab table properties</p>
+    <p>CROSSTAB_TABLE cross tab table and its associated data</p>
+    <hr />
+    <h3>CROSSTAB_TABLE_PROPS</h3>
+    <p><b>Description:</b> Cross Tab table properties</p>
+    <p>MEM_STR dataSrc worksheet range</p>
+    <p>MEM_STR dataDst target cell</p>
+    <p>FIELD_SPEC_ARRAY row field specifications</p>
+    <p>FIELD_SPEC_ARRAY column field specifications</p>
+    <p>FIELD_SPEC_ARRAY page field specifications</p>
+    <p>FIELD_SPEC_ARRAY data field specifications</p>
+    <p>MEM_STR name of the cross tab table</p>
+    <p>&lt;sort type&gt;</p>
+    <p>0 = none</p>
+    <p>1 =ascend</p>
+    <p>2 = descend</p>
+    <p>{options}</p>
+    <p>1 = show column summary</p>
+    <p>2 = show row summary</p>
+    <p>4 = update data on open</p>
+    <p>8 = update text in empty cell</p>
+    <p>16 = format the report</p>
+    <p>32 = preserve data formatting</p>
+    <p>64 = center labels across blocks of cells</p>
+    <p>128 = data alignment with column (default is row</p>
+    <p>MEM_STR display text for empty cell</p>
+    <p>{OLAP table}</p>
+    <p>{pOLAP] only for OLAP tables</p>
+    <hr />
+    <h3>FIELD_SPEC_ARRAY</h3>
+    <p><b>Description:</b> array of field specifications</p>
+    <p>{elements} number of elements</p>
+    <p>FIELD_SPEC x elements</p>
+    <hr />
+    <h3>FIELD_SPEC</h3>
+    <p><b>Description:</b> Cross Tab field specifications</p>
+    <p>&lt;index&gt; field index within the record (0..num of fields-1)</p>
+    <p>&lt;type&gt; field type</p>
+    <p>0 = none</p>
+    <p>1 = integer</p>
+    <p>2 = real</p>
+    <p>3 = string</p>
+    <p>4 = undefined</p>
+    <p>5 = empty</p>
+    <p>MEM_STR actual name of the field</p>
+    <p>{summary flags} used for data fields</p>
+    <p>1 = sum</p>
+    <p>2 = count</p>
+    <p>4 = average</p>
+    <p>8 = maximum</p>
+    <p>16 = minimum</p>
+    <p>32 = population standard deviation</p>
+    <p>64 = sample standard deviation</p>
+    <p>128 = population variance</p>
+    <p>256 = sample variance</p>
+    <p>512 = count non-blank</p>
+    <p>1024 = product</p>
+    <p>{data comp} data comparison</p>
+    <p>0 = none</p>
+    <p>1 = difference from</p>
+    <p>2 = percentage of</p>
+    <p>3 = percentage difference from</p>
+    <p>4 = running total</p>
+    <p>5 = percentage of row</p>
+    <p>6 = percentage of column</p>
+    <p>7 = percentage of total</p>
+    <p>8 = index</p>
+    <p>&lt;index&gt; field index of the base item</p>
+    <p>{signature} signature for data comparison info</p>
+    <p>0 = compare with none</p>
+    <p>1 = compare with specified data</p>
+    <p>4294967294 = compare with previous</p>
+    <p>4294967295 = compare with next</p>
+    <p>FIELD_DATA optional data comparison data that is present when the value of the signature
+    is 1</p>
+    <p>FIELD_DATA_ARRAY array of hidden items</p>
+    <p>MEM_STR user editable display name</p>
+    <p>{OLAP field info}</p>
+    <hr />
+    <h3>FIELD_DATA</h3>
+    <p><b>Description:</b> field data</p>
+    <p>[size] total size (size of the structure + size of data)</p>
+    <p>&lt;data type&gt;</p>
+    <p>0 = none</p>
+    <p>1 = integer</p>
+    <p>2 = real</p>
+    <p>3 = string</p>
+    <p>4 = undefined</p>
+    <p>5 = empty</p>
+    <p>{value} if the data type byte is 1</p>
+    <p>[[value]] if the data type byte is 2</p>
+    <p>MEM_STR if the data type byte is 3</p>
+    <hr />
+    <h3>FIELD_DATA_ARRAY</h3>
+    <p><b>Description:</b> array of field data</p>
+    <p>{elements} number of elements</p>
+    <p>FIELD_DATA x elements</p>
+    <hr />
+    <h3>CROSSTAB_TABLE</h3>
+    <p><b>Description:</b> information associated with the Cross Tab table object</p>
+    <p>{total number of rows}</p>
+    <p>{total number of columns}</p>
+    <p>&lt;column layout&gt; set if column layout is customized</p>
+    <p>&lt;row layout&gt; set if column layout is customized</p>
+    <p>LABEL_TREE Y-axis or row header information</p>
+    <p>LABEL_TREE X-axis or column header information</p>
+    <hr />
+    <h3>LABEL_TREE</h3>
+    <p><b>Description:</b> Cross Tab table header information</p>
+    <p>{child nodes} total number of child nodes at the root level</p>
+    <p>CROSSTAB_NODE_INFO information stored in the root node</p>
+    <hr />
+    <h3>CROSSTAB_NODE_INFO</h3>
+    <p><b>Description:</b> information associated with a header node</p>
+    <p>{count} number of children</p>
+    <p>{signature} signature (0 or 1) that indicates if label information is present</p>
+    <p>CROSSTAB_LABEL label information</p>
+    <p>CROSSTAB_NODE_INFO x count list of child nodes are stored depth-wise and then breadth-wise</p>
+    <hr />
+    <h3>CROSSTAB_LABEL</h3>
+    <p><b>Description:</b> label information</p>
+    <p>MEM_STR label user editable display label</p>
+    <p>{summary flags}</p>
+    <p>{data} data field to which it belongs (index to Data field spec array)</p>
+    <p>&lt;label tree&gt;</p>
+    <p>0 = none</p>
+    <p>1 = data</p>
+    <p>2 = sub total</p>
+    <p>3 = grand total</p>
+    <p>{signature}</p>
+    <p>FIELD_DATA actual data of the label</p>
+    <p>{start} starting range position (relative row or column index)</p>
+    <p>{end} ending range position (relative row or column index)</p>
+    <p>{hidden} set if details are hidden</p>
+    <p>{merged items} number of merged items</p>
+    <p>0 = none (&gt;0 for selected items)</p>
+    <p>1 = all</p>
+    <p>FIELD_DATA_ARRAY optional array of merged items, present only when the merged items
+    field is non zero</p>
+    <p>{custom sort} number of items in the custom sorting array</p>
+    <p>FIELD_DATA_ARRAY optional array of items to be used for custom sorting, present only
+    when custom sort field is non zero</p>
+    <hr />
+    <h3>DATE</h3>
+    <p>[year]</p>
+    <p>&lt;month&gt;</p>
+    <p>&lt;day&gt;</p>
+    <p>&lt;hour&gt;</p>
+    <p>&lt;minute&gt;</p>
+    <p>&lt;second&gt;</p>
+    <p>&lt;day of week&gt;</p>
+    <p>&lt;time zone&gt;</p>
+    <p>&lt;reserved&gt;</p>
+    <hr />
+    <h3>QCELL</h3>
+    <p>&lt;cell&gt;</p>
+    <p>bits 0-4: type</p>
+    <p>1 = blank (data length is 0)</p>
+    <p>2 = positive integer (2 byte: 0 to 65535)</p>
+    <p>3 = negative integer (2 byte: -32768 to 0)</p>
+    <p>4 = RK number (4 byte: same as Microsoft Excel)</p>
+    <p>5 = float (8 byte: IEEE number)</p>
+    <p>6 = label (2 byte: id into string table)</p>
+    <p>7 = label_32 (4 byte: id into string table)</p>
+    <p>8 = formula (14 bytes total: 8 - value, 2 - state, 4 - id)</p>
+    <p>30 = error</p>
+    <p>31 = unknown</p>
+    <p>bit 5: series</p>
+    <p>1 = initial value followed by delta 9same size as value) to generate mulCount cells
+    (only valid if mul=1)<br />
+    &nbsp;<br />
+    &nbsp;</p>
+    <p>bit 6: mul</p>
+    <p>1 = groups multiple cells with same format and type</p>
+    <p>bit 7: format</p>
+    <p>1 = has attribute</p>
+    <p>[format index] index into format list (only present if format = 1)</p>
+    <p>[mulCount] number of cells with same format and type (only present if mul = 1)</p>
+    <p>&lt;data&gt; x ? type dependant length</p>
+    <hr />
+    <h3>FORMAT</h3>
+    <p>[font index]</p>
+    <pre>
+[number format index]
+[horizontal alignment]
+  bits 0-3:
+    0 = general
+    1 = left
+    2 = center
+    3 = right
+    4 = fill
+    5 = justify
+    6 = center across block
+    7 = indent 1sp
+    8 = indent 2sp
+    9 = indent 3sp
+    10 = indent 4sp
+    11 = indent 10th
+    12 = indent 2mm
+  bit 4-6: vertical alignment
+    0 = top
+    1 = center
+    2 = bottom
+    3 = justify
+  bits 7-9: orientation 
+    0 = horz lf-rt
+    1 = horz rt-lf
+    2 = vert lf-rt
+    3 = vert rt-lf
+  bits 10-11:
+    1 = wrap text
+  bits 12-13:
+    1 = shrink to fit
+  bits 14-15: _123
+    1 = use first character of text for alignment ('left, "right, ^center, \fill)
+[lock]
+  bits 0-2: unlocked, 1..6 = lock level
+  bits 3-5: hide - 0 = show, 1 = hide, 2 = hide formulas only
+  bit 6: 1 = was auto-formatted according to text entered in cell
+  bit 7: 1 = row format preferred over column if collision
+  bits 8-13: indent amount times 1 to 4 spaces or 10th" or 2mm, see horzAln
+  bit 14: 1 = cell format is a style
+  bit 15: 1 = this cell format is abbreviated to 8 bytes
+[style]  cell format index used as supporting style
+[color palette index]
+[angle] 
+  bits 0-8: text rotation angle, 0..360 going counter-clockwise
+  bits 9-15: currency
+&lt;entry type&gt;  restrict cell data entry to: 
+  bits 0-3:
+    0 = no restriction
+    1 = date
+    2 = time
+    3 = date / time
+    4 = use number format as template
+    5 = number
+    6 = text
+  bit 4: 1 = need to parse text for max font (not used)
+  bit 5: 1 = display diagonal line top-left to bottom-right
+  bit 6: 1 = display diagonal line top-right to bottom-left
+  bit 7: unused, always 0
+QBRDR  left border line type / spacing
+QBRDR  top border line type / spacing
+QBRDR  right border line type / spacing
+QBRDR  bottom border line type / spacing
+QBRDR  diagonal line type (spacing n/a)
+&lt;left border line color&gt;
+&lt;top border line color&gt;
+&lt;right border line color&gt;
+&lt;bottom border line color&gt;
+&lt;diagonal line color&gt; 
+&lt;foreground color&gt;
+&lt;background color&gt; no background if pattern = 0
+&lt;pattern index&gt;
+</pre>
+    <hr />
+    <h3>SORT_KEY_RECORD</h3>
+    <p>SSREF key</p>
+    <p>[order type]</p>
+    <p>0 = ascending</p>
+    <p>1 = descending</p>
+    <hr />
+    <h3>SORT_RECORD</h3>
+    <p>SSREF range</p>
+    <p>[what first]</p>
+    <p>0 = numbers first</p>
+    <p>1 = labels first</p>
+    <p>[label order]</p>
+    <p>0 = dictionary</p>
+    <p>1 = ASCII</p>
+    <p>SORT_KEY_RECORD x 5</p>
+    <p>{blank}</p>
+    <p>0 = blank last</p>
+    <p>1 = blank first</p>
+    <p>{heading}</p>
+    <p>bit 0: heading state</p>
+    <p>bits 1-10: heading rows</p>
+    <p>bits 11-20: heading columns</p>
+    <p>bits 21-31: unused</p>
+    <p>{type}</p>
+    <hr />
+    <h3>QSTR_LABEL</h3>
+    <p>QSTR str</p>
+    <p>&lt;char&gt; x count count value from QSTR structure. The first character of the
+    string being in QSTR the rest of them follow here</p>
+    <hr />
+    <h3>STYLE_LIST</h3>
+    <p>[style ID]</p>
+    <p>[attr ID]</p>
+    <p>QSTR_LABEL name</p>
+    <hr />
+    <h3>OLE_CELL_REF</h3>
+    <p>{row}</p>
+    <p>{column}</p>
+    <p>{sheet}</p>
+    <hr />
+    <h3>XML_TAG</h3>
+    <p>MEM_STR name</p>
+    <p>MEM_STR range</p>
+    <hr />
+    <h3>MEM_STR</h3>
+    <p>&lt;size&gt;</p>
+    <p>&lt;char&gt; x size</p>
+</body>
+</html>

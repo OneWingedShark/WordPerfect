@@ -1,0 +1,1942 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect Graphic File Format</title>
+</head>
+<body>
+    <h1>WordPerfect Graphic File Format</h1>
+    <p><a href="_b1over.htm">Back to main page</a></p>
+    <h2><a name="Record_Descriptions"></a>Record Descriptions</h2>
+    <p>This section describes the record types for the WordPerfect Graphic File Format.</p>
+    <hr />
+    <h3>Record Type 1 (0x01) Start WPG</h3>
+    <h4>Description</h4>
+    <p>Defines the start of WPG data records.</p>
+    <h4>Structure</h4>
+    <p>[horizontal unit of measure] in pixels per inch</p>
+    <p>[vertical unit of measure] in pixels per inch</p>
+    <p>&lt;position/size data precision&gt;</p>
+    <p>0 = single (16-bit) precision</p>
+    <p>1 = double (32-bit) precision</p>
+    <p>[X coordinate of left edge of viewport]</p>
+    <p>[Y coordinate of bottom edge of viewport]</p>
+    <p>[X coordinate of right edge of viewport]</p>
+    <p>[Y coordinate of top edge of viewport]</p>
+    <p>[X coordinate of left edge of image extent]</p>
+    <p>[Y coordinate of bottom edge of image extent]</p>
+    <p>[X coordinate of right edge of image extent]</p>
+    <p>[Y coordinate of top edge of image extent]</p>
+    <p>[next available Object ID]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.</p>
+    <h4>Extensions</h4>
+    <p>Form Settings, Ruler Settings, Grid Settings, Font Settings, Color Transfer, Pattern
+    Definition, Texture Definition, Brush Gradient, DP Brush Gradient, Brush Fore Color,
+    DP Brush Fore Color, Brush Back Color, DP Brush Back Color, Brush Pattern, Brush Texture,
+    Color Palette, DP Color Palette</p>
+    <h4>Notes</h4>
+    <p>The <em>Color Transfer</em> extension record modifies the page color (even if present
+    after the brush extension records) and must be given Page classification; it does not
+    modify any colors other than the page color.</p>
+    <p>Brush extension records define the page color and must be given Page classification.</p>
+    <p>The Horizontal and Vertical Units of Measure fields must not be 0 (zero). These fields
+    describe units of measure for the graphics in the file, but they do not describe the
+    units of measure for text. The <em>Text Data</em> and <em>Font Settings</em> records
+    use measurement units of 1200ths or 3600ths of an inch.</p>
+    <p>The Next Available Object ID field should give the number + 1 of the greatest Object
+    ID used in the file. If there are no Object IDs in the file, this field should be set
+    to 0. This field tells applications where to start generating Object IDs for objects
+    that do not have IDs when the application needs them.</p>
+    <hr />
+    <h3>Record Type 2 (0x02) End WPG</h3>
+    <h4>Description</h4>
+    <p>Defines the end of WPG data records.</p>
+    <h4>Structure</h4>
+    <p>None (zero length data).</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <hr />
+    <h3>Record Type 3 (0x03) Form Settings</h3>
+    <h4>Description</h4>
+    <p>Defines the layout (form size and margins) of the document.</p>
+    <h4>Structure</h4>
+    <p>[form width]</p>
+    <p>[form length]</p>
+    <p>[form type]</p>
+    <p>[left margin]</p>
+    <p>[right margin]</p>
+    <p>[top margin]</p>
+    <p>[bottom margin]</p>
+    <p>[length of form name]</p>
+    <p>[form name] x ? WP word string, <em>not</em> null terminated<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Form Settings</em> record must be an extension of the <em>Start WPG</em>
+    record.</p>
+    <p>The Length of Form Name field specifies the number of characters in the Form name
+    field, not the number of bytes. (see <em>WordPerfect Word Strings</em> earlier in this
+    section for more information)</p>
+    <hr />
+    <h3>Record Type 4 (0x04) Ruler Settings</h3>
+    <h4>Description</h4>
+    <p>Defines ruler settings used in document preparation.</p>
+    <h4>Structure</h4>
+    <p>[horizontal origin offset]</p>
+    <p>[horizontal tick interval]</p>
+    <p>[horizontal hotzone width]</p>
+    <p>[number of horizontal alignment guides]</p>
+    <p>[1<sup>st</sup> horizontal alignment guide position]</p>
+    <p>[2<sup>nd</sup> horizontal alignment guide position]</p>
+    <p>...</p>
+    <p>[last horizontal alignment guide position]</p>
+    <p>[vertical origin offset]</p>
+    <p>[vertical tick interval]</p>
+    <p>[vertical hotzone width]</p>
+    <p>[number of vertical alignment guides]</p>
+    <p>[1<sup>st</sup> vertical alignment guide position]</p>
+    <p>[2<sup>nd</sup> vertical alignment guide position]</p>
+    <p>...</p>
+    <p>[last vertical alignment guide position]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Ruler Settings</em> record must be an extension of the <em>Start WPG</em>
+    record.</p>
+    <hr />
+    <h3>Record Type 5 (0x05) Grid Settings</h3>
+    <h4>Description</h4>
+    <p>Defines grid settings used in document preparation.</p>
+    <h4>Structure</h4>
+    <p>[horizontal grid offset]</p>
+    <p>[horizontal grid size]</p>
+    <p>[horizontal grid display interval]</p>
+    <p>[vertical grid offset]</p>
+    <p>[vertical grid size]</p>
+    <p>[vertical grid display interval]</p>
+    <p>[grid flags]</p>
+    <p>bit 0: display grid</p>
+    <p>bit 1: snap to grid<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Grid Settings</em> record must be an extension of the <em>Start WPG</em>
+    record.</p>
+    <p>If present, the <em>Horizontal Line</em> and/or <em>Vertical Line</em> records define
+    alignment guides that are in addition to and independent of the grid.</p>
+    <hr />
+    <h3>Record Type 6 (0x06) Layer</h3>
+    <h4>Description</h4>
+    <p>Signals the start of a new layer.</p>
+    <h4>Structure</h4>
+    <p>&lt;major layer ID&gt;</p>
+    <p>&lt;minor layer ID&gt;</p>
+    <p>[layer flags]</p>
+    <p>bit 0: active layer</p>
+    <p>bit 1: layer is invisible</p>
+    <p>bit 2: editing layer is disabled</p>
+    <p>[length of layer name]</p>
+    <p>[layer name] x ? WP word string, <em>not</em> null terminated<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The Length of Layer Name field indicates the number of characters in the Layer Name
+    field, not the number of bytes. See <em>WordPerfect Word Strings</em> earlier in this
+    section for more information.</p>
+    <hr />
+    <h3>Record Type 7 (0x07) ObjectLink</h3>
+    <h4>Description</h4>
+    <p>Defines a link to external data</p>
+    <p>Structure</p>
+    <p>To be Defined</p>
+    <p>Extensions</p>
+    <p>To be Defined</p>
+    <hr />
+    <h3>Record Type 8 (0x08) Pen_Style_Definition</h3>
+    <h4>Description</h4>
+    <p>Defines a pen style that can be used in subsequent <em>Pen Style</em> records.</p>
+    <h4>Structure</h4>
+    <p>[pen style]</p>
+    <p>[number of pen definition array element pairs]</p>
+    <p>[length of first ON segment of pen style]</p>
+    <p>[length of first OFF segment of pen style]</p>
+    <p>...</p>
+    <p>[length of last ON segment of pen style]</p>
+    <p>[length of last OFF segment of pen style]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <hr />
+    <h3>Record Type 9 (0x09) Pattern Definition</h3>
+    <h4>Description</h4>
+    <p>Defines a pattern that can be used in subsequent <em>Pen Pattern</em> and <em>Brush
+        Pattern</em> records.</p>
+    <h4>Structure</h4>
+    <p>[pattern index]</p>
+    <p>[number of resolution thresholds]</p>
+    <p>[1<sup>st</sup> resolution threshold]</p>
+    <p>[2<sup>nd</sup> resolution threshold]</p>
+    <p>...</p>
+    <p>[n<sup>th</sup> resolution threshold]<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>Bitmap Data: One or more.</p>
+    <h4>Notes</h4>
+    <p>Pattern definitions consist of one or more bitmaps that are tailored to specific
+    ranges of device resolutions. Only <em>Bitmap Data</em> color format 1 (monochrome)
+    is valid. If only one pattern is defined, it is used for all device resolutions. If
+    two patterns are defined, a resolution threshold, R, is also defined so that the first
+    pattern is used when the device resolution is in the range 0 to R and the second pattern
+    is used when the device resolution is in the range R to . The number of resolution thresholds
+    are one less than the number of Bitmap_Data records defining patterns. See <em>Pen/Brush
+        Patterns</em> later in this section for an illustration of the predefined patterns.</p>
+    <p>The pattern is rendered with the current foreground and background brush colors.</p>
+    <hr />
+    <h3>Record Type 10 (0x0A) Comment</h3>
+    <h4>Description</h4>
+    <p>Defines a place holder for embedded non-displayable notation. In order to accommodate
+    product-specific formats, the notation format is not defined by this specification.
+    Applications using this record should tag the data with owner identification "keywords"
+    or "codes" in the Tag Data field.</p>
+    <h4>Structure</h4>
+    <p>{tag length}</p>
+    <p>&lt;tag data&gt; x ?</p>
+    <p>Open format data starts here.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <hr />
+    <h3>Record Type 11 (0x0B) Color Transfer</h3>
+    <h4>Description</h4>
+    <p>Defines one or more color transfer functions that modify RGB intensities of subsequent
+    color specifications.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[number of transfer functions]</p>
+    <p>&lt;function<sub>1</sub> ID&gt;</p>
+    <p>&lt;function<sub>1</sub> data length&gt;</p>
+    <p>{function<sub>1</sub> data} x ?</p>
+    <p>&lt;function<sub>2</sub> ID&gt;</p>
+    <p>&lt;function<sub>2</sub> data length&gt;</p>
+    <p>{function<sub>2</sub> data} x ?</p>
+    <p>...</p>
+    <p>&lt;function<sub>n</sub> ID&gt;</p>
+    <p>&lt;function<sub>n</sub> data length&gt;</p>
+    <p>{function<sub>n</sub> data} x ?<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Color Transfer</em> record defines one or more color transfer functions that
+    combine to define one color transfer array that modifies color intensities specified
+    in subsequent records. Transfer arrays are non-cumulative; each array replaces the array
+    in effect prior to the record. The table below gives a complete description of the color
+    transfer functions.<br />
+    </p>
+    <table border="1" cellpadding="5" width="69%">
+        <tr>
+            <td valign="top" width="10%">
+                <strong>ID#</strong></td>
+            <td valign="top" width="16%">
+                <strong>Name</strong></td>
+            <td valign="top" width="31%">
+                <strong>Structure</strong></td>
+            <td valign="top" width="41%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                1</td>
+            <td valign="top">
+                Contrast</td>
+            <td valign="top">
+                {contrast adjustment}</td>
+            <td valign="top">
+                Contrast adjustment is a fixed-point value ranging from 1.0 for minimum contrast
+                to +1.0 for maximum contrast.</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                2</td>
+            <td valign="top">
+                Brightness</td>
+            <td valign="top">
+                {brightness adjustment}</td>
+            <td valign="top">
+                Brightness adjustment is a fixed-point value ranging from 1.0 for minimum brightness
+                to +1.0 for maximum brightness.</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                3</td>
+            <td valign="top">
+                Warmth</td>
+            <td valign="top">
+                {warmth adjustment}</td>
+            <td valign="top">
+                Warmth adjustment is a fixed-point value ranging from 1.0 for coolest colors to
+                +1.0 for warmest colors.</td>
+        </tr>
+    </table>
+    <br />
+    <hr />
+    <h3>Record Type 12 (0x0C) Color Palette</h3>
+    <h4>Description</h4>
+    <p>Defines Red-Green-Blue-Transparency color values used within color-indexed bitmaps.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[starting color index]</p>
+    <p>[number of entries in color map]</p>
+    <p>&lt;color<sub>1</sub>&gt; x 4</p>
+    <p>&lt;color<sub>2</sub>&gt; x 4</p>
+    <p>...</p>
+    <p>&lt;color<sub>n</sub>&gt; x 4<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Color Palette</em> record can only be present as an extension of the <em>
+        Start WPG</em> and the Bitmap records.&nbsp;</p>
+    <p>The <em>Color Palette</em> record has two purposes. As an extension of the Bitmap
+    record, it serves its primary purpose of defining the color palette for indexed bitmaps.
+    As an extension of the <em>Start WPG</em> record, it serves its secondary purpose of
+    defining an initial color palette for editing applications. Applications intended only
+    for rendering graphics can ignore a <em>Color Palette</em> record saved as an extension
+    of the <em>Start WPG</em> record.</p>
+    <hr />
+    <h3>Record Type 13 (0x0D) DP Color Palette</h3>
+    <h4>Description</h4>
+    <p>Defines Red-Green-Blue-Transparency color values used within color-indexed bitmaps.</p>
+    <h4>Structure</h4>
+    <p>[starting color index, i]</p>
+    <p>[number of entries in color map]</p>
+    <p>[color<sub>1</sub>] x 4</p>
+    <p>[color<sub>2</sub>] x 4</p>
+    <p>...</p>
+    <p>[color<sub>n</sub>] x 4<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>DP Color Palette</em> record can only be present as an extension of the <em>
+        Start WPG</em> and the Bitmap records.</p>
+    <p>This record is identical to the <em>Color Palette</em> record, except that double-precision
+    color values define the palette.</p>
+    <hr />
+    <h3>Record Type 14 (0x0E) Bitmap Data</h3>
+    <h4>Description</h4>
+    <p>Defines bitmap data.</p>
+    <h4>Structure</h4>
+    <p>[bitmap width] pixels</p>
+    <p>[bitmap height] pixels</p>
+    <p>&lt;color format&gt;</p>
+    <p>&lt;compression format&gt;</p>
+    <p>0 = uncompressed data</p>
+    <p>1 = WP run-length encoding</p>
+    <p>Bitmap data packed according to the color and encoding formats.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Bitmap Data</em> record can only be present as an extension of the <em>Pattern
+        Definition</em>, <em>Texture Definition</em>, and Bitmap records.</p>
+    <p>The color format identifies the method that (decoded) bitmap data uses to describe
+    the colors or gray shades of one or more pixels. See <b><em>Color Formats</em></b> under
+    <b><em>Bitmap Formats</em></b> later in this section for a detailed list of supported
+    formats. The compression format identifies the method used to convert raw color data
+    to the packed data given in this record. See <b><em>Data Compression Formats</em></b>
+    under <b><em>Bitmap Formats</em></b> later in this section for a description of the
+    run-length encoding instructions.</p>
+    <hr />
+    <h3>Record Type 15 (0x0F) Text Data</h3>
+    <h4>Description</h4>
+    <p>Defines text data to be contained within either a text line, block, or path.</p>
+    <h4>Structure</h4>
+    <p>[text data] x ? WP word string<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <b><em>Text Data</em></b> record can only be present as an extension of the <b>
+        <em>Text Line</em></b> and <b><em>Text Block</em></b> records.</p>
+    <p>See <em><b>Text Functions</b></em> later in this section for a list of functions
+    supported within the <em>Text Line</em>, and <em>Text Block</em> records. The units
+    of measurement in the <em>Text Data</em> record are in 1200ths/3600ths of an inch, independent
+    of what is specified in the <em>Start WPG</em> record.</p>
+    <hr />
+    <h3>Record Type 16 (0x10) Chart Style</h3>
+    <h4>Description</h4>
+    <p>Defines the attributes of all chart elements.</p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[Xll coordinate] lower left point</p>
+    <p>[Yll coordinate]</p>
+    <p>[Xur coordinate] upper right point</p>
+    <p>[Yur coordinate]</p>
+    <p>&lt;style format ID&gt;</p>
+    <p>1 = version 1 style format (as used within Draw Perfect 1.1)</p>
+    <p>2 = version 2 style format (as used within Presentations 2.0 and 7.0)</p>
+    <p>Chart style records begin here.<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Chart Style</em> record can only be present as an extension of the Chart
+    record.</p>
+    <p>The <em>Chart Style</em> data block is a series of records defining the attributes
+    of various chart elements (for example, frame, legend, labels, series elements, and
+    so forth). See <em>Chart Styles</em> under <em>Chart Styles and Data</em> later in this
+    section for a definition of chart style records as used by version 7.</p>
+    <hr />
+    <h3>Record Type 17 (0x11) Chart Data</h3>
+    <h4>Description</h4>
+    <p>Defines chart data.</p>
+    <h4>Structure</h4>
+    <p>&lt;style data ID&gt;</p>
+    <p>1 = version 1 style format (as used within DrawPerfect 1.1)</p>
+    <p>2 = version 2 style format (as used within Presentations 2.0 and 7.0)</p>
+    <p>Chart data records begin here.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Chart Data</em> record can only be an extension of the Chart record.</p>
+    <p>See the <em><b>Chart Record Data</b></em> section under <b><em>Chart Styles and Data</em></b>
+    for a definition of chart data records as used by version 2.</p>
+    <hr />
+    <h3>Record Type 18 (0x12) Object Image</h3>
+    <h4>Description</h4>
+    <p>Describes an object in a single format. This record must follow an Object_Capsule
+    record and normally occurs with other Object_Image records.</p>
+    <h4>Structure</h4>
+    <p>[accessory data length]</p>
+    <p>&lt;accessory data&gt;</p>
+    <p>Object data in format defined by the Object_Capsule record.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Object Image</em> record can only be present as an extension of the <em>Object
+        Capsule</em> record.</p>
+    <p>See <em><b>Object Image</b></em> Formats later in this section for a list of supported
+    formats and a description of supplementary data structures.</p>
+    <p><em>Object Image</em> records of a WPG format are complete WPG files minus the file
+    prefix. They contain <em>Start WPG</em> and <em>End WPG</em> records. The precision
+    of WPG 7.0 data within an <em>Object Image</em> record must match the precision of the
+    data in the rest of the file.</p>
+    <p>An <em>Object Image</em> record is not required to contain object data if it is used
+    with an <em>Object Link</em>record to define a class link.</p>
+    <p>Objects that are&nbsp; WPG2.x format must not begin with a WordPerfect Header/Prefix
+    or a <em>Start WPG</em> record. Any other format (including WPG1.1) requires the entire
+    file.</p>
+    <hr />
+    <h3>Record Type 19 (0x13) Reserved</h3>
+    <hr />
+    <h3>Record Type 20 (0x14) Reserved</h3>
+    <hr />
+    <h3>Record Type 21 (0x15) Polyline</h3>
+    <h4>Description</h4>
+    <p>Defines an area bounded by a series of connected lines through the specified points
+    that are rendered with the current pen, brush, line, and gradient attributes.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(FRM, CLS, FIL, PTH, LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[number of vertices]</p>
+    <p>[X<sub>1</sub> coordinate]</p>
+    <p>[Y<sub>1</sub> coordinate]</p>
+    <p>[X<sub>2</sub> coordinate]</p>
+    <p>[Y<sub>2</sub> coordinate]</p>
+    <p>...</p>
+    <p>[X<sub>n</sub> coordinate]</p>
+    <p>[Y<sub>n</sub> coordinate]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>If the FIL flag is set but the CLS flag is not set, the polyline should be filled
+    as if it were closed by a straight line segment.</p>
+    <hr />
+    <h3>Record Type 22 (0x16) Polyspline</h3>
+    <h4>Description</h4>
+    <p>Defines an area bounded by a B-spline curve that is rendered with the current pen,
+    brush, line, and gradient attributes.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(FRM, CLS, FIL, PTH, LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[number of control points]</p>
+    <p>[X<sub>1</sub> coordinate]</p>
+    <p>[Y<sub>1</sub> coordinate]</p>
+    <p>[X<sub>2</sub> coordinate]</p>
+    <p>[Y<sub>2</sub> coordinate]</p>
+    <p>...</p>
+    <p>[X<sub>n</sub> coordinate]</p>
+    <p>[Y<sub>n</sub> coordinate]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>If the CLS Characterization flag is set, the B-spline curve should be closed with
+    a final spline section using the final and initial points as spline control points;
+    that is, it should not be closed with a straight line segment. However, if the FIL flag
+    is set but the CLS flag is not set, the polyspline should be filled as if it were closed
+    by a straight line segment.</p>
+    <hr />
+    <h3>Record Type 23 (0x17) Polycurve</h3>
+    <h4>Description</h4>
+    <p>Defines an area bounded by a series of connected B&eacute;zier curves that are rendered
+    with the current pen, brush, line, and gradient attributes.</p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(FRM, CLS, FIL, PTH, LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[number of nodes] control/anchor/control triplets</p>
+    <p>[X<sub>1i</sub> coordinate] initial control point</p>
+    <p>[Y<sub>1i</sub> coordinate]</p>
+    <p>[X<sub>1a</sub> coordinate] anchor point</p>
+    <p>[Y<sub>1a</sub> coordinate]</p>
+    <p>[X<sub>1t</sub> coordinate] terminal control point</p>
+    <p>[Y<sub>1t</sub> coordinate]</p>
+    <p>...</p>
+    <p>[X<sub>ni</sub> coordinate] initial control point</p>
+    <p>[Y<sub>ni</sub> coordinate]</p>
+    <p>[X<sub>na</sub> coordinate] anchor point</p>
+    <p>[Y<sub>na</sub> coordinate]</p>
+    <p>[X<sub>nt</sub> coordinate] terminal control point</p>
+    <p>[Y<sub>nt</sub> coordinate]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>If the CLS Characterization flag is set, the curve should be closed with a final
+    B&eacute;zier curve using the terminal anchor point, the terminal control point, the
+    initial control point, and the initial anchor point; that is, it should not be closed
+    with a straight line segment. However, if the FIL flag is set but the CLS flag is not
+    set, the curve should be filled as if it were closed by a straight line segment.</p>
+    <hr />
+    <h3>Record Type 24 (0x18) Rectangle</h3>
+    <h4>Description</h4>
+    <p>Defines a rectangle with rounded corners whose diagonal is defined by the two specified
+    points. The rectangle is to be rendered with the current pen, brush, line, and gradient
+    attributes.</p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(FRM, FIL, DIR, LCK, OID, ROT, TRN, SCL, SKW,TPR)</p>
+    <p>[X<sub>ll</sub> coordinate] lower left point</p>
+    <p>[Y<sub>ll</sub> coordinate]</p>
+    <p>[X<sub>ur</sub> coordinate] upper right point</p>
+    <p>[Y<sub>ur</sub> coordinate]</p>
+    <p>[horizontal radius of corner round]</p>
+    <p>[vertical radius of corner round]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>If either the horizontal radius or the vertical radius is less than or equal to zero,
+    then the corner is assumed to be square rather than rounded.</p>
+    <p>For the sake of text paths, the path of any rectangle is defined to start and end
+    at the 180 (nine o'clock) position of the rectangle (before any transformation is applied).
+    The DIR flag specifies whether the path of the rectangle proceeds in a clockwise (DIR
+    flag set) or counterclockwise (DIR flag not set) direction from the rectangle's starting
+    point.</p>
+    <hr />
+    <h3>Record Type 25 (0x19) Arc</h3>
+    <h4>Description</h4>
+    <p>Defines an area bounded by an elliptical or circular arc extending between the specified
+    endpoints. The area is to be rendered with the current pen, brush, line, and gradient
+    attributes.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(FRM, CLS, FIL, DIR, LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[X<sub>c</sub> coordinate] center point</p>
+    <p>[Y<sub>c</sub> coordinate]</p>
+    <p>[horizontal radius]</p>
+    <p>[vertical radius]</p>
+    <p>[X<sub>i</sub> offset] offset of initial endpoint from center point</p>
+    <p>[Y<sub>i</sub> offset]</p>
+    <p>[X<sub>t</sub> offset] offset of terminal endpoint from center point</p>
+    <p>[Y<sub>t</sub> offset]</p>
+    <p>[arc flags]</p>
+    <p>bit 0: closure style</p>
+    <p>0 = wedge (ends of arc connected to center point)</p>
+    <p>1 = chord (ends of arc connected to each other)<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The DIR flag does not change the arc itself, only the direction the arc is drawn.
+    The order of the offset points defines whether the arc subtends an angle of or (360).
+    The arc is defined in a counterclockwise direction as far as the offset points are concerned.
+    The direction of the arc, defined by the DIR flag, is significant not for defining the
+    arc but for defining how text would be rendered along the path of the arc and how the
+    arc would be filled using the winding rule as part of a compound polygon.</p>
+    <p>The endpoint coordinates, along with the center point, define two line segments.
+    The actual endpoints of the arc are the points of intersection of the arc with these
+    segments. Identical endpoint coordinates define a full ellipse or circle. For the sake
+    of text paths, the path of any full ellipse or circle is defined to start and end at
+    the 180 (nine o'clock) position of the ellipse or circle (before any transformation
+    is applied), regardless of what the two identical endpoint coordinates are.</p>
+    <p>Closure style flags should be ignored unless the CLS Characterization flag is set.
+    If the FIL flag is set but the CLS flag is not set, the arc should be filled as if it
+    was closed with the chord style, no matter what closure style is set.</p>
+    <hr />
+    <h3>Record Type 26 (0x1A) Compound Polygon</h3>
+    <h4>Description</h4>
+    <p>Defines an area bounded by multiple paths. The area is to be rendered with the current
+    pen, brush, line, and gradient attributes.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(FRM, FIL, PTH, LCK, OID, ROT, TRN, SCL, SKW, TPR)<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>Any combination of Compound Polygon, Polyline, Polyspline, Polycurve, Rectangle,
+    Arc, Color Transfer, Pen Fore Color, DP Pen Fore Color, Pen Back Color, DP Pen Back
+    Color, Pen Style, Pen Pattern, Pen Texture, Pen Size, DP Pen Size, Line Join, Line Cap,
+    Brush Fore Color, DP Brush Fore Color, Brush Back Color, DP Brush Back Color, Brush
+    Pattern Brush Texture, Brush Texture Anchor, Brush Gradient, DP Brush Gradient.<br />
+    </p>
+    <h4>Notes</h4>
+    <p>A <em>Compound Polygon</em> and a Group differ in two aspects. A Group is a collection
+    of objects, each of which can be rendered with unique attributes. A <em>Compound Polygon</em>
+    is a single object rendered with a single set of attributes that may contain transparent
+    portions. For example, a compound polygon can be defined with multiple paths using two
+    intersecting circles drawn as a compound polygon. When the circles are filled using
+    the alternating rule, the intersection of the two circles is transparent. The reason
+    for allowing rendition records within the compound polygon is that if an editing application
+    ungroups the polygons from the compound polygon, they can be restored to their original
+    attributes. However, the rendition records within the compound polygon are ignored for
+    the rendering of the compound polygon.</p>
+    <p>States of the FRM, FIL, and PTH flags in subsequent extension records are ignored.
+    All paths are rendered according to the flags contained in this record.</p>
+    <hr />
+    <h3>Record Type 27 (0x1B) Bitmap</h3>
+    <h4>Description</h4>
+    <p>Defines a rectangular bitmap image.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[X<sub>ll</sub> coordinate] lower left point</p>
+    <p>[Y<sub>ll</sub> coordinate]</p>
+    <p>[X<sub>ur</sub> coordinate] upper right point</p>
+    <p>[Y<sub>ur</sub> coordinate]</p>
+    <p>[source horizontal resolution] in pixels per inch</p>
+    <p>[source vertical resolution] in pixels per inch<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>(Color Palette/DP Color Palette) Bitmap Data<br />
+    </p>
+    <h4>Notes</h4>
+    <p>A value of 0 in the source resolution parameters indicates that the source resolutions
+    are unknown.</p>
+    <p>If a <em>Color Palette/DP Color Palette</em> record is included, it must be the first
+    extension record (before the <em>Bitmap Data</em> record).</p>
+    <hr />
+    <h3>Record Type 28 (0x1C) Text Line</h3>
+    <h4>Description</h4>
+    <p>Defines a string of text characters whose baseline is specified by the given directional
+    vector.</p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[text flags]</p>
+    <p>bit 14: mirror text along baseline (around center-point of text)</p>
+    <p>bit 15: mirror text over baseline</p>
+    <p>[X<sub>ref</sub> coordinate] reference point</p>
+    <p>[Y<sub>ref</sub> coordinate]</p>
+    <p>&lt;horizontal alignment&gt;</p>
+    <p>0 = left</p>
+    <p>1 = center</p>
+    <p>2 = right</p>
+    <p>&lt;vertical alignment&gt;</p>
+    <p>0 = top</p>
+    <p>1 = cap</p>
+    <p>2 = x-line</p>
+    <p>3 = baseline</p>
+    <p>4 = bottom</p>
+    <p>{baseline angle}<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.</p>
+    <h4>Extensions</h4>
+    <p>Text Data</p>
+    <h4>Notes</h4>
+    <p>The horizontal and vertical alignment parameters define the position of the reference
+    point relative to the text. Values of 0 and 3 respectively indicate that the reference
+    point given is the left end of the baseline. Values of 1 and 2 indicate that the reference
+    point is the right end of the line at the top of lowercase letters. Alignment should
+    take place before any mirroring.</p>
+    <p>The units of measurement of the reference point coordinates are those defined in
+    the <em>Start WPG</em>record, whereas the units of measurement in the <em>Text Data</em>
+    record are always in 1200ths/3600ths of an inch.</p>
+    <p>If there is a transformation, the transformation applies to the text.</p>
+    <hr />
+    <h3>Record Type 29 (0x1D) Text Block</h3>
+    <h4>Description</h4>
+    <p>Defines a rectangular region through which a single string of text flows.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[X<sub>ll</sub> coordinate] lower left point</p>
+    <p>[Y<sub>ll</sub> coordinate]</p>
+    <p>[X<sub>ur</sub> coordinate] upper right point</p>
+    <p>[Y<sub>ur</sub> coordinate]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.</p>
+    <h4>Extensions</h4>
+    <p>Text Data</p>
+    <h4>Notes</h4>
+    <p>The units of measurement of the lower left and upper right point coordinates are
+    those defined in the <em>Start WPG</em> record, whereas the units of measurement in
+    the <em>Text Data</em> record are always in 1200ths/3600ths of an inch.</p>
+    <p>If there is a transformation, the transformation applies to the text.</p>
+    <p>Between lines in a text block, there is assumed to be a leading of 1/16th of the
+    previous line's maximum point size. There is no leading or shoulder height assumed on
+    any side of the bounding rectangle.</p>
+    <hr />
+    <h3>Record Type 30 (0x1E) Text Path</h3>
+    <h4>Description</h4>
+    <p>Defines a curved path that the specified text string uses for a contoured baseline.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[text flags]</p>
+    <p>bits 0-2: vertical alignment</p>
+    <p>0 = top</p>
+    <p>1 = cap</p>
+    <p>2 = x-line</p>
+    <p>3 = baseline</p>
+    <p>4 = bottom</p>
+    <p>bits 03-04: horizontal justification</p>
+    <p>0 = left</p>
+    <p>1 = center</p>
+    <p>2 = right</p>
+    <p>3 = full</p>
+    <p>bit 08: mirror text along path (around center point of text)</p>
+    <p>bit 09: mirror text over path (not inside text cell)</p>
+    <p>bit 14: wrap text around path (past start/end of path)</p>
+    <p>bit 15: display path</p>
+    <p>[path justification percentage]<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>Any (or none) of Pen Fore Color, DP Pen Fore Color, Pen Back Color, DP Pen Back Color,
+    Pen Style, Pen Pattern, Pen Texture, Pen Size, DP Pen Size, Line Join, Line Cap interspersed
+    with at least one of Polyline, Polyspline, Polycurve, Rectangle, or Arc; Text Line or
+    Text Block
+    <br />
+    </p>
+    <h4>Notes</h4>
+    <p>Horizontal justification and vertical alignment should be done before any mirroring.</p>
+    <p>The vertical alignment field of the <em>Text Flags</em> parameter indicates which
+    position within the cell height to align to the path.</p>
+    <p>The first set of extension records gives the description of the text path, including
+    attributes of the path in the event that it is to be rendered. Valid path description
+    records are any combination of Polyline, Polyspline, Polycurve, Rectangle, and Arc.
+    Immediately following the path description record is either a <em>Text Line</em> or
+    <em>Text Block</em> record defining an alternate text container in the event the text
+    is to be separated from the path. Although <em>Text Data</em> is not a valid <em>Text
+        Path</em> extension record, it follows as an extension of the alternate container
+    record.</p>
+    <p>The attribute records and path description extension record use the units of measurement
+    given in the Start_WPG record. However, the text data uses 1200ths/3600ths of an inch.</p>
+    <p>The DIR characterization flag is not valid for the <em>Text Path</em> record itself,
+    but it may be set on Arc and Rectangle records that define the path to indicate that
+    the text should be rendered in a clockwise direction.</p>
+    <p>There are times when the text data is longer than the path on either the starting
+    end of the path or the last end of the path or both. When that happens, there are two
+    options. If the wrap flag is set, then the text should continue around the path. If
+    the wrap flag is not set, then the text should continue in the direction it was last
+    going at the endpoint of the path.</p>
+    <p>The Path Justification Percentage field specifies the point along the path (as a
+    percentage of the length of the path) about which the horizontal justification is performed.
+    The percentage is given in the range 0 to 65535 (for example, 32768 is equivalent to
+    50%). If full horizontal justification is set, then the percentage is meaningless except
+    for closed paths where the percentage means where to start the text on the path.</p>
+    <p>If there are any transformations on a text container record (<em>Text Line</em> or
+    <em>Text Block</em>) within the <em>Text Path</em> definition, the transformations should
+    be applied to the text but not to the path.</p>
+    <hr />
+    <h3>Record Type 31 (0x1F) Chart</h3>
+    <h4>Description</h4>
+    <p>Defines a chart with textual, numeric, and graphic data.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(LOC, LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[X<sub>ll</sub> coordinate] lower left point</p>
+    <p>[Y<sub>ll</sub> coordinate]</p>
+    <p>[X<sub>ur</sub> coordinate] upper right point</p>
+    <p>[Y<sub>ur</sub> coordinate]</p>
+    <p>&lt;chart type&gt;</p>
+    <p>0 = data chart</p>
+    <p>1 = text chart</p>
+    <p>2 = organizational chart</p>
+    <p>3 = Draw Perfect 1.x chart</p>
+    <p>&lt;chart sub-type&gt;</p>
+    <p>0 = bar</p>
+    <p>1 = line</p>
+    <p>2 = area</p>
+    <p>3 = scatter</p>
+    <p>4 = hi-lo</p>
+    <p>5 = custom Mixed</p>
+    <p>6 = surface</p>
+    <p>7 = table</p>
+    <p>8 = pie</p>
+    <p>&lt;chart flags&gt;</p>
+    <p>bit 0: user data flag</p>
+    <p>bit 1: user style flag</p>
+    <p>bit 2: static flag<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>Chart Style, Chart Data, Group</p>
+    <h4>Notes</h4>
+    <p>The purpose of the group extension of the Chart record is to provide rendering information
+    for the chart for those applications that do not understand the <em>Chart Style</em>
+    and <em>Chart Data</em> records. All three extension records are mandatory.</p>
+    <hr />
+    <h3>Record Type 32 (0x20) Group</h3>
+    <h4>Description</h4>
+    <p>Defines an object that is a group of WPG records.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(LOC, GRP, LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[X<sub>ll</sub> coordinate] lower left point</p>
+    <p>[Y<sub>ll</sub> coordinate]</p>
+    <p>[X<sub>ur</sub> coordinate] upper right point</p>
+    <p>[Y<sub>ur</sub> coordinate]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>Any WPG image record except Layer.</p>
+    <h4>Notes</h4>
+    <p>A Group and a <em>Compound Polygon</em> differ in two aspects. A Group is a collection
+    of objects, each of which can be rendered with unique attributes. A <em>Compound Polygon</em>
+    is a single object rendered with a single set of attributes that may (because it can
+    be defined with multiple paths) contain transparent portions.</p>
+    <hr />
+    <h3>Record Type 33 (0x21) Object Capsule</h3>
+    <h4>Description</h4>
+    <p>Defines a collection of one or more descriptions of an object. Object descriptions
+    are contained in subsequent extension (<em>Object Link</em> or <em>Object Image</em>)
+    records.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[characterization flags]</p>
+    <p>(LOC, LCK, OID, ROT, TRN, SCL, SKW, TPR)</p>
+    <p>[X<sub>ll</sub> coordinate] lower left point</p>
+    <p>[Y<sub>ll</sub> coordinate]</p>
+    <p>[X<sub>ur</sub> coordinate] upper right point</p>
+    <p>[Y<sub>ur</sub> coordinate]</p>
+    <p>[number of object descriptions]</p>
+    <p>&lt;1<sup>st</sup> object description format&gt;</p>
+    <p>&lt;1<sup>st</sup> object description minor-revision number&gt;</p>
+    <p>&lt;1<sup>st</sup> object description flags&gt;</p>
+    <p>bit 2: external data flag</p>
+    <p>bit 3: print-only flag</p>
+    <p>bit 4: render-only flag</p>
+    <p>bit 5: edit-only flag</p>
+    <p>bit 6: gray-scale flag</p>
+    <p>bit 7: vector flag</p>
+    <p>&lt;1<sup>st</sup> object description depth&gt; bits per pixel</p>
+    <p>[1<sup>st</sup> object description horizontal resolution] in pixels per inch</p>
+    <p>[1<sup>st</sup> object description vertical resolution] in pixels per inch</p>
+    <p>...</p>
+    <p>&lt;n<sup>th</sup> object description format&gt;</p>
+    <p>&lt;n<sup>th</sup> object description minor-revision number&gt;</p>
+    <p>&lt;n<sup>th</sup> object description flags&gt;</p>
+    <p>(see 1<sup>st</sup> object description flags above)</p>
+    <p>&lt;n<sup>th</sup> object description depth&gt; bits per pixel</p>
+    <p>[n<sup>th</sup> object description horizontal resolution] in pixels per inch</p>
+    <p>[n<sup>th</sup> object description vertical resolution] in pixels per inch<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>See the ObjectImage Formats section for a list of supported formats. A format is
+    characterized as either bitmap or vector by the most significant bit (bit 7) of the
+    description flags parameter (0 = bitmap, 1 = vector). If bit 6 is set, the colors of
+    the object are gray scale values; otherwise, they are RGB values. If bit 5 is set, the
+    object is used only for graphics editing applications. If bit 4 is set, the object is
+    used only for graphics rendering (not editing) applications. If bit 3 is set, the object
+    is used only for printing. If bit 4 or 5 is set, other bit should be 0; that is, these
+    two flags are mutually exclusive. If neither of these two bits are set, the object is
+    used for all types of applications.</p>
+    <p>Objects that are WPG2.x format must not begin with a WordPerfect Header/Prefix or
+    a <em>Start WPG</em> record. Any other format (including WPG1.1) requires the entire
+    file.</p>
+    <p>Future applications can use this record to save multiple minor revisions of the WPG
+    2 format for objects so that current applications can still render data from new features.
+    The minor-revision number, together with the description flags, can be used to determine
+    the WPG objects that the application renders.</p>
+    <hr />
+    <h3>Record Type 34 (0x22) Font Settings</h3>
+    <h4>Description</h4>
+    <p>Defines the default font size and face for all <em>Text Data</em> records.</p>
+    <h4>Structure</h4>
+    <p>[desired horizontal point size (3600ths)]</p>
+    <p>[desired vertical point size (3600ths)]</p>
+    <p>&lt;fixed-length part of 7.0 typeface descriptor&gt; x 22 for best-fit matching</p>
+    <p>[total string length of four font name strings] in bytes including all nulls</p>
+    <p>[typeface name and pitch/point size] x ? null-terminated word string</p>
+    <p>[attribute description] x ? null-terminated word string</p>
+    <p>[extension] x ? null-terminated word string</p>
+    <p>[group] x ? null-terminated word string<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.<br />
+    </p>
+    <h4>Notes</h4>
+    <p>The <em>Font Settings</em> record can only be present as an extension of the <em>
+        Start WPG</em> record. If this record is not present, there is no default for font
+    size and face.</p>
+    <p>If the Total String Length is zero, Typeface Name and Pitch/Point Size, Attribute
+    Description, Extension, and Group do not exist. In this case the font is best-fit matched
+    according to the values in the fixed-length part of the typeface descriptor. See the
+    <a href="WPFF_Index.htm"><em>WordPerfect File Format&nbsp;</em></a> for a detailed description
+    of the font descriptor fields.</p>
+    <p>When the value in Total String Length is nonzero, all of the last four fields exist
+    even if only one of them is in use. For example, if the attribute description contained
+    4 short integer characters (including a null on the end), the Total String Length is
+    14 (0xE). This is because the Typeface Name, Extension, and Group fields would each
+    contain a short integer NULL. If the Typeface Name field had 6 short integer characters
+    and no other field was used, the total length would be 18. Attribute, Extension, and
+    Group fields would each have a short integer NULL.</p>
+    <hr />
+    <h3>Record Type 35 (0x23) Reserved for Line Cap Definition</h3>
+    <hr />
+    <h3>Record Type 36 (0x24) Reserved for Line Join Definition</h3>
+    <hr />
+    <h3>Record Type 37 (0x25) Pen Fore Color</h3>
+    <h4>Description</h4>
+    <p>Defines the pen foreground color attribute used to render subsequent objects and
+    paths.</p>
+    <h4>Structure</h4>
+    <p>&lt;pen foreground color value&gt; x 4</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The pen foreground color is used to draw the foreground color of the pen pattern.
+    If no pen pattern is specified, the pen pattern is solid and drawn exclusively with
+    the pen foreground color.</p>
+    <hr />
+    <h3>Record Type 38 (0x26) DP Pen Fore Color</h3>
+    <h4>Description</h4>
+    <p>Uses Double-Precision Color to define the pen foreground color attribute used to
+    render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>[double-precision pen foreground color value] x 4</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>This record is equivalent to the <em>Pen Fore Color</em> record, except that it uses
+    a double-precision color value.</p>
+    <hr />
+    <h3>Record Type 39 (0x27) Pen Back Color</h3>
+    <h4>Description</h4>
+    <p>Defines the pen background color attribute used to render subsequent objects and
+    paths.</p>
+    <h4>Structure</h4>
+    <p>&lt;pen background color value&gt; x 4</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The pen background color is used to draw the background color of the pen pattern.
+    If no pen pattern is specified, the pen pattern is solid, and the background color is
+    not used for drawing lines.</p>
+    <hr />
+    <h3>Record Type 40 (0x28) DP Pen Back Color</h3>
+    <h4>Description</h4>
+    <p>Uses Double-Precision Color to define the pen background color attribute used to
+    render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>[double-precision pen background color value] x 4</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>This record is equivalent to the <em>Pen Back Color</em> record, except that it uses
+    a double-precision color value.</p>
+    <hr />
+    <h3>Record Type 41 (0x29) Pen Style</h3>
+    <h4>Description</h4>
+    <p>Defines the pen style attribute used to render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>[pen style]</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>Sets the current pen style to a predefined pen style (see <em>Pen Styles</em> later
+    in this section) or to a custom pen style that was defined using the <em>Pen Style Definition</em>
+    record. Setting the pen style to 0 restores it to a solid line.</p>
+    <hr />
+    <h3>Record Type 42 (0x2A) Pen Pattern</h3>
+    <p>Defines the pen pattern attribute used to render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>[pen pattern]</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>Sets the current pen pattern to a predefined pattern (see <em>Pen/Brush Patterns</em>
+    later in this section) or to a custom pattern that was defined using the <em>Pattern
+        Definition</em> record. Setting the pen pattern to 0 restores it to a solid pattern.</p>
+    <hr />
+    <h3>Record Type 43 (0x2B) Pen Size</h3>
+    <h4>Description</h4>
+    <p>Defines the pen size attributes used to render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>[pen width] 0 = hairline</p>
+    <p>[pen height] 0 = hairline</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>A value of 0 in the pen width or pen height parameters signifies the thinnest pen
+    width or height that can be rendered at the output device resolution (one pixel).</p>
+    <hr />
+    <h3>Record Type 44 (0x2C) DP Pen Size</h3>
+    <h4>Description</h4>
+    <p>Defines the pen size attributes (using double-precision sizes) used to render subsequent
+    objects and paths.</p>
+    <h4>Structure</h4>
+    <p>{pen width} 0 = hairline</p>
+    <p>{pen height} 0 = hairline</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>This record is equivalent to the <em>Pen Size</em> record, except that it uses double-precision
+    size values.</p>
+    <hr />
+    <h3>Record Type 45 (0x2D) Line Cap</h3>
+    <p>Defines the line cap attributes used to render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>&lt;initial line cap style&gt;</p>
+    <p>&lt;terminal line cap style&gt;</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>Sets the line cap type to one of the predefined caps listed in the table below (range
+    0-9) or to a user-defined cap defined by a <em>Line Cap Definition</em> record (not
+    yet available) (range 10-255). Rendering applications (not editing applications) should
+    set the line cap type to None (flat) whenever they encounter a user-defined line cap
+    type.<br />
+    </p>
+    <table border="1" cellpadding="5" width="66%">
+        <tr>
+            <td valign="top" width="18%">
+                <strong>Type #</strong></td>
+            <td valign="top" width="81%">
+                <strong>Name</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                0 (0x0)</td>
+            <td valign="top">
+                None (Flat)</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                1 (0x1)</td>
+            <td valign="top">
+                Round</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                2 (0x2)</td>
+            <td valign="top">
+                Square</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                10 (0xA)</td>
+            <td valign="top">
+                Arrow (This type is predefined as an arrow, but can be redefined by the user.)</td>
+        </tr>
+    </table>
+    <p>Predefined line caps apply only to wide lines; that is, to lines rendered with a
+    pen width and height greater than zero (see <em>Line Cap</em> under <em>Class</em> earlier
+    in this section).</p>
+    <hr />
+    <h3>Record Type 46 (0x2E) Line Join</h3>
+    <p>Defines the line join attribute used to render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>&lt;line join style&gt;</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>Sets the line join type to one of the predefined joins listed in the table below
+    (range 0-9) or to a user-defined join defined by a <em>Line Join Definition</em> record
+    (not yet available) (range 10-255). Rendering applications (not editing applications)
+    should set the line join type to None whenever they encounter a user-defined line join
+    type.<br />
+    </p>
+    <table border="1" cellpadding="5" width="67%">
+        <tr>
+            <td valign="top" width="18%">
+                <strong>Type #</strong></td>
+            <td valign="top" width="81%">
+                <strong>Name</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                0 (0x0)</td>
+            <td valign="top">
+                None</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                1 (0x1)</td>
+            <td valign="top">
+                Bevel</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                2 (0x2)</td>
+            <td valign="top">
+                Miter</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                3 (0x3)</td>
+            <td valign="top">
+                Round</td>
+        </tr>
+    </table>
+    <p>Predefined line joins only apply to wide lines; that is, to lines rendered with a
+    pen width and height greater than zero (see <em>Line Join</em> under <em>Class</em>
+    earlier in this section).</p>
+    <hr />
+    <h3>Record Type 47 (0x2F) Brush Gradient</h3>
+    <h4>Description</h4>
+    <p>Defines the brush gradient attributes used to render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>{brush gradient angle}</p>
+    <p>[horizontal gradient reference (X<sub>ref</sub>)]</p>
+    <p>[vertical gradient reference (Y<sub>ref</sub>)]</p>
+    <p>&lt;brush gradient flag&gt;</p>
+    <p>bit 6: granularity flag</p>
+    <p>bit 7: anchor flag</p>
+    <p>[horizontal gradient extent minimum (X<sub>min</sub>)]</p>
+    <p>[vertical gradient extent minimum (Y<sub>min</sub>)]</p>
+    <p>[horizontal gradient extent maximum (X<sub>max</sub>)]</p>
+    <p>[vertical gradient extent maximum (Y<sub>max</sub>)]<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>This record is mutually exclusive with and will override any settings from previous
+    occurrences of the <em>Brush Pattern</em>, <em>Brush Texture</em>, and <em>DP Brush
+        Gradient</em> records.</p>
+    <p>The gradient angle (a fixed-point number) specifies the angle of rotation of the
+    gradient from a default orientation. The default linear orientation is a top-to-bottom
+    shading (horizontal gradient bands).</p>
+    <p>The gradient reference (X<sub>ref</sub>,Y<sub>ref</sub>) specifies the offset of
+    the gradient center point from the lower left corner of either the page or an object's
+    extent rectangle. The offset is expressed as a fraction in units of 1/65535 of the extent.
+    For example, the reference value of a gradient centered in an object is 32767,32767
+    (0x7FFF,0x7FFF).</p>
+    <p>The anchor flag defines whether the gradient is rendered relative to the extent of
+    each object or to a supplied extent. An anchor style value of 0 defines an object-relative
+    gradient that extends to the edges of filled objects. An anchor style value of 1 defines
+    a gradient relative to the supplied extent. The gradient extent data is provided only
+    if the anchor style is set. The gradient extent (if provided) must be at least large
+    enough to encompass the objects being filled.</p>
+    <hr />
+    <h3>Record Type 48 (0x30) DP Brush Gradient</h3>
+    <h4>Description</h4>
+    <p>Defines the brush gradient attributes (using double-precision values) used to render
+    subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>{brush gradient angle}</p>
+    <p>[horizontal gradient reference (X<sub>ref</sub>)]</p>
+    <p>[vertical gradient reference (Y<sub>ref</sub>)]</p>
+    <p>&lt;brush gradient flag&gt;</p>
+    <p>bit 6: granularity flag</p>
+    <p>bit 7: anchor flag</p>
+    <p>{horizontal gradient extent minimum (X<sub>min</sub>)}</p>
+    <p>{vertical gradient extent minimum (Y<sub>min</sub>)}</p>
+    <p>{horizontal gradient extent maximum (X<sub>max</sub>)}</p>
+    <p>{vertical gradient extent maximum (Y<sub>max</sub>)}<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>This record is mutually exclusive with and will override any settings from previous
+    occurrences of the <em>Brush Pattern</em>, <em>Brush Texture</em>, and <em>Brush Gradient</em>
+    records.</p>
+    <p>This record is equivalent to the <em>Brush Gradient</em> record, except that the
+    extent (if provided) is given with double-precision point values. As with the <em>Brush
+        Gradient</em> record, extent fields only appear in the record if the anchor flag
+    bit (bit 7 of the brush gradient flag field) is set to 1.</p>
+    <hr />
+    <h3>Record Type 49 (0x31) Brush Fore Color</h3>
+    <h4>Description</h4>
+    <p>Defines the brush foreground color attributes used to render subsequent objects and
+    paths.</p>
+    <h4>Structure</h4>
+    <p>&lt;brush gradient type&gt;<br />
+    </p>
+    <p>brush gradient type = 0:<br />
+    </p>
+    <p>&lt;brush foreground color value&gt; x 4<br />
+    </p>
+    <p>brush gradient type &lt;&gt; 0:<br />
+    </p>
+    <p>[number of brush foreground colors]</p>
+    <p>&lt;brush foreground color 1 (red)&gt;</p>
+    <p>&lt;brush foreground color 1 (green)&gt;</p>
+    <p>&lt;brush foreground color 1 (blue)&gt;</p>
+    <p>&lt;brush foreground color 1 (transparent)&gt;</p>
+    <p>&lt;brush foreground color 2 (red)&gt;</p>
+    <p>&lt;brush foreground color 2 (green)&gt;</p>
+    <p>&lt;brush foreground color 2 (blue)&gt;</p>
+    <p>&lt;brush foreground color 2 (transparent)&gt;</p>
+    <p>...</p>
+    <p>[brush color position array] x ?<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.<br />
+    </p>
+    <h4>Notes</h4>
+    <p>The brush foreground color is used to draw the foreground color of the brush fill
+    pattern. If no brush pattern is specified, the pattern is solid, and the foreground
+    color is the only color used for rendering fills. Closed objects can be filled with
+    a pattern and a gradient.</p>
+    <p>If the brush gradient type is None (0), only a single color value is present and
+    the brush pattern is not affected. Otherwise, the gradient data is provided and the
+    brush pattern is reset to a solid pattern. The table below lists the Brush Gradient
+    Types.<br />
+    </p>
+    <table border="1" cellpadding="5" width="66%">
+        <tr>
+            <td valign="top" width="18%">
+                <strong>Type #</strong></td>
+            <td valign="top" width="81%">
+                <strong>Brush Gradient Type</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                0 (0x00)</td>
+            <td valign="top">
+                None</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                1 (0x01)</td>
+            <td valign="top">
+                Linear</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                2 (0x02)</td>
+            <td valign="top">
+                Polygonal</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                3 (0x03)</td>
+            <td valign="top">
+                Concentric Circles</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                4 (0x04)</td>
+            <td valign="top">
+                Convergent Circles</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                5 (0x05)</td>
+            <td valign="top">
+                Concentric Ellipses</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                6 (0x06)</td>
+            <td valign="top">
+                Convergent Ellipses</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                7 (0x07)</td>
+            <td valign="top">
+                Concentric Squares</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                8 (0x08)</td>
+            <td valign="top">
+                Convergent Squares</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                9 (0x09)</td>
+            <td valign="top">
+                Concentric Rectangles</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                10 (0x0A)</td>
+            <td valign="top">
+                Convergent Rectangles</td>
+        </tr>
+    </table>
+    <p>Any number of colors, as defined by the brush foreground color array, can be distributed
+    across the range of the gradient. The first color in the array is the inner color (the
+    color overlaying the reference point). The last color in the array is the outer color
+    (the color farthest from the reference point).<br />
+    </p>
+    <p>The brush color position array controls the positioning of colors given in the foreground
+    color array in a way that is dependent on the state of the gradient granularity flag
+    (see <em>Brush_Gradient</em> earlier in this section). It has one less element than
+    the color array because "n" colors divide an area into "n1" regions. When the gradient
+    granularity flag is 0, the position array specifies the number of steps from color C<sub>i</sub>
+    to color C<sub>i+1</sub>. The total number of gradient bands is one greater than the
+    sum of the values in the position array. When the granularity flag is set to 1, the
+    gradient granularity is minimized (number of gradient bands is maximized) - limited
+    only by the resolution of the output device and the difference in the gradient colors.
+    The distance, D<sub>i</sub>, between two adjacent gradient colors, C<sub>i</sub> and
+    C<sub>i+1</sub>, is where E is the extent of the gradient, n is the number of gradient
+    colors, and P<sub>i</sub> is an element of the position array. Position array elements
+    must have nonzero values.<br />
+    </p>
+    <img src="../Images/equa3.jpg" width="424" height="83" alt="Equation for calculating distance of gradient" />
+    <hr />
+    <h3>Record Type 50 (0x32) DP Brush Fore Color</h3>
+    <h4>Description</h4>
+    <p>Defines the double-precision brush foreground color attributes used to render subsequent
+    objects and paths.</p>
+    <h4>Structure</h4>
+    <p>&lt;brush gradient type&gt;<br />
+    </p>
+    <p>brush gradient type = 0:<br />
+    </p>
+    <p>[brush foreground color value] x 4<br />
+    </p>
+    <p>brush gradient type &lt;&gt; 0:<br />
+    </p>
+    <p>[number of brush foreground colors]</p>
+    <p>[brush foreground color 1 (red)]</p>
+    <p>[brush foreground color 1 (green)]</p>
+    <p>[brush foreground color 1 (blue)]</p>
+    <p>[brush foreground color 1 (transparent)]</p>
+    <p>[brush foreground color 2 (red)]</p>
+    <p>[brush foreground color 2 (green)]</p>
+    <p>[brush foreground color 2 (blue)]</p>
+    <p>[brush foreground color 2 (transparent)]</p>
+    <p>...</p>
+    <p>[brush color position array] x ?<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>This record is equivalent to the <em>Brush Fore Color</em> record, except that it
+    uses double-precision color values.</p>
+    <hr />
+    <h3>Record Type 51 (0x33) Brush Back Color</h3>
+    <h4>Description</h4>
+    <p>Defines the brush background color attribute used to render subsequent objects and
+    paths.</p>
+    <h4>Structure</h4>
+    <p>&lt;brush background color value&gt; x 4<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The brush background color is used to draw the background color of the brush fill
+    pattern. If no brush pattern is specified, the pattern is solid, and the background
+    color is not used for rendering fills.</p>
+    <hr />
+    <h3>Record Type 52 (0x34) DP Brush Back Color</h3>
+    <h4>Description</h4>
+    <p>Defines the double-precision brush background color attribute used to render subsequent
+    objects and paths.</p>
+    <h4>Structure</h4>
+    <p>[brush background color value] x 4<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>This record is equivalent to the <em>Brush Back Color</em> record, except that it
+    uses double-precision color values.</p>
+    <hr />
+    <h3>Record Type 53 (0x35) Brush Pattern</h3>
+    <h4>Description</h4>
+    <p>Defines the brush pattern attribute used to render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>[brush pattern]<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>Sets the current brush pattern to a predefined pattern (see <em>Pen/Brush Patterns</em>
+    later in this section) or to a custom pattern that was defined using the <em>Pattern
+        Definition</em> record. Setting the pen pattern to 0 restores it to a solid pattern.
+    The first color in the brush foreground color array of the <em>Brush Fore Color</em>
+    record is used as the foreground color of the pattern.</p>
+    <p>This record is mutually exclusive with and will override any settings from previous
+    occurrences of the <em>Brush Texture</em>, <em>Brush Gradient</em>, and <em>DP Brush
+        Gradient</em> records.</p>
+    <hr />
+    <h3>Record Type 54 (0x36) Horizontal Line</h3>
+    <h4>Description</h4>
+    <p>Defines a horizontal line to be used as an alignment guide.</p>
+    <h4>Structure</h4>
+    <p>[Y coordinate]</p>
+    <p>[X1 coordinate]</p>
+    <p>[X2 coordinate]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>This record can only be present as an extension to the <em>Grid Settings</em> record.</p>
+    <hr />
+    <h3>Record Type 55 (0x37) Vertical Line</h3>
+    <h4>Description</h4>
+    <p>Defines a vertical line to be used as an alignment guide.</p>
+    <h4>Structure</h4>
+    <p>[X coordinate]</p>
+    <p>[Y1 coordinate]</p>
+    <p>[Y2 coordinate]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>This record can only be present as an extension to the <em>Grid Settings</em> record.</p>
+    <hr />
+    <h3>Record Type 56 (0x38) Poster Settings (Added in 7.0)</h3>
+    <h4>Description</h4>
+    <p>Defines the layout (Poster size and poster margins) of the document.</p>
+    <h4>Structure</h4>
+    <p>&lt;poster flags&gt;</p>
+    <p>bit 0: 1 = Poster mode on, 0 = off</p>
+    <p>[poster left margin]</p>
+    <p>[poster right margin]</p>
+    <p>[poster top margin]</p>
+    <p>[poster bottom margin]</p>
+    <p>[poster form length]</p>
+    <p>[poster form width]</p>
+    <p>[poster page height]</p>
+    <p>[poster page width]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Poster Settings</em> record must be an extension of the <em>Start WPG</em>
+    record.</p>
+    <hr />
+    <h3>Record Type 57 (0x39) Image State (Added in 7.0)</h3>
+    <h4>Description</h4>
+    <p>Defines special handling for editing applications of specific entities.</p>
+    <h4>Structure</h4>
+    <p>&lt;original file format&gt; (as defined for object capsules)</p>
+    <p>{image state flags}</p>
+    <p>bit 0: Transform all bitmaps for editing</p>
+    <p>bit 1: Format text before display</p>
+    <p>bit 2-23: unused</p>
+    <p>bit 24-31: Corel use only</p>
+    <p>bit 24 indicates the file was generated by conversion</p>
+    <p>bit 25 indicates the file was generated by a pre-release application<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The <em>Image State</em> record must be an extension of the <em>Start WPG</em> record.
+    The record is optional and used by conversions. All unused or reserved bits should be
+    cleared.</p>
+    <hr />
+    <h3>Record Type 58 (0x3A) Envelope Definition (Added in 7.0)</h3>
+    <h4>Description</h4>
+    <p>Defines a custom envelope that can be used in subsequent Envelope records.<br />
+    </p>
+    <h4>Structure</h4>
+    <p>[envelope index]</p>
+    <p>&lt;number in x&gt; Number, m, of envelope patches in the x direction.</p>
+    <p>The number of control points in the x direction is defined by:</p>
+    <p>u = (3 * m) + 1</p>
+    <p>&lt;Number in y&gt; Number, n, of envelope patches in the y direction.</p>
+    <p>The number of control points in the y direction is defined by:</p>
+    <p>v = (3 * n) + 1</p>
+    <p>[Xll coordinate](lower left point of envelope extent)</p>
+    <p>[Yll coordinate]</p>
+    <p>[Xur coordinate](upper right point of envelope extent)</p>
+    <p>[Yur coordinate]<br />
+    </p>
+    <p>The envelope control points are stored in a row-major array, as shown below:<br />
+    </p>
+    <p>[X11 coordinate]control point at row 1, column 1</p>
+    <p>[Yll coordinate]</p>
+    <p>[X12 coordinate]control point at row 1, column 2</p>
+    <p>[Y12 coordinate]</p>
+    <p>[X1u coordinate]control point at row 1, column u</p>
+    <p>[Ylu coordinate]</p>
+    <p>[X21 coordinate]control point at row 2, column 1</p>
+    <p>[Y21 coordinate]</p>
+    <p>[Xvu coordinate]control point at row v, column u</p>
+    <p>[Yvu coordinate]<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>An envelope is defined as a grid of bicubic B&eacute;zier patches. Neighboring patches
+    share control points along the common edge.</p>
+    <hr />
+    <h3>Record Type 59 (0x3B) Envelope (Added in 7.0)</h3>
+    <h4>Description</h4>
+    <p>Specifies the envelope definition to be used on objects and paths that are extensions
+    to this record.</p>
+    <h4>Structure</h4>
+    <p>[Envelope Index]</p>
+    <p>[Xll coordinate]lower left point of region to be enveloped</p>
+    <p>[Yll coordinate]</p>
+    <p>[Xur coordinate]upper right point of region to be enveloped</p>
+    <p>[Yur coordinate]</p>
+    <p>{Shadow Color}</p>
+    <p>[Horizontal Shadow Offset]in world units</p>
+    <p>[Vertical Shadow Offset]in world units</p>
+    <p>[X12 coordinate]control point at row 1, column 2</p>
+    <p>&lt;Aspect Ratio Flag&gt;</p>
+    <p>0 = don't preserve the aspect ratio of the objects</p>
+    <p>Non-zero = preserve aspect ratio<br />
+    </p>
+    <p>The field length may be double, based on data precision or Object ID. See <em>Field
+        Precision</em> under <em>Record Structure</em> earlier in this section for more
+    detailed information.<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>Any WPG image record except Layer.<br />
+    </p>
+    <h4>Notes</h4>
+    <p>This record transforms the objects and/or paths that are included in the extensions
+    of this record through the specified envelope.</p>
+    <p>This record is not used by render-only applications (see discussion of Line Cap class).</p>
+    <p>If the shadow color is fully transparent, or if both shadow offsets are 0, no shadow
+    is created.</p>
+    <p>This record and its extensions should be placed in an object capsule to be rendered.</p>
+    <hr />
+    <h3>Record Type 60 (0x3C) Texture Definition (Added in 7.0)</h3>
+    <h4>Description</h4>
+    <p>Defines a texture that can be used in subsequent <em>Pen Texture</em> and <em>Brush
+        Texture</em> records.</p>
+    <h4>Structure</h4>
+    <p>[texture index]</p>
+    <p>&lt;dominant color (red)&gt;</p>
+    <p>&lt;dominant color (green)&gt;</p>
+    <p>&lt;dominant color (blue)&gt;</p>
+    <p>&lt;tile-only flag&gt;</p>
+    <p>&lt;filename&gt; x ? optional null-terminated word string<br />
+    </p>
+    <h4>Extensions</h4>
+    <p><em>Color Palette</em> or <em>DP Color Palette</em> (optional), <em>Bitmap Data</em>.</p>
+    <h4>Notes</h4>
+    <p>Zero is a valid value for the texture index.</p>
+    <p>If no color palette is included, the defined texture should be rendered with the
+    palette in effect at the point this record is encountered.</p>
+    <p>The dominant color red, green, blue value is the color that should represent objects
+    filled with this texture if the texture itself is not used (such as in a viewer that
+    does not render textures).</p>
+    <p>The tile-only flag should be true on textures that are meant to be tiled (see fit-to-object
+    style in the <em>Brush Texture</em> record below).</p>
+    <p>The filename is the fully-qualified path of the file from which the texture bitmap
+    data was defined. If unknown, omit the filename from this record.</p>
+    <hr />
+    <h3>Record Type 61 (0x3D) Brush Texture (Added in 7.0)</h3>
+    <h4>Description</h4>
+    <p>Defines the brush texture attribute used to render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>[texture index]</p>
+    <p>&lt;fit-to-object style&gt;</p>
+    <p>0 = tile</p>
+    <p>1 = horizontal brick</p>
+    <p>2 = vertical brick</p>
+    <p>3 = unconditional scale</p>
+    <p>4 = transform scale</p>
+    <p>5 = horizontal scale</p>
+    <p>6 = vertical scale</p>
+    <p>7 = unconditional stretch</p>
+    <p>8 = transform stretch</p>
+    <p>9 = horizontal stretch</p>
+    <p>10 = vertical stretch</p>
+    <p>[integer portion of stretch count]</p>
+    <p>[fractional portion of stretch count]<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>Sets the current brush to a texture defined by the <em>Texture Definition</em> record.
+    This record is mutually exclusive with and will override any settings from previous
+    occurrences of the <em>Brush Pattern</em>, <em>Brush Gradient</em>, and <em>DP Brush
+        Gradient</em> records. Zero is a valid value for the texture index and does not
+    mean that subsequent rendering should be done with a solid color.</p>
+    <p>The fit-to-object style indicates how a texture is modified to fill an area. The
+    tile and brick options replicate the unscaled texture in both directions as shown in
+    the figures below.<br />
+    </p>
+    <p>
+    <img src="../Images/TILE.jpg" align="top" width="93" height="92" alt="Tile patterns" />
+    <img src="../Images/H-BRICK.jpg" align="top" width="93" height="92" alt="Horizontal brick patterns" />
+    <img src="../Images/V-BRICK.jpg" align="top" width="93" height="92" alt="Vertical brick patterns" /><br />
+    <br />
+    <br />
+    The scale and stretch options cause the texture to be scaled (either up or down) as
+    shown below. The scale factors shown in the table have the following meaning:<br />
+    </p>
+    <p>S<sub>X</sub> = (WD<sub>OBJ</sub> / WD<sub>TEXTURE</sub>)</p>
+    <p>S<sub>Y</sub> = (HT<sub>OBJ</sub> / HT<sub>TEXTURE</sub>)<br />
+    </p>
+    <p>These options apply to device coordinates. For example, assume a rectangle has been
+    drawn with the horizontal scale option set. Rotating the rectangle 90 changes the "width"
+    of the object and would cause the texture to scale differently.<br />
+    </p>
+    <table border="1" cellpadding="5" width="68%">
+        <tr>
+            <td width="34%">
+                <strong>Option</strong></td>
+            <td align="center" width="22%">
+                <strong>Horizontal Scale Factor</strong></td>
+            <td align="center" width="22%">
+                <strong>Vertical Scale Factor</strong></td>
+            <td align="center" width="20%">
+                <strong>Transform with Object</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                unconditional scale</td>
+            <td align="center" valign="top">
+                max (S<sub>X</sub>, S<sub>Y</sub>)</td>
+            <td align="center" valign="top">
+                max (S<sub>X</sub>, S<sub>Y</sub>)</td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                transform scale</td>
+            <td align="center" valign="top">
+                max (S<sub>X</sub>, S<sub>Y</sub>)</td>
+            <td align="center" valign="top">
+                max (S<sub>X</sub>, S<sub>Y</sub>)</td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                horizontal scale</td>
+            <td align="center" valign="top">
+                S<sub>X</sub></td>
+            <td align="center" valign="top">
+                S<sub>X</sub></td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                vertical scale</td>
+            <td align="center" valign="top">
+                S<sub>Y</sub></td>
+            <td align="center" valign="top">
+                S<sub>Y</sub></td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                unconditional stretch</td>
+            <td align="center" valign="top">
+                S<sub>X</sub></td>
+            <td align="center" valign="top">
+                S<sub>Y</sub></td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                transform stretch</td>
+            <td align="center" valign="top">
+                S<sub>X</sub></td>
+            <td align="center" valign="top">
+                S<sub>Y</sub></td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                horizontal stretch</td>
+            <td align="center" valign="top">
+                S<sub>X</sub></td>
+            <td align="center" valign="top">
+                1</td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                vertical stretch</td>
+            <td align="center" valign="top">
+                1</td>
+            <td align="center" valign="top">
+                S<sub>Y</sub></td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                &nbsp;</td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                When stretch count = 0</td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+            <td align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+    </table>
+    <p>The unconditional and transform scale both scale the texture to fill the object.
+    Because it preserves the texture's aspect ratio, one edge might be larger than the corresponding
+    edge of the object. When this occurs, the object is centered in the texture. The unconditional
+    and transform stretch both stretch the texture to exactly fill the object once. As a
+    textured object is transformed, the transform scale and transform stretch options both
+    cause the texture to transform with the object. The horizontal scale, vertical scale,
+    horizontal stretch, and vertical stretch options fill the object along one axis without
+    repeating and then tile along the other axis if necessary.</p>
+    <p>The stretch count applies only to the horizontal stretch and vertical stretch fit-to-object
+    styles. It is a fixed point number specifying the number of tiles to stack along one
+    axis. A value of 0 means that the texture is not to be scaled along the axis being stacked.
+    All other values mean to scale the texture as necessary to yield the specified number
+    of stacked tiles. Note that a value of 1 means the same as unconditional stretch.</p>
+    <p>The <em>Texture Alignment</em> record specifies whether a texture is anchored to
+    the page or to objects. If it is object anchored, it specifies how it is aligned with
+    the object. Some alignments don't work with certain fit-to-object styles. The following
+    table shows which alignment values are valid for each style and which alignment is the
+    default (used when the specified alignment is invalid for the given fit-to-object style.<br />
+    </p>
+    <table border="1" cellpadding="5" width="67%">
+        <tr>
+            <td rowspan="2" align="center" width="29%">
+                <strong>Fit-to-object Style</strong></td>
+            <td colspan="2" align="center" width="16%">
+                <strong>Texture Alignment</strong></td>
+        </tr>
+        <tr>
+            <td align="center">
+                <strong>Valid Values</strong></td>
+            <td align="center" width="54%">
+                <strong>Align</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                tile
+                <p>horizontal brick</p>
+                <p>vertical brick</p>
+            </td>
+            <td valign="top">
+                0
+                <p>1 thru 10</p>
+            </td>
+            <td valign="top">
+                top-left corner of page*
+                <p>as defined by <em>Texture Alignment</em></p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                unconditional scale</td>
+            <td valign="top">
+                1 thru 9</td>
+            <td valign="top">
+                as defined by <em>Texture Alignment**</em></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                unconditional stretch</td>
+            <td valign="top">
+                1</td>
+            <td valign="top">
+                top-left corner*</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                transform scale
+                <p>transform stretch</p>
+            </td>
+            <td valign="top">
+                1</td>
+            <td valign="top">
+                top-left corner*</td>
+        </tr>
+        <tr>
+            <td valign="top">
+                horizontal scale
+                <p>horizontal stretch</p>
+            </td>
+            <td valign="top">
+                1, 2, 3
+                <p>7, 8, 9</p>
+            </td>
+            <td valign="top">
+                top edges
+                <p>bottom edges*</p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                vertical scale
+                <p>vertical stretch</p>
+            </td>
+            <td valign="top">
+                1, 4, 7
+                <p>3, 6, 9</p>
+            </td>
+            <td valign="top">
+                left edges*
+                <p>right edges</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="3" valign="top">
+                *&nbsp; Default alignment this way if the texture alignment is undefined or invalid.
+                <p>** Default is 5, (center) if texture alignment is undefined or invalid</p>
+            </td>
+        </tr>
+    </table>
+    <p>
+    <br />
+    </p>
+    <hr />
+    <h3>Record Type 62 (0x3E) Texture Alignment (Added in 7.0)</h3>
+    <h4>Description</h4>
+    <p>Defines the alignment of the texture with the area being filled.</p>
+    <h4>Structure</h4>
+    <p>&lt;texture alignment&gt;</p>
+    <p>0 = page</p>
+    <p>1 thru 9 = simple object</p>
+    <p>10 = explicit object</p>
+    <p>[horizontal texture reference]</p>
+    <p>[vertical texture reference]</p>
+    <p>[horizontal object reference]</p>
+    <p>[vertical object reference]<br />
+    </p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>The texture alignment specifies whether the texture should be positioned relative
+    to the page or object. A value of 0 indicates page alignment, meaning that the top-left
+    corner of textures are aligned to the top-left corner of the page. Nine values define
+    simple object alignment. When the texture alignment is one of these values, a point
+    of the texture as shown below is aligned with the corresponding point of the object's
+    extent. For example, a value of 1 would align the top-left corner of the texture with
+    the top-left corner of the object's extent, while a value of 5 would align the center
+    points of each. If explicit object alignment is specified, the last four parameters
+    specify a point on the texture and a point on the object that are to be aligned. These
+    parameters specify a point as an offset from the upper-left corner of the texture or
+    object. The offset is expressed as a fraction (in units of 1/65535) of the texture/object
+    size.<br />
+    </p>
+    <p>
+    <img src="../Images/anchorpt.jpg" align="bottom" width="232" height="163" alt="Texture alignment points" /><br />
+    </p>
+    <p>
+    <br />
+    </p>
+    <hr />
+    <h3>Record Type 63 (0x3F) Pen Texture (Added in 7.0)</h3>
+    <h4>Description</h4>
+    <p>Defines the pen texture attribute used to render subsequent objects and paths.</p>
+    <h4>Structure</h4>
+    <p>[texture index]</p>
+    <h4>Extensions</h4>
+    <p>None.</p>
+    <h4>Notes</h4>
+    <p>Sets the current pen to a texture defined by the <em>Texture Definition</em> record.
+    Zero is a valid value for the texture index and does not mean that subsequent rendering
+    should be done with a solid color. The texture is always tiled for pens.</p>
+</body>
+</html>

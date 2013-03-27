@@ -1,0 +1,784 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Understanding PerfectScript command handling</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {margin-left: 2em}
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="PerfectScript_command_flow.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Summarizing_TPH.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Understanding_TPH.html">Understanding Third
+        Party Handlers</a> : Understanding PerfectScript command handling</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1269399"></a>
+
+  <h4 class="pHeading3">Understanding PerfectScript command handling</h4><a name="wp1269400"></a>
+
+  <p class="pBody">When a Third Party DLL is loaded, PerfectFit attempts to create a function pointer to the <code class="cCode">TPHHandleToken()</code>
+  function of the DLL. If this function pointer cannot be created, the DLL is not loaded into the Third Party DLL chain. After a valid function pointer has
+  been created, that function becomes the entry point used by PerfectFit to pass commands to the DLL. A DLL may intercept non-value (<code class=
+  "cCode">FileOpen</code>) or value (<code class="cCode">EnvCurrentFileName</code>) returning commands.</p><a name="wp1269402"></a>
+
+  <p class="pBody">When intercepting a non-value-returning command, no special processing is required by the DLL. The DLL simply returns <code class=
+  "cCode">DLL_HAN_NOT_HANDLED</code> or <code class="cCode">DLL_HAN_NO_ERROR</code> to indicate the command's result, either that the command was not handled
+  (ignored) or that the command was handled (blocked) by the DLL.</p><a name="wp1269404"></a>
+
+  <p class="pBody">If a DLL intercepts a value-returning command, and if the DLL is going to handle this command (that is, return <code class=
+  "cCode">DLL_HAN_NO_ERROR</code>), the DLL must provide the return value information. Failure to properly provide the return value information results in a
+  system error.</p><a name="wp1269405"></a>
+
+  <p class="pBody">When creating a return value, the DLL is responsible for allocating memory to hold this value by sending a special message back to the
+  application. The Corel&nbsp;WordPerfect&nbsp;Office application (not the DLL) de-allocates the memory associated with the return value.</p><a name=
+  "wp1269409"></a>
+
+  <p class="pBody">To allocate the memory required to hold the new return value, PerfectFit supports a message that can be sent to the application's link
+  window. A DLL must use this method so that the Corel&nbsp;WordPerfect&nbsp;Office application can free the memory after the return value has been
+  received.</p><a name="wp1270698"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1270705"></a>
+
+          <p class="pBody">Message</p>
+        </td>
+
+        <td>
+          <a name="wp1270707"></a>
+
+          <p class="pBody"><code class="cCode">WPLM_ALLOC_MEM</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270709"></a>
+
+          <p class="pBody">Purpose</p>
+        </td>
+
+        <td>
+          <a name="wp1270714"></a>
+
+          <p class="pBody">Allocates memory for a command's return-value information</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270735"></a>
+
+          <p class="pBody">Examples</p>
+        </td>
+
+        <td>
+          <a name="wp1270749"></a>
+
+          <p class="pBody">C example:<br />
+          <code class="cCode">lpMacReturnVal = SendMessage( hLinkWnd, WPLM_ALLOC_MEM, 0, (LPARAM)cbMemory );</code></p><a name="wp1270755"></a>
+
+          <p class="pBody">Pascal example:<br />
+          <code class="cCode">lpMacReturnVal:= SendMessage( hLinkWnd, WPLM_ALLOC_MEM, 0, LPARAM(cbMemory) );</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270716"></a>
+
+          <p class="pBody">Variables</p>
+        </td>
+
+        <td>
+          <a name="wp1270718"></a>
+
+          <p class="pBody"><code class="cCode">lpMacReturnVal</code> - long pointer to the block of memory allocated</p><a name="wp1270789"></a>
+
+          <p class="pBody"><code class="cCode">hLinkWnd</code> - handle to the Corel&nbsp;WordPerfect&nbsp;Office application's link window. This is the window
+          handle (<code class="cCode">HWND</code>) passed to the <code class="cCode">TPHHandleToken()</code> function.</p><a name="wp1270794"></a>
+
+          <p class="pBody"><code class="cCode">CbMemory</code> - number of bytes to allocate (size of <code class="cCode">MAC_RETURNVAL</code>, plus memory
+          needed to hold the data)</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1269440"></a>
+
+  <p class="pBody">It is common for a Third Party DLL to generate and send PerfectScript commands back to a Corel&nbsp;WordPerfect&nbsp;Office application for
+  processing. There are two ways to build commands:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1270873"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectScript_command_handling.html#wp1269493">The original way</a>, in which you allocate memory, build the command, send the command,
+        and then release memory.</li>
+      </ul>
+    </div><a name="wp1270879"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>For C++ or Delphi only, <a href="PerfectScript_command_handling.html#wp1269452">the newer way</a>, in which you use the object-oriented library,
+        which is designed to give you access to the same command set but without the complexity. The Corel&nbsp;WordPerfect&nbsp;Office SDK helps with both
+        approaches.</li>
+      </ul>
+    </div>
+  </div><a name="wp1269452"></a>
+
+  <p class="pBody">Building a command by using the object-oriented method is simple and can be done for any Third Party DLL application written in C++ or
+  Delphi. The library takes care of allocating the memory, building the command, calling the command, and deallocating the memory for you.</p><a name=
+  "wp1269453"></a>
+
+  <p class="pBody">Here is the general calling syntax for TPH commands:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+[Result =] Object.Command ([Param1, Param2, ... ParamX])<a name="wp1269454"> </a>
+</pre>
+  </div><a name="wp1270901"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1270908"></a>
+
+          <h5 class="pHeading4">Item</h5>
+        </td>
+
+        <td>
+          <a name="wp1270910"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270912"></a>
+
+          <p class="pBody">Result</p>
+        </td>
+
+        <td>
+          <a name="wp1270914"></a>
+
+          <p class="pBody">The value returned by the command (when applicable)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270916"></a>
+
+          <p class="pBody">Object</p>
+        </td>
+
+        <td>
+          <a name="wp1270921"></a>
+
+          <p class="pBody">The third Party Handler object that represents the target application that loads the DLL. There is one object available for each
+          TPH-enabled application: <code class="cCode">objWP</code> is for WordPerfect and <code class="cCode">objPR</code> is for Presentations.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270926"></a>
+
+          <p class="pBody">Command</p>
+        </td>
+
+        <td>
+          <a name="wp1270992"></a>
+
+          <p class="pBody">The PerfectScript command as called from PerfectScript. Environment variables (commands starting with <code class="cCode">?</code>)
+          have the <code class="cCode">?</code> replaced by <code class="cCode">env</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270935"></a>
+
+          <p class="pBody">ParmX</p>
+        </td>
+
+        <td>
+          <a name="wp1270937"></a>
+
+          <p class="pBody">The parameters required by the commands</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1269472"></a>
+
+  <p class="pBody"></p><a name="wp1269473"></a>
+
+  <p class="pBody">Here is an example of C++ source:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+TPHString = objWP.envSelectedText ();<a name="wp1269475"> </a>
+objWP.TableCreate ( 5, 3 );<a name="wp1269476"> </a>
+</pre>
+  </div><a name="wp1269477"></a>
+
+  <p class="pBody">Here is an example of Delphi source:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+string := objWP.envSelectedText ();<a name="wp1269478"> </a>
+objWP.TableCreate ( 5, 3 );<a name="wp1269479"> </a>
+</pre>
+  </div><a name="wp1269481"></a>
+
+  <p class="pBody">To simplify the calling of commands for the object-oriented method, the Corel&nbsp;WordPerfect&nbsp;Office SDK provides a generic class
+  (<code class="cCode">TPHString</code>) to handle strings in C++. This class is very simple to use, and it converts to and from any type of string that is
+  required by a Third Party Handler-enabled application. It allows the assignment of 8- and 16- bit zero-terminated strings (LPAZ, LPWZ). It also allows the
+  comparison and concatenation of strings.</p><a name="wp1269485"></a>
+
+  <p class="pBody">Here is an example:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+ // Create a string<a name="wp1269486"> </a>
+ TPHString s;<a name="wp1269487"> </a>
+ s = "Hello";<a name="wp1269488"> </a>
+ if (s == "Hello")<a name="wp1269489"> </a>
+  s += " World!";<a name="wp1269490"> </a>
+ objWP.Type (s);<a name="wp1269491"> </a>
+</pre>
+  </div><a name="wp1269493"></a>
+
+  <p class="pBody">Building a command involves allocating the memory to hold the command, filling in the associated command's parameters, sending the command
+  to the Corel&nbsp;WordPerfect&nbsp;Office application, and then de-allocating the command's memory. Four functions were added to simplify this process:
+  <code class="cCode">InitTkn()</code>, <code class="cCode">AddTknParm()</code>, <code class="cCode">SendTkn()</code>, and <code class=
+  "cCode">FreeTkn()</code>. The source code for the functions is provided with the WOAPI samples, and it is documented as follows.</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1271134"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectScript_command_handling.html#wp1271217">InitTkn</a></li>
+      </ul>
+    </div><a name="wp1271147"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectScript_command_handling.html#wp1269520">AddTknParm</a></li>
+      </ul>
+    </div><a name="wp1271148"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectScript_command_handling.html#wp1269608">SendTkn</a></li>
+      </ul>
+    </div><a name="wp1271149"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PerfectScript_command_handling.html#wp1269705">FreeTkn</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1271135"></a>
+
+  <p class="pBody">When these functions are available in your project, you can use the Command Inserter to easily create and insert commands into your
+  project.</p><a name="wp1271215"></a>
+
+  <p class="pBody">Many PerfectScript commands have more than one parameter. All parameter memory must be contiguous. The <code class="cCode">InitTkn()</code>
+  function described as follows is used for allocating the memory needed for the PerfectScript command.</p><a name="wp1271217"></a>
+
+  <h5 class="pHeading4">InitTkn function</h5><a name="wp1271220"></a>
+
+  <p class="pBody">The <code class="cCode">InitTkn()</code> function attempts to allocate a contiguous block of memory to hold the command and its specified
+  number of parameters.</p><a name="wp1269501"></a>
+
+  <p class="pBody">Here is the source for C:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+void FAR PASCAL InitTkn (WORD nParmCount)<a name="wp1269502"> </a>
+{       <a name="wp1269503"> </a>
+  if (!(lpTknData = (LPMAC_TOKEN)AllocPtr (sizeof (MAC_TOKEN) + <a name="wp1269504"> </a>
+                                (sizeof (MAC_PARAM) * <a name="wp1269505"> </a>
+                                (nParmCount)), GHND)))<a name="wp1269506"> </a>
+  {<a name="wp1269507"> </a>
+    lpTknData = (LPMAC_TOKEN)NULL;<a name="wp1269508"> </a>
+  }<a name="wp1269509"> </a>
+  lpTknData-cParam = nParmCount;<a name="wp1269510"> </a>
+}<a name="wp1269511"> </a>
+</pre>
+  </div><a name="wp1269512"></a>
+
+  <p class="pBody">Here is the source for Pascal:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+procedure InitTkn(nParmCount: Word);<a name="wp1269513"> </a>
+begin<a name="wp1269514"> </a>
+  GetMem(lpTknData, sizeof(MAC_TOKEN) + (sizeof(MAC_PARAM) *<a name="wp1269515"> </a>
+       nParmCount));<a name="wp1269516"> </a>
+  lpTknData^.cParam:= nParmCount;<a name="wp1269517"> </a>
+end;<a name="wp1269518"> </a>
+</pre>
+  </div><a name="wp1269520"></a>
+
+  <h5 class="pHeading4">AddTknParm function</h5><a name="wp1271228"></a>
+
+  <p class="pBody">The <code class="cCode">AddTknParm()</code> function adds parameter values to the initialized PerfectScript command. It should be called
+  once for each of the command's parameters. If a command parameter is optional, <code class="cCode">wFlags</code> should be set to hex value <code class=
+  "cCode">8000</code>; doing so forces the Corel&nbsp;WordPerfect&nbsp;Office application to ignore the parameter. If a parameter is not optional, <code class=
+  "cCode">wFlags</code> should be <code class="cCode">0</code>.</p><a name="wp1269524"></a>
+
+  <p class="pBody">Here is the source for C:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+void FAR PASCAL AddTknParm (WORD cParmNum, MAC_VALUE_TYPE eType,<a name="wp1269525"> </a>
+                                WORD wFlags, PARAMETER Param)<a name="wp1269526"> </a>
+{<a name="wp1269527"> </a>
+  LPVOID lpParam;<a name="wp1269528"> </a>
+  int iLen;<a name="wp1269529"> </a>
+  lpTknData-&gt;DataBlock[cParmNum].eType = eType;<a name="wp1269530"> </a>
+  lpTknData-&gt;DataBlock[cParmNum].wFlags = wFlags;<a name="wp1269531"> </a>
+                        <a name="wp1269532"> </a>
+  switch(eType)<a name="wp1269533"> </a>
+  {<a name="wp1269534"> </a>
+    case eParmStringWord: <a name="wp1269535"> </a>
+    case eParmStringVariable:                   <a name="wp1269536"> </a>
+      if(Param == NULL)<a name="wp1269537"> </a>
+        lpTknData-&gt;DataBlock[cParmNum].uData.lpvPtr = Param;<a name="wp1269538"> </a>
+      else<a name="wp1269539"> </a>
+      {<a name="wp1269540"> </a>
+        iLen= lpfnwwstrlen((FPWUBYTE)Param)*2;<a name="wp1269541"> </a>
+        lpParam= AllocPtr(iLen, GHND);<a name="wp1269542"> </a>
+        memcpy(lpParam, Param, iLen);<a name="wp1269543"> </a>
+        lpTknData-&gt;DataBlock[cParmNum].uData.lpvPtr = lpParam;<a name="wp1269544"> </a>
+      }<a name="wp1269545"> </a>
+      break;<a name="wp1269546"> </a>
+                <a name="wp1269547"> </a>
+    case eParmWPFname:<a name="wp1269548"> </a>
+    case eParmStringAnsi:<a name="wp1269549"> </a>
+    case eParmStringLabel:<a name="wp1269550"> </a>
+    case eParmStringOem:<a name="wp1269551"> </a>
+      if(Param == NULL)<a name="wp1269552"> </a>
+        lpTknData-&gt;DataBlock[cParmNum].uData.lpvPtr = Param;<a name="wp1269553"> </a>
+      else<a name="wp1269554"> </a>
+      {<a name="wp1269555"> </a>
+        iLen= lstrlen((LPSTR)Param) + 1;<a name="wp1269556"> </a>
+        lpParam= AllocPtr(iLen, GHND);<a name="wp1269557"> </a>
+        lstrcpy((LPSTR)lpParam, (LPSTR)Param);<a name="wp1269558"> </a>
+        lpTknData-&gt;DataBlock[cParmNum].uData.lpvPtr = lpParam;<a name="wp1269559"> </a>
+      }<a name="wp1269560"> </a>
+      break;<a name="wp1269561"> </a>
+    default:<a name="wp1269562"> </a>
+        lpTknData-&gt;DataBlock[cParmNum].uData.lpvPtr = Param;<a name="wp1269563"> </a>
+  }<a name="wp1269564"> </a>
+}<a name="wp1269565"> </a>
+</pre>
+  </div><a name="wp1269566"></a>
+
+  <p class="pBody">Here is the source for Pascal:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+procedure AddTknParm( cParmNum: WORD; eType: Word;<a name="wp1269567"> </a>
+                      wFlags: WORD; Param: PARAMETER);<a name="wp1269568"> </a>
+var<a name="wp1269569"> </a>
+  lpParam: Pointer;<a name="wp1269570"> </a>
+  iLen: integer;<a name="wp1269571"> </a>
+begin<a name="wp1269572"> </a>
+  lpTknData^.DataBlock[cParmNum].eType:= eType;<a name="wp1269573"> </a>
+  lpTknData^.DataBlock[cParmNum].wFlags:= wFlags;<a name="wp1269574"> </a>
+  case eType of<a name="wp1269575"> </a>
+    eParmStringWord,<a name="wp1269576"> </a>
+    eParmStringVariable:<a name="wp1269577"> </a>
+    begin<a name="wp1269578"> </a>
+        if(Param = nil)then<a name="wp1269579"> </a>
+        lpTknData^.DataBlock[cParmNum].lpvPtr:= Param;<a name="wp1269580"> </a>
+        else<a name="wp1269581"> </a>
+        begin<a name="wp1269582"> </a>
+          iLen:= wwstrlen(FPWUWORD(Param))*2;<a name="wp1269583"> </a>
+        GetMem(lpParam, iLen);<a name="wp1269584"> </a>
+          Move(lpParam, Param, iLen);<a name="wp1269585"> </a>
+        lpTknData^.DataBlock[cParmNum].lpvPtr:= lpParam;<a name="wp1269586"> </a>
+        end;<a name="wp1269587"> </a>
+    end;<a name="wp1269588"> </a>
+    eParmWPFname,<a name="wp1269589"> </a>
+    eParmStringAnsi,<a name="wp1269590"> </a>
+    eParmStringLabel,<a name="wp1269591"> </a>
+    eParmStringOem:<a name="wp1269592"> </a>
+    begin<a name="wp1269593"> </a>
+        if(Param = nil)then<a name="wp1269594"> </a>
+        lpTknData^.DataBlock[cParmNum].lpvPtr:= Param<a name="wp1269595"> </a>
+        else<a name="wp1269596"> </a>
+        begin<a name="wp1269597"> </a>
+        GetMem(lpParam, lstrlen(pChar(Param)) + 1);<a name="wp1269598"> </a>
+        lstrcpy(pChar(lpParam), pChar(Param));<a name="wp1269599"> </a>
+        lpTknData^.DataBlock[cParmNum].lpvPtr:= lpParam;<a name="wp1269600"> </a>
+        end;<a name="wp1269601"> </a>
+    end;<a name="wp1269602"> </a>
+    else<a name="wp1269603"> </a>
+      lpTknData^.DataBlock[cParmNum].lpvPtr:= Param;<a name="wp1269604"> </a>
+  end;<a name="wp1269605"> </a>
+end;<a name="wp1269606"> </a>
+</pre>
+  </div><a name="wp1269608"></a>
+
+  <h5 class="pHeading4">SendTkn function</h5><a name="wp1271240"></a>
+
+  <p class="pBody">After the command and parameters have been allocated and initialized, a Third Party DLL can send this command back to the application by
+  sending a message to its link window.</p><a name="wp1269609"></a>
+
+  <p class="pBody">The <code class="cCode">SendTkn()</code> function completes the definition of the PerfectScript command's data structure, and it sends the
+  completed structure to the Corel&nbsp;WordPerfect&nbsp;Office application's link window</p><a name="wp1269614"></a>
+
+  <p class="pBody">Here is the source for C:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DWORD FAR PASCAL SendTkn (MAC_TOKENID wTknID)<a name="wp1269615"> </a>
+{<a name="wp1269616"> </a>
+  TPH_RETURNVAL         TknData;<a name="wp1269617"> </a>
+  LPTPH_RETURNVAL       lpTPHData;<a name="wp1269618"> </a>
+  DWORD                 dwRV;<a name="wp1269619"> </a>
+  /* Fill out global PerfectScript command's structure.*/<a name="wp1269620"> </a>
+  lpTknData-&gt;eCommand           = 0L;<a name="wp1269621"> </a>
+  lpTknData-&gt;Version            = 0L;<a name="wp1269622"> </a>
+  lpTknData-&gt;atomRequestor      = aMyAppAtom;<a name="wp1269623"> </a>
+  lpTknData-&gt;atomApp            = aAppAtom;<a name="wp1269624"> </a>
+  lpTknData-&gt;dwMacroID          = 0L;<a name="wp1269625"> </a>
+  lpTknData-&gt;wReserved          = 0;<a name="wp1269626"> </a>
+  lpTknData-&gt;wTokenID           = wTknID;<a name="wp1269627"> </a>
+  lpTknData-&gt;dwFlags            = 0L;<a name="wp1269628"> </a>
+  lpTknData-&gt;dwReserved         = 0L;<a name="wp1269629"> </a>
+        <a name="wp1269630"> </a>
+  /* Fill out ReturnVal Structure.*/<a name="wp1269631"> </a>
+  TknData.lpTokenData           = lpTknData;<a name="wp1269632"> </a>
+  TknData.lplpmacRetVal         = &amp;lpMacRetVal;<a name="wp1269633"> </a>
+  lpTPHData = &amp;TknData;<a name="wp1269634"> </a>
+  dwRV = SendMessage (hAppLnkWnd, WPLM_EXECUTE_TOKEN, 0, 
+(LPARAM)lpTPHData);<a name="wp1269635"> </a>
+  return dwRV;<a name="wp1269636"> </a>
+}<a name="wp1269637"> </a>
+</pre>
+  </div><a name="wp1269638"></a>
+
+  <p class="pBody">Here is the source for Pascal:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+function SendTkn( wTknID: Word ): DWORD;<a name="wp1269639"> </a>
+var<a name="wp1269640"> </a>
+  TknData: TPH_RETURNVAL;<a name="wp1269641"> </a>
+  lpTPHData: LPTPH_RETURNVAL;<a name="wp1269642"> </a>
+  dwRV: DWORD;<a name="wp1269643"> </a>
+begin<a name="wp1269644"> </a>
+  { Fill out global command structure }<a name="wp1269645"> </a>
+  lpTknData^.eCommand           := 0;<a name="wp1269646"> </a>
+  lpTknData^.dwVersion          := 0;<a name="wp1269647"> </a>
+  lpTknData^.atomRequestor      := aMyAppAtom;<a name="wp1269648"> </a>
+  lpTknData^.atomApp            := aAppAtom;<a name="wp1269649"> </a>
+  lpTknData^.dwMacroID          := 0;<a name="wp1269650"> </a>
+  lpTknData^.wReserved          := 0;<a name="wp1269651"> </a>
+  lpTknData^.wTokenID           := wTknID;<a name="wp1269652"> </a>
+  lpTknData^.dwFlags            := 0;<a name="wp1269653"> </a>
+  lpTknData^.dwReserved         := 0;<a name="wp1269654"> </a>
+  { Fill out ReturnVal Structure }<a name="wp1269655"> </a>
+  TknData.lpTokenData           := lpTknData;<a name="wp1269656"> </a>
+  TknData.lplpmacRetVal         := @lpMacRetVal;<a name="wp1269657"> </a>
+  lpTPHData:= @TknData;<a name="wp1269658"> </a>
+  dwRV:= SendMessage(hAppLnkWnd, WPLM_EXECUTE_TOKEN, 0, 
+longint(lpTPHData));<a name="wp1269659"> </a>
+  result:= dwRV;<a name="wp1269660"> </a>
+end;<a name="wp1269661"> </a>
+</pre>
+  </div><a name="wp1269662"></a>
+
+  <p class="pBody"><code class="cCode">SendMessage</code> returns a value indicating the result of the command processed. These results are listed
+  below.</p><a name="wp1269704"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1271297"></a>
+
+          <h5 class="pHeading4">Result value</h5>
+        </td>
+
+        <td>
+          <a name="wp1271299"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1269665"></a>
+
+          <p class="pBody"><code class="cCode">MAC_NO_ERROR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1269667"></a>
+
+          <p class="pBody">Function was successful</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1269669"></a>
+
+          <p class="pBody"><code class="cCode">MAC_FUNCTION_UNKNOWN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1269671"></a>
+
+          <p class="pBody">Command is unknown</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1269673"></a>
+
+          <p class="pBody"><code class="cCode">MAC_BASE_GENERAL_ERRORS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1269675"></a>
+
+          <p class="pBody">Command is unknown</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1269677"></a>
+
+          <p class="pBody"><code class="cCode">MAC_FUNCTION_NOTFOUND</code></p>
+        </td>
+
+        <td>
+          <a name="wp1269679"></a>
+
+          <p class="pBody">Function resulted in a <code class="cCode">Not Found</code> condition</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1269681"></a>
+
+          <p class="pBody"><code class="cCode">MAC_FUNCTION_CANCEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1269683"></a>
+
+          <p class="pBody">Function resulted in a <code class="cCode">Cancel</code> condition</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1269685"></a>
+
+          <p class="pBody"><code class="cCode">MAC_FUNCTION_ERROR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1269687"></a>
+
+          <p class="pBody">Function resulted in an <code class="cCode">Error</code> condition</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1269689"></a>
+
+          <p class="pBody"><code class="cCode">MAC_FUNCTION_INVALID_PARM</code></p>
+        </td>
+
+        <td>
+          <a name="wp1269691"></a>
+
+          <p class="pBody">Function contained an invalid parameter</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1269693"></a>
+
+          <p class="pBody"><code class="cCode">MAC_FUNCTION_INVALID</code></p>
+        </td>
+
+        <td>
+          <a name="wp1269695"></a>
+
+          <p class="pBody">Function is invalid at this time</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1269697"></a>
+
+          <p class="pBody"><code class="cCode">MAC_FUNCTION_NOT_HANDLED</code></p>
+        </td>
+
+        <td>
+          <a name="wp1269699"></a>
+
+          <p class="pBody">Function was not handled</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1269701"></a>
+
+          <p class="pBody"><code class="cCode">MAC_FUNCTION_RETURN_LATER</code></p>
+        </td>
+
+        <td>
+          <a name="wp1269703"></a>
+
+          <p class="pBody">Function is used by PerfectFit to delay returning from command-handling functions</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1269705"></a>
+
+  <h5 class="pHeading4">FreeTkn function</h5><a name="wp1269706"></a>
+
+  <p class="pBody">After the command has been sent, the memory allocated for the command must be freed, and the Corel&nbsp;WordPerfect&nbsp;Office application
+  must free the memory it allocated to hold the command's return information. This can be done by using one call, <code class=
+  "cCode">FreeTkn</code>.</p><a name="wp1269710"></a>
+
+  <p class="pBody">The <code class="cCode">FreeTkn()</code> function frees the memory allocated for a PerfectScript command, and it sends a message back to the
+  Corel&nbsp;WordPerfect&nbsp;Office WOAPI application so that the command's return information can be freed.</p><a name="wp1269715"></a>
+
+  <p class="pBody">Here is the source for C:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+void FAR PASCAL FreeTkn()<a name="wp1269716"> </a>
+{<a name="wp1269717"> </a>
+  int i;<a name="wp1269718"> </a>
+  for(i= 0; i &lt; (int)lpTknData-cParam; i++)<a name="wp1269719"> </a>
+  {<a name="wp1269720"> </a>
+    switch(lpTknData-DataBlock[i].eType)<a name="wp1269721"> </a>
+    {<a name="wp1269722"> </a>
+        case eParmStringWord: <a name="wp1269723"> </a>
+        case eParmStringVariable:<a name="wp1269724"> </a>
+        case eParmWPFname:<a name="wp1269725"> </a>
+        case eParmStringAnsi:<a name="wp1269726"> </a>
+        case eParmStringLabel:<a name="wp1269727"> </a>
+        case eParmStringOem:<a name="wp1269728"> </a>
+        if(lpTknData-&gt;DataBlock[i].uData.lpvPtr != NULL)<a name="wp1269729"> </a>
+          FreePtr(lpTknData-&gt;DataBlock[i].uData.lpvPtr);<a name="wp1269730"> </a>
+    }<a name="wp1269731"> </a>
+  }<a name="wp1269732"> </a>
+        <a name="wp1269733"> </a>
+  SendMessage(hAppLnkWnd, WPLM_FREE_MEM, 0, (LPARAM)lpMacRetVal);<a name="wp1269734"> </a>
+  FreePtr (lpTknData);<a name="wp1269735"> </a>
+}<a name="wp1269736"> </a>
+</pre>
+  </div><a name="wp1269737"></a>
+
+  <p class="pBody">Here is the source for Pascal:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+procedure FreeTkn;<a name="wp1269738"> </a>
+var<a name="wp1269739"> </a>
+  i: integer;<a name="wp1269740"> </a>
+begin<a name="wp1269741"> </a>
+  for i:= 0 to lpTknData^.cParam do<a name="wp1269742"> </a>
+  begin<a name="wp1269743"> </a>
+    case lpTknData^.DataBlock[i].eType of<a name="wp1269744"> </a>
+        eParmStringWord,<a name="wp1269745"> </a>
+        eParmStringVariable:<a name="wp1269746"> </a>
+          if(lpTknData^.DataBlock[i].lpvPtr &lt; nil)then<a name="wp1269747"> </a>
+            FreeMem( lpTknData^.DataBlock[i].lpvPtr,<a name="wp1269748"> </a>
+              wwstrlen(FPWUWORD(lpTknData^.DataBlock[i].lpvPtr))* 
+2);<a name="wp1269749"> </a>
+        eParmWPFname,<a name="wp1269750"> </a>
+        eParmStringAnsi,<a name="wp1269751"> </a>
+        eParmStringLabel,<a name="wp1269752"> </a>
+        eParmStringOem:<a name="wp1269753"> </a>
+          if(lpTknData^.DataBlock[i].lpvPtr &lt; nil)then<a name="wp1269754"> </a>
+           FreeMem( lpTknData^.DataBlock[i].lpvPtr,<a name="wp1269755"> </a>
+                    lstrlen(lpTknData^.DataBlock[i].lpvPtr) + 1);<a name="wp1269756"> </a>
+    end;<a name="wp1269757"> </a>
+  end;<a name="wp1269758"> </a>
+    SendMessage(hAppLnkWnd, WPLM_FREE_MEM, 0, 
+longint(lpMacRetVal));<a name="wp1269759"> </a>
+    FreeMem(lpTknData, sizeof(lpTknData));<a name="wp1269760"> </a>
+end;<a name="wp1269761"> </a>
+</pre>
+  </div><a name="wp1269766"></a>
+
+  <p class="pBody">It is important to understand how a Corel&nbsp;WordPerfect&nbsp;Office application process a command in order to ensure that memory is
+  allocated and de-allocated properly.</p><a name="wp1269770"></a>
+
+  <p class="pBody">When a new command is sent to a Corel&nbsp;WordPerfect&nbsp;Office WOAPI application, a message is sent to the command's link window that
+  includes the command's ID and parameters, as well as a pointer that is used to hold the command's return information - for example, <code class=
+  "cCode">SendMessage(..., lpTPHData)</code>. If the address for the return information points to NULL or nil (<code class=
+  "cCode">lpTPHData-lplpMacRetVal-lpMacRetVal- 0</code>), the application does not allocate any memory for the return-value data. Because no memory is
+  allocated, no data is returned and therefore the memory does not need to be freed. If a valid address is included for the return data, the
+  Corel&nbsp;WordPerfect&nbsp;Office WOAPI application allocates memory to hold this data. The Third Party DLL is responsible for telling the application when
+  to free this memory. This is accomplished by sending the <code class="cCode">WPLM_FREE_MEM</code> message to the link window.</p><a name="wp1269774"></a>
+
+  <p class="pBody">Here is an example found in <code class="cCode">FreeTkn()</code>:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+SendMessage( hLinkWnd, WPLM_FREE_MEM, 0, lpMacRetVal );<a name="wp1269775"> </a>
+</pre>
+  </div>
+</body>
+</html>

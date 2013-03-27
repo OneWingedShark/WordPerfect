@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidSetBBarStyle function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidGetBBarStyle.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="View_Manager_functions.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Toolbars.html">Creating toolbars</a> : WpidSetBBarStyle
+        function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553746"></a>
+
+  <h4 class="pHeading3">WpidSetBBarStyle function</h4><a name="wp553748"></a>
+
+  <p class="pBody">The <code class="cCode">WpidSetBBarStyle</code> function sets the flags for the specified toolbar. It is used to update the toolbar display
+  by setting the flags with the return value from <code class="cCode">WpidGetBBarStyle(&nbsp;)</code> and setting the redraw flag to <code class=
+  "cCode">TRUE</code>.</p><a name="wp553750"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL SHAPI WpidSetBBarStyle (  <a name="wp553752"> </a>
+HWND hwndBBar,  <a name="wp553754"> </a>
+WORD fFlags,  <a name="wp553756"> </a>
+BOOL bRedraw ); <a name="wp553758"> </a>
+</pre>
+  </div><a name="wp553760"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp553763"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp524166"></a>
+
+          <p class="pBody"><code class="cCode">hwndBBar</code></p>
+        </td>
+
+        <td>
+          <a name="wp524168"></a>
+
+          <p class="pBody">Specifies the handle to a toolbar window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524174"></a>
+
+          <p class="pBody"><code class="cCode">fFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp524176"></a>
+
+          <p class="pBody">Specifies the new style bits. See "<a href="Toolbars.html#wp553120">Understanding toolbar styles</a>."</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524182"></a>
+
+          <p class="pBody"><code class="cCode">bRedraw</code></p>
+        </td>
+
+        <td>
+          <a name="wp524184"></a>
+
+          <p class="pBody">Should be set to <code class="cCode">TRUE</code> to repaint the toolbar</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553765"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp553767"></a>
+
+  <p class="pBody">The return value is non-zero if successful. Otherwise, zero is returned.</p>
+</body>
+</html>

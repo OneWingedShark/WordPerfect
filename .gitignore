@@ -1,0 +1,18 @@
+WP_Test.exe
+
+# Others
+[Oo]bj
+
+############
+## Windows
+############
+
+# Windows image file caches
+Thumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Unit test / coverage reports
+.coverage
+.tox

@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WcvtConvertHandle function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WclpCFtoCV.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Custom_controls.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Clipboard_support.html">Providing Clipboard support</a> :
+        WcvtConvertHandle function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp539362"></a>
+
+  <h4 class="pHeading3">WcvtConvertHandle function</h4><a name="wp1272957"></a>
+
+  <p class="pBody">Applications that put data on the Clipboard for a mixture of WPGroup products and other Windows products may use the conversion subsystems
+  of PerfectFit. One useful conversion function is <code class="cCode">WcvtConvertHandle(&nbsp;)</code>.</p><a name="wp1272949"></a>
+
+  <p class="pBody">Using a combination of the Windows Clipboard functions, the PerfectFit Clipboard functions, and this conversion function, an application can
+  put data onto the Clipboard in one "<code class="cCode">CF_</code>" format and specify that this data is also available in other formats. When another
+  application requests Clipboard data in one of the other formats, PerfectFit can be used to convert the first format to the requested format. In the case of
+  WPGroup products, the number of conversion formats for the Clipboard is limited to the standard Windows formats.</p><a name="wp539364"></a>
+
+  <p class="pBody">Given a handle to a global memory block, a "<code class="cCode">CV_</code>" conversion source ID, and a "<code class="cCode">CV_</code>"
+  conversion destination ID, <code class="cCode">WcvtConvertHandle(&nbsp;)</code> attempts to convert the data in the global memory block and save the
+  converted data in a second global memory block.</p><a name="wp539366"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+WORD SHAPI WcvtConvertHandle (<a name="wp539368"> </a>
+HGLOBAL hMem,<a name="wp539370"> </a>
+WORD wInFormat,<a name="wp539372"> </a>
+DWORD dwLen,<a name="wp539374"> </a>
+WORD wOutFormat,<a name="wp539376"> </a>
+WORD wFlags,<a name="wp539378"> </a>
+CVTINFO far* lpCvtInfo,<a name="wp539380"> </a>
+LPHANDLE lpHOut,<a name="wp539382"> </a>
+LPDWORD lpOutLen );<a name="wp539384"> </a>
+</pre>
+  </div><a name="wp539386"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp539389"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp507519"></a>
+
+          <p class="pBody"><code class="cCode">hMem</code></p>
+        </td>
+
+        <td>
+          <a name="wp507521"></a>
+
+          <p class="pBody">Specifies the handle to data to be converted</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507527"></a>
+
+          <p class="pBody"><code class="cCode">wInFormat</code></p>
+        </td>
+
+        <td>
+          <a name="wp507529"></a>
+
+          <p class="pBody">Specifies the format of the input data ("<code class="cCode">cv_</code>")</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507535"></a>
+
+          <p class="pBody"><code class="cCode">dwLen</code></p>
+        </td>
+
+        <td>
+          <a name="wp507537"></a>
+
+          <p class="pBody">Specifies the length of the data to be converted ("<code class="cCode">cv_</code>")</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507543"></a>
+
+          <p class="pBody"><code class="cCode">wOutFormat</code></p>
+        </td>
+
+        <td>
+          <a name="wp507545"></a>
+
+          <p class="pBody">Specifies the desired output format</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507551"></a>
+
+          <p class="pBody"><code class="cCode">wFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp507555"></a>
+
+          <p class="pBody">See "<a href="Document_conversion.html#wp1270683">Providing document conversion</a>"</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507561"></a>
+
+          <p class="pBody"><code class="cCode">lpCutInfo</code></p>
+        </td>
+
+        <td>
+          <a name="wp507563"></a>
+
+          <p class="pBody">Is always <code class="cCode">NULL</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507569"></a>
+
+          <p class="pBody"><code class="cCode">lpHOut</code></p>
+        </td>
+
+        <td>
+          <a name="wp507571"></a>
+
+          <p class="pBody">Acts as a pointer to the handle to the converted data</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507577"></a>
+
+          <p class="pBody"><code class="cCode">lpOutLen</code></p>
+        </td>
+
+        <td>
+          <a name="wp507579"></a>
+
+          <p class="pBody">Acts as a pointer to the location in which to store the length of the converted data</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp539391"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp539393"></a>
+
+  <p class="pBody">This function returns zero on success, and any other value on failure.</p><a name="wp1273347"></a>
+
+  <p class="pBody">For example, suppose your application puts <code class="cCode">CF_WP11DOC</code> data on the Clipboard and puts <code class=
+  "cCode">CF_RTF</code> data on the Clipboard for delayed rendering with the following code:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+HGLOBAL hWP11; // assumed to a handle to data in CF_WP11DOC format<a name="wp539395"> </a>
+if ( OpenClipboard ( hwnd ))<a name="wp539397"> </a>
+{<a name="wp539399"> </a>
+EmptyClipboard (void);<a name="wp539401"> </a>
+SetClipboardData (CF_WP11DOC, hWP9); // give CF_WP11DOC data to 
+Clipboard<a name="wp539403"> </a>
+SetClipboardData (CF_RTF, NULL); // CF_RTF data can be rendered<a name="wp539405"> </a>
+CloseClipboard (void);<a name="wp539407"> </a>
+}<a name="wp539409"> </a>
+</pre>
+  </div><a name="wp539411"></a>
+
+  <p class="pBody">Now suppose that another application wants to get RTF data from the Clipboard because a user used the paste feature in the other
+  application. Your application's window procedure for <code class="cCode">hwnd</code> will get a <code class="cCode">WM_RENDERFORMAT</code> message, which
+  your application will handle as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+case WM_RENDERALLFORMATS:<a name="wp539413"> </a>
+case WM_RENDERFORMAT:<a name="wp539415"> </a>
+{<a name="wp539417"> </a>
+HGLOBAL hMem;<a name="wp539419"> </a>
+DWORD dwLen;<a name="wp539421"> </a>
+if ( CV_OK == WcvtConvertHandle(hWP9, <a name="wp539423"> </a>
+CV_AUTODTKT, <a name="wp539425"> </a>
+0,<a name="wp539427"> </a>
+WclpCFtoCV(wParam),<a name="wp539429"> </a>
+CVT_LENGTH_IN, <a name="wp539431"> </a>
+NULL,<a name="wp539433"> </a>
+&amp;hMem;<a name="wp539435"> </a>
+&amp;dwLen;))<a name="wp539437"> </a>
+{<a name="wp539439"> </a>
+SetClipboardData ( wParam, hMem );<a name="wp539441"> </a>
+}<a name="wp539443"> </a>
+} <a name="wp539445"> </a>
+</pre>
+  </div>
+</body>
+</html>

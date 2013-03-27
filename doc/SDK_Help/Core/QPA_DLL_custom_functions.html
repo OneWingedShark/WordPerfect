@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Using DLL custom functions with Quattro Pro</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  span.c2 {font-family: Wingdings 3}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QPA_development_tools.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QP_executable_programs.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Quattro_Pro_Add-ins.html">Understanding
+        Quattro Pro Add-ins</a> : Using DLL custom functions with Quattro Pro</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1272006"></a>
+
+  <h4 class="pHeading3">Using DLL custom functions with Quattro Pro</h4><a name="wp1272007"></a>
+
+  <p class="pBody">DLL functions can be used inside Quattro Pro as part of a cell formula, within a macro, as a macro command, or in a link to an
+  object.</p><a name="wp1272008"></a>
+
+  <p class="pBody">For Quattro Pro to load and use a DLL, the following conditions must be met:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1272009"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>The DLL must be in the main folder of Quattro Pro (for example,
+        C:\Program&nbsp;Files\WordPerfect&nbsp;Office&nbsp;X6\Programs\).</li>
+      </ul>
+    </div><a name="wp1272010"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Quattro Pro must be running.</li>
+      </ul>
+    </div><a name="wp1272011"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Quattro Pro must run and recognize the DLL's function as either PURE or IMPURE.</li>
+      </ul>
+    </div><a name="wp1272012"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>The proper command must be entered into Quattro Pro to call the custom @function, macro, or link.</li>
+      </ul>
+    </div>
+  </div><a name="wp1272013"></a>
+
+  <h5 class="pHeading4">Calling custom functions in cell formulas</h5><a name="wp1272014"></a>
+
+  <p class="pBody">Only PURE custom functions are allowed inside calculated cell formulas. Using a custom function is similar to using any of the built-in
+  Quattro Pro @functions. There are two methods for calling @functions. Both are illustrated in the following examples:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+@{name of DLL}.{name of function}({arguments})<a name="wp1272015"> </a>
+</pre>
+  </div><a name="wp1272016"></a>
+
+  <p class="pBody">Example: <code class="cCode">@LESSON03.ADD(2,9)</code></p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+@{name of function}({arguments})<a name="wp1272017"> </a>
+</pre>
+  </div><a name="wp1272018"></a>
+
+  <p class="pBody">Example: <code class="cCode">@ADD(2,9)</code></p><a name="wp1272019"></a>
+
+  <p class="pBody">The first example loads/registers the DLL, if needed, and executes <code class="cCode">ADD</code>.</p><a name="wp1272020"></a>
+
+  <p class="pBody">The second example equires that the DLL be loaded/registered before this command is used. For information on loading the DLL, please refer
+  to "Loading and auto-loading DLLs," later in this section. Functions that use this second method must also include the <code class="cCode">INTERNAL</code>
+  keyword in their <code class="cCode">ProcPrototype</code> string.</p><a name="wp1272021"></a>
+
+  <p class="pBody">In Quattro Pro, a custom @function might be entered as <code class="cCode">@LESSON03.ADD(B5,2.1+C1)</code>. Quattro Pro evaluates the
+  arguments and sends only the value of cell B5 and the combined value of 2.1 plus the value of C1. These two values would then be processed by the custom
+  @function code.</p><a name="wp1272022"></a>
+
+  <h5 class="pHeading4">Calling custom functions in a macro</h5><a name="wp1272023"></a>
+
+  <p class="pBody">PURE and IMPURE @functions can be called with the <code class="cCode">{LET ...}</code> macro statement, as in the following example:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+{Let A10,@lesson11.SET}<a name="wp1272024"> </a>
+</pre>
+  </div><a name="wp1272025"></a>
+
+  <p class="pBody">When the macro statement is run, the DLL is loaded/registered, the custom function <code class="cCode">SET</code> is called, and the return
+  value is placed in cell A10. With this command, the custom function must always return a value (or array of values) in the return statement of the function
+  (or in array import functions).</p><a name="wp1272026"></a>
+
+  <h5 class="pHeading4">Calling custom functions as macro commands</h5><a name="wp1272027"></a>
+
+  <p class="pBody">Quattro Pro supports the creation of custom macro commands. Only custom functions defined as IMPURE can be used as macro commands. By
+  identifying a custom function with the <code class="cCode">MACRO</code> keyword modifier in the <code class="cCode">ProcPrototype</code> member of the
+  <code class="cCode">SelfDefStructure</code>, you can call your custom macro by entering it in braces, just as you would any other macro command, such as
+  <code class="cCode">{SET}</code>.</p><a name="wp1272028"></a>
+
+  <p class="pBody">When a custom function is called in this manner, it can return values only through import functions. The custom function cannot return
+  values directly to Quattro Pro, and the import functions used to return values cannot include the array functions. The only return-type keyword that is
+  supported in the <code class="cCode">SelfDefStructure</code> <code class="cCode">ProcPrototype</code> of this type of custom function is <code class=
+  "cCode">VOID</code>.</p><a name="wp1272029"></a>
+
+  <p class="pBody">To call a custom function in this way, you must first load the DLL into memory. For information on loading the DLL, please refer to "Loading
+  and auto-loading DLLs," later in this section.</p><a name="wp1272030"></a>
+
+  <h5 class="pHeading4">Calling custom functions as links</h5><a name="wp1272031"></a>
+
+  <p class="pBody">Linking is the process of attaching a command, macro, or DLL custom function to an object. Only IMPURE functions can be linked. (In this
+  context, an object refers to a menu item, a toolbar button, a Quattro Pro dialog box, or a control within a Quattro Pro dialog box.)</p><a name=
+  "wp1272032"></a>
+
+  <p class="pBody">With a link established, a custom function can be executed when the user acts on the linked object. For example, a DLL and its custom
+  function could be executed each time that the user clicks a defined button.</p><a name="wp1272033"></a>
+
+  <p class="pBody">There are three possible ways to define a link to an object.</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1272034"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>A link can be created graphically through the Quattro Pro UI Builder (also known as Dialog Designer).</li>
+      </ul>
+    </div><a name="wp1272035"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>A link can be created through a macro.</li>
+      </ul>
+    </div><a name="wp1272036"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>A link can be created programmatically through Quattro Pro import functions.</li>
+      </ul>
+    </div>
+  </div><a name="wp1272037"></a>
+
+  <p class="pBody">Refer to the the Quattro Pro online Help for more information on how to create links through the UI Builder or through a macro. For more
+  information on creating links programmatically, refer to <a href="Object_functions_added_in_Corel_Quattro_Pro_1.html#wp559052">"Object functions added in
+  Corel Quattro Pro 1."</a> For graphically linking objects, refer to the Quattro Pro online Help.</p><a name="wp1272039"></a>
+
+  <p class="pBody">Links can be established only between two objects. Quattro Pro does not recognize your raw DLL as an object, but Quattro Pro has defined an
+  object called <code class="cCode">DLL</code> that it can recognize. Like any Quattro Pro object, <code class="cCode">DLL</code> has actions and
+  properties.</p><a name="wp1274122"></a>
+
+  <p class="pBody">The <code class="cCode">DLL</code> object has the following properties:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1272040"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">Library</code></li>
+      </ul>
+    </div><a name="wp1272041"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">Function</code></li>
+      </ul>
+    </div><a name="wp1272042"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">Arg1</code> through <code class="cCode">Arg16</code></li>
+      </ul>
+    </div><a name="wp1272043"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">Debug</code></li>
+      </ul>
+    </div>
+  </div><a name="wp1272044"></a>
+
+  <p class="pBody">By using these properties, you can attach the name of your DLL library to the DLL object and attach the name of a custom function in that
+  library. The <code class="cCode">Arg#</code> properties allow you to define one or more parameters that may be needed by your custom function.</p><a name=
+  "wp1272045"></a>
+
+  <p class="pBody">Besides properties, an object needs actions or controls that allow you to define how the properties are to act. The valid actions available
+  for the <code class="cCode">DLL</code> object are as follows:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1272046"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">Load</code></li>
+      </ul>
+    </div><a name="wp1272047"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">Execute</code></li>
+      </ul>
+    </div><a name="wp1272048"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">Reset</code></li>
+      </ul>
+    </div>
+  </div><a name="wp1272049"></a>
+
+  <p class="pBody">These actions allow you to load your DLL, execute a custom function, and initialize/reinitialize the DLL object.</p><a name="wp1272050"></a>
+
+  <p class="pBody">The following example uses UI Builder to create a link between a Quattro Pro dialog box and a DLL custom function. This example loads the
+  DLL when the dialog is opened, collects information from the user from some controls in the dialog box, and then executes the specified custom function after
+  the user clicks OK. The data that was collected by the dialog box controls is passed to the custom function as <code class="cCode">Arg1</code> through
+  <code class="cCode">Arg16</code>, depending on how many controls are used.</p><a name="wp1272052"></a>
+
+  <p class="pBody">First, select View <span class="c2">}</span> Objects page.</p><a name="wp1272053"></a>
+
+  <p class="pBody">Next, click the Create a new dialog box button on the toolbar.</p><a name="wp1272054"></a>
+
+  <p class="pBody">In the Object page, double-click the new dialog box. This displays a blank dialog box.</p><a name="wp1272055"></a>
+
+  <p class="pBody">Select Dialog <span class="c2">}</span> Links from the Object Link window, and then click Add button. A line of selector buttons appears in
+  the dialog.</p><a name="wp1272056"></a>
+
+  <p class="pBody">Click the first selector button, and then select the Init option.</p><a name="wp1272057"></a>
+
+  <p class="pBody">Click the second selector button, then select EXECUTE.</p><a name="wp1272058"></a>
+
+  <p class="pBody">Click the third selector button, then select &lt;ENTER&gt;. &lt;ENTER&gt; stays highlighted, allowing you to type in the name of the object
+  you want the dialog to link to.</p><a name="wp1272059"></a>
+
+  <p class="pBody">Type DLL as the object name (in either uppercase or lowercase letters). Click the next button to the right, and then select Reset. (Reset is
+  the last button on the line.)</p><a name="wp1272060"></a>
+
+  <p class="pBody">Click the Add button. A second line of selector buttons appears in the dialog box. Select the items on the various buttons until your Object
+  Link dialog box looks similar to this:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+ON INIT EXECUTE DLL Reset<a name="wp1272061"> </a>
+ON INIT SET DLLName TO DLL Library<a name="wp1272062"> </a>
+ON INIT SET functionname TO DLL Function<a name="wp1272063"> </a>
+ON OKExit EXECUTE DLL execute<a name="wp1272064"> </a>
+</pre>
+  </div><a name="wp1272065"></a>
+
+  <p class="pBody"><code class="cCode">DLLName</code> represents the name of your DLL, and <code class="cCode">functionname</code> represents the name of the
+  custom function to be called from that DLL.</p><a name="wp1272066"></a>
+
+  <p class="pBody">When you have a link that looks like the previous example, click OK.</p><a name="wp1272067"></a>
+
+  <p class="pBody">A line-by-line explanation of this object-link definition is as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+ON INIT EXECUTE DLL Reset<a name="wp1272068"> </a>
+</pre>
+  </div><a name="wp1272069"></a>
+
+  <p class="pBody">This line tells Quattro Pro to reset, or clear, the <code class="cCode">DLL</code> object's properties from any earlier settings. This
+  happens when the dialog is first initialized.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+ON INIT SET DLLName TO DLL Library<a name="wp1272070"> </a>
+</pre>
+  </div><a name="wp1272071"></a>
+
+  <p class="pBody">While the dialog is still being initialized, this statement tells Quattro Pro to insert your DLL's name into the <code class=
+  "cCode">DLL</code> object as the <code class="cCode">Library</code> property.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+ON INIT SET functionname TO DLL Function<a name="wp1272072"> </a>
+</pre>
+  </div><a name="wp1272073"></a>
+
+  <p class="pBody">Still in the initialization stage of the dialog, this statement tells Quattro Pro to set your custom command's name as the <code class=
+  "cCode">Function</code> property of the <code class="cCode">DLL</code> object.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+ON OKExit EXECUTE DLL execute<a name="wp1272074"> </a>
+</pre>
+  </div><a name="wp1272075"></a>
+
+  <p class="pBody">This last statement is not be used until the user clicks the OK button and the dialog box is in the process of terminating. When this event
+  occurs, the <code class="cCode">Execute</code> action causes the <code class="cCode">DLL</code> object to load your DLL and execute the custom function
+  specified in the <code class="cCode">Function</code> property.</p><a name="wp1272076"></a>
+
+  <p class="pBody">A link that sets up the <code class="cCode">DLL</code> object when the dialog is first called, and then runs the custom function when the
+  dialog box is closed with a click of the OK button, may not be very useful. With a dialog, the user data collected by the dialog box must be passed to your
+  custom function as well. To do this, you must create links with each of the controls you add to the dialog box. For each control added to the dialog box,
+  make sure the control is selected, then click the Tools menu and select Links. From within the Object Link dialog box, click the ADD button. Set each
+  selector button on the first line so that you have the following:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+ON OKExit Send Value TO DLL Arg#<a name="wp1272077"> </a>
+</pre>
+  </div><a name="wp1272078"></a>
+
+  <p class="pBody">The <code class="cCode">Arg#</code> statement refers to any argument number from <code class="cCode">Arg1</code> to <code class=
+  "cCode">Arg16</code>. For example, the link to the first dialog box control could be <code class="cCode">Arg1</code>, The link created for the second control
+  could be <code class="cCode">Arg2</code>, and so on. This link tells the control to pass its data to the <code class="cCode">DLL</code> object as property
+  <code class="cCode">Arg#</code> when the user clicks the OK button to terminate the dialog box. These arguments are passed to your DLL's custom function as
+  parameters of the custom function.</p><a name="wp1272079"></a>
+
+  <p class="pBody">Quattro Pro has the ability to do advanced debugging of macros and associated links. For more information on this, refer to the Quattro Pro
+  online Help.</p><a name="wp1272080"></a>
+
+  <p class="pBody">To support the debugging of these dialogs, you can turn on debug mode by executing the spreadsheet macro:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1272081"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">{DLL.DEBUG 1}</code> - turns on debug mode</li>
+      </ul>
+    </div><a name="wp1272082"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">{DLL.DEBUG 0}</code> - turns off debug mode</li>
+      </ul>
+    </div>
+  </div><a name="wp1272083"></a>
+
+  <p class="pBody">Debug mode sends all events with the <code class="cCode">DLL</code> object to the <code class="cCode">AUX</code> device. To gain an
+  understanding of using the <code class="cCode">AUX</code> device, refer to the Microsoft Windows API SDK.</p><a name="wp1272084"></a>
+
+  <h5 class="pHeading4">Loading and auto-loading DLLs</h5><a name="wp1272085"></a>
+
+  <p class="pBody">This information is used for both PURE and IMPURE functions. A custom function can be called in an @function, or as a macro command without
+  the name of the DLL. For these kinds of commands to work, the DLL must be loaded before the @function or macro command is called. A DLL can be pre-loaded by
+  using a macro command, or it can be automatically pre-loaded when the user starts Quattro Pro.</p><a name="wp1272086"></a>
+
+  <p class="pBody">To pre-load a DLL from within a macro, use the macro command <code class="cCode">{DLL.LOAD MyDLL}</code>, where <code class=
+  "cCode">MyDLL</code> represents the name of the DLL you want to load. As mentioned earlier, all DLLs must be in the same folder as the Quattro Pro program,
+  so a path cannot be added in the <code class="cCode">MyDLL</code> parameter. (For more information, please see the <code class="cCode">{DLL.LOAD}</code>
+  listing in the macro command index of the Quattro Pro online Help.) When used on a notebook page, this command follows all of the standard rules used by any
+  other macro command. This means that when multiple DLLs must be loaded for a single macro, each <code class="cCode">{DLL.LOAD}</code> command is contained in
+  a cell that is below the previous macro command. Here is an example of the right way and some wrong ways to use the <code class="cCode">{DLL.LOAD}</code>
+  command:</p><a name="wp1272088"></a>
+
+  <p class="pBody">Correct Cell: <code class="cCode">A1={DLL.LOAD FirstDLL}</code></p><a name="wp1272089"></a>
+
+  <p class="pBody">Incorrect Cell: <code class="cCode">A1={DLL.LOAD FirstDLL, SecndDLL}</code></p><a name="wp1272090"></a>
+
+  <p class="pBody">Correct Cell: <code class="cCode">A2={DLL.LOAD SecndDLL}</code></p><a name="wp1272091"></a>
+
+  <p class="pBody">Incorrect Cell: <code class="cCode">A1={DLL.LOAD FirstDLL}{DLL.LOAD SecndDLL}</code></p><a name="wp1272092"></a>
+
+  <p class="pBody">Please refer to the Quattro Pro online Help for more information on macro syntax.</p><a name="wp1272093"></a>
+
+  <p class="pBody">To automatically load a DLL when Quattro Pro is first started, you must modify an entry in the Windows Registry. The entry is in the
+  <code class="cCode">HKEY_CURRENT_USER\Software\Quattro Pro\16\Configuration</code> section. If the item doesn't already exist, add the
+  item called <code class="cCode">InitMacro</code>. Double click <code class="cCode">InitMacro</code> to edit its value and add the macro command <code class=
+  "cCode">{DLL.LOAD "MyDLL"}</code>. In order to work, you must have your DLL name inside quotation marks and without an extension. <code class=
+  "cCode">MyDLL</code> represents the name of the DLL you wish to load. Click OK to accept the change.</p><a name="wp1272094"></a>
+
+  <p class="pBody">If the item exists and already contains one statement, or if you want to automatically load two or more DLLs, place your <code class=
+  "cCode">DLL.LOAD</code> statement at the end. Include the open and closed braces around this second statement as well. For example, let's say that another
+  DLL was previously added to the registry, such that the item entry looks like this:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+{DLL.LOAD "OtherDLL"}<a name="wp1272095"> </a>
+</pre>
+  </div><a name="wp1272096"></a>
+
+  <p class="pBody">After you append your DLL entry, the line would look like this:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+{DLL.LOAD "OtherDLL"}{DLL.LOAD "MyDLL"}<a name="wp1272097"> </a>
+</pre>
+  </div><a name="wp1272098"></a>
+
+  <p class="pBody">Unlike <code class="cCode">{DLL.LOAD}</code> commands in a notebook page macro, the entries for the <code class="cCode">InitMacro</code>
+  item cannot be put on multiple lines. You can have only one <code class="cCode">InitMacro</code> entry in this section of the Registry, and changes must
+  always be appended to the same entry.</p><a name="wp1272099"></a>
+
+  <p class="pBody">Whether your DLL is pre-loaded as part of a macro or automatically, your custom function's <code class="cCode">ProcPrototype</code> must
+  have the correct keyword modifier. This means that all custom functions called as macro commands must have the <code class="cCode">MACRO</code> modifier and
+  the <code class="cCode">VOID</code> return type keywords.</p><a name="wp1272100"></a>
+
+  <h5 class="pHeading4">Hiding or protecting macro code (or both)</h5><a name="wp1272101"></a>
+
+  <p class="pBody">This section focuses on the ways you can protect or hide Quattro Pro commands that are used to load and run DLL custom
+  functions.</p><a name="wp1272102"></a>
+
+  <p class="pBody">There may be cases where you don't want the user to see all of these commands, or where you don't want the user to modify the commands, or
+  both. While hiding and/or locking the commands, you may want to make them globally available to all parts of the program. This would make the commands that
+  call your custom function seem as if they were built into Quattro Pro. You can do this by setting the properties for your notebook in Quattro Pro. The
+  instructions for doing this are contained in the Quattro Pro online Help. For a complete understanding of how these features work, you should read the entire
+  chapter, but the following list specifies subsections of this chapter that may be of particular importance for developers:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1272103"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><em class="cEmphasis">Running a macro when a file opens</em></li>
+      </ul>
+    </div><a name="wp1272104"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><em class="cEmphasis">Opening a file at startup</em></li>
+      </ul>
+    </div><a name="wp1272105"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><em class="cEmphasis">Notebook properties</em></li>
+      </ul>
+    </div><a name="wp1272106"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><em class="cEmphasis">Making a notebook a macro library</em></li>
+      </ul>
+    </div><a name="wp1272107"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><em class="cEmphasis">Assigning passwords and security levels</em> - See the information on medium-level passwords.</li>
+      </ul>
+    </div><a name="wp1272108"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><em class="cEmphasis">Creating system notebooks</em></li>
+      </ul>
+    </div>
+  </div><a name="wp1272109"></a>
+
+  <p class="pBody">Throughout this chapter, there are references to automatically starting the notebook. There is one method that is not covered in the Quattro
+  Pro online Help that is of importance to developers: by modifying an entry in the qpw.ini file, you can have your DLL automatically loaded each time Quattro
+  Pro starts. Using this same item entry with a different macro command, you can have Quattro Pro automatically load your protected/hidden notebook. The macro
+  command is as follows, where <code class="cCode">&lt;name of file</code> is the filename of your notebook:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+{FileOpen &lt;name of file}<a name="wp1272110"> </a>
+</pre>
+  </div><a name="wp1272111"></a>
+
+  <p class="pBody">If the notebook is not in the default notebook path, you must include the notebook's path, and if the file extension is something other than
+  WB2, you must include it as well. In the following examples for qpw.ini, the first automatically loads a notebook, and the second loads a DLL and a
+  notebook:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+InitMacro={FILEOPEN MyNoteBk}<a name="wp1272112"> </a>
+InitMacro={DLL.LOAD MyDLL}{FILEOPEN MyNoteBk}<a name="wp1272113"> </a>
+</pre>
+  </div>
+</body>
+</html>

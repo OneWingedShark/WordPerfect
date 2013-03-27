@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Using persistent macro variables</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WmbSetBeep.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="MAC_VALUE_TYPE2.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Using persistent macro variables</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1280488"></a>
+
+  <h3 class="pHeading2">Using persistent macro variables</h3><a name="wp550078"></a>
+
+  <p class="pBody">There are three macro variable pools used by PerfectFit: local, global, and persistent. Local variables are accessible only when a macro is
+  being executed (not by using the <code class="cCode">RUN</code> or <code class="cCode">CHAIN</code> commands). Global variables are available while a macro
+  is being executed or when one macro runs or nests to another macro (by using the <code class="cCode">RUN</code> or <code class="cCode">CHAIN</code> macro
+  commands). Persistent variables are accessible during the execution instance of the Macro Facility.</p><a name="wp1280521"></a>
+
+  <p class="pBody">This section addresses persistent variables.</p><a name="wp550080"></a>
+
+  <p class="pBody">Local and global variables are accessible only by the Macro Interpreter and are available to third-party developers only through the macro
+  language.</p><a name="wp550098"></a>
+
+  <h5 class="pHeading4">Understanding persistent macro variable definitions</h5><a name="wp550100"></a>
+
+  <p class="pBody">The following are persistent macro variable definitions:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1280545"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="MAC_VALUE_TYPE2.html#wp1268988">MAC_VALUE_TYPE persistent macro variable definition</a></li>
+      </ul>
+    </div><a name="wp1280549"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="MacMacroSystemReturnType.html#wp1280645">MacMacroSystemReturnType persistent macro variable definition</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1280788"></a>
+
+  <h5 class="pHeading4">Understanding persistent macro variable functions</h5><a name="wp1280789"></a>
+
+  <p class="pBody">You can use the following functions to get, set, and examine persistent macro variables:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1280826"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WmacInitMacroSystem.html#wp550364">WmacInitMacroSystem function</a></li>
+      </ul>
+    </div><a name="wp1281602"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WmacUninitMacroSystem.html#wp550393">WmacUninitMacroSystem function</a></li>
+      </ul>
+    </div><a name="wp1281606"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpsxPVarDiscard.html#wp550421">WpsxPVarDiscard function</a></li>
+      </ul>
+    </div><a name="wp1281610"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpsxPVarExists.html#wp550454">WpsxPVarExists function</a></li>
+      </ul>
+    </div><a name="wp1281614"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpsxPVarGetFloat.html#wp550487">WpsxPVarGetFloat function</a></li>
+      </ul>
+    </div><a name="wp1281618"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpsxPVarGetInteger.html#wp550520">WpsxPVarGetInteger function</a></li>
+      </ul>
+    </div><a name="wp1281622"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpsxPVarGetStringAnsi.html#wp550553">WpsxPVarGetStringAnsi function</a></li>
+      </ul>
+    </div><a name="wp1281626"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpsxPVarGetStringWord.html#wp550586">WpsxPVarGetStringWord function</a></li>
+      </ul>
+    </div><a name="wp1281630"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpsxPVarSetFloat.html#wp550619">WpsxPVarSetFloat function</a></li>
+      </ul>
+    </div><a name="wp1281634"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpsxPVarSetInteger.html#wp550652">WpsxPVarSetInteger function</a></li>
+      </ul>
+    </div><a name="wp1281638"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpsxPVarSetStringAnsi.html#wp550685">WpsxPVarSetStringAnsi function</a></li>
+      </ul>
+    </div><a name="wp1281642"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpsxPVarSetStringWord.html#wp550718">WpsxPVarSetStringWord function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:32" />
+
+  <title>Lesson 11: Setting an object's property</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Lesson_10_Example_of_an_IMPURE_custom_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18"
+      height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Lesson_12_Executing_a_command_object.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Creating_QP_Add-in_DLLs.html">Creating Quattro Pro Add-in DLLs</a> : Lesson 11: Setting an object's property</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp533221"></a>
+
+  <h3 class="pHeading2">Lesson 11: Setting an object's property</h3><a name="wp533223"></a>
+
+  <p class="pBody">Before beginning this lesson, do the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp533225"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Load the qshell.cpp file into your program editor.</li>
+      </ul>
+    </div><a name="wp533227"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Save qshell.cpp as lesson11.cpp in your data folder.</li>
+      </ul>
+    </div>
+  </div><a name="wp533229"></a>
+
+  <p class="pBody">In this lesson, you'll learn how to set the property of an object by using <code class="cCode">QProSetProperty</code>.</p><a name=
+  "wp1270768"></a>
+
+  <h5 class="pHeading4">Step 1</h5><a name="wp533231"></a>
+
+  <p class="pBody">Replace <code class="cCode">DUMMY</code> with <code class="cCode">QSET</code> in the <code class="cCode">SelfDefStructure</code> of the
+  qshell.cpp file. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533233"> </a>
+// Quattro Pro prescribed header (and other overhead)<a name="wp533235"> </a>
+//===============================================================<a name="wp533237"> </a>
+SelfDefStructure MyFuncs[] = {<a name="wp533239"> </a>
+{<a name="wp533241"> </a>
+"LPSTR PASCALQSET( )", // Function Command <a name="wp533243"> </a>
+(FarProc)&amp;QSET, // Pointer to _exported function <a name="wp533245"> </a>
+"Help", // Help Line (samples use Help) <a name="wp533247"> </a>
+"SET" // English name (match name above) <a name="wp533249"> </a>
+}, <a name="wp533251"> </a>
+NULL // Always null terminate the list! <a name="wp533253"> </a>
+};<a name="wp533255"> </a>
+</pre>
+  </div><a name="wp533259"></a>
+
+  <p class="pBody">There is no PURE keyword in this function. For information on <code class="cCode">ProcPrototype</code>, see "<a href=
+  "Structures_types_enums.html#wp1271647">Understanding structures, types, and enumerations</a>."</p><a name="wp1270793"></a>
+
+  <h5 class="pHeading4">Step 2</h5><a name="wp533261"></a>
+
+  <p class="pBody">Now you must prototype the function in the DLL. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533263"> </a>
+// Add-In function prototypes<a name="wp533265"> </a>
+//===============================================================<a name="wp533267"> </a>
+LPSTR Exported QSET( );<a name="wp533269"> </a>
+</pre>
+  </div><a name="wp533271"></a>
+
+  <p class="pBody">Now you must tell the DLL what to do when <code class="cCode">QSET</code> is called.</p><a name="wp1270803"></a>
+
+  <h5 class="pHeading4">Step 3</h5><a name="wp533273"></a>
+
+  <p class="pBody">Change the main function code area to appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533275"> </a>
+// MAIN FUNCTION CODE<a name="wp533277"> </a>
+//===============================================================<a name="wp533279"> </a>
+LPSTR Exported QSET( ){<a name="wp533281"> </a>
+QProSetProperty("Active_Block", "Font.Typeface", "Helv"); <a name="wp533283"> </a>
+return "PASS"; <a name="wp533285"> </a>
+}<a name="wp533287"> </a>
+</pre>
+  </div><a name="wp533289"></a>
+
+  <p class="pBody"><code class="cCode">QProSetProperty("Active_Block", "Font.Typeface", "Helv")</code> is the import function call. The first parameter is the
+  name of the command/object to set. The second parameter is the name of the property to set. The third parameter is the value string to store in the
+  property.</p><a name="wp533291"></a>
+
+  <p class="pBody">In the example, the function <code class="cCode">QProSetProperty("Active_Block", "Font.Typeface", "Helv")</code> calls for the active block
+  and changes its font typeface to Helvetica.</p><a name="wp533293"></a>
+
+  <h5 class="pHeading4">Step 4</h5><a name="wp1270816"></a>
+
+  <p class="pBody">Save this file as lesson11.cpp.</p><a name="wp1270823"></a>
+
+  <h5 class="pHeading4">Step 5</h5><a name="wp533295"></a>
+
+  <p class="pBody">Create your custom function. Refer to your compiler documentation for further information on making a DLL.</p><a name="wp1270824"></a>
+
+  <h5 class="pHeading4">Step 6</h5><a name="wp533297"></a>
+
+  <p class="pBody">Start Quattro Pro. The <code class="cCode">{Let a1,@lesson11.QSET}</code> macro must be used to get the results of the function.</p><a name=
+  "wp1270825"></a>
+
+  <h5 class="pHeading4">Step 7</h5><a name="wp533299"></a>
+
+  <p class="pBody">Execute this macro with the active cell having a font other than Helvetica. When the macro is executed, it will change the active cell's
+  typeface to Helvetica.</p>
+</body>
+</html>

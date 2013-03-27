@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Understanding Quattro Pro DLLs</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Quattro_Pro_Add-ins.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DLL_templates_and_the_NPE.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Quattro_Pro_Add-ins.html">Understanding
+        Quattro Pro Add-ins</a> : Understanding Quattro Pro DLLs</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1272277"></a>
+
+  <h4 class="pHeading3">Understanding Quattro Pro DLLs</h4><a name="wp1272278"></a>
+
+  <p class="pBody">Quattro Pro is object-oriented. This means that buttons, notebooks, spreadsheet pages, and cells are all individual objects. You can make
+  DLL custom functions into spreadsheet cell functions, or macros, or you can link them directly to objects. For example, a DLL could be linked to a menu item
+  so that a DLL is executed when a user selects the menu item.</p><a name="wp1271532"></a>
+
+  <p class="pBody">You can have a single DLL that performs multiple functions or multiple DLLs that perform only one function each, or you can use both DLL
+  types for functions, macros, and links. Quattro Pro provides DLLs that allow you to run an executable program from a link or a macro.</p><a name=
+  "wp1271533"></a>
+
+  <p class="pBody">To support your DLL, there are several functions defined in the qprowin.h file supplied in this SDK. For more information about Quattro Pro
+  import functions, please see "<a href="Quattro_Pro_import_functions.html#wp555750">Using Quattro Pro import functions</a>."</p><a name="wp1271535"></a>
+
+  <p class="pBody"><code class="cCode">DLLEntryPoint</code>, <code class="cCode">QPW32Message</code>, and one or more of your custom functions are required for
+  a DLL to work correctly in Windows and Quattro Pro.</p><a name="wp1271536"></a>
+
+  <p class="pBody">Quattro Pro uses a message function called <code class="cCode">QPW32Message</code> for the registration function. Through this function,
+  Quattro Pro tells the DLL that it has been loaded and performs any needed initializations. When Quattro Pro is about to be unloaded, it gives the DLL a
+  chance to perform any needed cleanup.</p><a name="wp1271537"></a>
+
+  <p class="pBody">Besides giving information to the DLL, Quattro Pro requests descriptions and memory addresses of custom functions available from the DLL.
+  This information is passed in the <code class="cCode">SelfDefStructure</code>.</p><a name="wp1271538"></a>
+
+  <p class="pBody">All Quattro Pro DLL development should be done with <code class="cCode">QPW32Message</code>. The backwards compatibility for <code class=
+  "cCode">DLLFunctionDirectory</code> can be dropped at any time.</p><a name="wp1271539"></a>
+
+  <p class="pBody">Your custom functions are the heart of the DLL. They contain the features you want to add to Quattro Pro. Using import functions, a custom
+  function can interact with Quattro Pro to produce the desired results.</p><a name="wp1271540"></a>
+
+  <p class="pBody">A custom function can be either PURE or IMPURE.</p><a name="wp1272785"></a>
+
+  <p class="pBody">A PURE function is similar to the @functions in Quattro Pro. It makes calculations and returns an answer, it can be used inside
+  spreadsheet's cell formulas or macros, and it can have no side effects such as putting up a window and requesting input/output.</p><a name="wp1271541"></a>
+
+  <p class="pBody">An IMPURE function creates interaction between the user and the system. It can be used as either a macro command or a link to an object. An
+  IMPURE function can be used to place dialogs on screen, get data from other sources, create custom macro commands, and perform tasks. If it is used in an
+  @function in a macro, it must return an answer as well.</p><a name="wp1271542"></a>
+
+  <p class="pBody">Here is a summary of where PURE and IMPURE functions can be used:</p><a name="wp1271574"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1271545"></a>
+
+          <h5 class="pHeading4">Usage</h5>
+        </td>
+
+        <td>
+          <a name="wp1271547"></a>
+
+          <h5 class="pHeading4">Used with PURE?</h5>
+        </td>
+
+        <td>
+          <a name="wp1271549"></a>
+
+          <h5 class="pHeading4">Used with IMPURE?</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271551"></a>
+
+          <p class="pBody">In cell formulas</p>
+        </td>
+
+        <td>
+          <a name="wp1271553"></a>
+
+          <p class="pBody">Yes</p>
+        </td>
+
+        <td>
+          <a name="wp1271555"></a>
+
+          <p class="pBody">No</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271557"></a>
+
+          <p class="pBody">In macros</p>
+        </td>
+
+        <td>
+          <a name="wp1271559"></a>
+
+          <p class="pBody">Yes</p>
+        </td>
+
+        <td>
+          <a name="wp1271561"></a>
+
+          <p class="pBody">Yes</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271563"></a>
+
+          <p class="pBody">As a macro command</p>
+        </td>
+
+        <td>
+          <a name="wp1271565"></a>
+
+          <p class="pBody">No</p>
+        </td>
+
+        <td>
+          <a name="wp1271567"></a>
+
+          <p class="pBody">Yes</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271569"></a>
+
+          <p class="pBody">Linked to an object</p>
+        </td>
+
+        <td>
+          <a name="wp1271571"></a>
+
+          <p class="pBody">No</p>
+        </td>
+
+        <td>
+          <a name="wp1271573"></a>
+
+          <p class="pBody">Yes</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

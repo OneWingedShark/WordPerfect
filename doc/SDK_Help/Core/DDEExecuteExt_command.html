@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:20:43" />
+
+  <title>DDEExecuteExt command</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DDEExecute_command.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DDEPoke_command.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="WordPerfect_Office_Dynamic_Data_Exchange.html">Using Dynamic Data Exchange (DDE)</a> : <a href=
+        "PerfectScript_support_for_DDE.html">Using PerfectScript to set up a DDE client</a> : DDEExecuteExt command</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp555663"></a>
+
+  <h4 class="pHeading3">DDEExecuteExt command</h4><a name="wp555665"></a>
+
+  <p class="pBody">Similar to <code class="cCode">DDEExecute</code>, but the <code class="cCode">DDEExecuteExt</code> command provides extended access to other
+  applications. The specified command is sent to the other application. The result of the transaction is returned. You can also specify this transaction to be
+  synchronous or asynchronous. If the transaction is asynchronous, you can specify a label to call when the command is completed.</p><a name="wp555667"></a>
+
+  <h5 class="pHeading4">Syntax</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DDEEXECUTEEXT( Result; ConversationId; Command; Timeout; Label )<a name="wp555669"> </a>
+</pre>
+  </div><a name="wp555671"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp555674"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp526367"></a>
+
+          <p class="pBody"><code class="cCode">Result</code></p>
+        </td>
+
+        <td>
+          <a name="wp526369"></a>
+
+          <p class="pBody">Specifies a variable to return the result of the transaction</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526375"></a>
+
+          <p class="pBody"><code class="cCode">ConversationId</code></p>
+        </td>
+
+        <td>
+          <a name="wp526377"></a>
+
+          <p class="pBody">Specifies the handle to the DDE conversation obtained in the <code class="cCode">DDEInitiate</code> call</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526383"></a>
+
+          <p class="pBody"><code class="cCode">Command</code></p>
+        </td>
+
+        <td>
+          <a name="wp526385"></a>
+
+          <p class="pBody">Specifies an ANSI string representing the command to be sent</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526391"></a>
+
+          <p class="pBody"><code class="cCode">Timeout</code></p>
+        </td>
+
+        <td>
+          <a name="wp526393"></a>
+
+          <p class="pBody">Specifies, in milliseconds, how long to wait for the application to execute the specified command. If this value is set to zero or a
+          negative number, the command is executed asynchronously; otherwise, the command is executed synchronously.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526399"></a>
+
+          <p class="pBody"><code class="cCode">Label</code></p>
+        </td>
+
+        <td>
+          <a name="wp526401"></a>
+
+          <p class="pBody">Indicates a label to jump to when the command has been executed. This is valid only for asynchronous transactions.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>HSB_STRUCT structure</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="HLS_STRUCT.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="RGB_STRUCT.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> : HSB_STRUCT
+        structure</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1313247"></a>
+
+  <h4 class="pHeading3">HSB_STRUCT structure</h4><a name="wp1313248"></a>
+
+  <p class="pBody">The <code class="cCode">HSB_STRUCT</code> structure holds HSB values for the color-conversion functions available to a color wheel
+  control.</p><a name="wp1313249"></a>
+
+  <h5 class="pHeading4">Definition</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct tabHSB_STRUCT<a name="wp1313250"> </a>
+{<a name="wp1313251"> </a>
+WORD hue;<a name="wp1313252"> </a>
+BYTE saturation;<a name="wp1313253"> </a>
+BYTE brightness;<a name="wp1313254"> </a>
+} HSB_STRUCT, FAR* LPHSB_STRUCT;<a name="wp1313255"> </a>
+</pre>
+  </div><a name="wp1313256"></a>
+
+  <h5 class="pHeading4">Types</h5><a name="wp1313266"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313259"></a>
+
+          <p class="pBody"><code class="cCode">HSB_STRUCT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313261"></a>
+
+          <p class="pBody">Specifies the <code class="cCode">HSB_STRUCT</code> structure type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313263"></a>
+
+          <p class="pBody"><code class="cCode">LPHSB_STRUCT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313265"></a>
+
+          <p class="pBody">Acts as a far pointer to an <code class="cCode">HSB_STRUCT</code> structure</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1313267"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp1313281"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313270"></a>
+
+          <p class="pBody"><code class="cCode">hue</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313272"></a>
+
+          <p class="pBody">Specifies the value of the predominant wavelength. Values range from <code class="cCode">0</code> to <code class=
+          "cCode">360</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313274"></a>
+
+          <p class="pBody"><code class="cCode">saturation</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313276"></a>
+
+          <p class="pBody">Specifies the value of the color strength. Values range from <code class="cCode">0</code> to <code class="cCode">100</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313278"></a>
+
+          <p class="pBody"><code class="cCode">brightness</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313280"></a>
+
+          <p class="pBody">Specifies the value of the amount of gray. Values range from <code class="cCode">0</code> to <code class="cCode">100</code>.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

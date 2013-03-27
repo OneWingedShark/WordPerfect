@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:27" />
+
+  <title>TPHMultipleInstance function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="TPHValidateToken.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Structures_Types_and_Constants_used_by_functions.html"><img alt="Next Document" border="0" src="images/next.gif" width="18"
+      height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Third_Party_DLL_Entry_Points.html">Using entry points in Third Party Handler DLLs</a> : <a href=
+        "Functions_needing_to_be_defined_in_a_Third_Party_DLL.html">Defining required functions in Third Party Handler DLLs</a> : TPHMultipleInstance
+        function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp554171"></a>
+
+  <h4 class="pHeading3">TPHMultipleInstance function</h4><a name="wp554170"></a>
+
+  <p class="pBody">PerfectFit calls this function during DLL initialization. If this API is not implemented, WP will load your DLL only in the first running
+  instance of WP.</p><a name="wp1269544"></a> <a name="wp1269528"></a> <a name="wp1269531"></a>
+
+  <p class="pBody">This function does not have an exported ordinal value.</p><a name="wp554179"></a>
+
+  <h5 class="pHeading4">C Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DWORD FAR PASCAL TPHMultipleInstance ( LPCSTR pazAppClassName );<a name="wp554181"> </a>
+</pre>
+  </div><a name="wp554183"></a>
+
+  <h5 class="pHeading4">Pascal Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+function TPHMultipleInstance ( const pazAppClassName: string ): DWORD;<a name="wp554185"> </a>
+</pre>
+  </div><a name="wp554187"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp554190"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp524433"></a>
+
+          <p class="pBody"><code class="cCode">pazAppClassName&nbsp;</code></p>
+        </td>
+
+        <td>
+          <a name="wp524435"></a>
+
+          <p class="pBody">Specifies the unique classname of the calling instance of WP.</p>
+        </td>
+      </tr>
+    </table><br />
+  </div>
+
+  <p class="pBody">The App classname should be saved to a static string, so that it can be used at a later time. A typical use for it is as a paramter for a
+  <code class="cCode">FindWindow</code> call. Without it, the wrong window handle will be returned.</p>
+
+  <p class="pBody"></p><a name="wp554192"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp554194"></a>
+
+  <p class="pBody">The return value for the <code class="cCode">TPHMultipleInstance</code> function should be a <code class="cCode">DWORD</code> value of
+  <code class="cCode">TRUE</code>.</p><a name="wp554196"></a>
+
+  <h5 class="pHeading4">C sample</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DWORD FAR PASCAL TPHMultipleInstance ( LPCSTR pazAppClassName )<a name="wp554198"> </a>
+{<a name="wp554200"> </a>
+ strcpy( g_szWPClassName, pazAppClassName ); 
+ return 1L; 
+} <a name="wp554230"> </a>
+</pre>
+  </div><a name="wp554232"></a>
+
+  <h5 class="pHeading4">Pascal sample</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+function TPHMultipleInstance ( const pazAppClassName: string ): DWORD; <a name="wp554234"> </a>
+begin<a name="wp554236"> </a>
+ psAppClassName := StrAlloc(128); 
+ StrCopy (@psAppClassName, @pazAppClassName ); 
+ Result := LongInt(1); 
+end;<a name="wp554268"> </a>
+</pre>
+  </div>
+</body>
+</html>

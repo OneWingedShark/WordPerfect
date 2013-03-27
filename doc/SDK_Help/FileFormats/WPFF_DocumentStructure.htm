@@ -1,0 +1,1285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Document Structure</h2>
+    <p>This section contains information on the structure of WordPerfect document files.</p>
+    <hr />
+    <h3><a name="Comparison" id="Comparison"></a>WordPerfect X6 Files</h3>
+    <p>WordPerfect files are separated into two sections, document prefix and document area.
+    Files created in WordPerfect 6.x, through X6 are structured the
+    same, and will hereafter be referred to as WPX6 files.</p>
+    <p>WordPerfect added support for the Microsoft OLE Compound File format specification
+    in WP7. The Compound document wraps the WordPerfect file, and separates the document
+    into four sections, OLE Compound document, document prefix, document area, and ending
+    Compound document information. The name of the WordPerfect Stream is <em>PerfectOffice_MAIN</em>.
+    This stream holds the WP file. There is also a Storage called <em>PerfectOffice_OBJECTS</em>
+    that is used to store OLE embedded objects.</p>
+    <p>The OLE Compound file format is the native file format for OLE 2 servers and makes
+    it possible for full implementation of Windows 95/98 Shell integration features. A Compound
+    file is a file system within a file. This support was added to allow users, using OLE
+    2 server applications, to browse, modify, and share embedded WordPerfect documents without
+    starting WordPerfect. In addition, the Windows 95/98 Shell integration gives users the
+    ability to move documents to other machines without losing their links.</p>
+    <p>The 16-byte file header for WordPerfect has essentially remained the same format
+    as WP 6.<em>x,</em> with the exception of the minor version number of the document.
+    The minor version has changed from the value of one to two. The only other differences
+    are in the base set of prefix packets placed in the new WP file.</p>
+    <table border="1" width="98%">
+        <tr valign="top">
+            <th>WP6.x</th>
+            <th>WP7</th>
+            <th>WP8 - WPX6</th>
+        </tr>
+        <tr valign="top">
+            <td valign="top">
+                Index Information
+                <p>Printer Selection</p>
+                <p>Desired Font</p>
+                <p>Initial Font</p>
+                <p>Style Data</p>
+                <p>Undo Information</p>
+                <p>Shared/Personal file dates</p>
+                <p>Document Settings</p>
+            </td>
+            <td valign="top">
+                Index Information
+                <p>Printer Selection</p>
+                <p>Desired Font</p>
+                <p>Initial Font</p>
+                <p>Style Data</p>
+                <p>Undo Information (6.1)</p>
+                <p>Shared/Personal file dates</p>
+                <p>Document Settings</p>
+                <p>NeXT - total page count</p>
+                <p>World Wide Web</p>
+            </td>
+            <td valign="top">
+                Index Information
+                <p>Printer Selection</p>
+                <p>Desired Font</p>
+                <p>Initial Font</p>
+                <p>Style Data</p>
+                <p>Prefix Time Stamp</p>
+                <p>Undo Information (6.1)</p>
+                <p>Shared/Personal file dates</p>
+                <p>Document Settings</p>
+                <p>NeXT - total page count</p>
+                <p>World Wide Web</p>
+            </td>
+        </tr>
+    </table>
+    <p>The Prefix Time Stamp packet can be used to differentiate between WP8 through to
+    WPX6 files. The Time Stamp contains the version and build numbers.</p>
+    <hr />
+    <h3>WordPerfect X6 File Format</h3>
+    <p>This introduction section contains an overview of the file format for WordPerfect
+    X6 documents. Detailed information about the packet and function
+    formats follow the overview.</p>
+    <p><strong>File Structure</strong></p>
+    <p>A WordPerfect X6 document file is a binary file containing three
+    distinct areas: the Compound Document Format , the file Prefix, and the Document Area.
+    Included with the Prefix is the File Header, Extended Header, Index Area, and Packet
+    Data Area.</p>
+    <table border="1" width="98%">
+        <tr valign="top">
+            <td width="18%">
+                <p><strong>OLE</strong></p>
+            </td>
+            <td colspan="2" width="71%">
+                Compound Document Format</td>
+        </tr>
+        <tr>
+            <td rowspan="5" align="center">
+                <br />
+                <strong>WordPerfect X6</strong>
+                <p><strong>Document</strong></p>
+            </td>
+            <td valign="top">
+                File Header
+                <p>(Included with every WordPerfect document)</p>
+            </td>
+            <td rowspan="4" align="center" width="10%">
+                <br />
+                <strong>Prefix</strong></td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Extended Header
+                <p>(Not documented)</p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Index Area
+                <p>(Indexes point to packet information in the packet data area)</p>
+            </td>
+        </tr>
+        <tr>
+            <td valign="top">
+                Packet Data Area
+                <p>(Data pointed to by indexes in the index area)</p>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2" valign="top">
+                Document Area
+                <p>(This includes: Text; single byte, variable length, multi-byte, and fixed length
+                multi-byte functions)</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <p><strong>OLE</strong></p>
+            </td>
+            <td colspan="2">
+                Ending Compound data</td>
+        </tr>
+    </table>
+    <p>The following table shows the components of a document file in more detail.</p>
+    <table border="1" width="96%" cellpadding="5">
+        <tr valign="top">
+            <td colspan="14" align="center" width="6%">
+                <em>OLE Compound Document x ?</em></td>
+        </tr>
+        <tr valign="top">
+            <td align="center">
+                -1</td>
+            <td align="center" width="6%">
+                'W'</td>
+            <td align="center" width="6%">
+                'P'</td>
+            <td align="center" width="6%">
+                'C'</td>
+            <td colspan="2" align="center" width="12%">
+                Ptr to Document</td>
+            <td align="center" width="4%">
+                Prd</td>
+            <td align="center" width="4%">
+                Tp</td>
+            <td align="center" width="9%">
+                mjver</td>
+            <td align="center" width="6%">
+                mn ver</td>
+            <td colspan="2" align="center" width="6%">
+                Encrypt</td>
+            <td colspan="2" align="center" width="6%">
+                Ptr to Index</td>
+        </tr>
+        <tr valign="top">
+            <td align="center">
+                5</td>
+            <td align="center">
+                0</td>
+            <td colspan="2" align="center">
+                reserved</td>
+            <td colspan="2" align="center">
+                File Size</td>
+            <td colspan="8" align="center">
+                Extended Header x 488</td>
+        </tr>
+        <tr valign="top">
+            <td align="center">
+                2</td>
+            <td align="center">
+                0</td>
+            <td colspan="2" align="center">
+                #index</td>
+            <td colspan="8" align="center">
+                Reserved x 10</td>
+            <td align="center">
+                flg</td>
+            <td align="center" width="6%">
+                pkt</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2" align="center">
+                Use Count</td>
+            <td colspan="2" align="center">
+                Hidden Count</td>
+            <td colspan="2" align="center">
+                size of data packet</td>
+            <td colspan="4" align="center">
+                Ptr to data packet</td>
+            <td align="center">
+                flg</td>
+            <td align="center" width="6%">
+                pkt</td>
+            <td colspan="2" align="center">
+                Use Count</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2" align="center">
+                Hidden Count</td>
+            <td colspan="3" align="center">
+                size of data packet</td>
+            <td colspan="3" align="center" width="12%">
+                Ptr to data packet</td>
+            <td colspan="6" align="center">
+                ...</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="14" align="center">
+                Packet Data 0 x ?</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="14" align="center">
+                Packet Data 1 x ?</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="14" align="center">
+                ...</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="14" align="center">
+                Document area x ?</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="14" align="center">
+                <em>OLE Compound document x ?</em></td>
+        </tr>
+    </table>
+    <p><strong>Note:</strong> If the file is an OLE Compound document, the file may or may
+    not be written to disk in a sequential format. Normally the first four bytes of a WP
+    file can be used to identify the file as a WordPerfect file. However, if the file is
+    a Compound file, the file id will be found at an offset within the Compound document
+    and the application must check for and read the <strong>PerfectOffice_Main</strong>
+    <em>Stream</em> to identify the file as a WordPerfect file.<br />
+    </p>
+    <h4>Generic File Prefix</h4>
+    <p>A proper generic WordPerfect X6 prefix is 745 bytes long. This
+    is a change over previous versions of the file format documentation. This new generic
+    header includes the Desired Font, Initial Font, and Style Data packets. The Style Data
+    packet allows the generic document to properly format the Document Open Style, without
+    which the document is technically corrupt. The first 16 bytes is the standard header.
+    The second 496 bytes is the extended header. The additional 233 bytes are the 5 default
+    indexes and associated packets, and the Global On/Off codes for the Document Open Style.</p>
+    <p>The pointer to the document area is 718 (16-byte prefix header + 496-byte extended
+    header + 206-bytes for the index &amp; packet block). This points to the beginning of
+    the document area where the next 27 bytes is the Global On (0xDD0A) and Global Off (0xDD0B)
+    function codes.</p>
+    <p><strong>Note:</strong> When creating WordPerfect 7/8 documents you do not need to
+    include the OLE Compound Document wrapper. WordPerfect will read in WP 7/8 documents
+    without it.</p>
+    <p><strong>Example of Generic Header (hex dump)</strong>:</p>
+    <pre>
+FF 57 50 43 CE 02 00 00 01 0A 02 01 00 00 00 02  .WPC............
+05 00 00 00 E9 02 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  ................
+02 00 05 00 00 00 00 00 00 00 00 00 00 00 00 55  ................
+01 00 00 00 4E 00 00 00 46 02 00 00 09 25 01 00  ....n...f....%..
+00 00 06 00 00 00 94 02 00 00 0B 30 02 00 00 00  ...........0....
+28 00 00 00 9A 02 00 00 08 5E 01 00 00 00 0C 00  (........^......
+00 00 C2 02 00 00 28 00 D6 1E C3 0f 39 08 00 00  ......(.....9...
+11 09 00 00 00 5A 00 1B 01 00 8B 14 36 00 54 00  .....Z......6.T.
+69 00 6D 00 65 00 73 00 20 00 4E 00 65 00 77 00  i.m.e.s. .N.e.w.
+20 00 52 00 6F 00 6D 00 61 00 6E 00 20 00 52 00   .R.o.m.a.n. .R.
+65 00 67 00 75 00 6C 00 61 00 72 00 00 00 00 00  e.g.u.l.a.r.....
+00 00 00 00 01 00 01 00 58 02 01 00 00 00 04 00  ........X.......
+28 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00  (...............
+00 00 00 00 01 12 02 00 24 00 A1 00 00 00 A1 00  ........$.......
+00 00 50 A5 4E 25 00 00 00 00 00 00 08 00 DD 0A  ..P.N%..........
+10 00 83 01 03 00 03 00 02 00 21 10 00 DD DD 0B  ..........!.....
+0B 00 03 00 00 04 0B 00 DD                       .........
+</pre>
+    <p>To properly format the Document Open Style codes you must do the following:</p>
+    <p>1. The Global On (0xDD0A) code must use <em>System Style</em> #0x21.</p>
+    <p>2. The Global Off (0xDD0B) code makes use of the <em>undocumented deletable data</em>.
+    This may be the only time a third party developer should be concerned with this type
+    of data. In all other cases deletable data is usually ignored, since it is <em>Formatter
+        Specific</em>. The size of the deletable data is 1 byte and the value is 0x04, be
+    sure to adjust the function code size accordingly.</p>
+    <p>3. Using this method of creating the Global On &amp; Off codes will ensure that the
+    Document Open Style is properly formatted. To test if your Document Open Style is properly
+    formatted, open the new file in WordPerfect, turn on Reveal Codes and try to cursor
+    to the left of the Open Style code. If the cursor can be positioned to the left, the
+    codes are not properly formatted and the document is technically corrupt. This type
+    of corrupt document could possibly perpetuate unforeseen problems in future versions
+    of WordPerfect. A document that leaves out the properly formatted Global Style is also
+    corrupt. Sample generic file headers are provided in the SDK.<br />
+    </p>
+    <h4>OLE Compound Document Format</h4>
+    <p>This a Microsoft proprietary format, and is not documented. WordPerfect is able to
+    read WP 7/8 documents with or without the OLE Compound Document Format. If you wish
+    to create or read an existing file with the OLE Compound Document wrapper, refer to
+    the <a href="_efilsys.htm#wopen">wopen</a> function call.</p>
+    <h4>File Header Format</h4>
+    <p>The file header is 512 (0x200) byte long. The format of the file header is:</p>
+    <table border="1" width="98%">
+        <tr valign="top">
+            <td width="40%">
+                <strong>Format</strong></td>
+            <td width="59%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;-1 (0xFF)&gt; &lt;87 (0x57)&gt;
+                <p>&lt;80 (0x50)&gt; &lt;67 (0x43)&gt;</p>
+            </td>
+            <td>
+                -1,"WPC". Always the first four bytes of a WP document file</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                {Pointer to Document Area}</td>
+            <td>
+                Long pointer to document area (the absolute offset from the beginning of the file)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;Product type&gt;</td>
+            <td>
+                Product # (see <em>Product Type Field</em> below) WordPerfect program = 1</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;File type&gt;</td>
+            <td>
+                File type (see <em>WordPerfect File Types</em> below)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;Major version&gt;</td>
+            <td>
+                Major version of file. WP 8.0 = 2</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;Minor version&gt;</td>
+            <td>
+                Minor version of file. WP 8.0 = 1</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [Encryption]</td>
+            <td>
+                If nonzero, document is encrypted</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [pointer to index area]</td>
+            <td>
+                Offset to the index header (0x200)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;reserved&gt;</td>
+            <td>
+                Beginning of extended file header = 5</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;reserved&gt;</td>
+            <td>
+                0</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [reserved]</td>
+            <td>
+                0</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                {file size}</td>
+            <td>
+                File size, not including pad characters at EOF</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;extended header&gt; x 488</td>
+            <td>
+                0</td>
+        </tr>
+    </table>
+    <p><em><strong>Note:</strong></em> If a developer changes the file external to WP, the
+    developer must update the {file size} long value to reflect the new file size.</p>
+    <p><strong>File ID Field</strong></p>
+    <p>The File ID fields are the first 4 bytes of a file header and have the same values
+    for all files produced by WordPerfect Office products (excluding pre-WP 5.0 files).
+    It is displayed as -1,"WPC" or "FF 57 50 43" in hexadecimal values. If you look at a
+    WordPerfect file that is 5.0 or later in any binary editor, you can see the WP ID in
+    the first 4 bytes of the file as described. If you do not see this ID, the file is not
+    a WP 5.0 or later file.</p>
+    <p><strong>Pointer to Document Area</strong></p>
+    <p>The Pointer to Document area field is a long value that begins at offset 4 in the
+    16-byte file header. This is a pointer to the beginning of the document area. Short
+    integers (two bytes) and long integers (four bytes) are saved in a byte-reversed order.
+    This pointer must be adjusted if packets and indexes are added to or deleted from the
+    file.</p>
+    <p><strong>Product Type Field</strong></p>
+    <p>The Product Type field is 1 byte in length and is the 9th byte from the beginning
+    of the file header. It contains a value that identifies the Corel software product used
+    to create the file. The product type for WordPerfect (the software) is 1.</p>
+    <p><strong>File Type Field</strong></p>
+    <p>The File Type field is 1 byte in length and is the 10th byte from the beginning of
+    the file header. The value depends on the Product Type associated with the file. The
+    first ten values (0-9) are reserved for general purpose files that have application
+    across all Corel products. Values 10 and above are available for product-specific file
+    types. See <em>File Types</em> below.</p>
+    <p><strong>File Types</strong></p>
+    <p>These general-purpose file types are documented for information only. These file
+    types are reserved for Corel software.</p>
+    <table border="1" width="98%" cellpadding="5">
+        <tr valign="top">
+            <td width="15%">
+                <strong>Value</strong></td>
+            <td width="84%">
+                <strong>File</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1</td>
+            <td>
+                Macro file</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2</td>
+            <td>
+                Help file</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3</td>
+            <td>
+                Keyboard definition file</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4</td>
+            <td>
+                VAX keyboard definition file added for WP 5.1 (3-30-90)</td>
+        </tr>
+    </table>
+    <p><strong>Corel File Types</strong></p>
+    <table border="1" width="98%" cellpadding="5">
+        <tr valign="top">
+            <td width="19%">
+                <strong>Value</strong></td>
+            <td width="81%">
+                <strong>File</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                10 (0x0A)</td>
+            <td>
+                WordPerfect document</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                11 (0x0B)</td>
+            <td>
+                Dictionary file</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                12 (0x0C)</td>
+            <td>
+                Thesaurus file</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                13 (0x0D)</td>
+            <td>
+                Block</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                14 (0x0E)</td>
+            <td>
+                Rectangular block</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                15 (0x0F)</td>
+            <td>
+                Column block</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                16 (0x10)</td>
+            <td>
+                Printer resource file (.PRS)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                17 (0x11)</td>
+            <td>
+                Setup file [contains the system values for WP{WP}.SET (Setup values, Shift-F1)]</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                18 (0x12)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                19 (0x13)</td>
+            <td>
+                Printer resource file (.ALL)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                20 (0x14)</td>
+            <td>
+                Display resource file (.DRS)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                21 (0x15)</td>
+            <td>
+                Overlay file (WP.FIL)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                22 (0x16)</td>
+            <td>
+                WP graphic file (.WPG)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                23 (0x17)</td>
+            <td>
+                Hyphenation code module</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                24 (0x18)</td>
+            <td>
+                Hyphenation data module</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                25 (0x19)</td>
+            <td>
+                Macro resource file (.MRS)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                26 (0x1A)</td>
+            <td>
+                Graphics screen-driver file (.VRS)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                27 (0x1B)</td>
+            <td>
+                Hyphenation lex module</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                28 (0x1C)</td>
+            <td>
+                Printer Q codes (used by VAX/DG)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                29 (0x1D)</td>
+            <td>
+                Spell code module word list</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                30 (0x1E)</td>
+            <td>
+                WP.QRS file (WP 5.1 equation resource file)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                31 (0x1F)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                32 (0x20)</td>
+            <td>
+                VAX.SET</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                33 (0x21)</td>
+            <td>
+                Spell code module rules</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                34 (0x22)</td>
+            <td>
+                Dictionary rules</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                35 (0x23)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                36 (0x24)</td>
+            <td>
+                .WPD files</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                37 (0x25)</td>
+            <td>
+                Rhymer word file (Corel TSR product)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                38 (0x26)</td>
+            <td>
+                Rhymer pronunciation file</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                39 (0x27)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                40 (0x28)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                41 (0x29)</td>
+            <td>
+                WP 51.INS file (install options file)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                42 (0x2A)</td>
+            <td>
+                Mouse driver for WP5.1</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                43 (0x2B)</td>
+            <td>
+                UNIX setup file for WP5.0</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                44 (0x2C)</td>
+            <td>
+                Macintosh WP2.0 document</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                45 (0x2D)</td>
+            <td>
+                VAX file (WP4.2 document)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                46 (0x2E)</td>
+            <td>
+                External spell code module (WP5.1) (This file type is set aside for third parties
+                to create their own speller code modules in WP5.1 DOS)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                47 (0x2F)</td>
+            <td>
+                External spell dictionary (This file type is set aside so third parties can create
+                their own dictionary .LEX files to be read by their speller code.)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                48 (0x30)</td>
+            <td>
+                Macintosh SOFT graphics file (SOFT (Sequential Object Format) graphics file for
+                the Macintosh WP.)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                49 (0x31)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                50 (0x37)</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                51 (0x38)</td>
+            <td>
+                WPWin 5.1 Application Resource Library added for WPWin 5.1</td>
+        </tr>
+    </table>
+    <p><strong>Major Version and Minor Version Fields</strong></p>
+    <p>The major version number is the same for 6.x through X6 documents.
+    For WP X6 documents the major version byte is 2. The minor version
+    byte for a 9 non-compound file created in WPWin 8.0 is 1. The minor version byte for
+    a 9 compound file created in WPWin 8.0 is 2.</p>
+    <p><strong>Encryption field</strong></p>
+    <p>If this word value is non-zero, the file is encrypted and nothing beyond the file
+    header will be intelligible to an application program.</p>
+    <p><strong>Pointer to Index Area</strong></p>
+    <p>This is the offset from the beginning of the file to the index header.</p>
+    <p><strong>Reserved</strong></p>
+    <p>Four bytes at the beginning of the extended file header are reserved.</p>
+    <p><strong>File Size</strong></p>
+    <p>This 32-bit integer field contains the total length of the WordPerfect file. This
+    does not include any additional data that may be added by an OLE Compound Document wrapper.
+    If an application changes the file external to WP, it must update this field to reflect
+    the new file size.</p>
+    <p><strong>Note</strong>: A common problem occurs when this field is not updated after
+    creating a file or modifying an existing file. If the file size points to the beginning
+    of the document area, then text is added to the document, this field must be updated
+    or it will appear that the document is blank (or contains no text). This problem is
+    easily prevented by keeping track of all the data added to the document then repositioning
+    the file pointer to update the file size once all document data is written to the file.</p>
+    <p><strong>Extended Header</strong></p>
+    <p>Used by WordPerfect and is not documented.</p>
+    <h4>Index and Packet Data Areas</h4>
+    <p>The prefix index area comes immediately after the file header. The index area contains
+    indexes which point to data in the packet data area. The packet data area follows the
+    index area in the file. Packets of structured data make up the packet data area. See
+    <em>Packet Data Formats</em> later in this section for examples. The packet data contains
+    information such as font descriptions that may be used many times in the document but
+    which is not part of the actual content of the document. Packet data is referenced from
+    other packets and from the document area though the indexes. The WP X6
+    index area contains all the indexes needed for the document.<br />
+    </p>
+    <p><strong>Index Header</strong></p>
+    <p>In a WP X6 index area, the first index is the index header. The
+    index header tells how many indexes are in the index area. The format of the index header
+    is:</p>
+    <p>&lt;flags&gt; = 2</p>
+    <p>&lt;reserved&gt; = 0</p>
+    <p>[number of indexes in index block]</p>
+    <p>&lt;reserved = 0&gt; x 10<br />
+    </p>
+    <p><strong>Indexes</strong></p>
+    <p>Indexes which follow the index header have the following format:<br />
+    </p>
+    <table border="1" width="98%" cellpadding="5">
+        <tr valign="top">
+            <td width="31%">
+                Format</td>
+            <td width="68%">
+                Description</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;flags&gt;</td>
+            <td>
+                Bit 0: (1) set means the packet contains IDs for child packets (see next table)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &nbsp;</td>
+            <td>
+                Bit 1: (2) set means the packet contains WP character-set mapped text</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &nbsp;</td>
+            <td>
+                Bit 2: (4) set means the maximum valid use count is 1</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &nbsp;</td>
+            <td>
+                Bit 3: (8) set means the valid use count is 1 when no functions reference it</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;packet type&gt;</td>
+            <td>
+                Indicates the type of data that this index points to</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [packet use count]</td>
+            <td>
+                The number of document functions that reference this prefix data</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [hidden count]</td>
+            <td>
+                The number of deleted document functions that reference this prefix data</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                {size of data packet}</td>
+            <td>
+                The number of bytes of data in the packet</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                {ptr to data packet}</td>
+            <td>
+                Offset from beginning of file</td>
+        </tr>
+    </table>
+    <p>If bit 0 of the index flags byte is set, it means the data packet has child IDs.
+    If a child ID exists, the first part of the data for the specified packet has the following
+    structure:</p>
+    <table border="1" width="98%" cellpadding="5">
+        <tr valign="top">
+            <td width="31%">
+                Format</td>
+            <td width="68%">
+                Description</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [number of child IDs]</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [ID 1]</td>
+            <td>
+                first child prefix ID reference</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [ID 2]</td>
+            <td>
+                second child prefix ID reference</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                ..</td>
+            <td>
+                ..</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [ID n]</td>
+            <td>
+                last child prefix ID reference</td>
+        </tr>
+    </table>
+    <p>If bit 1 of the index flags byte is set, then the following data structure will be
+    the next thing in the packet. If bit 0 (the child bit) is not set, then the following
+    data structure is the first thing in the data packet.</p>
+    <p>[number of text blocks]</p>
+    <p>{relative offset of text block within packet}</p>
+    <p>{size of first text block}</p>
+    <p>{size of second text block}</p>
+    <p>..</p>
+    <p>{size of last text block}<br />
+    </p>
+    <p>If bit 0 and bit 1 of the index flags byte are not set, neither of the previous two
+    data structures appear in the packet data.</p>
+    <p>Example:</p>
+    <p>File Header...</p>
+    <pre>
+02 00 00 00 28 00 00 00  53 1A 00 00 00 09 00 00
+01 00 06 00 00 00 7B 1A  00 00 08 02 01 00 00 00
+10 00 00 00 81 1A 00 00  08 23 01 00 00 00 09 01
+00 00 91 1A 00 00 00 55  08 00 00 00 17 00 00 00
+9A 1B 00 00 <strong>0B 30 03 00 00 00 C0 00 00 00 B0 02</strong>
+<strong>00 00</strong> 0B 30 05 00 00 00  78 00 00 00 70 03 00 00
+..
+..
+..
+
+
+Prefix ID ref Text Block pointers
+
+<strong>01 00 07 00 04 00 2C 00 00 00 4A 00 00 00 00 00</strong>
+<strong>00 00 00 00 00 00 4A 00 00 00</strong> 03 0C 77 1E 2A 00
+72 00 75 00 73 00 73 00  00 00 00 00 D4 1A 1D 00
+80 01 05 00 08 00 58 02  EC 38 00 00 58 02 00 00
+58 02 05 00 50 50 1D 00  D4 D4 1B 1D 00 80 01 05
+00 08 00 58 02 EC 38 00  00 58 02 00 00 58 02 05
+00 58 02 1D 00 D4 D4 18  10 00 00 03 00 00 00 00
+00 00 00 10 00 D4 D4 1A  1D 00 80 01 05 00 08 00
+58 02 EC 38 00 00 58 02  00 00 58 02 05 00 50 50
+1D 00 D4 D4 1B 1D 00 80  01 05 00 08 00 58 02 EC
+38 00 00 58 02 00 00 58  02 05 00 58 02 1D 00 D4
+D4 18 10 00 00 03 00 00  00 00 00 00 00 10 00 D4
+</pre>
+    <p>The first bold block of data is an index to the data type 48 (0x30). The flags byte
+    is 11 (0x0B) or 1011 binary, so bit 0 and bit 1 are set. Bit 0 specifies that there
+    are child references; bit 0 specifies that text blocks exist.</p>
+    <p>The second bold block is the packet data pointed to by the bold index. The first
+    word or the count of child index references specifies that there is only one child index
+    referenced. The second word is the index ID for the child index. The third word is the
+    number of text blocks in this packet of data. Following the third word are five long
+    values. The first long value is a pointer to where the text data begins. The rest of
+    the long values are sizes of the respective text blocks. See the format of <em>Packet
+        Type 48 (0x30)</em>.</p>
+    <p>When a reference is made to a prefix packet ID, remember that a prefix ID is not
+    the same as a packet type. <em>Prefix ID</em> refers to the index sequence of the packet's
+    index in the index block. <em>Packet type</em> refers to the purpose and structure of
+    the packet's data. Packet IDs are unique to each packet in the prefix area. There can
+    be several packets with the same type value.</p>
+    <h4>Document Area</h4>
+    <p>The document area contains the actual text of the document along with all of the
+    formatting function codes required to create and format the desired document. These
+    function codes may be a single byte or may be many bytes in length. The multi-byte functions
+    may be fixed or variable in length depending on the particular function. These functions
+    may reference data in the packet data area by specifying a prefix index which in turn
+    points to the packet data. This prefix index reference is called a prefix ID or PID.</p>
+    <p><strong>Single-Byte Functions</strong></p>
+    <p>Single-byte functions range from 128 (0x80) through 207 (0xCF). In the following
+    example a soft Hyphen at End-of-Line function byte is inserted in the word "comment."</p>
+    <p>Example: com<strong>&lt;131 (0x83)&gt;</strong>ment</p>
+    <p><strong>Variable-Length Multi-Byte Functions</strong></p>
+    <p>The codes for variable-length multi-byte functions 208 (0xD0) through 239 (0xEF)
+    appear twice each time the function is invoked. The first occurrence is the begin gate
+    (beginning of the function code) and a second occurrence is the end gate (end of the
+    function code).</p>
+    <p>The orientation of a function specifies what this function applies to. For example,
+    if this function is specific to the page format, the orientation is page type; if it
+    is specific to the line format, the orientation is line type.</p>
+    <p>Each begin gate is followed by a subgroup byte, a value of size short (16 bits),
+    and a function flag byte. An example of font code structure follows:</p>
+    <table border="1" width="98%" cellpadding="5">
+        <tr valign="top">
+            <td width="31%">
+                <strong>Format</strong></td>
+            <td width="68%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;212 (0xD4)&gt;</td>
+            <td>
+                Begin Character group</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;26 (0x1A)&gt;</td>
+            <td>
+                Font Face Change</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [31 (0x001F)]</td>
+            <td>
+                Size</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;128 (0x80)&gt;</td>
+            <td>
+                Flags (high bit set means prefix IDs follow)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;1 (0x01)&gt;</td>
+            <td>
+                Number of prefix IDs</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [8 (0x0008)]</td>
+            <td>
+                Size of non-deletable data</td>
+        </tr>
+        <tr valign="top">
+            <td colspan="2">
+                ..</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                [31 (0x001F)]</td>
+            <td>
+                Size</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;212 (0xD4)&gt;</td>
+            <td>
+                End Character group</td>
+        </tr>
+    </table>
+    <p>Any of the variable-length function codes may reference one or more prefix IDs. For
+    example, the font change function code (see <em>Font Face Change</em> in the <em>Variable-Length
+        Multi-Byte Functions</em> later in this section) references the prefix ID that contains
+    the desired font data. Variable-length functions that do not currently reference a prefix
+    ID may reference one or more prefix IDs in the future.</p>
+    <p>Document parsing programs must allow for prefix ID references in every variable-length
+    function code.</p>
+    <p>When the flags byte has the high bit set, there is prefix data associated with the
+    function. The byte following the flags byte (the number of prefix IDs byte) shows how
+    many prefix IDs are referenced in the function.</p>
+    <p>Following the number of prefix IDs byte is a short value for each prefix ID that
+    exists. Refer to <em>Variable-Length Multi-Byte Functions</em> later in this section
+    for more information.</p>
+    <p>Next is a short value showing the size of the non-deletable data. The data in variable-length
+    multi-byte functions is divided into two main parts: a non-deletable portion and a deletable
+    portion. The non-deletable portion of a function code is the documented part of the
+    function and should not change from one interim release of WP 7/8 to another. If data
+    is added to the non-deletable part of a function code, it is added to the end of the
+    non-deletable data.</p>
+    <p>Deletable data directly follows the non-deletable data. The size of the deletable
+    data can be variable for each function. Deletable data is undocumented, since it is
+    specific to the formatter of WordPerfect 7/8. It can be platform specific, language
+    specific, version specific, and so forth. It is subject to change at any time. Deletable
+    data may or may not be present in a variable-length function code within files created
+    in WordPerfect. Document files created outside of WordPerfect should contain only non-deletable
+    data.</p>
+    <p>Pertinent information for application developers is documented in the non-deletable
+    portion of the function code. To skip over the deletable data, use the size field to
+    move from the beginning of the current function to the next existing function.</p>
+    <p>Each end gate is preceded by a size value (short), which should always be the same
+    value as the size encountered at the beginning of the function. The size of the function
+    is the total size of the function including begin and end gates.</p>
+    <p><strong>Fixed-Length Multi-Byte Functions</strong></p>
+    <p>The codes for fixed-length multi-byte functions 240 (0xF0) through 255 (0xFF) always
+    appear twice. The first occurrence is the begin gate, and a second occurrence is the
+    end gate. The length of each function is fixed and listed after the function code.</p>
+    <p>Example:</p>
+    <p><em>can't</em></p>
+    <p>can<strong>&lt;240 (0xF0)&gt;</strong>&lt;28 (0x1C)&gt;&lt;4 (0x04)&gt;<strong>&lt;240
+        (0xF0)&gt;</strong>t<br />
+    </p>
+    <table border="1" width="98%" cellpadding="5">
+        <tr valign="top">
+            <td width="23%">
+                <strong>Format</strong></td>
+            <td width="76%">
+                <strong>Meaning</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;240 (0xF0)&gt;</td>
+            <td>
+                Function code for WP character</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;28 (0x1C)&gt;</td>
+            <td>
+                Character number</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;4 (0x04)&gt;</td>
+            <td>
+                Character set</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                &lt;240 (0xF0)&gt;</td>
+            <td>
+                Function code end gate for WP character</td>
+        </tr>
+    </table>
+    <p>Document formatting is accomplished by embedding function codes in the text of a
+    document. A function is any byte greater than 127 (0x7F).<br />
+    </p>
+    <hr />
+    <h3>Glossary of Terms</h3>
+    <p>Computers perform operations and handle data in binary form, which can be readily
+    represented with hexadecimal numbers. In this document, values will generally be shown
+    as decimal numbers followed by the hexadecimal equivalent in parentheses. The hexadecimal
+    value will be represented as number that begins with "0x" followed by the actual value,
+    such as (0xFF). In most cases values are unsigned and exceptions to this rule will be
+    noted.</p>
+    <p><strong>Text Characters</strong></p>
+    <p>The character &lt;0 (0x00)&gt; has special meaning as the null character and is always
+    deleted by WordPerfect. All values from &lt;1 (0x01)&gt; to &lt;127 (0x7F)&gt; are characters
+    and are mapped to WP extended characters.</p>
+    <p><strong>Size Definitions</strong></p>
+    <p>Sizes are referred to as bytes, short integers (sometimes abbreviated as short),
+    or long integers (sometimes abbreviated as long). Depending on the environment and operating
+    system, these terms can mean different things. Fields are depicted with the field name
+    encased in brackets. The brackets indicate the size of the field. Use the table below
+    to match the bracket types with the size and terms they represent.</p>
+    <table border="1" width="98%">
+        <tr valign="top">
+            <td width="21%">
+                <strong>Terms</strong></td>
+            <td width="41%">
+                <strong>Names</strong></td>
+            <td width="22%">
+                <strong>Brackets</strong></td>
+            <td width="15%">
+                <strong>Size</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Byte</td>
+            <td>
+                character (char), byte</td>
+            <td>
+                &lt;&gt;</td>
+            <td>
+                8 bits</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Short</td>
+            <td>
+                short integer, word</td>
+            <td>
+                []</td>
+            <td>
+                16 bits</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Long</td>
+            <td>
+                long integer, double word</td>
+            <td>
+                {}</td>
+            <td>
+                32 bits</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Quadword</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                [[ ]]</td>
+            <td>
+                64 bits</td>
+        </tr>
+    </table>
+    <p>The byte sequence of all multi-byte data types that are larger than a byte follows
+    the Intel convention of placing the least-significant byte first.</p>
+    <p><strong>Fields with Bit Flags</strong></p>
+    <p>Some fields have bit flags. Individual bits are specified by a bit number. The range
+    of bits for a byte value is from 0 to 7, with bit 0 as the rightmost or least significant
+    bit, and bit 7 as the leftmost or most significant bit.</p>
+    <p><strong>Function Code Documentation Conventions</strong></p>
+    <p>The brackets shown in table under <em>Size Definitions</em> above are used to describe
+    the size of the individual fields within a packet or a function code. Unless otherwise
+    specified, byte values, 16-bit short values, and 32-bit long values are unsigned. If
+    a field is variable in length, it is represented with " x ?" following the field.</p>
+    <p><strong>Examples:</strong><br />
+    If a field contains 5 bytes, it is represented as:<br />
+    &lt;byte field description&gt; x 5</p>
+    <p>If a field contains an indefinite number of short values such as a null terminated
+    word string, it is represented as:<br />
+    [short field description] x ?</p>
+    <p>If a field contains 2 long values, it is shown as:</p>
+    <p>{long field description} x 2</p>
+    <p><strong>Indentation</strong></p>
+    <p>Indentation is used in this document to distinguish levels of detail and to signal
+    something unique about the information. Most flag fields require a definition of the
+    meaning of each bit used in the flag. The definition will be indented under the flag
+    field to give a visual indication that it contains additional information about the
+    previous field. Some data fields may or may not exist in a particular instance of a
+    function. Generally a flag bit is used to indicate whether or not these fields are present.
+    These field definitions will be indented to show that they may not exist in a specific
+    instance of the function. An example follows:</p>
+    <pre>
+&lt;function&gt; &lt;sub-function&gt; [size] &lt;flags = 0 or PRFXID&gt;
+</pre>
+    <p>If the prefix ID bit (PRFXID) is set, the following information exists:</p>
+    <pre>
+  [number of PIDs]
+  [first PID]
+  . . .
+  [last PID]
+[data field 1]
+&lt;flag field&gt;
+  bit 0: 1 = more data follows
+  If bit 0 is set, the following data exists:
+    [data field 2]
+    [data field 3]
+  bit 1: 1 = meaning of bit 1
+{data field 4}
+[size] &lt;function&gt;
+</pre>
+    <p>The above example illustrates how indentation is used to give visual clues to the
+    data content. If the function flags byte is 0, the PID information is omitted. Bits
+    0 and 1 are defined for the flag field and in this case bits 2-7 are not used. Bit 0
+    indicates whether or not data fields 2 and 3 are present.</p>
+    <p><strong>WordPerfect Word Strings</strong></p>
+    <p>Some fields in packets and in functions hold text that is marked as <em>WP word</em>,
+    or <em>word</em> strings. The reference to <em>word</em> is to the Intel assembly language
+    term for an unsigned short integer. In this format each character of a string takes
+    up one short integer. The high byte is the number of the WordPerfect character set.
+    The low byte contains an offset value into the character set that represents the position
+    of the actual character.</p>
+    <p>WordPerfect word strings require that all characters in the string have 16-bit values
+    including any null terminator. However, byte strings of 8-bit characters can have 16-bit
+    characters embedded within the string. This is accomplished with a function code that
+    shows the beginning of a text block using 16-bit characters, and the same function code
+    is repeated to show the end of the block. For the format of this code, see the <strong>
+        Extended Character function 240 (0xF0)</strong> under <a href="WPFF_xFixedLength.htm">
+            Fixed-Length Multi-Byte Functions</a>.</p>
+    <p><strong>Units of Measure</strong></p>
+    <p>WPU stands for WordPerfect Unit, which is one 1200th of an inch. Dimensions are usually
+    given in WordPerfect Units.</p>
+    <p>WPFP stands for WordPerfect Fixed Point Value. This is an unsigned 16-bit number
+    which represents a fraction between 0 and 1. 0x8000 is equal to 0.5 and 0xFFFF is treated
+    as 1.0. It is used to specify a percentage value or a fraction. It is also used as the
+    fractional part of WPSP.</p>
+    <p>WPSP is used to specify spacing values. WPSP denotes a 32-bit value composed of a
+    16-bit fraction (WPFP) and a 16-bit integer in that order. The fractional value is always
+    positive. The associated integer value is signed which allows the values to be added
+    as though they were one 32-bit value. For example, to code the number -3.75 the integer
+    would be -4 and the fraction would be +0.25 (0x4000). When the integer and fraction
+    are added, the result is -3.75.</p>
+    <p>PSU stands for Printer Scalable Unit, which is in 10,000ths of the point size of
+    the font.</p>
+    <p>Font point sizes are given in 3600ths of an inch and are denoted as 3600ths.</p>
+    <p><strong>RGB, RGBS, RGBT</strong></p>
+    <p>RGB is used to mean the percent of red, percent of green, and percent of blue in
+    specifying colors. Each color takes one byte with a range from 0 to 255 (0xFF) where
+    255 is 100%. The numeric value of 127 (0x7F) is calculated to be 50%. This 3-byte field
+    in a function definition will be represented as:</p>
+    <p>&lt;color (RGB)&gt; x 3</p>
+    <p>RGBS includes the three bytes of color information above and adds one byte for percent
+    of shading. Shading also has a range of 0 to 255 (0xFF) where 255 is 100%. This 4-byte
+    field in a function definition will be represented as:</p>
+    <p>&lt;color (RGBS)&gt; x 4</p>
+    <p>RGBT includes the three bytes of color information above and adds one byte for percent
+    of transparency. Transparency also has a range of 0 to 255 (0xFF) where 255 is 100%.
+    This 4-byte field in a function definition will be represented as:</p>
+    <p>&lt;color (RGBT)&gt; x 4</p>
+</body>
+</html>

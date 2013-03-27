@@ -1,0 +1,95 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: DC Decrement Number Functions</h2>
+    <p><strong>Decrement Number Group - Function 220 (0xDC)</strong></p>
+    <p>The Decrement Number Group subfunctions have character orientation.</p>
+    <p><strong>Subfunctions: 0 (0x00) - 9 (0x09)</strong></p>
+    <table border="1" width="93%" cellpadding="5">
+        <tr valign="top">
+            <td width="21%">
+                <strong>Subfunction</strong></td>
+            <td width="78%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0 (0x00)</td>
+            <td>
+                Decrement User-Defined Number</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1 (0x01)</td>
+            <td>
+                Decrement Box Number</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2 (0x02)</td>
+            <td>
+                Decrement Page Number</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3 (0x03)</td>
+            <td>
+                Decrement Secondary Page Number</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4 (0x04)</td>
+            <td>
+                Decrement Chapter Number</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5 (0x05)</td>
+            <td>
+                Decrement Volume Number</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6 (0x06)</td>
+            <td>
+                Decrement Paragraph Number</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7 (0x07)</td>
+            <td>
+                Decrement Footnote Number</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8 (0x08)</td>
+            <td>
+                Decrement Endnote Number</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9 (0x09)</td>
+            <td>
+                Decrement Line Number</td>
+        </tr>
+    </table>
+    <br />
+    <p><code>&lt;220 (0xDC)&gt; &lt;subfunction&gt; [size = variable] &lt;flags = 0 or PRFXID&gt;</code></p>
+    <p>If the PID bit is set, the following information exists:</p>
+    <pre>  &lt;number of PIDs = 1&gt;
+  [counter PID (type=0x11)]
+[size of non-deletable information = 1]
+&lt;level number to decrement (0 - n)&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDC&gt;
+</pre>
+</body>
+</html>

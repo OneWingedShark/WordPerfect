@@ -1,0 +1,2268 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect Graphic File Format</title>
+</head>
+<body>
+    <h1>WordPerfect Graphic File Format</h1>
+    <p><a href="_b1over.htm">Back to main page</a></p>
+    <h2><a name="Overview"></a>Overview</h2>
+    <p>Major enhancements to the WordPerfect Graphic File Format since version 1.0 include
+    the following:</p>
+    <ul>
+    <li>A file prefix containing document summary, printer and font information</li>
+    <li>A facility to describe complex polygons (deferred filling)</li>
+    <li>The ability to fill areas with color or monochrome patterns</li>
+    <li>A new text type that allows the text baseline to be fit to a path</li>
+    <li>Transformation matrices that fully describe the following transformations:&nbsp;
+        Translate, Rotate, Scale, Skew, and Taper (Perspective)</li>
+    <li>The addition of layers</li>
+    <li>The ability to include an object description in one or more formats</li>
+    <li>Support of "buttons" to control application specific functions</li>
+    </ul>
+    <h3>General Description</h3>
+    <p>WordPerfect Graphic (WPG) Files are used to store graphic images for use by WordPerfect
+    Office applications. WPG files are created by Presentations or by converting images
+    from other formats. Presentations and WordPerfect can read WPG files directly. Several
+    other formats can also be read directly, but are converted into WPG format as they are
+    read.</p>
+    <p>WordPerfect Graphic files do not need a specific file extension, although the WPG
+    extension is recommended. When performing save and retrieve operations, Presentations
+    will append the WPG extension to any filename supplied without an extension.</p>
+    <p>WordPerfect Graphics files consist of an OLE wrapper,&nbsp; file prefix containing
+    document summary information and a file body containing image description information.
+    Data within the file is divided into records. This document describes these records
+    and the format and meaning of the data associated with them.</p>
+    <h3>Supported Data</h3>
+    <p>WPG records support byte (8-bit), word (16-bit), double-word (32-bit), and quad-word
+    (64-bit) data. The byte sequence of all data types larger than a byte follows Intel
+    convention with the least-significant byte first. For example, a word operand with a
+    value of 0x1234 would be stored as 34 12. A double-word operand with a value of 0x12345678
+    would be stored as 78 56 34 12. Note that the byte sequence of a double-word differs
+    from that of two words. Two words with values 0x1234 and 0x5678 would be stored as 34
+    12 78 56. For example, assume a file contained the following sequence of 16 bytes:</p>
+    <div>
+        <table border="1" width="98%" cellspacing="1" style="text-align: center;">
+            <tr>
+                <td width="6%">
+                    B0</td>
+                <td width="6%">
+                    B1</td>
+                <td width="6%">
+                    B2</td>
+                <td width="6%">
+                    B3</td>
+                <td width="6%">
+                    B4</td>
+                <td width="6%">
+                    B5</td>
+                <td width="6%">
+                    B6</td>
+                <td width="6%">
+                    B7</td>
+                <td width="6%">
+                    B8</td>
+                <td width="6%">
+                    B9</td>
+                <td width="6%">
+                    B10</td>
+                <td width="6%">
+                    B11</td>
+                <td width="6%">
+                    B12</td>
+                <td width="6%">
+                    B13</td>
+                <td width="6%">
+                    B14</td>
+                <td width="*">
+                    B15</td>
+            </tr>
+        </table>
+    </div>
+    <p>The following table shows how this data would be interpreted if it represented 16
+    byte parameters, 8 word parameters, 4 double-word parameters, and 2 quad-word parameters.</p>
+    <p>Byte Data:</p>
+    <table border="1" width="98%" cellspacing="0" cellpadding="0" style="text-align: center;">
+        <tr>
+            <td width="6%">
+                B0</td>
+            <td width="6%">
+                B1</td>
+            <td width="6%">
+                B2</td>
+            <td width="6%">
+                B3</td>
+            <td width="6%">
+                B4</td>
+            <td width="6%">
+                B5</td>
+            <td width="6%">
+                B6</td>
+            <td width="6%">
+                B7</td>
+            <td width="6%">
+                B8</td>
+            <td width="6%">
+                B9</td>
+            <td width="6%">
+                B10</td>
+            <td width="6%">
+                B11</td>
+            <td width="6%">
+                B12</td>
+            <td width="6%">
+                B13</td>
+            <td width="6%">
+                B14</td>
+            <td width="*">
+                B15</td>
+        </tr>
+    </table>
+    <p>Word Data:</p>
+    <table border="1" width="98%" cellspacing="0" cellpadding="0" style="text-align: center;">
+        <tr>
+            <td width="5%">
+                B1</td>
+            <td width="5%">
+                B0</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B3</td>
+            <td width="5%">
+                B2</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B5</td>
+            <td width="5%">
+                B4</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B7</td>
+            <td width="5%">
+                B6</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B9</td>
+            <td width="5%">
+                B8</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B11</td>
+            <td width="5%">
+                B10</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B13</td>
+            <td width="5%">
+                B12</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B15</td>
+            <td width="5%">
+                B14</td>
+        </tr>
+        <tr>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &gt;LSB</td>
+        </tr>
+    </table>
+    <p>Double-Word Data:</p>
+    <table border="1" width="98%" cellspacing="0" cellpadding="0" style="text-align: center;">
+        <tr>
+            <td width="5%">
+                B3</td>
+            <td width="5%">
+                B2</td>
+            <td width="5%">
+                B1</td>
+            <td width="5%">
+                B0</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B7</td>
+            <td width="5%">
+                B6</td>
+            <td width="5%">
+                B5</td>
+            <td width="5%">
+                B4</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B11</td>
+            <td width="5%">
+                B10</td>
+            <td width="5%">
+                B9</td>
+            <td width="5%">
+                B8</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B15</td>
+            <td width="5%">
+                B14</td>
+            <td width="5%">
+                B13</td>
+            <td width="5%">
+                B12</td>
+        </tr>
+        <tr>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;LSB</td>
+        </tr>
+    </table>
+    <p>Quad-Word Data:</p>
+    <table border="1" width="98%" cellspacing="0" cellpadding="0" style="text-align: center;">
+        <tr>
+            <td width="5%">
+                B7</td>
+            <td width="5%">
+                B6</td>
+            <td width="5%">
+                B5</td>
+            <td width="5%">
+                B4</td>
+            <td width="5%">
+                B3</td>
+            <td width="5%">
+                B2</td>
+            <td width="5%">
+                B1</td>
+            <td width="5%">
+                B0</td>
+            <td width="1%">
+                &nbsp;</td>
+            <td width="5%">
+                B15</td>
+            <td width="5%">
+                B14</td>
+            <td width="5%">
+                B13</td>
+            <td width="5%">
+                B12</td>
+            <td width="5%">
+                B11</td>
+            <td width="5%">
+                B10</td>
+            <td width="5%">
+                B9</td>
+            <td width="5%">
+                B8</td>
+        </tr>
+        <tr>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;LSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;MSB</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &gt;LSB</td>
+        </tr>
+    </table>
+    <h3>Size Definitions</h3>
+    <p>Sizes are referred to as bytes, words, double words (dwords), and quad words. Depending
+    on the environment and operating system, these terms can mean different things. Fields
+    depicted in the <em>Record Header and Record Descriptions</em> portion of the documentation
+    have the field name encased in brackets. The brackets indicate the size of the field.
+    Use the table below to match the bracket types with the size and terms they represent.</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th width="18%">Terms</th>
+            <th width="27%">Names</th>
+            <th width="16%">Brackets</th>
+            <th width="37%">Size</th>
+        </tr>
+        <tr>
+            <td>
+                BYTE</td>
+            <td>
+                character (char), byte</td>
+            <td>
+                &lt;&gt;</td>
+            <td>
+                8 bits</td>
+        </tr>
+        <tr>
+            <td>
+                WORD</td>
+            <td>
+                short, integer</td>
+            <td>
+                []</td>
+            <td>
+                16 bits</td>
+        </tr>
+        <tr>
+            <td>
+                DWORD</td>
+            <td>
+                long, dword</td>
+            <td>
+                {}</td>
+            <td>
+                32 bits</td>
+        </tr>
+        <tr>
+            <td>
+                Quad WORD</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                64 bits</td>
+        </tr>
+    </table>
+    <p>Here are some examples of how these brackets are used in the record descriptions
+    information:</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th width="24%">Field</th>
+            <th width="75%">Explanation</th>
+        </tr>
+        <tr>
+            <td>
+                <code>&lt;drawing flags&gt;</code></td>
+            <td>
+                8-bit area composed of bit flags</td>
+        </tr>
+        <tr>
+            <td>
+                <code>[Name Length]</code></td>
+            <td>
+                16-bit value representing the number of characters in "Name"</td>
+        </tr>
+        <tr>
+            <td>
+                <code>{Address Pointer}</code></td>
+            <td>
+                32-bit value representing an address pointer</td>
+        </tr>
+        <tr>
+            <td>
+                <code>Color</code></td>
+            <td>
+                64-bit value representing some color data</td>
+        </tr>
+    </table>
+    <p>Extended fields are shown with the Field type, followed by multiplier, and finally
+    the multiple of the field. Here are some examples:</p>
+    <p><code>&lt;filename string&gt; x 13</code></p>
+    <p><code>[WP word string] x 30</code></p>
+    <p><code>&lt;text string&gt; x ?</code></p>
+    <p>The first example represents a field with the size of 13 <em>bytes</em>. The second
+    example represents a field that is an array of 30 <em>words</em>. The third example
+    represents a field that includes one or more <em>bytes</em>.</p>
+    <p>As mentioned, WPG records support byte (8-bit), words (16-bit), dwords (32-bit),
+    and quadwords (64-bit). The byte sequence of all data types that are larger than a byte
+    follows Intel convention with the least-significant byte first.<br />
+    <br />
+    Decimal numbers are followed by a number in parentheses that begins with 0x, such as
+    (0xFF). This represents the equivalent value in the <em>hexadecimal</em> number system.
+    In most cases values are unsigned. An example of an unsigned value is 255 (0xFF). An
+    example of a signed value is -1 (0xFF).</p>
+    <h3>WordPerfect Word Strings</h3>
+    <p>Some fields in packets and in drawing records hold text that is marked as "WP word,"
+    "WordPerfect word" or "word" strings. The reference to "word" is to the Intel* assembly
+    language term for an unsigned short integer. In this format each character of a string
+    takes up one short integer. The high byte is the number of the WordPerfect character
+    set. The low byte contains an offset value into the character set that represents the
+    position of the actual character.</p>
+    <p>WordPerfect word strings require that all characters in the string have 16-bit values
+    including any null terminator. However, byte strings of 8-bit characters can have 16-bit
+    characters embedded within the string. This is accomplished with a function code that
+    shows the beginning of a text block using 16-bit characters, and the same function code
+    is repeated to show the end of the block. For the format of this code, see the Extended
+    Character function 240 (0xF0).</p>
+    <h2><a name="Prefix_Area"></a>Prefix Area</h2>
+    <p>A&nbsp; WPG file starts with a prefix made of both the extended 26-byte prefix header
+    and a variable-length prefix packet data section. The fixed 26-byte prefix header will
+    have the following values:</p>
+    <pre>
+&lt;-1&gt; &lt;'W'&gt; &lt;'P'&gt; &lt;'C'&gt;      file ID
+{start of document}         pointer to start_WPG record
+&lt;product type&gt;              always 1 for WPG files
+&lt;file type&gt;                 always 22 (0x16) for WPG files
+&lt;major version number&gt;      2 for WPG 8.0 files
+&lt;minor version number&gt;      0 for WPG 8.0 files
+[encryption key]            zero if not encrypted
+[start packet data]
+&lt;entry count&gt;               number of entries in extension
+&lt;resource complete&gt;         resource completeness indicator
+[start encryption]          encryption block offset
+{file size}
+[encryption version]
+</pre>
+    <table border="1" cellpadding="5" width="97%">
+        <tr>
+            <td align="center" valign="top" width="6%">
+                -1</td>
+            <td align="center" valign="top" width="6%">
+                'W'</td>
+            <td align="center" valign="top" width="6%">
+                'P'</td>
+            <td align="center" valign="top" width="6%">
+                'C'</td>
+            <td align="center" valign="top" width="25%">
+                Ptr to WPG data</td>
+            <td align="center" valign="top" width="6%">
+                1</td>
+            <td align="center" valign="top" width="6%">
+                22</td>
+            <td align="center" valign="top" width="6%">
+                2</td>
+            <td align="center" valign="top" width="6%">
+                0</td>
+            <td align="center" valign="top" width="12%">
+                Encrypt</td>
+            <td align="center" valign="top" width="12%">
+                Ptr to Index</td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                #</td>
+            <td align="center" valign="top">
+                RC</td>
+            <td colspan="2" align="center" valign="top">
+                Encrypt Start</td>
+            <td align="center" valign="top">
+                File Size</td>
+            <td colspan="2" align="center" valign="top">
+                Encrypt Version</td>
+            <td colspan="4" align="center" valign="top">
+                &nbsp;</td>
+        </tr>
+    </table>
+    <p>The Entry Count does not include the Resource Complete field as an entry.</p>
+    <p>Currently there are no packets defined, but there may be in the future. Indexes for
+    such packets would begin immediately after the above information.</p>
+    <p><b>Variable-length prefix packet data,</b> if it exists, may contain packets such
+    as Extended Document Summary, Filenames, Document Printer Information, Document Font
+    List, PS Table, and/or other packets. These packets would be the same as those used
+    by the WordPerfect document file format. For a complete list of possible prefix packets,
+    a description of their format, and a complete description of the extended header and
+    its fields, see the <a href="WPFF_Index.htm">WordPerfect File Format</a> section.</p>
+    <p>When a reference is made to a packet ID, remember that a <em>packet ID</em> is not
+    the same as a <em>packet type</em>. <em>Packet ID</em> refers to the offset of the packet's
+    index in the index block. <em>Packet Type</em> refers to the purpose and structure of
+    the packet's data. Packet IDs are unique to each packet, but you can have several packets
+    with the same packet type value. See the <a href="WPFF_Index.htm">WordPerfect File Format</a>
+    section for more information.</p>
+    <p>An application that expects the 8.0 version of this file format should not fail unless
+    the major number (not the minor number) of the file prefix is different than expected.
+    A major revision to the file format should be rejected. The intent is that an application
+    written for WPG 2.0 should not be expected to read incompatible file formats such as
+    WPG 8.0.</p>
+    <h2><a name="Record_Header"></a>Record Header</h2>
+    <p>A graphics image is represented as an ordered sequence of drawing objects and their
+    associated attributes. Each drawing object (lines, curves, and so forth) has a specific
+    record class and type followed by data that describes the position and size of the object.
+    Other records describe the attributes of various objects (line styles, fill patterns,
+    colors, etc.).&nbsp;</p>
+    <h3>Record Format</h3>
+    <p>WPG records have a record header followed by record data as shown in the following
+    table:</p>
+    <table border="1" cellpadding="5" width="97%">
+        <tr>
+            <th width="19%">&nbsp;</th>
+            <th colspan="4" align="center" width="12%">Header</th>
+            <th align="center" width="25%">Data</th>
+        </tr>
+        <tr>
+            <th>Field Name</th>
+            <td align="center">
+                Class</td>
+            <td align="center" width="12%">
+                Type</td>
+            <td align="center" width="17%">
+                Extension</td>
+            <td align="center" width="12%">
+                Length</td>
+            <td align="center">
+                Data</td>
+        </tr>
+        <tr>
+            <th>Field Length (bytes)</th>
+            <td align="center">
+                1</td>
+            <td align="center">
+                1</td>
+            <td align="center">
+                1,3 or 5</td>
+            <td align="center">
+                1,3 or 5</td>
+            <td align="center">
+                Variable</td>
+        </tr>
+    </table>
+    <p>The record header contains four fields: <strong>Class</strong>, <strong>Type</strong>,
+    <strong>Extension</strong>, and <strong>Length</strong>. The length of the header remains
+    between 4 and 12 bytes. The variable length of the Data field is given by the header
+    Length field. The Extension field makes it possible to group one or more physical records
+    into a logical record. The field contains a count of the number of additional records
+    that, with the current record, make up one logical record. If the count is zero, the
+    logical record is composed of only the current physical record. If the count is nonzero,
+    the logical record is composed of multiple physical records. Logical records can be
+    nested. When this occurs, a logical record of one or more physical records counts as
+    one record to the Extension field of the next outermost logical record.</p>
+    <hr />
+    <h3>Record Class</h3>
+    <p>The class field lets records be categorized by the function they serve in the file.
+    The following list shows the possible record classes.</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th width="13%">Class #</th>
+            <th width="15%">Class</th>
+            <th width="71%">Description</th>
+        </tr>
+        <tr>
+            <td>
+                1 (0x01)</td>
+            <td>
+                Reserved</td>
+            <td>
+                Not currently used</td>
+        </tr>
+        <tr>
+            <td>
+                2 (0x02)</td>
+            <td>
+                Button</td>
+            <td>
+                Record describes an application function button</td>
+        </tr>
+        <tr>
+            <td>
+                3 (0x03)</td>
+            <td>
+                Page</td>
+            <td>
+                Record describes the page color, shading, and so forth</td>
+        </tr>
+        <tr>
+            <td>
+                4 (0x04)</td>
+            <td>
+                Client</td>
+            <td>
+                Record describes a client object</td>
+        </tr>
+        <tr>
+            <td>
+                5 (0x05)</td>
+            <td>
+                Backdrop</td>
+            <td>
+                Record describes the backdrop on which an object is rendered</td>
+        </tr>
+        <tr>
+            <td>
+                6 (0x06)</td>
+            <td>
+                Shadow</td>
+            <td>
+                Record describes the shadow of an object</td>
+        </tr>
+        <tr>
+            <td>
+                7 (0x07)</td>
+            <td>
+                Extrusion</td>
+            <td>
+                Record describes the projection faces of an extruded object</td>
+        </tr>
+        <tr>
+            <td>
+                8 (0x08)</td>
+            <td>
+                Line Cap</td>
+            <td>
+                Record describes an object used to cap the end(s) of line</td>
+        </tr>
+        <tr>
+            <td>
+                9 (0x09)</td>
+            <td>
+                Line Join</td>
+            <td>
+                Record describes an object used to join the segments of a polyline</td>
+        </tr>
+    </table>
+    <h4>1 (0x01) Reserved</h4>
+    <p>Not currently used.</p>
+    <h4>2 (0x02) Button Class</h4>
+    <p>The Button class identifies objects with which a user can interact to initiate an
+    application function. For example, branching within an interactive presentation could
+    be performed by positioning a pointer on top of an icon and clicking a mouse button.
+    The Button class identifies the "icons" within an image.</p>
+    <h4>3 (0x03) Page Class</h4>
+    <p>The Page class is used only on the <em>Color Transfer</em>, <em>Brush Gradient</em>,
+    <em>Brush Fore Color</em>, <em>Brush Back Color</em>, <em>Brush Pattern</em>, and <em>
+        Brush Texture</em> records (and the double-precision versions of these records)
+    to describe the page appearance. It must be stored as an extension to the <em>Start
+        WPG</em> record.</p>
+    <h4>4 (0x04) Client Class</h4>
+    <p>The Client class identifies records that describe an actual object. For example,
+    the image description of a shadowed object would contain some records describing the
+    shadow and some records describing the object. The records included to describe the
+    shadow would be classified as Shadow and the records describing the object would be
+    classified as Client.</p>
+    <h4>5 (0x05) Backdrop Class</h4>
+    <p>A backdrop is an image that serves as a background to an object. Like a shadow, it
+    stays "attached" to the object; it would move if the object were moved. Records describing
+    a backdrop are classified as Backdrop.</p>
+    <h4>6 (0x06) Shadow Class</h4>
+    <p>A shadowed rectangle is described by five sets of records: Group record, Rendition
+    and Rectangle records, followed by more Rendition and Rectangle records. The Group record
+    keeps the rectangle attached to its shadow (using the GRP characterization flag). The
+    first Rendition and Rectangle records describe the shadow (the shadow is drawn first)
+    and are classified as Shadow. The successive Rendition and Rectangle records are classified
+    as Client.</p>
+    <h4>7 (0x07) Extrusion Class</h4>
+    <p>Extruded objects are a special class of three-dimensional objects. They are "block"
+    objects having a front and back face lying in parallel planes and a series of extrusion
+    faces at right angles. When image editing is restricted to two-dimensional images, additional
+    records are needed to describe the extrusion faces of the object. These records are
+    classified as Extrusion.</p>
+    <h4>8 (0x08) Line Cap Class</h4>
+    <p>There are two types of Line Caps: Predefined and User defined.</p>
+    <p><i><b>Predefined Line Caps</b></i> are indexed using the range 0-9. Predefined line
+    caps are displayed only for wide lines. They are scaled to the width of the line and
+    are positioned at the end of the line. They are not displayed for closed objects. They
+    inherit the same rendition attributes that are set for the line. A predefined terminal
+    line cap is not displayed if the pen style and the line length is such that the ine
+    ends with the pen up.</p>
+    <p><i><b>User-defined Line Caps</b></i> are defined by the application or by the user,
+    using a <em>Line Cap Definition</em> record with the range 10-255 (0xA - 0xFF). User-defined
+    line caps are rendered for both thin lines and wide lines. They are optionally scaled
+    to the width of the line and are optionally rotated based on the direction of the line
+    (see the <em>Line Cap Definition</em> record under <strong>Record Descriptions</strong>
+    later in this section). They are displayed whether the line is closed or not, although
+    the application can prevent this. They may have their own rendition attributes and thus
+    do not necessarily share the same attributes as the line. A user-defined terminal line
+    cap is always displayed, regardless of the pen style or the length of the line.</p>
+    <p>The <i><b>Line Cap Definition</b></i> record and the user-defined line cap types
+    in the <em>Line Cap</em> record are provided for applications that need to edit graphics.
+    Applications that only render the graphics can ignore the <em>Line Cap Definition</em>
+    record, and whenever the application sees a <em>Line Cap</em> record with a user-defined
+    type, it should set the <em>Line Cap</em> to the default Flat type. Whenever user-defined
+    line caps are used, there must be a group record (using the GRP characterization flag)
+    that contains in this order: (1) the <em>Line Cap</em> record that sets the line cap
+    type; (2) the line, arc, curve, or other object that is to be capped; and (3) one or
+    two objects of the line cap class and their associated rendition attribute records,
+    that provide all the information necessary to render the line caps for the line, arc,
+    curve, and so forth. Graphics editing applications ignore any objects with the line
+    cap class.</p>
+    <h4>9 (0x09) Line Join Class</h4>
+    <p>The Line Join class operates in the same way that the Line Cap Class does. Again,
+    there are predefined line joins in the range 0-9, and there are user-defined line joins
+    in the range 10-255 (0xA - 0xFF). User-defined joins require a <em>Line Join Definition</em>
+    record for graphics editing applications. They also require a group with the appropriate
+    rendering information for applications that render graphics but do not provide graphics
+    editing. Each join object must be present within the group and must be tagged with the
+    Line Join Class.</p>
+    <hr />
+    <h3>Record Type</h3>
+    <p>The type field identifies various object and attribute records that together describe
+    a graphical image. The following table summarizes the record types:</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th width="16%">Function</th>
+            <th width="16%">Type #</th>
+            <th width="32%">Type</th>
+            <th width="35%">Description</th>
+        </tr>
+        <tr>
+            <th rowspan="10">Control</th>
+            <td>
+                1 (0x01)</td>
+            <td>
+                Start WPG</td>
+            <td>
+                Start graphics</td>
+        </tr>
+        <tr>
+            <td>
+                2 (0x02)</td>
+            <td>
+                End WPG</td>
+            <td>
+                End graphics</td>
+        </tr>
+        <tr>
+            <td>
+                3 (0x03)</td>
+            <td>
+                Form Settings</td>
+            <td>
+                Form layout definition</td>
+        </tr>
+        <tr>
+            <td>
+                4 (0x04)</td>
+            <td>
+                Ruler Settings</td>
+            <td>
+                Ruler settings definition</td>
+        </tr>
+        <tr>
+            <td>
+                5 (0x05)</td>
+            <td>
+                Grid Settings</td>
+            <td>
+                Grid settings definition</td>
+        </tr>
+        <tr>
+            <td>
+                6 (0x06)</td>
+            <td>
+                Layer</td>
+            <td>
+                Start new layer</td>
+        </tr>
+        <tr>
+            <td>
+                7 (0x07)</td>
+            <td>
+                Object Link</td>
+            <td>
+                Link to external data (to be defined)</td>
+        </tr>
+        <tr>
+            <td>
+                34 (0x22)</td>
+            <td>
+                Font Settings</td>
+            <td>
+                Default font size and face</td>
+        </tr>
+        <tr>
+            <td>
+                56 (0x38)</td>
+            <td>
+                Poster Settings</td>
+            <td>
+                Poster size and margins definition</td>
+        </tr>
+        <tr>
+            <td>
+                57 (0x39)</td>
+            <td>
+                Image State</td>
+            <td>
+                Special handling instructions for image</td>
+        </tr>
+        <tr>
+            <th rowspan="7">Definition</th>
+            <td>
+                8 (0x08)</td>
+            <td>
+                Pen Style Definition</td>
+            <td>
+                Pen style definition</td>
+        </tr>
+        <tr>
+            <td>
+                9 (0x09)</td>
+            <td>
+                Pattern Definition</td>
+            <td>
+                Pen/brush pattern definition</td>
+        </tr>
+        <tr>
+            <td>
+                10 (0x0A)</td>
+            <td>
+                Comment</td>
+            <td>
+                User comment</td>
+        </tr>
+        <tr>
+            <td>
+                35 (0x23)</td>
+            <td>
+                Line Cap Definition</td>
+            <td>
+                Line cap definition (to be defined)</td>
+        </tr>
+        <tr>
+            <td>
+                36 (0x24)</td>
+            <td>
+                Line Join Definition</td>
+            <td>
+                Line join definition (to be defined)</td>
+        </tr>
+        <tr>
+            <td>
+                58 (0x3A)</td>
+            <td>
+                Envelope Definition</td>
+            <td>
+                Envelope definition</td>
+        </tr>
+        <tr>
+            <td>
+                60 (0x3C)</td>
+            <td>
+                Texture Definition</td>
+            <td>
+                Pen/brush texture definition</td>
+        </tr>
+        <tr>
+            <th rowspan="28">Rendition</th>
+            <td>
+                11 (0x0B)</td>
+            <td>
+                Color Transfer</td>
+            <td>
+                Color transfer function definition</td>
+        </tr>
+        <tr>
+            <td>
+                12 (0x0C)</td>
+            <td>
+                Color Palette</td>
+            <td>
+                Color palette definition</td>
+        </tr>
+        <tr>
+            <td>
+                13 (0x0D)</td>
+            <td>
+                DP Color Palette</td>
+            <td>
+                Double-precision color palette definition</td>
+        </tr>
+        <tr>
+            <td>
+                14 (0x0E)</td>
+            <td>
+                Bitmap Data</td>
+            <td>
+                Bitmap data</td>
+        </tr>
+        <tr>
+            <td>
+                15 (0x0F)</td>
+            <td>
+                Text Data</td>
+            <td>
+                Text data</td>
+        </tr>
+        <tr>
+            <td>
+                16 (0x10)</td>
+            <td>
+                Chart Style</td>
+            <td>
+                Chart style definition</td>
+        </tr>
+        <tr>
+            <td>
+                17 (0x11)</td>
+            <td>
+                Chart Data</td>
+            <td>
+                Chart data</td>
+        </tr>
+        <tr>
+            <td>
+                18 (0x12)</td>
+            <td>
+                Object Image</td>
+            <td>
+                Object description</td>
+        </tr>
+        <tr>
+            <td>
+                37 (0x25)</td>
+            <td>
+                Pen Fore Color</td>
+            <td>
+                Set pen foreground color</td>
+        </tr>
+        <tr>
+            <td>
+                38 (0x26)</td>
+            <td>
+                DP Pen Fore Color</td>
+            <td>
+                Set double-precision pen foreground color</td>
+        </tr>
+        <tr>
+            <td>
+                39 (0x27)</td>
+            <td>
+                Pen Back Color</td>
+            <td>
+                Set pen background color</td>
+        </tr>
+        <tr>
+            <td>
+                40 (0x28)</td>
+            <td>
+                DP Pen Back Color</td>
+            <td>
+                Set double-precision pen background color</td>
+        </tr>
+        <tr>
+            <td>
+                41 (0x29)</td>
+            <td>
+                Pen Style</td>
+            <td>
+                Set pen style</td>
+        </tr>
+        <tr>
+            <td>
+                42 (0x2A)</td>
+            <td>
+                Pen Pattern</td>
+            <td>
+                Set pen pattern</td>
+        </tr>
+        <tr>
+            <td>
+                43 (0x2B)</td>
+            <td>
+                Pen Size</td>
+            <td>
+                Set pen size</td>
+        </tr>
+        <tr>
+            <td>
+                44 (0x2C)</td>
+            <td>
+                DP Pen Size</td>
+            <td>
+                Set double-precision pen size</td>
+        </tr>
+        <tr>
+            <td>
+                45 (0x2D)</td>
+            <td>
+                Line Cap</td>
+            <td>
+                Set line cap type</td>
+        </tr>
+        <tr>
+            <td>
+                46 (0x2E)</td>
+            <td>
+                Line Join</td>
+            <td>
+                Set line join type</td>
+        </tr>
+        <tr>
+            <td>
+                47 (0x2F)</td>
+            <td>
+                Brush Gradient</td>
+            <td>
+                Set brush gradient attributes</td>
+        </tr>
+        <tr>
+            <td>
+                48 (0x30)</td>
+            <td>
+                DP Brush Gradient</td>
+            <td>
+                Set double-precision brush gradient attributes</td>
+        </tr>
+        <tr>
+            <td>
+                49 (0x31)</td>
+            <td>
+                Brush Fore Color</td>
+            <td>
+                Set brush foreground colors</td>
+        </tr>
+        <tr>
+            <td>
+                50 (0x32)</td>
+            <td>
+                DP Brush Fore Color</td>
+            <td>
+                Set double-precision brush foreground colors</td>
+        </tr>
+        <tr>
+            <td>
+                51 (0x33)</td>
+            <td>
+                Brush Back Color</td>
+            <td>
+                Set brush background color</td>
+        </tr>
+        <tr>
+            <td>
+                52 (0x34)</td>
+            <td>
+                DP Brush Back Color</td>
+            <td>
+                Set double-precision brush background color</td>
+        </tr>
+        <tr>
+            <td>
+                53 (0x35)</td>
+            <td>
+                Brush Pattern</td>
+            <td>
+                Set brush pattern</td>
+        </tr>
+        <tr>
+            <td>
+                61 (0x3D)</td>
+            <td>
+                Brush Texture</td>
+            <td>
+                Set brush texture</td>
+        </tr>
+        <tr>
+            <td>
+                62 (0x3E)</td>
+            <td>
+                Texture Alignment</td>
+            <td>
+                Texture alignment</td>
+        </tr>
+        <tr>
+            <td>
+                63 (0x3F)</td>
+            <td>
+                Pen Texture</td>
+            <td>
+                Set pen texture</td>
+        </tr>
+        <tr>
+            <th rowspan="17">Object</th>
+            <td>
+                19 (0x13)</td>
+            <td colspan="2" valign="top">
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                20 (0x14)</td>
+            <td colspan="2" valign="top">
+                Reserved</td>
+        </tr>
+        <tr>
+            <td>
+                21 (0x15)</td>
+            <td>
+                Polyline</td>
+            <td>
+                Series of lines</td>
+        </tr>
+        <tr>
+            <td>
+                22 (0x16)</td>
+            <td>
+                Polyspline</td>
+            <td>
+                Series of B-spline curves</td>
+        </tr>
+        <tr>
+            <td>
+                23 (0x17)</td>
+            <td>
+                Polycurve</td>
+            <td>
+                Series of B&eacute;zier curves</td>
+        </tr>
+        <tr>
+            <td>
+                24 (0x18)</td>
+            <td>
+                Rectangle</td>
+            <td>
+                Rectangle with rounded corners</td>
+        </tr>
+        <tr>
+            <td>
+                25 (0x19)</td>
+            <td>
+                Arc</td>
+            <td>
+                Arc</td>
+        </tr>
+        <tr>
+            <td>
+                26 (0x1A)</td>
+            <td>
+                Compound Polygon</td>
+            <td>
+                Polygon with multiple paths (deferred filling)</td>
+        </tr>
+        <tr>
+            <td>
+                27 (0x1B)</td>
+            <td>
+                Bitmap</td>
+            <td>
+                Bitmap image</td>
+        </tr>
+        <tr>
+            <td>
+                28 (0x1C)</td>
+            <td>
+                Text Line</td>
+            <td>
+                Text string on a line</td>
+        </tr>
+        <tr>
+            <td>
+                29 (0x1D)</td>
+            <td>
+                Text Block</td>
+            <td>
+                Text block</td>
+        </tr>
+        <tr>
+            <td>
+                30 (0x1E)</td>
+            <td>
+                Text Path</td>
+            <td>
+                Text string with curved baseline</td>
+        </tr>
+        <tr>
+            <td>
+                31 (0x1F)</td>
+            <td>
+                Chart</td>
+            <td>
+                Chart</td>
+        </tr>
+        <tr>
+            <td>
+                32 (0x20)</td>
+            <td>
+                Group</td>
+            <td>
+                Group of WPG image description records</td>
+        </tr>
+        <tr>
+            <td>
+                33 (0x21)</td>
+            <td>
+                Object Capsule</td>
+            <td>
+                Collection of object descriptions (multiple formats)</td>
+        </tr>
+        <tr>
+            <td>
+                54 (0x36)</td>
+            <td>
+                Horizontal Line</td>
+            <td>
+                Horizontal Line used for alignment</td>
+        </tr>
+        <tr>
+            <td>
+                55 (0x37)</td>
+            <td>
+                Vertical Line</td>
+            <td>
+                Vertical Line used for alignment</td>
+        </tr>
+    </table>
+    <p>The first and last record types for an image <em>must</em> be the <em>Start WPG</em>
+    and <em>End WPG</em> records, respectively.</p>
+    <p>Since new types of fill patterns, pen style, gradients, and so forth may be added
+    in a minor revision, applications should handle new (unknown) types by setting the attribute
+    to the default (see <em>WPG Defaults</em> later in this section) whenever an unknown
+    type is encountered. Note that this behavior is different from simply ignoring the new
+    type.</p>
+    <p>When backward compatibility is important for new features, a mechanism is provided
+    for applications to specify multiple representations of the same data for applications
+    that support older revisions (minor numbers) of the file format (see the <em>Object
+        Capsule</em> record under <strong>Record Descriptions</strong> later in this section).</p>
+    <p><strong>NOTE:</strong> Textures and patterns are similar concepts, but there are
+    differences between them. The major difference is in the manner color is assigned to
+    the pattern or texture. A pattern is a monochrome bitmap without a color palette. It
+    is associated with a foreground and a background color that can be changed anytime.
+    All textures (including monochrome) are associated with a color palette. Changing the
+    color of a texture requires the texture to be redefined. Because of these differences,
+    the index space for patterns and textures is unique within the scope of the WPG file.
+    This means that a pattern index and a texture index can be the same number, even though
+    one is an index to a pattern definition and the other is an index to a texture definition.
+    This does not imply, however, that these index spaces have to also be unique within
+    an application. This also means that patterns, textures, and gradients are all mutually
+    exclusive; when any one of these is set as an attribute, it turns off the other two.</p>
+    <hr />
+    <h3>Record Extension</h3>
+    <p>The Extension field tells how many other records are included with this record to
+    describe a "logical" image, such as the image of the shadowed rectangle described as
+    an instance of the Shadow Class above. In this case, the Group record has the extensions
+    of the two attribute and the two rectangle records. Consequently, the extension value
+    is 4.</p>
+    <p>Not all records can be used as extensions with all other records. In the record descriptions
+    information, the valid extensions for that record are listed after the record structure.</p>
+    <p>A record having extensions is not required to use the same class as its extensions.</p>
+    <p>The following illustration shows how you can have subgroups of records in a larger
+    group. No matter how many records are contained in a subgroup, the subgroup as a whole
+    is counted as one record in the extension field of the larger group. For example, the
+    illustration below shows records grouped three levels deep. At the topmost layer, the
+    second-level subgroup is counted as one record even though it has 11 physical records
+    in it.</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <td align="center" valign="top" width="20%">
+                Record 1
+                <p>Ext 3</p>
+            </td>
+            <td colspan="3" rowspan="3" valign="top" width="40%">
+                <p>Record 1 has two records and one sub-record group,</p>
+                <p>so the extension has the value of 3.</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 2
+                <p>Ext 0</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 3
+                <p>Ext 0</p>
+            </td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 4
+                <p>Ext 4</p>
+            </td>
+            <td colspan="2" rowspan="4" valign="top">
+                <p>Record 4 has three record and one sub-record group,</p>
+                <p>so the extension has the value of 4.</p>
+            </td>
+            <td valign="top" width="20%">
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 5
+                <p>Ext 0</p>
+            </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 6
+                <p>Ext 0</p>
+            </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 7
+                <p>Ext 0</p>
+            </td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 8
+                <p>Ext 4</p>
+            </td>
+            <td rowspan="5" valign="top">
+                <p>Record 8 has 4 records grouped with it, so its extension is 4.</p>
+            </td>
+            <td valign="top" width="20%">
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 9
+                <p>Ext 0</p>
+            </td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 10
+                <p>Ext 0</p>
+            </td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 11
+                <p>Ext 0</p>
+            </td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td align="center" valign="top">
+                Record 12
+                <p>Ext</p>
+            </td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+    </table>
+    <h4>Record Extension/Length Coding Format</h4>
+    <p>Both the Extension and Length fields, called <em>count fields</em>, can be byte,
+    short integer, or long integer length. Byte count values range from 0 to 254 (0xFE).
+    Short integer count values range from 255 (0xFF) to 32,767 (0x7FFF). Long integer count
+    values range from 32,768 (0x8000) to 134,217,727 (0x07FFFFFF). Count fields have one
+    of the following structures:</p>
+    <p>For records with byte counts:</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th width="12%">Byte</th>
+            <th width="87%">Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                Byte count: 0-254 (0xFE)</td>
+        </tr>
+    </table>
+    <p>For records with short integer counts:</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th width="11%">Byte</th>
+            <th width="88%">Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                255 (0xFF) a short or long integer count will follow</td>
+        </tr>
+        <tr>
+            <td>
+                2</td>
+            <td>
+                Short integer count, low byte</td>
+        </tr>
+        <tr>
+            <td>
+                3</td>
+            <td>
+                Short integer count, high byte - 0-127 (0x7F)</td>
+        </tr>
+    </table>
+    <p>For records with long integer counts:</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th width="11%">Byte</th>
+            <th width="88%">Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                255 (0xFF) a short or long integer count will follow</td>
+        </tr>
+        <tr>
+            <td>
+                2</td>
+            <td>
+                Long integer count, low byte of high short integer</td>
+        </tr>
+        <tr>
+            <td>
+                3</td>
+            <td>
+                Long integer count, high byte of high short integer (high bit is set to indicate
+                long integer length)</td>
+        </tr>
+        <tr>
+            <td>
+                4</td>
+            <td>
+                Long integer count, low byte of low short integer</td>
+        </tr>
+        <tr>
+            <td>
+                5</td>
+            <td>
+                Long integer count, high byte of low short integer</td>
+        </tr>
+    </table>
+    <p>Code should be written to handle unknown record types by using the Extension and
+    Length fields to skip the associated information.</p>
+    <hr />
+    <h3>Record Length</h3>
+    <p>The Length field contains the number of bytes in the data area of a record. This
+    byte count does not cover the class, type, or extension fields, or the length field
+    itself. Nor does the length include any extension records that may be connected with
+    the record, or any other records that are grouped with the initial record. For detailed
+    information on the format of the length field, see <i>Record E</i><em>xtension/Length
+        Coding Format</em> above.</p>
+    <h2><a name="Record_Data"></a>Record Data</h2>
+    <p>The Record Data area contains the actual record format information. This section
+    discusses the information that goes into the data area for a given record, the coding
+    format of the information, and so on.</p>
+    <hr />
+    <h3>Data Precision</h3>
+    <p>The units of WPG coordinate data are stored in the <em>Start WPG</em> record. Coordinate
+    data values are signed values indicating a location within a two-dimensional, right-hand,
+    Cartesian coordinate system. Positive X and Y values are located to the right and above
+    the image origin. Single-precision positional data uses short integer values ranging
+    from 32768 to 32767. Double-precision positional data uses fixed-point values ranging
+    from 32768.00000 to 32767.99998. Double-precision data is stored in long integer formats.
+    Although double-precision positional data is defined by the format, Corel products (as
+    currently implemented) use the fractional portion for rounding only. Therefore, positional
+    data must not be defined in a small range (such as 0.21 to 1).</p>
+    <p>Angles are specified by signed, fixed-point values, with 16 bits of precision on
+    both sides of the radix. Positive angular displacement is counterclockwise from a standard
+    position that is horizontal and to the right of the center point of rotation.</p>
+    <p>Single-precision colors are specified by four bytes, with one byte each for red,
+    green, blue, and transparency. Double-precision colors are specified by four short integers,
+    with one short integer each for red, green, blue, and transparency:</p>
+    <table border="1" cellpadding="5" width="97%">
+        <tr>
+            <th width="15%">&nbsp;</th>
+            <th width="15%">Red Intensity</th>
+            <th width="15%">Green Intensity</th>
+            <th width="21%">Blue Intensity</th>
+            <th width="31%">Transparency</th>
+        </tr>
+        <tr>
+            <th>Single-Precision Color</th>
+            <td>
+                bits 00-07</td>
+            <td>
+                bits 08-15</td>
+            <td>
+                bits 16-23</td>
+            <td>
+                bits 24-31</td>
+        </tr>
+        <tr>
+            <th>Double-Precision Color</th>
+            <td>
+                bits 00-15</td>
+            <td>
+                bits 16-31</td>
+            <td>
+                bits 32-47</td>
+            <td>
+                bits 48-63</td>
+        </tr>
+    </table>
+    <p>In a byte buffer, red is the first color encountered, followed by green, blue, and
+    transparency.</p>
+    <hr />
+    <h3>Object Characterization</h3>
+    <p>Certain WPG records contain 16 bits of characterization flags followed by optional
+    data whose inclusion depends on whether certain flag bits are set. The detailed record
+    descriptions found under <em>Record Descriptions</em> later in this section designate
+    the records that contain a characterization flag and the flag bits used with that record.
+    The table below specifies the definitions of the characterization flag bits:</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th colspan="4" width="10%">Characterization Flags</th>
+        </tr>
+        <tr>
+            <th>Bit</th>
+            <th width="29%">Name</th>
+            <th width="23%">Abbreviation</th>
+            <th width="36%">Description</th>
+        </tr>
+        <tr>
+            <td>
+                0</td>
+            <td>
+                Taper</td>
+            <td>
+                TPR</td>
+            <td>
+                Object is to be tapered (perspective).</td>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                Translate</td>
+            <td>
+                TRN</td>
+            <td>
+                Object is to be translated.</td>
+        </tr>
+        <tr>
+            <td>
+                2</td>
+            <td>
+                Skew</td>
+            <td>
+                SKW</td>
+            <td>
+                Object is to be skewed.</td>
+        </tr>
+        <tr>
+            <td>
+                3</td>
+            <td>
+                Scale</td>
+            <td>
+                SCL</td>
+            <td>
+                Object is to be scaled.</td>
+        </tr>
+        <tr>
+            <td>
+                4</td>
+            <td>
+                Rotate</td>
+            <td>
+                ROT</td>
+            <td>
+                Object is to be rotated.</td>
+        </tr>
+        <tr>
+            <td>
+                5</td>
+            <td>
+                Object ID</td>
+            <td>
+                OID</td>
+            <td>
+                Object has a unique identifier.</td>
+        </tr>
+        <tr>
+            <td>
+                6</td>
+            <td>
+                Reserved</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                7</td>
+            <td>
+                Edit Lock</td>
+            <td>
+                LCK</td>
+            <td>
+                Edit locks are defined for object.</td>
+        </tr>
+        <tr>
+            <td>
+                8</td>
+            <td>
+                Reserved</td>
+            <td>
+                &nbsp;</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                9</td>
+            <td>
+                Group State</td>
+            <td>
+                GRP</td>
+            <td>
+                Group created by application, not to be ungrouped. This flag is set for a group
+                record that keeps a shadow with a shadowed object or for a group record that keeps
+                a user-defined line cap with the line.</td>
+        </tr>
+        <tr>
+            <td>
+                10</td>
+            <td>
+                Local State</td>
+            <td>
+                LOC</td>
+            <td>
+                Attribute changes within the object apply only to the object. In other words, the
+                attribute state that was in effect outside a particular object is unaffected by
+                attribute changes made within the object.</td>
+        </tr>
+        <tr>
+            <td>
+                11</td>
+            <td>
+                Direction</td>
+            <td>
+                DIR</td>
+            <td>
+                Object's frame (outline) is drawn in the clockwise direction (for text paths and
+                winding fill rule).</td>
+        </tr>
+        <tr>
+            <td>
+                12</td>
+            <td>
+                Path Composition</td>
+            <td>
+                PTH</td>
+            <td>
+                Object's path is to be determined by the winding rule (instead of the alternating
+                rule).</td>
+        </tr>
+        <tr>
+            <td>
+                13</td>
+            <td>
+                Fill</td>
+            <td>
+                FIL</td>
+            <td>
+                Object's interior is to be rendered with the current brush and gradient attributes.</td>
+        </tr>
+        <tr>
+            <td>
+                14</td>
+            <td>
+                Close</td>
+            <td>
+                CLS</td>
+            <td>
+                Object's frame (outline) is to be closed. This differentiates, for example, a polygon
+                from a polyline.</td>
+        </tr>
+        <tr>
+            <td>
+                15</td>
+            <td>
+                Frame</td>
+            <td>
+                FRM</td>
+            <td>
+                Object is to be framed (outlined) with the current pen and line attributes.</td>
+        </tr>
+    </table>
+    <p>The most significant byte of the characterization flags (bits 8-15) contains bits
+    defining two-state rendition options. These bits need no further data to describe how
+    the object is to be rendered. The flag bits indicate that these options are either ON
+    or OFF; therefore, these flags need no other information. The least significant byte
+    (bits 0-7) contains bit flags that indicate the inclusion of additional data in the
+    record.</p>
+    <p>Taper, Translate, Skew, Scale, Rotate, Object ID, and Edit Lock flags indicate that
+    additional data follows the Characterization flags. The table below shows the order
+    this included data takes (and its size) if all the characterization flag bits are set.
+    Any bit not set indicates the corresponding data is not present in the record.</p>
+    <h4>Order of Optional Characterization Data Fields</h4>
+    <p>{Edit lock flags}[Object ID] see <em>Record Structure</em> later in this section</p>
+    <p>{Angle of rotation}</p>
+    <p>{S<sub>x</sub>cos() transformation element}</p>
+    <p>{S<sub>y</sub>cos() transformation element}</p>
+    <p>{K<sub>x</sub>sin() transformation element}</p>
+    <p>{K<sub>y</sub>sin() transformation element}</p>
+    <p>{T<sub>x</sub> transformation element (integer)}</p>
+    <p>[T<sub>x</sub> transformation element (fraction)]</p>
+    <p>{T<sub>y</sub> transformation element (integer)}</p>
+    <p>[T<sub>y</sub> transformation element (fraction)]</p>
+    <p>{P<sub>x</sub> transformation element}</p>
+    <p>{P<sub>y</sub> transformation element}</p>
+    <h4>Edit Lock Flags</h4>
+    <p>The Edit Lock flags indicate that the record contains a long integer edit lock descriptor.
+    Edit locks disable editing actions from being performed on the object. The table below
+    specifies the Edit Lock descriptor bit definitions.</p>
+    <table border="1" cellpadding="5" width="66%">
+        <tr>
+            <th colspan="3" valign="top">Edit Lock Flag Definitions</th>
+        </tr>
+        <tr>
+            <th>Bit</th>
+            <th width="25%">Function</th>
+            <th width="63%">Description</th>
+        </tr>
+        <tr>
+            <td>
+                0</td>
+            <td>
+                Path Style</td>
+            <td>
+                Path composition rule cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                Brush Pattern</td>
+            <td>
+                Brush pattern cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                2</td>
+            <td>
+                Brush Color</td>
+            <td>
+                Brush color cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                3</td>
+            <td>
+                Line Cap</td>
+            <td>
+                Line caps cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                4</td>
+            <td>
+                Line End</td>
+            <td>
+                Line end style cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                5</td>
+            <td>
+                Line Join</td>
+            <td>
+                Line join style cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                6</td>
+            <td>
+                Pen Width</td>
+            <td>
+                Pen widths cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                7</td>
+            <td>
+                Pen Pattern</td>
+            <td>
+                Pen pattern cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                8</td>
+            <td>
+                Pen Style</td>
+            <td>
+                Pen style cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                9</td>
+            <td>
+                Pen Color</td>
+            <td>
+                Pen color cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                10</td>
+            <td>
+                Font Style</td>
+            <td>
+                Font style cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                11</td>
+            <td>
+                Font Size</td>
+            <td>
+                Font size cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                12</td>
+            <td>
+                Font</td>
+            <td>
+                Font cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                13</td>
+            <td>
+                Reserved</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                14</td>
+            <td>
+                Shadow</td>
+            <td>
+                Shadow cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                15</td>
+            <td>
+                Extrusion</td>
+            <td>
+                Extrusion cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                16</td>
+            <td>
+                Reserved</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                17</td>
+            <td>
+                Reserved</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                18</td>
+            <td>
+                Reserved</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                19</td>
+            <td>
+                Reserved</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                20</td>
+            <td>
+                Reserved</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                21</td>
+            <td>
+                Reserved</td>
+            <td>
+                &nbsp;</td>
+        </tr>
+        <tr>
+            <td>
+                22</td>
+            <td>
+                Group</td>
+            <td>
+                Object cannot be ungrouped</td>
+        </tr>
+        <tr>
+            <td>
+                23</td>
+            <td>
+                Sequence</td>
+            <td>
+                Object sequence cannot be changed</td>
+        </tr>
+        <tr>
+            <td>
+                24</td>
+            <td>
+                Delete</td>
+            <td>
+                Object cannot be deleted</td>
+        </tr>
+        <tr>
+            <td>
+                25</td>
+            <td>
+                Modify</td>
+            <td>
+                Object cannot be modified</td>
+        </tr>
+        <tr>
+            <td>
+                26</td>
+            <td>
+                Mirror</td>
+            <td>
+                Object cannot be mirrored</td>
+        </tr>
+        <tr>
+            <td>
+                27</td>
+            <td>
+                Taper</td>
+            <td>
+                Object cannot be tapered</td>
+        </tr>
+        <tr>
+            <td>
+                28</td>
+            <td>
+                Skew</td>
+            <td>
+                Object cannot be skewed</td>
+        </tr>
+        <tr>
+            <td>
+                29</td>
+            <td>
+                Rotate</td>
+            <td>
+                Object cannot be rotated</td>
+        </tr>
+        <tr>
+            <td>
+                30</td>
+            <td>
+                Size</td>
+            <td>
+                Object cannot be sized</td>
+        </tr>
+        <tr>
+            <td>
+                31</td>
+            <td>
+                Move</td>
+            <td>
+                Object cannot be moved</td>
+        </tr>
+    </table>
+    <h4>Transformation Data (Taper, Translate, Skew, Scale, Rotate)</h4>
+    <p>As mentioned before, the first five characterization flags are used for transformations
+    and indicate the presence of additional data following the characterization flags. This
+    additional data describes the transformation performed on an object. The order of this
+    transformation data is contained in the <em>Order of Optional Characterization Data
+        Fields</em> table above, starting with the Angle of Rotation field.</p>
+    <p>
+    <img src="../Images/equa1.jpg" width="949" height="233" alt="Image translation matrix example" /></p>
+    <p>Transformations are described by a 3x3 transformation matrix such as the one shown
+    in the matrix equation above. All of the terms of the transformation matrix are fixed-point
+    values. The high short integer (16 bits) is the integer portion of a floating-point
+    value. The low short integer (16 bits) is the fractional portion of the floating-point
+    value. In the <em>Order of Optional Characterization Data Fields</em> table the terms
+    T<sub>x</sub> and T<sub>y</sub> have already been broken down into their integer and
+    fractional components. This is because, unlike the other transformation terms, these
+    two terms have a long integer (32 bits) to the left of the decimal point instead of
+    a short integer component.</p>
+    <p>Names of the matrix elements show only the relative positions of the terms of five
+    simple transformations: Rotate, Scale, Skew, Translate, and Taper (Perspective). They
+    do not show the method of computing transformation matrix data. Lack of transformation
+    data implies an identity matrix (a matrix that does not affect any number multiplied
+    through it). One or more bits set in the first five characterization flags indicates
+    the inclusion of an angle of rotation or indicates one or more pairs of transformation
+    matrix elements that replace corresponding identity matrix elements.</p>
+    <p>The table below shows the data that is included in the record when certain characterization
+    flag bits are set.</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th colspan="2" valign="top" width="18%"><strong>Transformation Flag Correspondence
+                to Included Data</strong></th>
+        </tr>
+        <tr>
+            <th valign="top"><strong>Flag Bit Set</strong></th>
+            <th valign="top" width="81%"><strong>Data that will be included</strong></th>
+        </tr>
+        <tr>
+            <td>
+                Rotate</td>
+            <td>
+                , S<sub>x</sub>cos(), S<sub>y</sub>cos(), K<sub>x</sub>sin(), K<sub>y</sub>sin()</td>
+        </tr>
+        <tr>
+            <td>
+                Scale</td>
+            <td>
+                S<sub>x</sub>cos(), S<sub>y</sub>cos()</td>
+        </tr>
+        <tr>
+            <td>
+                Skew</td>
+            <td>
+                K<sub>x</sub>sin(), K<sub>y</sub>sin()</td>
+        </tr>
+        <tr>
+            <td>
+                Translate</td>
+            <td>
+                T<sub>x</sub>, T<sub>y</sub></td>
+        </tr>
+        <tr>
+            <td>
+                Taper</td>
+            <td>
+                P<sub>x</sub>, P<sub>y</sub></td>
+        </tr>
+    </table>
+    <p>Notice in the table above that, for example, Rotate and Scale both include the term
+    S<sub>x</sub>cos() in them. If both flag bits were set, there would only be one S<sub>x</sub>cos()
+    term included in the record. Both Rotate and Scale would share the one term. This is
+    true for any other overlapping terms that appear in the table above. However, the table
+    doesn't show the correct order in which the data is put into the record. For this information,
+    see the <em>Order of Optional Characterization Data Fields</em> table earlier in this
+    section.</p>
+    <hr />
+    <h3>Object Transformation</h3>
+    <p>A record's transformation matrix is pre-concatenated to the Current Transformation
+    Matrix (CTM) as shown in the left-hand equation below. The Group record (See <em>Record
+        Type 32 (0x20) Group</em> in the <em>Record Descriptions</em> section) combines
+    one or more physical objects into one logical object. Both the physical objects within
+    the group and the group itself can have transformation matrices. In this case the concatenation
+    of the matrices is performed as shown in the right-hand equation below.</p>
+    <p>(Obj)(CTM) (Obj)((Group)(CTM))</p>
+    <p>Data points that define an object are transformed through the resulting transformation
+    matrix as follows:</p>
+    <p>
+    <img src="../Images/equa2.jpg" width="949" height="196" alt="Resulting tranformation matrix example" /></p>
+    <hr />
+    <h3>Record Structure</h3>
+    <p>The following record descriptions define the structure of the data associated with
+    each WPG image record type. Record descriptions also define the logical record structure
+    by listing both required and optional record extensions.</p>
+    <h4>Field Precision</h4>
+    <p>Three types of fields found within some of the WPG record descriptions are marked
+    with a dagger . They are:</p>
+    <ul>
+    <li>Position or size data</li>
+    </ul>
+    <ul>
+    <li>Color data</li>
+    </ul>
+    <ul>
+    <li>The Object ID<br />
+    </li>
+    </ul>
+    <p>There are two options for the size of the data in each of these fields.</p>
+    <p>Position/size and color data types can be either single precision or double precision.
+    The <em>Start WPG</em> record specifies the choice for single precision or double precision.
+    Position and size data have a 16-bit single-precision size and a 32-bit double-precision
+    size. Color data uses four bytes in single-precision size and four short integers in
+    double-precision size.</p>
+    <p>The Object ID is a unique identifier for the record. An Object ID is optional data
+    and is only present if the <em>Object ID</em> characterization flag is set. Its length
+    can be either a short integer (16 bits) or a long integer (32 bits). Short integer ID
+    values range from 0 to 32,767 (0x7FFF). Long integer ID values range from 32,768 (0x8000)
+    to 2,147,480,000 (0x7FFFFFFF). The Object ID has one of the following structures.</p>
+    <p>For records with <em>short integer</em> IDs:</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th valign="top" width="12%">Short</th>
+            <th valign="top" width="87%">Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                Short integer count: 0-32,767 (0x7FFF)</td>
+        </tr>
+    </table>
+    <p>For records with <em>long integer</em> IDs:</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr>
+            <th valign="top" width="12%">Short</th>
+            <th valign="top" width="87%">Meaning</th>
+        </tr>
+        <tr>
+            <td>
+                1</td>
+            <td>
+                Long integer count, high short integer (high bit is set to indicate long integer
+                length)</td>
+        </tr>
+        <tr>
+            <td>
+                2</td>
+            <td>
+                Long integer count, low short integer</td>
+        </tr>
+    </table>
+    <p>All field sizes marked with a dagger in the record descriptions are given for short
+    integer IDs and single-precision values. If a record contains a long integer ID or double-precision
+    values, sizes corresponding to marked fields will double.</p>
+    <h4>Field Representation</h4>
+    <p>In most of the following records, the fields of the record (the information enclosed
+    by the byte, short, or long integer marks) are shown indented, and bit flags are further
+    indented under the field they belong to. For example:</p>
+    <pre>
+[data field]
+    &lt;text flags data field&gt;
+    bit 1: meaning 1
+    bit 2: meaning 2
+[some other data field]
+</pre>
+    <p>The indentation in the example above identifies the meaning of the bit flags used
+    by the Text Flags Data Field. In these cases, unless otherwise documented, if one of
+    the labeled bits is set (contains the value 1), the flag has the labeled meaning.</p>
+    <p>In a few records you may see something like the following:</p>
+    <pre>
+{data field 1}
+[data field 2]
+[data field 3]
+&lt;data field 4&gt;
+&lt;data field 5&gt;
+[data field 6]
+  </pre>
+    <p>In this case Data Field 3 and Data Field 4 do not exist in the record. The condition
+    that causes this to happen is documented in the <em>Notes</em> section of the record.
+    The following two examples show records that use both types of indentation.</p>
+    <pre>
+[data field 1]
+[data field 2]
+    [data flags]
+    bit 14: meaning 1
+    bit 15: meaning 2
+&lt;data field 3&gt;
+[data field 4]
+[data field A]
+    &lt;text flags&gt;
+    bit 4: meaning 1
+    bit 5: meaning 2
+    bit 6: meaning 3
+[data field B]
+[data field C]
+{data field D}
+</pre>
+    <p>Since new records may be added to minor revisions of this format, applications should
+    be programmed to skip any unrecognized records and their extensions (and their extensions
+    recursively). Since new fields may be added to the end of records in a minor revision,
+    applications should use the length field in the record header to determine where the
+    next record starts. Any unrecognized data between the currently-defined end of a record
+    and the start of the next record should be ignored.</p>
+</body>
+</html>

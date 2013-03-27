@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>CMYK_STRUCT structure</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Custom_controls.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="HLS_STRUCT.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> : CMYK_STRUCT
+        structure</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1313164"></a>
+
+  <h4 class="pHeading3">CMYK_STRUCT structure</h4><a name="wp1313165"></a>
+
+  <p class="pBody">The <code class="cCode">CMYK_STRUCT</code> structure holds CMYK values for the color-conversion functions available to a color wheel
+  control.</p><a name="wp1313166"></a>
+
+  <h5 class="pHeading4">Definition</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct tabCMYK_STRUCT<a name="wp1313167"> </a>
+{<a name="wp1313168"> </a>
+BYTE cyan;<a name="wp1313169"> </a>
+BYTE magenta;<a name="wp1313170"> </a>
+BYTE yellow;<a name="wp1313171"> </a>
+BYTE black;<a name="wp1313172"> </a>
+} CMYK_STRUCT, FAR* LPCMYK_STRUCT;<a name="wp1313173"> </a>
+</pre>
+  </div><a name="wp1313174"></a>
+
+  <h5 class="pHeading4">Types</h5><a name="wp1313184"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313177"></a>
+
+          <p class="pBody"><code class="cCode">CMYK_STRUCT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313179"></a>
+
+          <p class="pBody">Specifies the <code class="cCode">CMYK_STRUCT</code> structure type</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313181"></a>
+
+          <p class="pBody"><code class="cCode">LPCMYK_STRUCT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313183"></a>
+
+          <p class="pBody">Acts as a far pointer to a <code class="cCode">CMYK_STRUCT</code> structure</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1313185"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp1313203"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1313188"></a>
+
+          <p class="pBody"><code class="cCode">cyan</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313190"></a>
+
+          <p class="pBody">Specifies the value of the cyan component. Values range from <code class="cCode">0</code> to <code class="cCode">255</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313192"></a>
+
+          <p class="pBody"><code class="cCode">magenta</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313194"></a>
+
+          <p class="pBody">Specifies the value of the magenta component. Values range from <code class="cCode">0</code> to <code class="cCode">255</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313196"></a>
+
+          <p class="pBody"><code class="cCode">yellow</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313198"></a>
+
+          <p class="pBody">Specifies the value of the yellow component. Values range from <code class="cCode">0</code> to <code class="cCode">255</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1313200"></a>
+
+          <p class="pBody"><code class="cCode">black</code></p>
+        </td>
+
+        <td>
+          <a name="wp1313202"></a>
+
+          <p class="pBody">Specifies the value of the black component. Values range from <code class="cCode">0</code> to <code class="cCode">255</code>.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

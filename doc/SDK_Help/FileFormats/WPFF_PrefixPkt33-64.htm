@@ -1,0 +1,598 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Packet Data Formats: Prefix Packets 33-64</h2>
+    <p>Reserved packets may appear in a document prefix. Most of the strings in the packet
+    data are strings made up of short values. The high byte of the short value is the WP
+    character set number. The low byte of the short value is the character number. The strings
+    are null terminated with a short value unless otherwise specified.</p>
+    <hr />
+    <h3>Packet Type 33 (0x21)</h3>
+    <p><strong>Font PS Table</strong></p>
+    <p>One document file packet is used for each PS (proportional space) table.</p>
+    <p>In a SET file, this packet contains the font PS table for the default initial font.</p>
+    <pre>
+&lt;PS status flag&gt;
+  0 = byte characters
+  1 = word characters
+&lt;PS type flag&gt;
+  0 = PS table
+  1 = monospaced bitmap
+[pointers to the 16 character sets] x 16
+[character widths/bitmap] x ?  variable length
+
+If the type is PS table, the following block of data will exist for each character set from 1 through 16.
+
+&lt;count of characters in this set (starting at 0)&gt; same as the number of the last character in the set
+[width of nth character] x count+1  (n = 0 to count)
+</pre>
+    <p>If the type is monospaced bitmap, the following block of data will exist for each
+    character set from 1 through 16.</p>
+    <pre>
+&lt;count of characters in this set (starting at 0)&gt; same as the number of the last character in the set
+&lt;bitmap of character set&gt; x (count/8)+1  The bits in the bitmap in physical order indicate the existence (1)
+or absence (0) of the corresponding character in the character set.  For example, if the high bit of first
+byte is 1 then character 0 exists. If the low bit of the first bit is 0, then character 7 is omitted.
+</pre>
+    <pre>
+The actual spacing used by a monospaced font may be calculated by the formula:
+
+<tt>nominal character width = (average character width * current point size) / 300</tt>
+</pre>
+    <p>The current point size is found in the Font Face Change function code (function 0xD4,
+    sub function 0x1A) in units of 3600ths and must be converted into 1200ths before it
+    is used in the formula. The average character width is found in the Font Typeface Descriptor
+    Pool packet (packet type 0x20) in units of 1200ths. The nominal character width is the
+    spacing used by a monospaced font and is also in units of 1200ths.</p>
+    <hr />
+    <h3>Packet Type 34 (0x22)</h3>
+    <p><strong>Font List</strong></p>
+    <p>In a SET File, this packet contains the default initial font.<br />
+    </p>
+    <pre>
+[font ID (instance pointer)]
+[cache ID of PS table (-1 = no PS table)]
+[top shoulder height (WPU)]
+[bottom shoulder height (WPU)]
+[printed character width (WPU)]
+[optimal space width (WPU)]
+[normal space width (WPU)]
+[horizontal motion units]
+[numerator for fractional units of horizontal motion]
+[vertical motion units]
+[numerator for fractional units of vertical motion]
+[pointer in pool of typeface descriptor (packet type 20)]
+&lt;flags &gt;
+  01 = scalable font
+  02 = faked small cap font
+[point size (3600ths)]
+[nominal width (WPU)]
+[hash word of descriptor]
+[afc list (entry numbers, -1 = none)] x 16
+[character afc list] x 16
+[orientation afc list] x 4
+[language afc list] x 4
+[substitute font list] x 6  (entry number, -1 = none, -2 = on disk)
+</pre>
+    <hr />
+    <h3>Packet Type 35 (0x23)</h3>
+    <p><strong>Printer Selection</strong></p>
+    <pre>
+[long .PRS file] x 37  null terminated, padded to 74 bytes
+&lt;actual .PRS file name&gt; x 13  null terminated, padded to 13 bytes
+[minimum top margin (WPU)]
+[minimum bottom margin (WPU)]
+[minimum left margin (WPU)]
+[minimum right margin (WPU)]
+[minimum top margin (landscape) (WPU)]
+[minimum bottom margin (landscape) (WPU)]
+[minimum left margin (landscape) (WPU)]
+[minimum right margin (landscape) (WPU)]
+&lt;flags&gt;
+  bit 0: available
+  bit 1: initialize printer when WP starts
+  bit 3: right hyphenation zone disabled
+  bits 4-7: orientations supported
+    16 (0x10) = portrait
+    32 (0x20) = landscape
+    64 (0x40) = reverse portrait
+    128 (0x80) = reverse landscape
+&lt;port number&gt;
+  0 = lpt1
+  1 = lpt2
+  2 = lpt3
+  4 = com1
+  5 = com2
+  6 = com3
+  7 = com4
+  -1 = filename or device
+&lt;byte to initialize serial port&gt;
+  length (bit 0):  
+    0 = 7
+    1 = 8
+  stop bit (bit 1):  
+    0 = 1 stop bit
+    1 = 2 stop bits
+  extended baud rate (bit 2):  
+    0 = no
+    1 = yes (19200)
+  parity (bits 3-4):  
+    0 = none
+    1 = odd, 3 = even
+  baud rate (bits 5-7):
+    0 = 110
+    1 = 150
+    2 = 300
+    3 = 600
+    4 = 1200
+    5 = 2400
+    6 = 4800
+    7 = 9600
+&lt;network printer flag&gt;
+  1 (0x01) network printer
+  2 (0x02) suppress top of form
+  4 (0x04) reserved
+  8 (0x08) reserved
+  16 (0x10) reserved
+  32 (0x20) reserved
+  64 (0x40) reserved
+  128 (0x80) reserved
+&lt;network form number&gt;
+&lt;full pathname for non-port device&gt; x 80
+  If port number is 0-7, bytes 1-6 (0 based) of this field are used
+for hardware printing information.
+&lt;pathname only - for auxiliary printer files&gt; x 67
+&lt;additional flags&gt;
+  1 (0x01) = prompt for file name
+  2 (0x02) = Xon/Xoff instead of DTR
+  4 (0x04) = check initial printer status
+  8 (0x08) = printer added to list by setup
+  16 (0x10) = configured for color
+  32 (0x20) = color-capable printer
+  64 (0x40) = extended checking
+  128 (0x80) = available
+&lt;output tray flags&gt;
+  1 (0x01) = sorting supported
+  2 (0x02) = grouping supported
+  4 (0x04) = offset jogger supported
+  8 (0x08) = offset jogger on
+  16 (0x10) = output bin on
+  32 (0x20) = output bin supported
+  64 (0x40) = no output option
+  128 (0x80) = printer supports output options
+[bin numbers] x 2  Up to 32 total bin numbers.  Each bit is a bin number.  When a bit is set,
+the corresponding bin is active.
+  bit 0 = output bin 1
+  bit 1 = output bin 2
+  bit 2 = output bin 3
+  bit 3 = output bin 4
+  bit 4 = output bin 5
+  bit 5 = output bin 6
+  bit 6 = output bin 7
+  bit 7 = output bin 8
+  bit 8 = output bin 9
+  bit 9 = output bin 10
+  bit 10 = output bin 11
+  bit 11 = output bin 12
+  bit 12 = output bin 13
+  bit 13 = output bin 14
+  bit 14 = output bin 15
+  bit 15 = output bin 16
+  bit 16 = output bin 17
+  bit 17 = output bin 18
+  bit 18 = output bin 19
+  bit 19 = output bin 20
+  bit 20 = output bin 21
+  bit 21 = output bin 22
+  bit 22 = output bin 23
+  bit 23 = output bin 24
+  bit 24 = output bin 25
+  bit 25 = output bin 26
+  bit 26 = output bin 27
+  bit 27 = output bin 28
+  bit 28 = output bin 29
+  bit 29 = output bin 30
+  bit 30 = output bin 31
+  bit 31 = output bin 32
+[date of .PRS file]
+  bits 15-9 = year + 80
+  bits 8-5 = month
+  bits 4-0 = day (starting at 1)
+[time of .PRS file]
+  bits 15-11 = hour (24 hour starting at 0)
+  bits 10-5 = minutes
+  bits 4-0 = seconds/2 (may not be completely accurate)
+</pre>
+    <hr />
+    <h3>Packet Type 36 (0x24)</h3>
+    <p><strong>Embedded Printer Command</strong></p>
+    <p>&lt;embedded printer command&gt; x ? native byte string, null terminated</p>
+    <hr />
+    <h3>Packet Type 37 (0x25)</h3>
+    <p><strong>Default Initial Font &amp; Size</strong></p>
+    <pre>
+[number of prefix IDs = 1]
+[initial font descriptor PID (type=0x55)]
+[point size (3600ths)]
+</pre>
+    <hr />
+    <h3>Packet Type 38 (0x26)</h3>
+    <p><strong>Print Information for Q-codes</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 39 (0x27)</h3>
+    <p><strong>Output Device Type or Port for Q-codes</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 40 (0x28)</h3>
+    <p><strong>Machine Dependent Information</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 41 (0x29)</h3>
+    <p><strong>PS Table Prefix Packet IDs</strong></p>
+    <p>This packet contains the prefix packet IDs of each font's PS table. There should
+    be one PS table entry for each font in the font list. The format is:<br />
+    </p>
+    <pre>
+[number of child PS table IDs]
+[ID 0] index 0 PS table ID (type=0x21)
+[ID 1] index 1 PS table ID
+..  ..
+[ID n] index n PS table ID
+</pre>
+    <hr />
+    <h3>Packet Type 42 (0x2A)</h3>
+    <p><strong>Third-Party Data</strong></p>
+    <p>This packet is always used in conjunction with the Third Party function (0xE10B).
+    The format of this packet is defined by the third-party company.</p>
+    <hr />
+    <h3>Packet Type 43 (0x2B)</h3>
+    <p><strong>Form Paper Size/Type Name</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 44 (0x2C)</h3>
+    <p><strong>Subdocument Summary</strong></p>
+    <p>This is the same format as the extended document summary packet, packet type 18 (0x12).</p>
+    <hr />
+    <h3>Packet Type 45 (0x2D)</h3>
+    <p><strong>Subdocument Password</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 46 (0x2E)</h3>
+    <p><strong>Deletable Packet</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 47 (0x2F)</h3>
+    <p><strong>Routing Annotation</strong></p>
+    <pre>
+&lt;flags&gt;
+  bit 0: set means this document came from the routing system
+  bits 1-7: reserved
+&lt;user count&gt; the number of users listed in this packet
+{user IDs size} the size, in bytes, of the user IDs data area
+{work flow ID offset}  offset into packet of work flow ID
+{work flow filename offset} offset into packet of routed filename
+&lt;user data&gt; x ? the following five bytes per user, ordered to match the user IDs
+&lt;user display color (RGBS)&gt; x 4
+&lt;flag byte&gt;
+  bit 0: set means the user has completed his review of the document
+  bits 1-7: reserved
+[users IDs index] x ? two bytes per user containing the offset of his mail system user ID
+relative to the beginning of user IDs data
+(user IDs are stored in route order)
+&lt;user IDs data&gt; x ? the user IDs stored as packed strings of 8-bit ANSI characters
+[user names index] x ? two bytes per user containing the offset of his long name relative to
+the beginning of user names data (ordered to match the user IDs)
+&lt;user names data&gt; x ? the user long names stored as packed strings of 8-bit ANSI characters
+(ordered to match the user IDs)
+&lt;work flow ID&gt; x ? Ensemble Lite work flow ID passed to WP on the command line (a null-terminated string)
+&lt;work flow document name&gt; x ? Ensemble Lite routed document name as returned from the routing system (a
+null-terminated string)
+</pre>
+    <hr />
+    <h3>Packet Type 48 (0x30)</h3>
+    <p><strong>Normal Style</strong></p>
+    <pre>
+[number of prefix IDs]
+[PID of style to link to (type=0x30)] If this is null, look at the Enter flag.  If this ID exists, it means
+that when this style is ended (or when Enter is pressed), the style ID that is linked to begins.
+[number of text blocks = 4]
+{relative offset of 1st text block}
+{paragraph text size}
+{beginning style text size}
+{end style text size}
+{extra style text size}
+&lt;style type&gt;
+  1 = open style
+  2 = paired style
+  3 = paragraph style
+  4 = deleted "including codes"
+  5 = deleted "leaving codes"
+&lt;style flag&gt;
+  1 (0x01) = library style (otherwise local only)
+  2 (0x02) = system style
+  4 (0x04) = Enter turns style off (ignored if link ID is valid)
+  8 (0x08) = Enter turns style back on again (ignored if link ID is valid)
+  16 (0x10) = reserved (always set to null when creating a style code)
+  32 (0x20) = style includes other style(s)
+  64 (0x40) = reserved
+  128 (0x80) = style is variables
+[style hash]
+[offset from beginning of packet to description]
+[style name] x 12(max)  null terminated
+[style description] x ?  null terminated
+
+The following data is the text block part of the style.
+&lt;paragraph-oriented begin information&gt; x paragraph text size
+&lt;other begin information&gt; x beginning style text size
+&lt;end information&gt; x ending style text size
+&lt;extra information&gt; x extra style text size
+</pre>
+    <hr />
+    <h3>Packet Type 49 (0x31)</h3>
+    <p><strong>Outline Style</strong></p>
+    <p>Null level IDs indicate that the default outline is used for that level.<br />
+    </p>
+    <pre>
+[child ID cnt = 8]
+[level 1 ID (type=0x30)]
+[level 2 ID (type=0x30)]
+[level 3 ID (type=0x30)]
+[level 4 ID (type=0x30)]
+[level 5 ID (type=0x30)]
+[level 6 ID (type=0x30)]
+[level 7 ID (type=0x30)]
+[level 8 ID (type=0x30)]
+&lt;style flags&gt;
+  low nibble values:
+    0x01 = library style
+    0x02 = system style
+    0x04 = outline does not use paragraph styles
+    0x08 = reserved
+  high nibble values:
+    0x00 = heading paragraph styles
+    0x10 = reserved
+    0x20 = normal paragraph styles
+    0x40 = use legal (non-indented) paragraph styles
+    0x60 = reserved
+    0x80 = reserved
+    0xA0 = reserved
+    0xC0 = reserved
+    0xE0 = this style has been deleted
+[hash of IDs, name, flags] (set to null when creating the style)
+&lt;numbering methods for printing&gt; x 8
+  one byte for each level
+    0 = Arabic numbers
+    1 = lowercase letters (a-z)
+    2 = uppercase letters (A-Z)
+    3 = lowercase Roman
+    4 = uppercase Roman
+    5 = character string (only valid for footnotes and endnotes)
+    6 = leading-zero Arabic numbers
+    7 = number word: one, two, three, four...
+    8 = number order: first, second, third, fourth...
+  For Asia: (2-byte character required; uses two character cells to PRN)
+    0x40 = 2-byte Arabic
+    0x41 = 2-byte lowercase letters (a-z)
+    0x42 = 2-byte uppercase letters (A-Z)
+    0x43 = 2-byte lowercase Roman
+    0x44 = 2-byte uppercase Roman
+    0x45 = 2-byte character string (only valid for footnotes and endnotes)
+    0x46 = 2-byte leading-zero Arabic numbers
+    0x80 = kanji
+    0x81 = 1-byte katakana (aiueo)
+    0x82 = 2-byte katakana (aiueo)
+    0x83 = 1-byte katakana (iroha)
+    0x84 = 2-byte katakana (iroha)
+    0x85 = available
+    0x86 = standard kanji with leading-zero
+    0xC0 = kanji 2 (ten = juu)
+
+If the numbering method is character string, the following information exists:
+[character string length]
+[character string] x length in bytes
+[pointer to description]
+[8 pointers to number strings] x 8
+[outline style name] x 13(max)  null terminated
+[description] x ?  null terminated
+[level 1 num string] x 21(max)  WP word string null terminated
+[level 2 num string] x 21(max)  WP word string null terminated
+[level 3 num string] x 21(max)  WP word string null terminated
+[level 4 num string] x 21(max)  WP word string null terminated
+[level 5 num string] x 21(max)  WP word string null terminated
+[level 6 num string] x 21(max)  WP word string null terminated
+[level 7 num string] x 21(max)  WP word string null terminated
+[level 8 num string] x 21(max)  WP word string null terminated
+</pre>
+    <hr />
+    <h3>Packet Type 50 (0x32)</h3>
+    <p><strong>Personal Style Library Filename</strong></p>
+    <pre>
+[personal style library filename] x ?  null terminated
+</pre>
+    <p>If this packet ever has child IDs, the format will be that of the Native Filename
+    packet type 0x07.</p>
+    <hr />
+    <h3>Packet Type 51 (0x33)</h3>
+    <p><strong>Shared Style Library Filename</strong></p>
+    <pre>
+[shared style library filename] x ?  null terminated
+</pre>
+    <p>If this packet ever has child IDs, the format will be that of the Native Filename
+    packet type 0x07.</p>
+    <hr />
+    <h3>Packet Type 52 (0x34)</h3>
+    <p><strong>Personal and Shared Library File Date/Time</strong></p>
+    <pre>
+&lt;date structure for personal style library file&gt; x 10
+&lt;date structure for shared style library file&gt; x 10
+</pre>
+    <pre>
+10-Byte Date Structure
+</pre>
+    <pre>
+[year]
+&lt;month&gt;
+&lt;day&gt;
+&lt;hour&gt;
+&lt;minute&gt;
+&lt;second&gt; (unused = 0)
+&lt;day of week&gt; (unused = 0)
+&lt;time zone&gt; (unused = 0)
+&lt;unused&gt; (= 0)
+</pre>
+    <hr />
+    <h3>Packet Type 53 (0x35)</h3>
+    <p><strong>Default Native Fonts</strong></p>
+    <p>Mideast default font and size for dual or multiple fonts.</p>
+    <pre>
+[number of child prefix IDs = 1]
+[PID of desired font]
+&lt;point size of font&gt; in 3600ths
+&lt;language set of the initial native font&gt;
+  9 = Hebrew
+  13 = Arabic
+</pre>
+    <hr />
+    <h3>Packet Type 54 (0x36)</h3>
+    <p><strong>English AFC (Fareast)</strong></p>
+    <p>Use English AFC for Asian fonts.<br />
+    </p>
+    <pre>
+&lt;use English AFC flag&gt; 1 = use English AFC for double byte fonts
+</pre>
+    <hr />
+    <h3>Packet Type 55 (0x37)</h3>
+    <p><strong>Level 9 Outline Style Information</strong></p>
+    <hr />
+    <h3>Packet Type 56 (0x38)</h3>
+    <p><strong>Reserved</strong></p>
+    <hr />
+    <h3>Packet Type 57 (0x39)</h3>
+    <p><strong>Document Embedded Fonts</strong></p>
+    <hr />
+    <h3>Packet Type 58 (0x3A)&nbsp;</h3>
+    <p><strong>Digital Signature Package</strong></p>
+    <hr />
+    <h3>Packet Type 59 (0x3B)</h3>
+    <p>Quick Cross Reference Option Package</p>
+    <p>&lt;Reference Type Count = 0x0008&gt;<br />
+    &lt;Save As Is flag (Reserved) = 0x00&gt;<br />
+    &lt;reference type and its preceding text and following text&gt; x Reference<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;reference type&gt; reference type ID<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;preceding text&gt; WP6.0 word string,
+    null terminated<br />
+    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &lt;following text&gt; WP6.0 word string,
+    null terminated</p>
+    <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Reference Type ID:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</p>
+    <div>
+        <table border="1" width="50%">
+            <tr>
+                <td width="50%">
+                    Reference Type</td>
+                <td width="50%">
+                    Description</td>
+            </tr>
+            <tr>
+                <td width="50%">
+                    2</td>
+                <td width="50%">
+                    Figure Caption</td>
+            </tr>
+            <tr>
+                <td width="50%">
+                    4</td>
+                <td width="50%">
+                    Page #</td>
+            </tr>
+            <tr>
+                <td width="50%">
+                    6</td>
+                <td width="50%">
+                    Subpage #</td>
+            </tr>
+            <tr>
+                <td width="50%">
+                    8</td>
+                <td width="50%">
+                    Chapter #</td>
+            </tr>
+            <tr>
+                <td width="50%">
+                    10</td>
+                <td width="50%">
+                    Volume #</td>
+            </tr>
+            <tr>
+                <td width="50%">
+                    12</td>
+                <td width="50%">
+                    Paragraph / Outline #</td>
+            </tr>
+            <tr>
+                <td width="50%">
+                    14</td>
+                <td width="50%">
+                    Footnote</td>
+            </tr>
+            <tr>
+                <td width="50%">
+                    16</td>
+                <td width="50%">
+                    Endnote</td>
+            </tr>
+        </table>
+    </div>
+    <br />
+    <hr />
+    <h3>Packet Type 60 (0x3C) - 62 (0x3E)</h3>
+    <p>Reserved</p>
+    <hr />
+    <h3>Packet Type 63 (0x3F)</h3>
+    <p><strong>Filename Child</strong></p>
+    <pre>
+[data type] - 0 = no type, 1 = long filename
+[parent pid]
+[parent type]
+{parent filename size}
+[parent name(short)] x ? - null terminated
+[long filename] x ? - null terminated
+[reserved] - size = (parent filename size + 0x0A)
+</pre>
+    <hr />
+    <h3>Packet Type 64 (0x40)</h3>
+    <p><strong>Graphics Filename</strong></p>
+    <p>If this packet does not have any children, the format is:</p>
+    <pre>
+[graphics filename] x ?  null terminated
+
+If this packet does have children, the format is the following:
+
+[number of child IDs]
+  [ID 1 (type=0x6F, 0x70, or 0x71)] ID of child packet containing graphics data
+  [ID 2 (type=0x6F, 0x70, or 0x71)] ID of child packet containing graphics data
+.. ..
+  [ID n (type=0x6F, 0x70, or 0x71)] ID of last child containing graphics data
+  [tag 1] tag flag for first child packet
+  [tag 2] tag flag for second child packet
+  .. ..
+  [tag n] last tag flag for last child packet
+[graphics filename] x ?  null terminated
+</pre>
+    <p>Format for tag flags</p>
+    <pre>
+0x0001 = data being kept internal
+0x0010 = data being kept internal (hot link)
+0x0011 = data being kept internal (warm link)
+0x0012 = data being kept internal (cold link)
+</pre>
+</body>
+</html>

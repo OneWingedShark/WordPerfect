@@ -1,0 +1,541 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: DF Box Functions</h2>
+    <p><strong>Box Group - Function 223 (0xDF)</strong></p>
+    <p>The Box Group subfunctions have character orientation.</p>
+    <hr />
+    <h3>0xDF00</h3>
+    <p><strong>Character-Anchored Box:0 (0x00)</strong></p>
+    <p>See structure under <em>Page-Anchored Box</em> below.</p>
+    <hr />
+    <h3>0xDF01</h3>
+    <p><strong>Paragraph-Anchored Box1 (0x01)</strong></p>
+    <p>See structure under <em>Page-Anchored Box</em> below.</p>
+    <hr />
+    <h3>0xDF02</h3>
+    <p><strong>Page-Anchored Box2 (0x02)</strong></p>
+    <pre>
+&lt;223 (0xDF)&gt; &lt;subfunction #&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs (minimum 1)&gt;
+  [box template PID (type=0x41)] required
+  [box counter PID (type=0x11)] if indicated by override flags
+  [box PIDs] (none currently defined)
+  [box contents PIDs (type=0x40)] if indicated by override flags
+  [box caption PIDs (type=0x08)] if indicated by override flags
+  [box border PIDs (type=0x42)] as many as needed as indicated by override flags
+  [box fill PIDs (type=0x43)] if indicated by override flags
+  [box hypertext PIDs (type=0x07 or 0x17)] if indicated by override flags type 0x07 for Hypertext macro
+filename, type 0x17 for Hypertext bookmark
+  [box group PIDs (type=0x4c)] as many as needed as indicated by override
+  [box User Assistant Name (type=0x5b)]
+  [box SGML(type=0x4f)]
+[size of non-deletable information]
+&lt;reserved for future use&gt; x 14
+[total size of override and wrap rectangle data for box] not including this word
+[total size of override data] not including this word
+[box override flags]</pre>
+    <p>See definition under <em>Specific Format of Box Override Flags and Data </em>below.</p>
+    <pre>
+[number of platform-independent wrap rectangles]
+  Four wrap rectangle data words per rectangle:
+  [unsigned offset of left side of rectangle from left side of formatted render box]
+  [unsigned offset of right side of rectangle from left side of formatted render box]
+  [unsigned offset of top side of rectangle from top side of formatted render box]
+  [unsigned offset of bottom side of rectangle from top side of formatted render box]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDF&gt;</pre>
+    <p>Units for the above wrap rectangle values are in 65536ths of the appropriate dimension
+    (width or height) of the formatted box in which content is to be rendered. The left
+    offset value and the right offset value are measured in 65536ths of the width of the
+    formatted box. The top offset value and bottom offset value are measured in 65536ths
+    of the height of the formatted box. Note that the right value must be greater than or
+    equal to the left value and the bottom value must be greater than or equal to the top
+    value. Allowable values are from 0 to 65535. For convenience, 65535 is considered 65536.
+    </p>
+    <p><strong>General Format of Box Override Flags and Data:</strong></p>
+    <p>The box may have associated override flags in the box function. The override flags
+    are a 16-bit entity (word) and each bit corresponds to data in the box definition.<br />
+    <br />
+    For each bit in the box override flags, there is corresponding data. The size of the
+    data depends on what the override bit represents. The order of the data depends on the
+    order of the override bits, with one exception, noted below. For example, if both bits
+    15 and 14 in the override flag are set, the data corresponding to bit 15 appear earlier
+    in the override data area than the data corresponding to bit 14. The exception is for
+    border or fill template overrides. Because the data are prefix IDs, the data appear
+    in the prefix ID area at the beginning of the function. The order of the prefix IDs
+    corresponds to the bit order of the override flags.</p>
+    <p>If an override bit is set in the box override flags, a mask appears defining which
+    bits within the corresponding data are overridden followed by the actual override data.
+    For example, assume a data byte has two fields, the first field covering bits 0-3 and
+    the second field covering bits 4-7. Assume the first field (bits 0-3) is to be overridden
+    but the second field (bits 4-7) is not. The corresponding override bit will be set in
+    the box override flags word. The data corresponding to this override bit will be a mask
+    byte (value 0x0F) and a data byte, of which only the bottom 4 bits matter.</p>
+    <p>All currently undefined data must be set to 0 when creating a new box template or
+    box function. For any flag data, only those bits currently defined should be modified.
+    All others should be preserved. Write code to preserve fixed- and variable-length data
+    that may be added later. This means using the total length and length-of-fixed portion
+    words. Names of templates cannot be longer than 80 characters (160 bytes), not including
+    length word.<br />
+    </p>
+    <p><strong>Specific Format of Box Override Flags and Data:</strong></p>
+    <pre>
+bit 15: Box counter data.
+If the box counter override bit is set in the box's override flags, the following data appear:
+  [total size of box counter override data (not including this word)]
+  [box counter override flags]
+  The following data appear according to bits set in the box counter override flags:
+    bit 15: Box counter prefix ID flags. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bits 14-0: currently undefined
+
+bit 14: Box positioning data.
+If the box position override bit is set in the box override flags, the following data appear:
+  [total size of box position override data (not including this word)]
+  [box position override flags]
+  The following data appear according to bits set in the box position override flags:
+    bit 15: Box positioning prefix ID flags.  Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bit 14: Box general positioning flags. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bit 13: Box horizontal positioning data override. Corresponding data:
+      &lt;box horizontal positioning flags&gt;
+      [horizontal offset]
+      &lt;left column&gt;
+      &lt;right column&gt;
+    bit 12: Box vertical positioning data override. Corresponding data:
+      &lt;box vertical positioning flags&gt;
+      [vertical offset]
+    bit 11: Box width data override.  Corresponding data:
+      &lt;box width flags&gt;
+      [box width value]
+    bit 10: Box height data override.  Corresponding data:
+      &lt;box height flags&gt;
+      [box height value]
+    bit 9: Box Z-order data override.  Corresponding data:
+      &lt;x-order flags&gt;
+         bit 0 - 1 if box displays ABOVE TEXT
+         bit 1 - 1 if there is a valid z-order sequence value
+         Bit 2-7 - currently undefined
+      [z-order display sequence for current page] - 0 is the furthest back in the z-order. 
+These numbers start over at 0 on each page.
+    bits 8-0: currently undefined
+
+bit 13: box content data
+If the content override bit is set for the box's override flags, the following data appear:
+  [total size of content override data (not including this word)]
+  [content override flags]
+  The following data appear according to bits set in the content override flags
+    bit 15: Box content prefix ID flags override. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bit 14: Content type override.  Corresponding data:
+      &lt;content type&gt;
+    bit 13: Content rendering information. Corresponding data:
+    If the content type of the box is image:
+      [total size of image content override data (not including this word)]
+      [image content override flags]
+        bit 15: Prefix ID flag override. Corresponding data:
+          &lt;mask&gt;
+          &lt;data&gt;
+          If this override bit is set, and bit 0 of the mask byte is set such that the prefix ID flags is
+overridden, the native image size override bit 14 must also be set.
+    bit 14: Native image size override. Corresponding data:
+      [native image width (WPUs)]
+      [native image height (WPUs)]
+      This override bit must be set if bit 0 in the image content prefix ID flags is overridden.  See
+previous bit, bit 15.
+    bit 13: Image content render flags override.  Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bit 12: Scaling factor override. Corresponding data:
+      {fixed point x scaling factor}
+      {fixed point y scaling factor}
+    bit 11: Translation factor override. Corresponding data:
+      {x translation factor}
+      {y translation factor}
+    bit 10: Rotation angle override. Corresponding data:
+      {data}
+    bit 9: Black and white threshold override.  Corresponding data:
+      &lt;data&gt;
+    bit 8: Lightness value override. Corresponding data:
+      {data}
+    bit 7: Contrast value override. Corresponding data:
+      {data}
+    bit 6: Halftone data override. Corresponding data:
+      {halftone screen LPI}
+      {plane 0 halftone screen angle}
+      {plane 1 halftone screen angle}
+      {plane 2 halftone screen angle}
+      {plane 3 halftone screen angle}
+    bit 5: Image dither flags override. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bits 4-0: currently undefined
+  If the content type of the box is text:
+    [total size of text content override data] not including this word
+    [text content override flags]
+      bit 15: Prefix ID flag override. Corresponding data:
+        &lt;mask&gt;
+        &lt;data&gt;
+      bit 14: Text content rendering flag override.  Corresponding data:
+        &lt;mask&gt;
+        &lt;data&gt;
+      bits 13-0: currently undefined
+  If the content type of the box is equation:
+    [total size of equation content override data] not including this word
+    [equation content override flags]
+      bit 15: Prefix ID flag override. Corresponding data:
+        &lt;mask&gt;
+        &lt;data&gt;
+      bit 14: Equation content rendering flag override. Corresponding data:
+        &lt;mask&gt;
+        &lt;data&gt;
+      bit 13: Equation font size override. Corresponding data:
+        [equation base font size]
+      bit 12: Equation color override. Corresponding data:
+        &lt;equation color (RGBS)&gt; x 4
+      bit 11: Equation rotation override. Corresponding data:
+        {fixed point rotation angle} (0.0-360.0)
+      bits 10-0: currently undefined.
+  If the content type is Presentation, Video, Macro, Sound, or External:
+    Currently undefined
+  bit 12: Content alignment information. Corresponding data:
+    &lt;mask&gt;
+    &lt;data&gt;
+  bits 11-0: currently undefined
+
+bit 12: box caption data
+If the box caption override bit is set in the box's override flags, the following data appear:
+  [total size of caption override data (not including this word)]
+  [caption override flags]
+  The following data appear according to bits set in the border template override flags
+    bit 15: Box caption prefix ID flags override. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bit 14: Caption positioning override. Corresponding data:
+      &lt;caption positioning flags data&gt;
+      [caption alignment offset word]
+    bit 13: Caption formatting override. Corresponding data:
+      &lt;caption formatting flags data&gt;
+      [caption formatting word ]
+    bits 12-0: currently undefined
+
+bit 11: box border data:
+If the box border override bit is set in the box's override flags, the following data appear:
+  [total size of box border override data (not including this word)]
+  [box border override flags ]
+  The following data appear according to bits set in the border template override flags:
+    bit 15: Box border prefix ID flags override. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bit 14: Border template override data. Corresponding data:
+    If the border template override bit is set in the box's override flags, the following data appear:
+      [total size of border template override data (not including this word)]
+      [border template override flags]
+      The following data appear according to bits set in the border template override flags:
+        bit 15: Border template prefix ID flags data.  Corresponding data:
+          &lt;mask&gt;
+          &lt;data&gt;
+        bit 14: Border general flags data. Corresponding data:
+          &lt;mask&gt;
+          &lt;data&gt;
+        bit 13: Corner radius data.  Corresponding data:
+          [corner radius]
+        bit 12: Inside spacing data. Corresponding data:
+          [left inside spacing]
+          [right inside spacing]
+          [top inside spacing]
+          [bottom inside spacing]
+        bit 11: Outside spacing data. Corresponding data:
+          [left outside spacing]
+          [right outside spacing]
+          [top outside spacing]
+          [bottom outside spacing]
+       bit 10: Drop shadow data.  Corresponding data:
+          &lt;drop shadow flag&gt;
+          [drop shadow spacing]
+          &lt;drop shadow color (RGBS)&gt; x 4
+       bit 9: Border color data.  Corresponding data:
+          &lt;border color (RGBS)&gt; x 4
+       bits 8-0: currently undefined
+    bits 13-0: currently undefined
+
+bit 10: box fill data:
+If the box fill override bit is set in the box's override flags, the following data appear:
+  [total size of fill template override data (not including this word)]
+  [border fill override flags]
+  The following data appear according to bits set in the fill template override flags
+    bit 15: Box fill prefix ID flags override. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bit 14: Fill template data override. Corresponding data:
+    If the fill template override bit is set in the box fill override flags, the following data appear:
+      [total size of fill template override data (not including this word)]
+      [fill template override flags]
+      The following data appear according to bits set in the fill template override flags bit 15: 
+        Fill colors override. Corresponding data:
+          &lt;foreground/start color (RGBS)&gt; x 4
+          &lt;background/end color (RGBS)&gt; x 4
+        bits 14: fill override type
+          &lt;type&gt; 
+            0 = Pattern
+            1 = Gradient
+          if type is 0:
+          &lt;set number&gt; - currently only set 0 is defined
+          &lt;index number&gt; - see predefined WPG Pen/Brush Pattern description in the graphics file format.
+          if type is 1:
+          &lt;gradient flags&gt;
+             0 = Linear
+             1 = Radial
+             2 = Rectangular
+          [number of steps] - 0 = automatic,otherwise the number of increments the gradient fill will use.
+          {rotation} - fixed point angle from default orientation
+          [X offset for gradient orientation] - relative to left of box.
+          [Y offset for gradient orientation] - relative to top of box
+          Note: this offset is a fraction of 1/65535, with 0 being the Top/Left and 65535 being the 
+Bottom/Right - see 0x2f in WPG file format.
+        bits 13-0: currently undefined
+
+bit 9: box wrapping data
+If the box wrapping override bit is set in the box override flags, the following data appear:
+  [total size of box wrapping override data (not including this word)]
+  [box wrapping override flags]
+  The following data appear according to bits set in the box wrapping override flags:
+    bit 15: Box wrapping prefix ID override. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bit 14: Wrapping flags.  Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bits 13-0: currently undefined
+
+bit 8: box hypertext wrapping data
+If the box hypertext wrapping override bit is set in the box override flags, the following data appear:
+  [total size of box hypertext override data (not including this word)]
+  [box hypertext override flags]
+  The following data appear according to bits set in the box hypertext override flags:
+    bit 15: Box hypertext prefix ID override. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    bit 14: Box hypertext type flags override. Corresponding data:
+      &lt;data&gt;
+    bits 13-0: currently undefined
+
+bit 7: HTML (type 0x7D) data will be in Prefix Packet
+
+bit 6: box grouping data
+If the box grouping override bit is set in the box override flags, the following data appear:
+ [total size of box grouping override data (not including this word)]
+ [box grouping override flags]
+ The following data appear according to bits set in the box grouping override flags:
+    bit 15: box grouping flags. Corresponding data:
+      [mask]
+      [data]
+    bit 14: grouping elements exist flag
+      [count of how many groups to follow that this box is associated with]
+      ----NOTE: one prefix ID associated with each count!!!  See prefix ID section for BOXES.
+      Repeat for each group specified in count:
+      &lt;flags byte&gt;
+      bit 0: Reserved
+      bit 1: Reserved
+      ----NOTE: following four word values will be zero
+      [reserved if bit 0 On]
+      [reserved if bit 0 On]
+      [reserved if bit 1 On]
+      [reserved if bit 1 On]
+
+bit 5: box draw object data
+If the draw object override bit is set in the box override flags, the following data appear:
+    [total size of box draw object override data (not including this word)]
+    [box draw object override flags]
+    The following data appear according to bits set in the box draw object override flags:
+    bit 15: Draw object shape
+      &lt;shape&gt;
+         0 = 2 Point Line
+         1 = Reserved
+         2 = Polyline
+         3 = Rectangle
+         4 = Ellipse
+         5 = Fat Arrow
+         6 = Polygon
+         7 = Circle
+         8 = Rounded Rectangle
+         9-200 = reserved
+    bit 14: Draw object shape data
+      {optional style data}
+          Note: any shape may use this additional 4 bytes of data.
+            Currently only shape 3 (Rectangle) uses:
+                        [corner radius]
+                        [undefined]
+    bit 13: Draw object polyline data
+      [number of points in the polyline]
+      for each point in the polyline, the following will follow:
+        [X offset (WPUs)] - from Left
+        [Y offset (WPUs)] - from Bottom
+    bit 12: Draw object fill style data
+      [total size of fill template override data (not including this word)]
+      [fill template override flags]
+      The following data appear according to bits set in the fill template override flags
+        bit 15: Fill colors override. Corresponding data:
+          &lt;foreground/start color (RGBS)&gt; x 4
+          &lt;background/end color (RGBS)&gt; x 4
+        bits 14: fill override type
+          &lt;type&gt; 
+            0 = Pattern
+            1 = Gradient
+          if type is 0:
+          &lt;set number&gt; - currently only set 0 is defined
+          &lt;index number&gt; - see predefined WPG Pen/Brush Pattern description in the graphics file format.
+          if type is 1:
+          &lt;gradient flags&gt;
+             0 = Linear
+             1 = Radial
+             2 = Rectangular
+          [number of steps] - 0 = automatic,otherwise the number of increments the gradient fill will use.
+          {rotation} - fixed point angle from default orientation
+          [X offset for gradient orientation] - relative to left of box.
+          [Y offset for gradient orientation] - relative to top of box
+          Note: this offset is a fraction of 1/65535, with 0 being the Top/Left and 65535 being the
+Bottom/Right - see 0x2f in WPG file format.
+    bit 11: Draw object end cap data (line termination style)
+      &lt;starting line cap&gt;
+      &lt;ending line cap&gt;
+         0 = Flat end
+         1 = Rounded end
+         2-9 reserved
+         10 = Small solid arrow head
+         11 = Large solid arrow head
+         12 = Curved arrow head
+         13 = Unfilled arrow head
+         14 = Large unfilled arrow head 
+         15 = Open arrow head
+         16 = Large open arrow head
+         17 = Open curved arrow
+         18 = Filled tail
+         19 = Unfilled tail
+         20 = Tail feather line
+         21 = Tail feather thick
+         22 = Small dot
+         23 = Large dot
+         24 = Hollow small dot
+         25-60 reserved
+    bit 10: Draw object rotation data
+      {Reserved} - currently not implemented
+    bit 9: Draw object pen style
+      [pen thickness (WPUs)]
+      &lt;pen style&gt; (see predifined WPG Line Style Data)
+      &lt;pen color (RGBS)&gt; x4
+    bit 8: Polyline initial line angle
+      {Reseved}
+    bit 7: Draw object callout information
+      {Reserved}
+    bit 6: Draw object shadow data
+      &lt;direction&gt;
+         1 = shadow on top-left side
+         2 = shadow on bottom-left side
+         3 = shadow on bottom-right side
+         4 = shadow on top-right side
+       [X offset (WPUs)]
+       [Y offset (WPUs)]
+       &lt;shadow color(RGBS)&gt; x4
+    bit 5: Data scaling description
+      [data width] - Width of object in wpu's. Usually viewport width minus 60 WPU's.
+      [data height] - Height of object in wpu's. Usually viewport height  minus 60 WPU's.
+      [X offset to left edge of object (WPUs)]
+      [Y offset to bottom edge of object (WPUs)]
+      [viewport width] - usually match box width
+      [viewport height] - usually match box height
+    bits 4-0: currently undefined
+</pre>
+    <hr />
+    <h3>0xDF03</h3>
+    <p><strong>Graphics Rule</strong></p>
+    <pre>
+&lt;223 (0xDF)&gt; &lt;3 (0x03)&gt; [size = variable] &lt;flags = PRFXID&gt;
+  &lt;number of PIDs (minimum 2)&gt;
+  [border line template PID (type = 0x42)]
+  [document function rule count PID (type = 0x45)]</pre>
+    <p>The rule function count prefix packet exists merely to keep a count of rule functions
+    in the document. Its content should be a single 16-bit short value of zero (0). When
+    a rule function is created, the prefix packet will be created or its use count incremented.
+    The prefix packet ID will be placed in the function at insertion so that the prefix
+    packet use count will be decremented if the function is deleted. The use count must
+    correspond exactly to the number of rule functions in the document.</p>
+    <pre>
+[size of non-deletable data]
+&lt;reserved for future use&gt; x 14
+Rule positioning data:
+[size of rule positioning area] not including this word
+&lt;rule general position flags&gt;
+  bits 2-7: undefined
+  bit 1: rule thickness flag
+    0 = rule thickness determined by border line style thickness
+    1 = rule thickness set by user, border line style scaled for display
+  bit 0: horizontal vertical flag
+    0 = horizontal rule
+    1 = vertical rule
+&lt;rule horizontal positioning flags&gt;
+  bits 5-7: undefined
+  bits 2-4: alignment (if margin-relative)
+    0 = left
+    1 = right
+    2 = centered
+    3 = full
+  bit 0: alignment type
+    0 = absolute (relative to left of page)
+    1 = margin-relative
+    2 = between columns (vertical rule only)
+[absolute horizontal position (unsigned WPUs)]
+&lt;left column&gt; for rules between columns
+&lt;rule vertical positioning flags&gt;
+  bits 5-7: undefined
+  bits 2-4: alignment (if margin relative)
+    0 = top
+    1 = bottom
+    2 = centered
+    3 = full
+  bit 0-1: alignment type
+    0 = absolute (relative to top of page)
+    1 = margin-relative (vertical rule only)
+    2 = baseline (horizontal rule only)
+[absolute vertical position (unsigned WPUs)]
+[rule thickness (unsigned WPUs)]
+[rule length (unsigned WPUs)]
+If horizontal rule:
+  [rule top outside spacing (unsigned WPUs)]
+  [rule bottom outside spacing (unsigned WPUs)]
+If left or right aligned vertical rule:
+  [rule kick-out spacing (unsigned WPUs)] The <em>kick-out</em> spacing is the distance between the margin and the
+side of the rule closest to the margin (right side for left-aligned rules and left side for right-aligned
+rules). Note that left and right aligned vertical rules are outside the margins.  For 5.1 compatibility, the
+default kick-out spacing is 1/8.
+Rule line definition data:
+[size of line definition area] not including this word
+&lt;rule line definition flags&gt;
+  bit 1-7: undefined
+  bit 0: color use flag
+    0 = use color from line template segment definitions
+    1 = use color from rule template for all segments
+&lt;rule color (RGBS)&gt; x 4
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xDF&gt; 
+</pre>
+    <p><strong>General Rules</strong></p>
+    <p>All currently undefined data should be set to 0 when a new document rule function
+    is created. For any flag data, only those bits currently defined should be modified.
+    All others should be preserved.</p>
+</body>
+</html>

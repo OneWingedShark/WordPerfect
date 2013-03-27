@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WfsDirPath function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WfsCreateDir.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WfsDoesDirExist.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        WfsDirPath function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp547220"></a>
+
+  <h4 class="pHeading3">WfsDirPath function</h4><a name="wp547222"></a>
+
+  <p class="pBody">The <code class="cCode">WfsDirPath</code> function opens the Select Directory dialog box, which allows the user to select a folder name. All
+  input and output strings are assumed to be ANSI strings.</p><a name="wp547224"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int SHAPI WfsDirPath (<a name="wp547226"> </a>
+LPSTR lpszPathNameIn,<a name="wp547228"> </a>
+LPSTR lpszPathNameOut,<a name="wp547230"> </a>
+BOOL bValidate );<a name="wp547232"> </a>
+</pre>
+  </div><a name="wp547234"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp547237"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp518236"></a>
+
+          <p class="pBody"><code class="cCode">lpszPathNameIn</code></p>
+        </td>
+
+        <td>
+          <a name="wp518238"></a>
+
+          <p class="pBody">Acts as a pointer to the default folder path to use in the dialog.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518244"></a>
+
+          <p class="pBody"><code class="cCode">lpszPathNameOut</code></p>
+        </td>
+
+        <td>
+          <a name="wp518246"></a>
+
+          <p class="pBody">Acts as a pointer to the selected folder path.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518252"></a>
+
+          <p class="pBody"><code class="cCode">bValidate</code></p>
+        </td>
+
+        <td>
+          <a name="wp518254"></a>
+
+          <p class="pBody">Should be set to <code class="cCode">TRUE</code> if the path should be validated</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp547239"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp547241"></a>
+
+  <p class="pBody">The size of the new path is returned in bytes, excluding the null terminator.</p>
+</body>
+</html>

@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidMenuItemEnable function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="wMenuItemID.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidMenuItemGetID.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Menus.html">Creating menus</a> : WpidMenuItemEnable function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp549478"></a>
+
+  <h4 class="pHeading3">WpidMenuItemEnable function</h4><a name="wp549480"></a>
+
+  <p class="pBody">The <code class="cCode">WpidMenuItemEnable</code> function sets or clears the enable state of a menu item.</p><a name="wp549482"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DWORD FAR PASCAL WpidMenuItemEnable ( <a name="wp549484"> </a>
+WMEMOBJECT WPMenu, <a name="wp549486"> </a>
+WORD wMenuID, <a name="wp549488"> </a>
+DWORD dwFlags, <a name="wp549490"> </a>
+WORD wMenuItemID ); <a name="wp549492"> </a>
+</pre>
+  </div><a name="wp549494"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp549497"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp520732"></a>
+
+          <p class="pBody"><code class="cCode">WPMenu</code></p>
+        </td>
+
+        <td>
+          <a name="wp520734"></a>
+
+          <p class="pBody">Specifies the handle to menu object memory</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520740"></a>
+
+          <p class="pBody"><code class="cCode">wMenuID</code></p>
+        </td>
+
+        <td>
+          <a name="wp520742"></a>
+
+          <p class="pBody">Specifies the menu ID where the menu item resides. This is the menu where the item to delete resides. It must be a valid theta or
+          dynatheta value. <code class="cCode">0</code> is used to designate the top-level menu.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520748"></a>
+
+          <p class="pBody"><code class="cCode">dwFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp520750"></a>
+
+          <p class="pBody">Allows the following flags:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp520752"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_DISABLED</code> -- If this flag is set, the item is not enabled.</li>
+              </ul>
+            </div><a name="wp520754"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_GRAYED</code> -- If this flag is set, the item is not enabled</li>
+              </ul>
+            </div>
+          </div><a name="wp520756"></a>
+
+          <p class="pBody">WPMF_BYPOSITION</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520762"></a>
+
+          <p class="pBody"><code class="cCode">wMenuItemID</code></p>
+        </td>
+
+        <td>
+          <a name="wp520764"></a>
+
+          <p class="pBody">Specifies the theta or dynatheta ID of the menu item to enable/disable</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp549499"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp549501"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful or <code class="cCode">FALSE</code> if unsuccessful.</p>
+</body>
+</html>

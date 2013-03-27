@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WvwrViewFile function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="ViewMgrCreate.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WvwrViewFileEnd.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Viewer_interface.html">Providing access to viewer functionality
+        through the View Manager</a> : WvwrViewFile function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553926"></a>
+
+  <h4 class="pHeading3">WvwrViewFile function</h4><a name="wp553928"></a>
+
+  <p class="pBody">Each time the application wants to view a file, it sends a View File request to the View Manager. The View Manager determines the file type
+  and determines which viewer(s) are capable of viewing the file. It constructs a list of the viewers which can display the file contents and sends a View File
+  request to one of these viewers (the current implementation initially selects the first viewer in the list).</p><a name="wp553930"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL WvwrViewFile ( WUBYTE WFAR* lpszFileName,  <a name="wp553932"> </a>
+HWND hwndViewMgr,  <a name="wp553934"> </a>
+WUBYTE WFAR* lpszSearchStr,  <a name="wp553936"> </a>
+WBOOL bDoSearch,  <a name="wp553938"> </a>
+WUDWORD ulFirstHitOffset,  <a name="wp553940"> </a>
+WUWORD fSettings ); <a name="wp553942"> </a>
+</pre>
+  </div><a name="wp553944"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp553947"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp524256"></a>
+
+          <p class="pBody"><code class="cCode">lpszFileName</code></p>
+        </td>
+
+        <td>
+          <a name="wp524258"></a>
+
+          <p class="pBody">Acts as a far pointer to a null-terminated string containing the full path and name of the file to be viewed</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524264"></a>
+
+          <p class="pBody"><code class="cCode">hwndViewMgr</code></p>
+        </td>
+
+        <td>
+          <a name="wp524266"></a>
+
+          <p class="pBody">Specifies the handle to the View Manager, as returned by the <code class="cCode">WvwrViewMgrCreate(&nbsp;)</code> call</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524272"></a>
+
+          <p class="pBody"><code class="cCode">lpszSearchStr</code></p>
+        </td>
+
+        <td>
+          <a name="wp524274"></a>
+
+          <p class="pBody">Is an optional search string used by the Viewer's Find dialog box, primarily for the QuickFinder program. If a value is supplied, it
+          is copied into the search string the Viewer displays in its Find dialog box. Otherwise, <code class="cCode">NULL</code> can be used.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524280"></a>
+
+          <p class="pBody"><code class="cCode">bDoSearch</code></p>
+        </td>
+
+        <td>
+          <a name="wp524282"></a>
+
+          <p class="pBody">Is primarily used with the QuickFinder program in conjunction with the <code class="cCode">lpszSearchStr</code> parameter. If
+          <code class="cCode">TRUE</code>, the Viewer immediately initiates a search for its current search string and its initial display is at the first
+          point at which the search was satisfied. If an initial search is not desired, set this value as <code class="cCode">FALSE</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524288"></a>
+
+          <p class="pBody"><code class="cCode">ulFirstHitOffset</code></p>
+        </td>
+
+        <td>
+          <a name="wp524290"></a>
+
+          <p class="pBody">Is not currently used. Should be set to <code class="cCode">0L</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524296"></a>
+
+          <p class="pBody"><code class="cCode">fSettings</code></p>
+        </td>
+
+        <td>
+          <a name="wp524298"></a>
+
+          <p class="pBody">Allows an application to override user-selected display characteristics for the specified file. These settings are used for the
+          current file only; if another View File request is received, the user-selected attributes are used again (unless other override values are
+          specified). Usually this parameter should be zero, in which case the user-selected display attributes are used. If it is necessary to override the
+          user-selected display options, one or more of the flags in the following table may be combined by using the bitwise <code class="cCode">OR</code>
+          operator.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553949"></a>
+
+  <h5 class="pHeading4">Settings and definitions</h5><a name="wp553952"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp524309"></a>
+
+          <p class="pBody"><code class="cCode">VWR_SET_TEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp524311"></a>
+
+          <p class="pBody">Forces display of the textual content of a file (as opposed to the document summary, which may be the current user selection)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524317"></a>
+
+          <p class="pBody"><code class="cCode">VWR_SET_DOC_SUMM</code></p>
+        </td>
+
+        <td>
+          <a name="wp524319"></a>
+
+          <p class="pBody">Forces display of the document summary (if available) for a file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524325"></a>
+
+          <p class="pBody"><code class="cCode">VWR_SET_NO_WRAP</code></p>
+        </td>
+
+        <td>
+          <a name="wp524327"></a>
+
+          <p class="pBody">Disables word-wrapping of the document text. The display uses the soft and hard returns contained in the document rather than
+          wrapping to the size of the Viewer window. This is the default setting for ASCII/ANSI text files.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524333"></a>
+
+          <p class="pBody"><code class="cCode">VWR_SET_WRAP</code></p>
+        </td>
+
+        <td>
+          <a name="wp524335"></a>
+
+          <p class="pBody">Forces word-wrapping of file text to the current display window. This is always the default setting for document files, so this
+          option should not be required.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524341"></a>
+
+          <p class="pBody"><code class="cCode">VWR_SET_CVT_DOC</code></p>
+        </td>
+
+        <td>
+          <a name="wp524343"></a>
+
+          <p class="pBody">If no appropriate viewer is available, forces an automatic conversion of non-WordPerfect document files to WordPerfect format for
+          viewing</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524349"></a>
+
+          <p class="pBody"><code class="cCode">VWR_SET_NO_CVT_DOC</code></p>
+        </td>
+
+        <td>
+          <a name="wp524351"></a>
+
+          <p class="pBody">Disables automatic conversion of non-WordPerfect document files. A Convert button is displayed, allowing the user to decide whether
+          to convert the file.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524357"></a>
+
+          <p class="pBody"><code class="cCode">VWR_SET_CVT_GPH</code></p>
+        </td>
+
+        <td>
+          <a name="wp524359"></a>
+
+          <p class="pBody">If no appropriate viewer is available, forces an automatic conversion of non-WPG graphic files to WPG format for viewing</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524365"></a>
+
+          <p class="pBody"><code class="cCode">VWR_SET_NO_CVT_GPH</code></p>
+        </td>
+
+        <td>
+          <a name="wp524367"></a>
+
+          <p class="pBody">Disables automatic conversion of non-WPG graphics files. A Convert button is displayed, allowing the user to decide whether to
+          convert the file.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553954"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp553956"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if the request was successful and <code class="cCode">FALSE</code> if not successful.
+  If it was not successful, the Viewer window is left blank, with no file being viewed.</p>
+</body>
+</html>

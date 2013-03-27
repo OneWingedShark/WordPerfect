@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:32" />
+
+  <title>Lesson 8: Using strings</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Lesson_7_Using_blocks.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Lesson_9_Using_optional_arguments.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Creating_QP_Add-in_DLLs.html">Creating Quattro Pro Add-in DLLs</a> : Lesson 8: Using strings</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp532847"></a>
+
+  <h3 class="pHeading2">Lesson 8: Using strings</h3><a name="wp532849"></a>
+
+  <p class="pBody">Before beginning this lesson, do the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp532851"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Load the qshell.cpp file into your program editor.</li>
+      </ul>
+    </div><a name="wp532853"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Save qshell.cpp as lesson08.cpp in your data folder.</li>
+      </ul>
+    </div>
+  </div><a name="wp532855"></a>
+
+  <p class="pBody"><code class="cCode">DAY</code> will take one argument and return a string name of the day given (a number value between <code class=
+  "cCode">1</code> and <code class="cCode">7</code>). Any number outside this range will return an <code class="cCode">ERR</code>. This custom function won't
+  need to use any of the import functions.</p><a name="wp532857"></a>
+
+  <h5 class="pHeading4">Step 1</h5><a name="wp1270400"></a>
+
+  <p class="pBody">Replace <code class="cCode">DUMMY</code> with <code class="cCode">DAY</code> in the <code class="cCode">SelfDefStructure</code> of the
+  qshell.cpp file. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532859"> </a>
+// Quattro Pro prescribed header (and other overhead)<a name="wp532861"> </a>
+//===============================================================<a name="wp532863"> </a>
+SelfDefStructure MyFuncs[] = {<a name="wp532865"> </a>
+{<a name="wp532867"> </a>
+"PURE asciiz PASCAL DAY(int)", // Function Command <a name="wp532869"> </a>
+(FarProc)&amp;DAY, // Pointer to _exported function <a name="wp532871"> </a>
+"Help", // Help Line <a name="wp532873"> </a>
+"DAY" // English name <a name="wp532875"> </a>
+}, <a name="wp532877"> </a>
+NULL // Always null terminate the list! <a name="wp532879"> </a>
+};<a name="wp532881"> </a>
+</pre>
+  </div><a name="wp1270428"></a>
+
+  <p class="pBody">The <code class="cCode">int</code> is the integer value that the function receives. For information on <code class=
+  "cCode">ProcPrototype</code>, see "<a href="Structures_types_enums.html#wp1271647">Understanding structures, types, and enumerations</a>."</p><a name=
+  "wp1270429"></a>
+
+  <h5 class="pHeading4">Step 2</h5><a name="wp1270439"></a>
+
+  <p class="pBody">Now you must prototype the function in the DLL. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532889"> </a>
+// Add-In function prototypes<a name="wp532891"> </a>
+//===============================================================<a name="wp532893"> </a>
+LPSTR Exported DAY(int x);<a name="wp532895"> </a>
+</pre>
+  </div><a name="wp532897"></a>
+
+  <p class="pBody">Now you must tell the DLL what to do when <code class="cCode">DAY</code> is called.</p><a name="wp1270449"></a>
+
+  <h5 class="pHeading4">Step 3</h5><a name="wp532899"></a>
+
+  <p class="pBody">Change the main function code area to appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532901"> </a>
+// MAIN FUNCTION CODE<a name="wp532903"> </a>
+//===============================================================<a name="wp532905"> </a>
+LPSTR Exported DAY(int x)<a name="wp532907"> </a>
+{<a name="wp532909"> </a>
+LPSTR st; <a name="wp532911"> </a>
+switch (x) { <a name="wp532913"> </a>
+case 1: <a name="wp532915"> </a>
+st="Sunday"; <a name="wp532917"> </a>
+break; <a name="wp532919"> </a>
+case 2: <a name="wp532921"> </a>
+st="Monday"; <a name="wp532923"> </a>
+break; <a name="wp532925"> </a>
+case 3: <a name="wp532927"> </a>
+st="Tuesday"; <a name="wp532929"> </a>
+break; <a name="wp532931"> </a>
+case 4: <a name="wp532933"> </a>
+st="Wednesday"; <a name="wp532935"> </a>
+break; <a name="wp532937"> </a>
+case 5: <a name="wp532939"> </a>
+st="Thursday"; <a name="wp532941"> </a>
+break; <a name="wp532943"> </a>
+case 6: <a name="wp532945"> </a>
+st="Friday"; <a name="wp532947"> </a>
+break; <a name="wp532949"> </a>
+case 7: <a name="wp532951"> </a>
+st="Saturday"; <a name="wp532953"> </a>
+break; <a name="wp532955"> </a>
+default: <a name="wp532957"> </a>
+st="Invalid Entry"; <a name="wp532959"> </a>
+break; <a name="wp532961"> </a>
+} <a name="wp532963"> </a>
+return st; <a name="wp532965"> </a>
+}<a name="wp532967"> </a>
+</pre>
+  </div><a name="wp532969"></a>
+
+  <h5 class="pHeading4">Step 4</h5><a name="wp1270456"></a>
+
+  <p class="pBody">Save this file as lesson08.cpp.</p><a name="wp1270463"></a>
+
+  <h5 class="pHeading4">Step 5</h5><a name="wp532971"></a>
+
+  <p class="pBody">Create your custom function. Refer to your compiler documentation for further information on making a DLL.</p><a name="wp1270467"></a>
+
+  <h5 class="pHeading4">Step 6</h5><a name="wp532973"></a>
+
+  <p class="pBody">Start Quattro Pro and type <code class="cCode">@LESSON08.DAY(1)</code> in any cell. The string <code class="cCode">"Sunday"</code> should
+  appear in the cell.</p>
+</body>
+</html>

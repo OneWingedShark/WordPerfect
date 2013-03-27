@@ -1,0 +1,1304 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Packet Data Formats: Prefix Packets 83-255</h2>
+    <p>Reserved packets may appear in a document prefix. Most of the strings in the packet
+    data are strings made up of short values. The high byte of the short value is the WP
+    character set number. The low byte of the short value is the character number. The strings
+    are null terminated with a short value unless otherwise specified.</p>
+    <hr />
+    <h3>Packet Type 83 (0x53)</h3>
+    <p><strong>Windows Data Store Directory</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 84 (0x54)</h3>
+    <p><strong>Windows Data Store Data</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 85 (0x55)</h3>
+    <p><strong>Desired Font Descriptor</strong></p>
+    <p>For further description of the primary family ID, scripting system, width, weight,
+    attributes, and so forth, see the documentation for Packet Type 32 (0x20), which has
+    the same format as this packet.</p>
+    <pre>
+[average character width (WPU)]
+[short ascender height (PSU)]
+[x height (PSU)]
+[descender height (PSU)]
+[italic adjust ()]
+[primary family ID]
+&lt;scripting system&gt;
+&lt;primary character set&gt;
+&lt;width (aspect ratio)&gt;
+&lt;weight&gt;
+&lt;attributes&gt;
+&lt;general characteristics&gt;
+&lt;classification&gt;
+&lt;fill byte&gt;
+&lt;font type&gt;
+&lt;font source file type&gt;
+[typeface name length] maximum 58
+&lt;typeface name&gt; x ? WP word string
+
+When no printer is selected, the default font descriptor is the following:
+
+[0x3C = average character width]
+&lt;0x1e14 = ascender height (77%)&gt;
+&lt;0x170C = x height&gt;
+&lt;0x0A8C = descender height&gt;
+&lt;0 = italic adj&gt;
+&lt;1 = Courier family ID&gt;
+&lt;1 = scripting system&gt;
+&lt;0 = primary character set (ASCII)&gt;
+&lt;0x70 = width (aspect ratio)&gt;
+&lt;0x60 = weight&gt;
+&lt;0 = attributes (normal)&gt;
+&lt;0x25 = general characteristics&gt;
+&lt;0 = serif classification&gt;
+&lt;0 = built-in font type&gt;
+&lt;0x10 = .PRS source&gt;
+&lt;0 = typeface name length for default descriptor&gt;
+&lt;typeface name = does not exist for default descriptor&gt;
+</pre>
+    <hr />
+    <h3>Packet Type 86 (0x56)</h3>
+    <p><strong>Merge File Type</strong></p>
+    <pre>
+[merge file type]
+  1 = primary document
+  2 = table secondary type merge document
+  4 = secondary merge type document
+</pre>
+    <hr />
+    <h3>Packet Type 87 (0x57)</h3>
+    <p><strong>Sound Clip</strong></p>
+    <pre>
+[number of child prefix IDs = 1]
+[child file packet PID (type=0x58)]
+&lt;sound clip type&gt;
+  0 = MIDI sound
+  1 = digital audio
+  others to be defined
+&lt;left volume&gt;  in units of dB
+&lt;right volume&gt;  in units of dB
+[sound clip description] x ?  null terminated
+</pre>
+    <p>Example 1:</p>
+    <p>Packet type 0x57 points to a child packet type 0x58 (Sound Clip Child Packet). This
+    child packet 0x58 contains a filename and may point to one or more child packets which
+    are also packet type 0x58. These child packets contain sound data.</p>
+    <p>Example 2:</p>
+    <p>Packet type 0x57 points to a child packet type 0x07 (Native Filename). This child
+    packet 0x07 contains a filename and may point to one or more child packets which are
+    packet type 0x6F (Graphics Data). These child packets contain sound data in this case.</p>
+    <p>Both of these examples are supported by WordPerfect.</p>
+    <hr />
+    <h3>Packet Type 88 (0x58)</h3>
+    <p><strong>Sound Clip Child Packet</strong></p>
+    <p>Contains a filename or a data packet. If this packet does not have any children,
+    the format is:</p>
+    <pre>
+[sound data filename] x ?  null terminated <em>or</em> &lt;sound data&gt; x ?
+
+If this packet does have children, the format is the following:
+
+[number of child IDs]
+  [ID 1 (type=0x58)] ID of child packet containing sound data
+  [ID 2 (type=0x58)] ID of child packet containing sound data
+  .. ..
+  [ID n (type=0x58)] last child ID containing sound data
+  [tag 1] tag flag for first child packet
+  [tag 2] tag flag for second child packet
+  .. ..
+  [tag n] last tag for last child ID
+[sound filename] x ?  null terminated
+
+Format for tag flags
+0x0001 = data being kept internal
+0x0010 = data being kept internal (hot link)
+0x0011 = data being kept internal (warm link)
+0x0012 = data being kept internal (cold link)
+</pre>
+    <hr />
+    <h3>Packet Type 89 (0x59)</h3>
+    <p><strong>Merge Associated Data File</strong></p>
+    <pre>
+[merge associated filename] x ?
+</pre>
+    <hr />
+    <h3>Packet Type 90 (0x5A)</h3>
+    <p><strong>Merge Addressbook</strong></p>
+    <p>[form file's associated addressbook tab name] x ? - Null terminated</p>
+    <hr />
+    <h3>Packet Type 91 (0x5B)</h3>
+    <p><strong>User Assistant Object Name</strong></p>
+    <p>&lt;&gt; - bit 1 is set if the object can be tabbed to in WP. No other bits currently
+    defined.<br />
+    [hash value = 2]<br />
+    [] x 255 - words name (WP word string)</p>
+    <hr />
+    <h3>Packet Type 92 (0x5C)</h3>
+    <p><strong>User Assistant Ordered Object List</strong></p>
+    <p>
+    <br />
+    &lt;UA flags&gt;<br />
+    &nbsp; bit 1: Set if this is a UA document&nbsp;<br />
+    &nbsp; bit 2: Set if the list is not complete.<br />
+    {duplicate name counter} - used to make all User Assistant names unique.&nbsp;<br />
+    If there is a duplicate name, the counter is appended to the name in the format {####},
+    then<br />
+    incremented.<br />
+    [size of node saved in the list] - The remainder of this packed is a representation
+    of the<br />
+    linked list of User Assistant nodes. This word has the size of each node.&nbsp; It is
+    followed by<br />
+    all of the nodes.</p>
+    <hr />
+    <h3>Packet Type 93 (0x5D)</h3>
+    <p><strong>User Assistant Data</strong></p>
+    <p>Reserved</p>
+    <hr />
+    <h3>Packet Type 94 (0x5E)</h3>
+    <p><strong>Prefix TimeStamp</strong></p>
+    <p>{dos date &amp; time}</p>
+    <p>{wp build}</p>
+    <p>{wp version}</p>
+    <hr />
+    <h3>Packet Type 95 (0x5F)</h3>
+    <p><strong>HTML Hypertext Target</strong></p>
+    <p>Target frame for html document link.</p>
+    <hr />
+    <h3>Packet Type 96 (0x60)</h3>
+    <p><strong>Floating cell Cell Name</strong></p>
+    <p>Holds floating cell name.</p>
+    <pre>
+[length of cell name packet]
+[count always = 0 for single cell packets]
+[cell name word string] x 21(max)  null terminated
+</pre>
+    <hr />
+    <h3>Packet Type 97 (0x61)</h3>
+    <p><strong>Table Names</strong></p>
+    <p>This packet holds one or more table names.</p>
+    <pre>
+[length of table names packet]
+[count of names which follow the table name]
+</pre>
+    <p>The count of names will be 0 if no data follows the table name. If count of names
+    is greater than zero, the structure data following the table exists. The data following
+    the table name is a repeating structure for names of cells, columns, rows, and blocks.</p>
+    <pre>
+[table name] x 21(max)  null terminated
+[length of this name structure]
+[reference name] x ?  null terminated
+[reference type]
+  1 = row
+  2 = column
+  3 = cell
+  4 = block
+</pre>
+    <p>The data which follows depends on the reference type.</p>
+    <p>Row Type (1):</p>
+    <pre>
+  [row number]
+</pre>
+    <p>Column Type (2):</p>
+    <pre>
+  [column number]
+</pre>
+    <p>Cell Type (3):</p>
+    <pre>
+  [row number of Cell]
+  [col number of Cell]
+</pre>
+    <p>Block Type (4):</p>
+    <pre>
+  [begin row number of block]
+  [begin col number of block]
+  [end row number of block]
+  [end col number of block]
+</pre>
+    <hr />
+    <h3>Packet Type 98 (0x62)</h3>
+    <p><strong>Page Number Format String</strong></p>
+    <pre>
+[page number format string] x ?
+</pre>
+    <hr />
+    <h3>Packet Type 99 (0x63)</h3>
+    <p><strong>Math Formulas for Columns</strong></p>
+    <pre>
+&lt;constants and operators&gt; x ?
+</pre>
+    <p><strong>Math Operators</strong></p>
+    <p>Data are stored in postfix or Reverse Polish Notation (RPN) order. All postfix math
+    rules apply. Operators are stored in the following WordPerfect-specific codes:</p>
+    <table border="1" width="92%" cellpadding="5">
+        <tr valign="top">
+            <td width="24%">
+                <strong>Operator</strong></td>
+            <td width="11%">
+            </td>
+            <td width="64%">
+                <strong>Code</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Add</td>
+            <td>
+                (+)</td>
+            <td>
+                1 (0x1)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Subtract</td>
+            <td>
+                ()</td>
+            <td>
+                2 (0x2)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Multiply</td>
+            <td>
+                (*)</td>
+            <td>
+                3 (0x3)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Divide</td>
+            <td>
+                (/)</td>
+            <td>
+                4 (0x4)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Negative</td>
+            <td>
+                ()</td>
+            <td>
+                5 (0x5)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Positive</td>
+            <td>
+                (+)</td>
+            <td>
+                6 (0x6)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Average</td>
+            <td>
+                (+/)</td>
+            <td>
+                7 (0x7)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Equal</td>
+            <td>
+                (=)</td>
+            <td>
+                8 (0x8)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                Average Totals</td>
+            <td>
+                (=/)</td>
+            <td>
+                9 (0x9)</td>
+        </tr>
+    </table>
+    <br />
+    <strong>Constants</strong>
+    <p>Each (decimal) digit of a constant is stored as a hexadecimal value in a nibble (4
+    bits, 2 nibbles per byte). The first nibble of the constant equals 12 (0xC) and marks
+    the beginning of the number. Following this nibble, each digit is stored as that digit
+    plus 1 [that is, 0 = 1 (0x1), 1 = 2 (0x2), 9 = 10 (0xA)] and occupies one nibble. If
+    the number occupies fewer than seven digits, a 15 (0xF) follows the last digit. A seven-digit
+    number has no 15 (0xF) value on the end. The 14 (0xE) value represents a decimal point.
+    WordPerfect puts 1 (0x1) into unused bytes that follow 15 (0xF), but these unused bytes
+    are not required to read the value of the constant. Examples are shown in the table
+    below.<br />
+    </p>
+    <table border="1" width="92%" cellpadding="5">
+        <tr valign="top">
+            <td width="23%">
+                <strong>Hex Bytes</strong></td>
+            <td width="76%">
+                <strong>Decimal Value</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                C2 3E 4F 01</td>
+            <td>
+                12.3</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                C1 F0 01 01</td>
+            <td>
+                0</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                C3 51 2F 00</td>
+            <td>
+                2,401 (in the last unused byte [2 nibbles], 00 is equivalent to 01)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                CA 11 11 11</td>
+            <td>
+                9,000,000</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                CE 42 71 F0</td>
+            <td>
+                .3160</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                C1 E4 27 1F</td>
+            <td>
+                0.3160</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                CA 9E 87 F0</td>
+            <td>
+                98.76</td>
+        </tr>
+    </table>
+    <br />
+    <hr />
+    <h3>Packet Type 100 (0x64)</h3>
+    <p><strong>Equation Compact Box</strong><br />
+    &lt;node type&gt;</p>
+    <pre>
+&lt;node contents&gt; x ?
+&lt;node type&gt;
+&lt;node contents&gt; x ?
+..
+..
+</pre>
+    <p><strong>Node types:</strong></p>
+    <pre>
+1 = attribute type  (size = 8)
+  [scale x]
+  [scale y]
+  [attributes]
+  [font index]
+    0 = base font
+    1 = super/sub font
+    2 = double super/sub font
+
+2 = box type  (size of fixed portion of box type = 5)
+  [x position (relative to equation box)]
+  [y position (relative to equation box)]
+  &lt;length of string&gt;
+  &lt;string&gt; x ?
+
+3 = font type  (three font descriptors, each 139 bytes long)
+  &lt;font descriptor for base font&gt; x 139
+  &lt;font descriptor for subscript/superscript font&gt; x 139
+  &lt;font descriptor for double subscript/superscript font&gt; x 139
+
+4 = diacritical type  (same as box but for diacritical chars)
+  [x position (relative to equation box)]
+  [y position (relative to equation box)]
+  &lt;length of string&gt;
+  &lt;string&gt; x ?
+
+5 = line type  (line type box for underline) (size = 8)
+  [x position (relative to equation box)]
+  [y position (relative to equation box)]
+  [width of box]
+  [height of box]
+</pre>
+    <hr />
+    <h3>Packet Type 101 (0x65)</h3>
+    <p><strong>Format before printing flag</strong></p>
+    <p>Used by WP formatter. Invalid in disk files. No information will be provided for
+    this packet.</p>
+    <hr />
+    <h3>Packet Type 102 (0x66)</h3>
+    <p><strong>Table Database</strong></p>
+    <p>Current table's database number packet</p>
+    <pre>
+[unique table ID] table creation count
+</pre>
+    <hr />
+    <h3>Packet Type 103 (0x67)</h3>
+    <p><strong>Floating Database Number Packet</strong></p>
+    <p>Floating cell's database number packet.</p>
+    <pre>
+[unique floating cell ID] floating cell creation count
+</pre>
+    <hr />
+    <h3>Packet Type 104 (0x68)</h3>
+    <p><strong>Shadow Database</strong></p>
+    <p>Shadow database storage packet. No information will be provided</p>
+    <hr />
+    <h3>Packet Type 105 (0x69)</h3>
+    <p><strong>Table Style</strong></p>
+    <p>The data in this packet will appear in the order shown below. Much of the data is
+    optional and exists only if a corresponding flag bit is set.<br />
+    <br />
+    [number of PIDs]</p>
+    <pre>
+  [table border ID] check bit 0 of [PID flags]
+  [table default lines IDs] check bit 1 of [PID flags]
+  [table border override line IDs] present for each [table border override line IDs flags] bit set
+  [default line override IDs] present for each [table default line IDs flags] bit set
+  [last row line IDs] present for each [last row border IDs flags] bit set 
+  [first column line IDs] present for each [first column border IDs flags] bit set
+  [last column line IDs]  present for each [last column border IDs flag]bit set
+  [header rows line IDs] check bit 0 of [header row flags] for each header row
+  [table fill ID] check bit 2 of [PID flags]
+  [table alternate fill ID] check bit 3 of [PID flags]
+  [last row fill ID] check bit 7 of [PID flags]
+  [first column fill ID] check bit 9 of [PID flags]
+  [last column fill ID] check bit 11 of [PID flags]
+  [header rows fill IDs] check bit 1 of [header row flags] for each header row
+[size of all of the following data] excluding this word
+[size of name information]
+&lt;name/library PID flags&gt; none currently defined.
+&lt;library management flags&gt;
+[length of table style name] negative number indicates predefined table style
+&lt;table style name&gt; x ? exists if length &gt; 0
+[size of rest of data] excluding this word
+[PID flags] border and fill PIDs exist if bit is set
+  bit 0: 1 = table border ID exists
+  bit 1: 1 = table default lines ID exists
+  bit 2: 1 = table fill ID exists
+  bit 3: 1 = table alternate fill ID exists
+  bit 4: 1 = table border override lines IDs exist
+  bit 5: 1 = default line override IDs exist
+  bit 6: 1 = last row line IDs exist
+  bit 7: 1 = last row fill ID exists
+  bit 8: 1 = first column line IDs exist
+  bit 9: 1 = first column fill ID exists
+  bit 10: 1 = last column line IDs exist
+  bit 11: 1 = last column fill ID exists
+  bit 12: 1 = drop shadow exists
+[override flags] border, fill, and format overrides exist if bit is set
+  bit 0: 1 = table border overrides exist
+  bit 1: 1 = default line overrides exist
+  bit 2: 1 = table fill overrides exist
+  bit 3: 1 = table alt. fill overrides exist
+  bit 4: 1 = last row line overrides exist
+  bit 5: 1 = last row fill overrides exist
+  bit 6: 1 = first column line overrides exist
+  bit 7: 1 = first column fill overrides exist
+  bit 8: 1 = last column line overrides exist
+  bit 9: 1 = last column fill overrides exist
+  bit 10: 1 = table format overrides exist
+  bit 11: 1 = last row format overrides exist
+  bit 12: 1 = first column format overrides exist
+  bit 13: 1 = last column format overrides exist
+[number of header rows]
+[starting header row number] zero based
+&lt;alternating fill flag&gt;
+  0 = no alternate fill
+  1 = rows
+  2 = columns
+  3 = both rows and columns
+[number of times to do primary fill]
+[number of times to do alternating fill]
+
+<em>The remaining data is present only if the associated flag bits are set.</em> 
+[table border override line IDs flags] check bit 4 of [PID flags]
+  bit 0: 1 = left line PID exists
+  bit 1: 1 = right line PID exists
+  bit 2: 1 = top line PID exists
+  bit 3: 1 = bottom line PID exists
+  bit 4: 1 = inside/separator line PID exists
+&lt;table border overrides&gt; x 6 check bit 0 of [override flags] (see <em>Border Override
+    Data</em> below)
+[table default line IDs flags] check bit 5 of [PID flags]
+  bit 0: 1 = left line PID exists
+  bit 1: 1 = right line PID exists
+  bit 2: 1 = top line PID exists
+  bit 3: 1 = bottom line PID exists
+  bit 4: 1 = inside/separator line PID exists
+&lt;table default line overrides&gt; x 6 check bit 1 of [override flags] (see <em>Border
+    Override Data</em>below)
+&lt;table fill overrides&gt; x 10 check bit 2 of [override flags] (see <em>Fill Override
+    Data</em> below)
+&lt;table alternate fill overrides&gt; x 10 check bit 3 of [override flags] (see Fill Override Data below)
+&lt;table format data&gt; x 11 check bit 10 of [override flags] (see <em>Format Data</em> below)
+&lt;drop shadow overrides&gt; x 7 check bit 12 of [PID flags] (see <em>Drop Shadow Data</em> below)
+[last row border IDs flags] check bit 6 of [PID flags]
+  bit 0: 1 = left line PID exists
+  bit 1: 1 = right line PID exists
+  bit 2: 1 = top line PID exists
+  bit 3: 1 = bottom line PID exists
+  bit 4: 1 = inside/separator line PID exists
+&lt;last row border overrides&gt; x 6 check bit 4 of [override flags] (see Border Override Data below)
+&lt;last row fill overrides&gt; x 10 check bit 5 of [override flags] (see <em>Fill Override
+    Data</em> below)
+&lt;last row format data&gt; x 11 check bit 11 of [override flags] (see <em>Format Data</em> below)
+[first column border IDs flags] check bit 8 of [PID flags]
+  bit 0: 1 = left line PID exists
+  bit 1: 1 = right line PID exists
+  bit 2: 1 = top line PID exists
+  bit 3: 1 = bottom line PID exists
+  bit 4: 1 = inside/separator line PID exists
+&lt;first column border overrides&gt; x 6 check bit 6 of [override flags] (see <em>Border
+    Override Data</em>below)
+&lt;first column fill overrides&gt; x 10 check bit 7 of [override flags] (see <em>Fill
+    Override Data </em>below)
+&lt;first column format data&gt; x 11 check bit 12 of [override flags] (see <em>Format
+    Data</em> below)
+[last column border IDs flags] check bit 10 of [PID flags]
+  bit 0: 1 = left line PID exists
+  bit 1: 1 = right line PID exists
+  bit 2: 1 = top line PID exists
+  bit 3: 1 = bottom line PID exists
+  bit 4: 1 = inside/separator line PID exists
+&lt;last column border overrides&gt; x 6 check bit 8 of [override flags] (see <em>Border
+    Override Data</em>below)
+&lt;last column fill overrides&gt; x 10 check bit 9 of [override flags] (see <em>Fill
+    Override Data</em>below)
+&lt;last column format data&gt; x 11 check bit 13 of [override flags] (see <em>Format
+    Data</em> below)
+</pre>
+    <p>The following flags word is included for each header row in the table. The flags
+    indicate what data exists after the flags word.</p>
+    <pre>
+[header row flags]
+  bit 0: 1 = border line IDs exist
+  bit 1: 1 = fill pattern ID exists
+  bit 2: 1 = border overrides exist
+  bit 3: 1 = fill overrides exist
+  bit 4: 1 = format data exists
+[line IDs flags] check bit 0 of [header row flags]
+[fill pattern PID] check bit 1 of [header row flags]
+&lt;border overrides&gt; x 6 check bit 2 of [header row flags] (see <em>Border Override
+    Data</em> below)
+&lt;fill overrides&gt; x 10 check bit 3 of [header row flags] (see <em>Fill Override
+    Data</em> below)
+&lt;format data&gt; x 11 check bit 4 of [header row flags] (see <em>Format Data</em> below)
+</pre>
+    <p><strong>Border Override Data</strong></p>
+    <pre>
+[use flags]
+  bit 0: red
+  bit 1: green
+  bit 2: blue
+  bit 3: shade
+&lt;border line override color (RGBS)&gt; x 4
+</pre>
+    <p><strong>Fill Override Data</strong></p>
+    <pre>
+[use flags]
+  bit 0: foreground
+  bit 1: background
+&lt;fill override foreground color (RGBS)&gt; x 4
+&lt;fill override background color (RGBS)&gt; x 4
+</pre>
+    <p><strong>Format Data</strong></p>
+    <pre>
+[use flags]
+  bit 0: attributes
+  bit 1: number type
+  bit 2: currency index
+  bit 3: justification
+  bit 4: join cells in row or column
+[attribute word 1]
+  bit 0: 1 = extra large
+  bit 1: 1 = very large
+  bit 2: 1 = large
+  bit 3: 1 = small print
+  bit 4: 1 = fine print
+  bit 5: 1 = superscript
+  bit 6: 1 = subscript
+  bit 7: 1 = outline
+  bit 8: 1 = italics
+  bit 9: 1 = shadow
+  bit 10: 1 = redline
+  bit 11: 1 = double underline
+  bit 12: 1 = bold
+  bit 13: 1 = strikeout
+  bit 14: 1 = underline
+  bit 15: 1 = small caps
+[attribute word 2]
+  bit 0: 1 = blink
+  bit 1: 1 = reverse video
+[number type]
+  bits 0-3: number of digits to display after decimal point or date index information
+  bit 4: 1 = display with commas
+  bit 5: rounding
+    0 = use full precision in calculations
+    1 = use displayed precision
+  bits 6-7: negative numbers
+    0 = '-' (use minus sign)
+    1 = ( )  (use parentheses)
+    2 = CR/DR (use credit/debit symbols)
+    3 = not defined
+  bits 8-11: standard formats
+    0 = general
+    1 = integer
+    2 = fixed
+    3 = percent
+    4 = currency
+    5 = accounting
+    6 = commas
+    7 = scientific
+    8 = date
+    9 = text
+  bit 12: 1 = text
+  bit 13: 1 = set currency symbol on
+  bits 14-15: notation
+    0 = floating point
+    1 = scientific
+    2 = fixed
+    3 = not defined
+&lt;currency symbol index&gt;
+  bits 0-6: index of the desired currency, default = 0
+  bit 7: alignment
+[justification]
+  0 = left
+  1 = full
+  2 = center
+  3 = right
+  4 = all (kinto waritsuke)
+  5 = decimal align
+</pre>
+    <p><strong>Drop Shadow Data</strong></p>
+    <pre>
+&lt;drop shadow flag&gt;
+  0 = no drop shadow
+  1 = upper left corner
+  2 = lower left corner
+  3 = lower right corner
+  4 = upper right corner
+[drop shadow spacing]
+&lt;drop shadow color (RGBS)&gt; x 4
+</pre>
+    <hr />
+    <h3>Packet Type 106 (0x6A)</h3>
+    <p><strong>HTML Table Data</strong></p>
+    <p>The HTML Table Data prefix packet will contain one or more of the following. The
+    format is ID byte is followed by data as indicated</p>
+    <pre>
+&lt;table info ID&gt;
+  0 = Terminator
+  1 = Table Border
+  2 = Cell Border
+  3 = Cell Margin
+  4 = TableWidth
+  5 = Vertical Alignment
+
+  if ID is 1:
+    {border size in pixels}
+    &lt;null terminator&gt;
+
+  if ID is 2:
+    {border size in pixels}
+    &lt;null terminator&gt;
+
+  if ID is 3:
+    {margin size in pixels}
+    &lt;null terminator&gt;
+
+  if ID is 4:
+    &lt;table width value flag&gt;
+       0 = Not Set
+       1 = WPUs
+       2 = Pixels
+       3 = Percent
+    {table width value based on flag}
+    &lt;null terminator&gt;
+
+  if ID is 5:
+    &lt;table height value flag&gt;
+      0 = Not Set
+      1 = WPUs
+      2 = Pixels
+      3 = Percent
+    {table height value based on flag}
+    &lt;null terminator&gt;
+
+  if ID is 6:
+    &lt;table vertical alignment value flag&gt;
+      0 = Default
+      1 = Top
+      2 = Center
+      3 = Bottom
+      4 = Baseline
+    {table vertical align value based on flag}
+    &lt;null terminator&gt;
+</pre>
+    <hr />
+    <h3>Packet Type 107 (0x6B)</h3>
+    <p><strong>HTML Table Row Data</strong></p>
+    <p>The HTML Table Cell prefix packet will contain one or more of the following. The
+    format is ID byte is followed by data as indicated</p>
+    <pre>
+&lt;cell info ID&gt;
+  40 = Cell Width
+  41 = Cell Height
+  42 = Cell Header
+  43 = Cell NoWrap
+
+  if ID is 40:
+    &lt;cell width value flag&gt;
+      0 = Not Set
+      1 = WPUs
+      2 = Pixels
+      3 = Percent
+    {cell width value based on flag}
+    &lt;null terminator&gt;
+
+  if ID is 41:
+    &lt;cell height value flag&gt;
+      0 = Not Set
+      1 = WPUs
+      2 = Pixels
+      3 = Percent
+    {cell height value based on flag}
+    &lt;null terminator&gt;
+
+  if ID is 42:
+    Reserved
+
+  if ID is 43:
+    Reserved
+</pre>
+    <hr />
+    <h3>Packet Type 108 (0x6C)</h3>
+    <p><strong>HTML Table Cell Data</strong></p>
+    <p>Reserved</p>
+    <hr />
+    <h3>Packet Type 109 (0x6D)</h3>
+    <p><strong>World Wide Web</strong><br />
+    </p>
+    <pre>
+[number of PIDs = 2]
+[base URL PID (type=0x07)]
+[background image URL PID (type=0x07)]
+[flags]
+  bit 0: 1 = document is an Internet Publisher Document
+  bit 1:
+    0 = use first heading in document for HTML title
+    1 = use Document Summary Descriptive Name for HTML title
+&lt;text color (RGB)&gt;
+&lt;hypertext color (RGB)&gt;
+&lt;visited hypertext color (RGB)&gt;
+&lt;active hypertext color (RGB)&gt;
+&lt;background color (RGB)&gt;
+</pre>
+    <hr />
+    <h3>Packet Type 110 (0x6E)</h3>
+    <p><strong>Conversion Font Descriptor</strong></p>
+    <p>5.<em>x</em> and 6.<em>x</em> fonts which are used only for conversion purposes are
+    stored. The equivalent 5.<em>x</em>packet is 0x30. When a document is converted from
+    6.<em>x</em> to 5.<em>x</em>, the native 6.0 fonts are stored in 0x30 packets. When
+    a document is converted from 5.<em>x</em> to 6.<em>x</em>, then the native 5.x fonts
+    are stored in packet type 0x6E. This packet type was first used in 6.0a for Windows
+    and 6.0b for DOS.</p>
+    <hr />
+    <h3>Packet Type 111 (0x6F)</h3>
+    <p><strong>Graphics Cached File Data</strong></p>
+    <p>Contains WPG cached file contents. See the <em>Graphics File Format</em> documentation
+    for details of the graphic format.</p>
+    <hr />
+    <h3>Packet Type 112 (0x70)</h3>
+    <p><strong>OLE Object Descriptor</strong><br />
+    </p>
+    <pre>
+&lt;marker&gt; x 44 
+     "WPWin7.0/OLE 2.0 Prefix Information Marker"
+     "WPWin6.0/OLE 1.0 Prefix Information Marker"
+
+{version} = 3 for WordPerfect 7
+[extra data] =  (boolean) True if data follows
+[reserved]
+[link options]
+     0 - Always
+     1 - OnSave
+     2 - OnCall
+     3 - OnClose
+[reserved]
+{pfxFlags}
+     0 - none
+     1 - empty
+     2 - icon
+     4 - link broken
+{Object Number} -  zero based
+[null-terminated wordstring] x ?
+     If Ole 2, wordstring will be 7-8 characters and the null terminator indicating the ole stream.
+     If Ole 1, contains all Ole 1 data (any size).
+</pre>
+    <hr />
+    <h3>Packet Type 113 (0x71)</h3>
+    <p><strong>OLE Object Data</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 114 (0x72)</h3>
+    <p><strong>File Theta</strong></p>
+    <p>Theta associated with this file. No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 115 (0x73)</h3>
+    <p><strong>DDE Link Information</strong></p>
+    <p>This packet will have at least one child packet defined. Any child packets will have
+    a tag flag defining the platform of the DDE Data packet. All windows platforms use the
+    Windows platform tag (0x9800).<br />
+    </p>
+    <pre>
+[count (n) of child PIDs]
+[child PID] x n PID for each child packet
+[tag flags] x n platform private tag for each child packet
+  0x8000 = DG
+  0x8400 = Macintosh
+  0x8800 = NeXT
+  0x8C00 = PC (MS-DOS)
+  0x9000 = UNIX
+  0x9400 = VAX
+  0x9800 = Windows
+  0x9C00 = IBM 370
+  0xA000 = OLE
+[filename] x ? null-terminated word string defining the user name of the DDE link
+</pre>
+    <hr />
+    <h3>Packet Type 116 (0x74)</h3>
+    <p><strong>DDE Link Data</strong></p>
+    <pre>
+&lt;link storage and update options&gt;
+  bit 0: 1 = text (bits 0 and 1 are mutually exclusive)
+  bit 1: 1 = graphics
+  bit 2: must be 0
+  bit 3: must be 0
+  bit 4: 1 = manual (bits 4 and 5 are mutually exclusive)
+  bit 5: 1 = automatic
+  bit 6: must be 0
+  bit 7: must be 0
+[default format for link]
+{date time stamp (seconds)} reserved, set to NULL.
+[date time stamp (year)] reserved, set to NULL.
+[link name] x 128 This null-terminated string should be the same as the filename in packet type 116 (0x73).
+&lt;link source&gt; x 384 This null-terminated string should contain the server application, topic and item names. 
+The names are to be separated by a vertical bar (|) such as server|topic|item.
+&lt;link source document name&gt; x 64 null-terminated string
+
+The [default format for link] (DFL) and &lt;link source document name&gt; (LSDN) items are mutually exclusive. If
+the format is predefined, the DFL should be the predefined constant. If the format is not defined, the LSDN
+should have the name that would be returned from the Windows API function GetClipboardFormatName( ). If the
+format is unknown, then the DFL should be 0 and the LSDN a null string. WordPerfect will then negotiate the
+preferred format type when the document is loaded the first time.
+</pre>
+    <hr />
+    <h3>Packet Type 117 (0x75)</h3>
+    <p><strong>Template Description</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 118 (0x76)</h3>
+    <p><strong>Macintosh Specific Data</strong></p>
+    <p>No documentation will be provided for this packet.</p>
+    <hr />
+    <h3>Packet Type 119 (0x77)</h3>
+    <p><strong>Formatter Undo State</strong></p>
+    <pre>
+[undo levels] number of undos in document
+[redo levels] number of redos in document (The structures for redos are the same as the undos, but will start
+after the last undo index.)
+</pre>
+    <pre>
+The next 6 bytes are repeated for each undo and redo level.
+</pre>
+    <pre>
+[undo level]  level number at this index
+[undo count] number of undos at this level
+[undo token] token that triggered this undo (margin change, text, and so forth)
+</pre>
+    <hr />
+    <h3>Packet Type 120 (0x78)</h3>
+    <p><strong>Font PS table for WP6.0</strong></p>
+    <p>No information will be provided.</p>
+    <hr />
+    <h3>Packet Type 121 (0x79)</h3>
+    <p><strong>Font List</strong></p>
+    <p>List of matched fonts used in document.</p>
+    <hr />
+    <h3>Packet Type 122 (0x7A)</h3>
+    <p><strong>PS Table IDs</strong></p>
+    <p>PS table prefix id Packet.</p>
+    <hr />
+    <h3>Packet Type 123 (0x7B)</h3>
+    <p><strong>Swapped Style Undo</strong></p>
+    <p>This packet is the same format as Normal Style packet type 0x30. It is used to undo
+    a style change.</p>
+    <hr />
+    <h3>Packet Type 124 (0x7C)</h3>
+    <p><strong>OBEX ID</strong><br />
+    <br />
+    ID string for export of OBEX data.</p>
+    <pre>
+{0xFFFFFFFF} region ID for the whole document
+&lt;Obex object ID&gt; x ? null-terminated ANSI string format
+</pre>
+    <hr />
+    <h3>Packet Type 125 (0x7D)</h3>
+    <p><strong>HTML Data for Specific Tags</strong></p>
+    <p>[HTML Tag ID] - The first two bytes of this prefix packet will contain the HTML tag
+    identifier found in the function code (0xD45E). Based on the HTML tag id the following
+    data will follow:</p>
+    <pre>
+    0 - ID undefined
+      [Pixel width of the tag]
+      [Pixel height of the tag]
+      GENERIC - complete contents of the tag
+        &lt;id = 0&gt;
+        [length of name in bytes]
+        &lt;data&gt; - WP Characters containing tag information 
+      TERMINATOR - no more data in this packet
+        &lt;value = 255&gt;
+    1 - Form begin code
+      &lt;Method&gt;
+        1 = Get
+        2 = Post
+      URL - (optional) URL to post to
+        &lt;ID = 3&gt;
+        [length of URL in bytes]
+        &lt;URL text&gt; 
+      MIME - (optional) Mime to use
+        &lt;ID = 4&gt;
+        [length of mime in bytes]
+        &lt;mime text&gt; 
+      TERMINATOR - no more data in this packet
+        &lt;value = 255&gt;
+    2 - Form end code
+      No prefix associated with this tag.
+    3 - Form checkbox
+      &lt;initial state&gt;
+        0 = Unchecked
+        1 = Checked
+      NAME - name of the input field
+        &lt;ID = 1&gt;
+        [length of name in bytes]
+        &lt;name in WP character format&gt;
+      VALUE - (optional) value of the field
+        &lt;ID = 2&gt;
+        [length of value in bytes]
+        &lt;value in WP character format&gt;
+      TERMINATOR - no more data in this packet
+        &lt;value = 255&gt;
+    4 - Form radio button
+      &lt;initial state&gt;
+        0 = Not Selected
+        1 = Selected
+      NAME - name of the input field
+        &lt;ID = 1&gt;
+        [length of name in bytes]
+        &lt;name in WP character format&gt;
+      VALUE - value of the input field
+        &lt;ID = 2&gt;
+        [length of value in bytes]
+        &lt;value in WP character format&gt;
+      TERMINATOR - no more data in this packet
+        &lt;value = 255&gt;
+    5 - Form hidden field
+      NAME - name of the input field
+        &lt;ID = 1&gt;
+        [length of name in bytes]
+        &lt;name in WP character format&gt;
+      VALUE - value of the input field
+        &lt;ID = 2&gt;
+        [length of value in bytes]
+        &lt;value in WP character format&gt;
+      TERMINATOR - no more data in this packet
+        &lt;value = 255&gt;
+    6 - Form image submit button
+       &lt;alignment&gt; - Note: 3 through 8 are Netscape specific
+         0 = Top
+         1 = Middle
+         2 = Bottom
+         3 = Left
+         4 = Right
+         5 = Baseline
+         6 = TexTtop
+         7 = AbsMiddle
+         8 = AbsBottom
+       NAME - name of the input field
+         &lt;ID = 1&gt;
+         [length of name in bytes]
+         &lt;name in WP character format&gt;
+       URL OR URN source of the image
+         &lt;ID = 3&gt;
+         [length of URL in bytes]
+         &lt;URL text&gt; 
+       TERMINATOR - no more data in this prefix packet
+        &lt;value = 255&gt;
+    7 - Form password field
+       [maximum number of characters that can be entered]
+       [size of the displayable field in characters]
+       NAME - name of the input field
+         &lt;ID = 1&gt;
+         [length of name in bytes]
+         &lt;name in WP character format&gt;
+       VALUE - (optional) initial value of the input field
+         &lt;ID = 2&gt;
+         [length of value in bytes]
+         &lt;value in WP character format&gt;
+       TERMINATOR - no more data in this prefix packet
+        &lt;value = 255&gt;
+    8 - Form reset button
+       Note: Prefix packet will only exist if the user has set the value.
+       VALUE - text to be displayed on button
+         &lt;ID = 2&gt;
+         [length of value in bytes]
+         &lt;value in WP character format&gt;
+       TERMINATOR - no more data in this prefix packet
+        &lt;value = 255&gt;
+    9 - Form submit button
+       NAME - name of the field
+         &lt;ID = 1&gt;
+         [length of name in bytes]
+         &lt;name in WP character format&gt;
+       VALUE - (optional) text to be displayed on the button
+         &lt;ID = 2&gt;
+         [length of value in bytes]
+         &lt;value in WP character format&gt;
+       URL (optional) - image to be displayed rather than a button
+         &lt;ID = 3&gt;
+         [length of URL in bytes]
+         &lt;URL text&gt; 
+       TERMINATOR - no more data in this prefix packet
+        &lt;value = 255&gt;
+   10 - Form text field, single line
+       [number of rows]
+       [number of columns]
+       [maximum number of characters]
+       &lt;wrapping&gt;
+         0 = off
+         1 = virtual
+         2 = physical
+       NAME - name of the field
+         &lt;ID = 1&gt;
+         [length of name in bytes]
+         &lt;name in WP character format&gt;
+       VALUE - (optional) initial value of the field
+         &lt;ID = 2&gt;
+         [length of value in bytes]
+         &lt;value in WP character format&gt;
+       TERMINATOR - no more data in this prefix packet
+        &lt;value = 255&gt;
+   11 - Form text area, multiple line
+   12 - Form select listbox
+       [size of the list (number of items displayed)]
+       &lt;multiple selection flag&gt;
+          0 = single
+          1 = multiple selection
+       NAME - name of the field
+         &lt;ID = 1&gt;
+         [length of name in bytes]
+         &lt;name in WP character format&gt;
+       OPTION - first option
+         &lt;ID = 5&gt;
+         [length of the option text in bytes]
+         &lt;option name in WP character format&gt;
+         &lt;option selection state&gt;
+            0 = no
+            1 = yes
+       VALUE - (optional) value to be returned for the first item
+         &lt;ID = 2&gt;
+         [length of value in bytes]
+         &lt;value in WP character format&gt;
+       ...
+       ...
+       ...
+       OPTION - last option
+         &lt;ID = 5&gt;
+         [length of the option text in bytes]
+         &lt;option name in WP character format&gt;
+         &lt;option selection state&gt;
+            0 = no
+            1 = yes
+       VALUE - (optional ) value to be returned for the last option
+         &lt;ID = 2&gt;
+         [length of value in bytes]
+         &lt;value in WP character format&gt;
+       TERMINATOR - no more data in this prefix packet
+        &lt;value = 255&gt;
+   13 - Java Applet
+       [Pixel width of applet]
+       [Pixel height of applet]
+       [Pixel white space above and below the applet]
+       [Pixel white space left and right of the applet]
+       &lt;Alignment&gt;
+         0 = Top
+         1 = Middle
+         2 = Bottom
+         3 = Left
+         4 = Right
+         5 = Baseline
+         6 = TextTop
+         7 = AbsMiddle
+         8 = AbsBottom
+       CODE - Java code to run for the applet
+         &lt;ID = 7&gt;
+         [length of code script in bytes]
+         &lt;name of code script in WP character format&gt;
+       URL - (optional) Code base for the code, specifies location
+         &lt;ID = 3&gt;
+         [length of URL in bytes]
+         &lt;URL text&gt; 
+       ALTERNATE - (optional) Alternate text to display if the browser doesn't support Java
+         &lt;ID = 7&gt;
+         [length of alternate text in bytes]
+         &lt;alternate text in WP character format&gt;
+       NAME - (optional) identifies the applet to other applets
+         &lt;ID = 1&gt;
+         [length of name in bytes]
+         &lt;name in WP character format&gt;
+       PARAMETER - (optional) identifier for the applet, must be followed by VALUE, containing the value for
+the parameter
+         VALUE - value of the parameter
+            &lt;ID = 2&gt;
+            [length of value in bytes]
+            &lt;value in WP character format&gt;
+       GENERIC - (optional) contains alternate HTML text to display instead of the applet, when the browser
+does not support Java.
+         &lt;id = 0&gt;
+         [length of name in bytes]
+         &lt;data&gt; - WP Characters containing tag information
+       TERMINATOR - no more data in this prefix packet
+        &lt;value = 255&gt;
+   14 - Marquee
+      [Pixel width of the marquee]
+      [Pixel height of the marquee]
+      [Pixel white space above and below the applet]
+      [Pixel white space left and right of the applet]
+      &lt;Alignment&gt;
+        0 = Top
+        1 = Middle
+        2 = Bottom
+      &lt;Behavior&gt;
+        0 = Scroll
+        1 = Slide
+        2 = Alternate
+      &lt;Direction&gt;
+        0 = Left
+        1 = Right
+      [Loop] - number of times to loop, -1 = infinite
+      [Scroll amount] - number of pixels to move after each draw
+      {Scroll delay} - number of milliseconds to delay after each draw
+      COLOR - (optional) background color of the marquee
+        &lt;ID = 9&gt;
+        &lt;RGB flag&gt;
+           0 = RGB
+           1 = Color name
+           2 = both
+           If RGB flag is 0
+             &lt;extra color byte&gt;
+             &lt;Red value&gt;
+             &lt;Green value&gt;
+             &lt;Blue value&gt;
+           If RGB flag is 1
+             [Length of color name in bytes]
+             &lt;name of the color in WP character format&gt;
+           If RGB flag is 2 then the prefix will contain both of the above.
+      GENERIC - text to display in the marquee
+        &lt;id = 0&gt;
+        [length of name in bytes]
+        &lt;data&gt; - WP Characters containing tag information
+      TERMINATOR - no more data in this prefix packet
+        &lt;value = 255&gt;
+   15 - Image map
+      NAME - name of the map
+        &lt;ID = 1&gt;
+        [length of name in bytes]
+        &lt;name in WP character format&gt;
+      AREA - the first area defined for the map
+       &lt;ID = 10&gt;
+       &lt;shape&gt;
+         0 = Rectangle
+         1 = Polygon
+         2 = Circle
+           If the shape id is 0
+             [left coordinate]
+             [top coordinate]
+             [right coordinate]
+             [bottom coordinate]
+           If the shape id is 1
+             [Total sides]
+             [X position] - coordinate 1
+             [Y position] - coordinate 1
+             ...
+             ...
+             ...
+             [X position] - coordinate <em>n</em>
+             [Y position] - coordinate <em>n</em>
+           If the shape id is 2
+             [X position of the circle center]
+             [Y position of the circle center]
+             [radius or the circle]
+        Note: Following each shape data will be the URL reference
+             [length of URL in bytes]
+             &lt;URL reference in WP character format&gt;
+      ..
+      ..
+      ..
+      AREA - the last area defined for the map
+        &lt;ID = 10&gt;
+        &lt;shape&gt;
+          0 = Rectangle
+          1 = Polygon
+          2 = Circle
+            If the shape id is 0
+              [left coordinate]
+              [top coordinate]
+              [right coordinate]
+              [bottom coordinate]
+            If the shape id is 1
+              [Total sides]
+              [X position] - coordinate 1
+              [Y position] - coordinate 1
+              ...
+              ...
+              ...
+              [X position] - coordinate <em>n</em>
+              [Y position] - coordinate <em>n</em>
+            If the shape id is 2
+              [X position of the circle center]
+              [Y position of the circle center]
+              [radius or the circle]
+        Note: Following each shape data will be the URL reference
+              [length of URL in bytes]
+              &lt;URL reference in WP character format&gt;
+        TERMINATOR - no more data in this prefix packet
+          &lt;value = 255&gt;
+</pre>
+    <hr />
+    <h3>Packet Type 126 (0x7E)</h3>
+    <p><strong>HTML Information</strong></p>
+    <p>HTML tag specific information</p>
+    <hr />
+    <h3>Packet Type 127 (0x7F)</h3>
+    <p><strong>Compatibility Data</strong></p>
+    <p>Formatting compatibility option data.</p>
+    <hr />
+    <h3>Packet (0x80) - Packet (0xDF)</h3>
+    <p>Reserved for the DOS setting file</p>
+    <hr />
+    <h3>Packet (0xE0) - Packet (0xFF)</h3>
+    <p>Reserved for WPWin</p>
+</body>
+</html>

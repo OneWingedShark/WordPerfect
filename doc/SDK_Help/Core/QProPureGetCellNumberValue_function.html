@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProPureGetCellNumberValue function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProPureERR_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProPureGetCellStringValue_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "PUREtype_functions_added_in_Corel_Quattro_Pro_1.html">PURE-type functions added in Quattro Pro 1</a> : QProPureGetCellNumberValue function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1279330"></a>
+
+  <h4 class="pHeading3">QProPureGetCellNumberValue function</h4><a name="wp1279331"></a>
+
+  <p class="pBody">This function extracts a number from a cell, given a reference handle and row/column/page offsets.</p><a name="wp1279332"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+Double QProPureGetCellNumberValue(<a name="wp1279333"> </a>
+RefHandle RH,<a name="wp1279334"> </a>
+UINT RowOffset,<a name="wp1279335"> </a>
+UINT ColOffset,<a name="wp1279336"> </a>
+UINT SheetOffset);<a name="wp1279337"> </a>
+</pre>
+  </div><a name="wp1279338"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1279356"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1279341"></a>
+
+          <p class="pBody"><code class="cCode">RH</code></p>
+        </td>
+
+        <td>
+          <a name="wp1279343"></a>
+
+          <p class="pBody">Specifies the handle to three-dimensional range passed to DLL function</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279345"></a>
+
+          <p class="pBody"><code class="cCode">RowOffset</code></p>
+        </td>
+
+        <td>
+          <a name="wp1279347"></a>
+
+          <p class="pBody">Specifies the non-negative row offset into three-dimensional range</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279349"></a>
+
+          <p class="pBody"><code class="cCode">ColOffset</code></p>
+        </td>
+
+        <td>
+          <a name="wp1279351"></a>
+
+          <p class="pBody">Specifies the non-negative column offset into three-dimensional range</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1279353"></a>
+
+          <p class="pBody"><code class="cCode">SheetOffset</code></p>
+        </td>
+
+        <td>
+          <a name="wp1279355"></a>
+
+          <p class="pBody">Specifies the non-negative sheet offset into three-dimensional range</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1279357"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1279358"></a>
+
+  <p class="pBody">This function returns the value of the specified cell and returns <code class="cCode">0</code> if the cell is non-numeric.</p><a name=
+  "wp1279359"></a>
+
+  <h5 class="pHeading4">Samples</h5><a name="wp1279361"></a>
+
+  <p class="pBody">For an example, please see "<a href="Lesson_7_Using_blocks.html#wp532731">Lesson 7: Using blocks</a><a href=
+  "Creating_QP_Add-in_DLLs.html#wp532095">" in the Quattro Pro Add-in DLL tutorial</a>.</p>
+</body>
+</html>

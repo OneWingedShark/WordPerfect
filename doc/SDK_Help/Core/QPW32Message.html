@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Understanding QPW32Message</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DLL_templates_and_the_NPE.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Structures_types_enums.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Quattro_Pro_Add-ins.html">Understanding
+        Quattro Pro Add-ins</a> : Understanding QPW32Message</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1272320"></a>
+
+  <h4 class="pHeading3">Understanding QPW32Message</h4><a name="wp1272321"></a>
+
+  <p class="pBody"><code class="cCode">QPW32Message</code> is used by Quattro Pro to communicate with the DLL. The following example is from
+  qshell.cpp.</p><a name="wp1271594"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+     BOOL Exported QPW32Message(<a name="wp1271595"> </a>
+          QPWMsg    msg,<a name="wp1271596"> </a>
+          UINT      wParam,<a name="wp1271597"> </a>
+          DWORD     lParam );<a name="wp1271598"> </a>
+</pre>
+  </div><a name="wp1271599"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1272877"></a>
+
+  <p class="pBody">The parameters for <code class="cCode">QPW32Message</code> are as follows:</p><a name="wp1271613"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1271602"></a>
+
+          <p class="pBody"><code class="cCode">Message</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271604"></a>
+
+          <p class="pBody">Provides a message sent from Quattro Pro to <code class="cCode">QPW32Message</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271606"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271608"></a>
+
+          <p class="pBody">Specifies the <code class="cCode">UINT</code> value associated with the message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1271610"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1271612"></a>
+
+          <p class="pBody">Specifies the <code class="cCode">LONG</code> value associated with the message. <code class="cCode">lParam</code> is a pointer to a
+          <code class="cCode">DLLInfo</code> structure.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1271614"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1271615"></a>
+
+  <p class="pBody"><code class="cCode">TRUE</code> must be returned if the message is handled. Otherwise, <code class="cCode">FALSE</code> is
+  returned.</p><a name="wp1271616"></a>
+
+  <h5 class="pHeading4">Example</h5><a name="wp1272885"></a>
+
+  <p class="pBody">Here is an example:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+     BOOL Exported QPW32Message(QPWMsg msg, UINT, DWORD lParam)<a name="wp1271617"> </a>
+     {<a name="wp1271618"> </a>
+          LPDLLInfo pDLL = (LPDLLInfo)lParam;<a name="wp1271619"> </a>
+          switch (msg)<a name="wp1271620"> </a>
+          {<a name="wp1271621"> </a>
+               case QPWMSG_Init:<a name="wp1271622"> </a>
+               case QPWMSG_Term:<a name="wp1271623"> </a>
+                    break;<a name="wp1271624"> </a>
+               case QPWMSG_Info:<a name="wp1271625"> </a>
+                    pDLL-wVersion = QProInterfaceVersion;<a name="wp1271626"> </a>
+                    pDLL-wSDSSize = sizeof(SelfDefStructure);<a name="wp1271627"> </a>
+                    pDLL-pSDS = &amp;Functions[0];<a name="wp1271628"> </a>
+                    return TRUE;<a name="wp1271629"> </a>
+          }<a name="wp1271630"> </a>
+          return FALSE;<a name="wp1271631"> </a>
+     }<a name="wp1271632"> </a>
+</pre>
+  </div>
+</body>
+</html>

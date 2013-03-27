@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidBBarShowWindow function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidBBarSetBtnInfo.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidButtonBarSave.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Toolbars.html">Creating toolbars</a> : WpidBBarShowWindow
+        function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553637"></a>
+
+  <h4 class="pHeading3">WpidBBarShowWindow function</h4><a name="wp553639"></a>
+
+  <p class="pBody">The <code class="cCode">WpidBBarShowWindow</code> function displays or hides the toolbar. It should be used in place of the Microsoft
+  Windows function <code class="cCode">ShowWindow(&nbsp;)</code>.</p><a name="wp553641"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL SHAPI WpidBBarShowWindow (  <a name="wp553643"> </a>
+HWND hwndBBar,  <a name="wp553645"> </a>
+int nCmdShow); <a name="wp553647"> </a>
+</pre>
+  </div><a name="wp553649"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp553652"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp524103"></a>
+
+          <p class="pBody"><code class="cCode">hwndBBar</code></p>
+        </td>
+
+        <td>
+          <a name="wp524105"></a>
+
+          <p class="pBody">Specifies the handle to a toolbar window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524111"></a>
+
+          <p class="pBody"><code class="cCode">nCmdShow</code></p>
+        </td>
+
+        <td>
+          <a name="wp524113"></a>
+
+          <p class="pBody">Specifies <code class="cCode">SW_SHOW</code> or <code class="cCode">SW_HIDE</code></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553654"></a>
+
+  <h5 class="pHeading4">Return value</h5><a name="wp553656"></a>
+
+  <p class="pBody">The return value is non-zero if successful. Otherwise, zero is returned.</p>
+</body>
+</html>

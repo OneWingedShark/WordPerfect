@@ -1,0 +1,1278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Single-Byte Characters and Functions</h2>
+    <p>This section provides information on single-byte characters and functions.</p>
+    <hr />
+    <h3>Single-Byte Characters</h3>
+    <p>The character 0 (0x00) is always deleted. All values from 1 to 127 are characters
+    that can be mapped to WP extended characters.</p>
+    <p><strong>Default Extended International Characters</strong></p>
+    <p>Default Extended International Characters, which are mapped from 1 to 32, are shown
+    below.</p>
+    <table border="1" width="98%" cellpadding="5">
+        <tr valign="top">
+            <td width="19%">
+                <strong>Dec (Hex)</strong></td>
+            <td width="81%">
+                <strong>Character</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1 (0x01)</td>
+            <td>
+                &aring; (1,35)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2 (0x02)</td>
+            <td>
+                &Aring; (1,34)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3 (0x03)</td>
+            <td>
+                &aelig; (1,37)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4 (0x04)</td>
+            <td>
+                &AElig; (1,36)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5 (0x05)</td>
+            <td>
+                &auml; (1,31)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6 (0x06)</td>
+            <td>
+                &Auml; (1,30)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7 (0x07)</td>
+            <td>
+                &aacute; (1,27)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8 (0x08)</td>
+            <td>
+                &agrave; (1,33)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9 (0x09)</td>
+            <td>
+                &acirc; (1,29)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                10 (0x0A)</td>
+            <td>
+                &atilde; (1,77)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                11 (0x0B)</td>
+            <td>
+                &Atilde; (1,76)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                12 (0x0C)</td>
+            <td>
+                &ccedil; (1,39)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                13 (0x0D)</td>
+            <td>
+                &Ccedil; (1,38)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                14 (0x0E)</td>
+            <td>
+                &euml; (1,45)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                15 (0x0F)</td>
+            <td>
+                &eacute; (1,41)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                16 (0x10)</td>
+            <td>
+                &Eacute; (1,40)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                17 (0x11)</td>
+            <td>
+                &egrave; (1,47)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                18 (0x12)</td>
+            <td>
+                &ecirc; (1,43)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                19 (0x13)</td>
+            <td>
+                &iacute; (1,49)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                20 (0x14)</td>
+            <td>
+                &ntilde; (1,57)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                21 (0x15)</td>
+            <td>
+                &Ntilde; (1,56)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                22 (0x16)</td>
+            <td>
+                &oslash; (1,81)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                23 (0x17)</td>
+            <td>
+                &Oslash; (1,80)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                24 (0x18)</td>
+            <td>
+                &otilde; (1,83)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                25 (0x19)</td>
+            <td>
+                &Otilde; (1,82)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                26 (0x1A)</td>
+            <td>
+                &ouml; (1,63)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                27 (0x1B)</td>
+            <td>
+                &Ouml; (1,62)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                28 (0x1C)</td>
+            <td>
+                &uuml; (1,71)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                29 (0x1D)</td>
+            <td>
+                &Uuml; (1,70)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                30 (0x1E)</td>
+            <td>
+                &uacute; (1,67)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                31 (0x1F)</td>
+            <td>
+                &ugrave; (1,73)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                32 (0x20)</td>
+            <td>
+                &szlig; (1,23)</td>
+        </tr>
+    </table>
+    <br />
+    <p><strong>ASCII Text Characters</strong></p>
+    <p>ASCII Text characters are mapped from 33 to 127.</p>
+    <table border="1" width="94%" cellpadding="5">
+        <tr valign="top">
+            <td width="19%">
+                <strong>Dec (Hex)</strong></td>
+            <td width="22%">
+                <strong>Character</strong></td>
+            <td width="20%">
+                <strong>Dec (Hex)</strong></td>
+            <td width="37%">
+                <strong>Character</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                33 (0x21)</td>
+            <td>
+                !</td>
+            <td>
+                80 (0x50)</td>
+            <td>
+                P</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                34 (0x22)</td>
+            <td>
+                "</td>
+            <td>
+                81 (0x51)</td>
+            <td>
+                Q</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                35 (0x23)</td>
+            <td>
+                #</td>
+            <td>
+                82 (0x52)</td>
+            <td>
+                R</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                36 (0x24)</td>
+            <td>
+                $</td>
+            <td>
+                83 (0x53)</td>
+            <td>
+                S</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                37 (0x25)</td>
+            <td>
+                %</td>
+            <td>
+                84 (0x54)</td>
+            <td>
+                T</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                38 (0x26)</td>
+            <td>
+                &amp;</td>
+            <td>
+                85 (0x55)</td>
+            <td>
+                U</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                39 (0x27)</td>
+            <td>
+                '</td>
+            <td>
+                86 (0x56)</td>
+            <td>
+                V</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                40 (0x28)</td>
+            <td>
+                (</td>
+            <td>
+                87 (0x57)</td>
+            <td>
+                W</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                41 (0x29)</td>
+            <td>
+                )</td>
+            <td>
+                88 (0x58)</td>
+            <td>
+                X</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                42 (0x2A)</td>
+            <td>
+                *</td>
+            <td>
+                89 (0x59)</td>
+            <td>
+                Y</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                43 (0x2B)</td>
+            <td>
+                +</td>
+            <td>
+                90 (0x5A)</td>
+            <td>
+                Z</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                44 (0x2C)</td>
+            <td>
+                ,</td>
+            <td>
+                91 (0x5B)</td>
+            <td>
+                [</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                45 (0x2D)</td>
+            <td>
+                -</td>
+            <td>
+                92 (0x5C)</td>
+            <td>
+                \</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                46 (0x2E)</td>
+            <td>
+                .</td>
+            <td>
+                93 (0x5D)</td>
+            <td>
+                ]</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                47 (0x2F)</td>
+            <td>
+                /</td>
+            <td>
+                94 (0x5E)</td>
+            <td>
+                ^</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                48 (0x30)</td>
+            <td>
+                0</td>
+            <td>
+                95 (0x5F)</td>
+            <td>
+                _</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                49 (0x31)</td>
+            <td>
+                1</td>
+            <td>
+                96 (0x60)</td>
+            <td>
+                `</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                50 (0x32)</td>
+            <td>
+                2</td>
+            <td>
+                97 (0x61)</td>
+            <td>
+                a</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                51 (0x33)</td>
+            <td>
+                3</td>
+            <td>
+                98 (0x62)</td>
+            <td>
+                b</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                52 (0x34)</td>
+            <td>
+                4</td>
+            <td>
+                99 (0x63)</td>
+            <td>
+                c</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                53 (0x35)</td>
+            <td>
+                5</td>
+            <td>
+                100 0x64)</td>
+            <td>
+                d</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                54 (0x36)</td>
+            <td>
+                6</td>
+            <td>
+                101 (0x65)</td>
+            <td>
+                e</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                55 (0x37)</td>
+            <td>
+                7</td>
+            <td>
+                102 (0x66)</td>
+            <td>
+                f</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                56 (0x38)</td>
+            <td>
+                8</td>
+            <td>
+                103 (0x67)</td>
+            <td>
+                g</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                57 (0x39)</td>
+            <td>
+                9</td>
+            <td>
+                104 (0x68)</td>
+            <td>
+                h</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                58 (0x3A)</td>
+            <td>
+                :</td>
+            <td>
+                105 (0x69)</td>
+            <td>
+                i</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                59 (0x3B)</td>
+            <td>
+                ;</td>
+            <td>
+                106 (0x6A)</td>
+            <td>
+                j</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                60 (0x3C)</td>
+            <td>
+                &lt;</td>
+            <td>
+                107 (0x6B)</td>
+            <td>
+                k</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                61 (0x3D)</td>
+            <td>
+                =</td>
+            <td>
+                108 (0x6C)</td>
+            <td>
+                l</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                62 (0x3E)</td>
+            <td>
+                &gt;</td>
+            <td>
+                109 (0x6D)</td>
+            <td>
+                m</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                63 (0x3F)</td>
+            <td>
+                ?</td>
+            <td>
+                110 (0x6E)</td>
+            <td>
+                n</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                64 (0x40)</td>
+            <td>
+                @</td>
+            <td>
+                111 (0x6F)</td>
+            <td>
+                o</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                65 (0x41)</td>
+            <td>
+                A</td>
+            <td>
+                112 (0x70)</td>
+            <td>
+                p</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                66 (0x42)</td>
+            <td>
+                B</td>
+            <td>
+                113 (0x71)</td>
+            <td>
+                q</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                67 (0x43)</td>
+            <td>
+                C</td>
+            <td>
+                114 (0x72)</td>
+            <td>
+                r</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                68 (0x44)</td>
+            <td>
+                D</td>
+            <td>
+                115 (0x73)</td>
+            <td>
+                s</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                69 (0x45)</td>
+            <td>
+                E</td>
+            <td>
+                116 (0x74)</td>
+            <td>
+                t</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                70 (0x46)</td>
+            <td>
+                F</td>
+            <td>
+                117 (0x75)</td>
+            <td>
+                u</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                71 (0x47)</td>
+            <td>
+                G</td>
+            <td>
+                118 (0x76)</td>
+            <td>
+                v</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                72 (0x48)</td>
+            <td>
+                H</td>
+            <td>
+                119 (0x77)</td>
+            <td>
+                w</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                73 (0x49)</td>
+            <td>
+                I</td>
+            <td>
+                120 (0x78)</td>
+            <td>
+                x</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                74 (0x4A)</td>
+            <td>
+                J</td>
+            <td>
+                121 (0x79)</td>
+            <td>
+                y</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                75 (0x4B)</td>
+            <td>
+                K</td>
+            <td>
+                122 (0x7A)</td>
+            <td>
+                z</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                76 (0x4C)</td>
+            <td>
+                L</td>
+            <td>
+                123 (0x7B)</td>
+            <td>
+                {</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                77 (0x4D)</td>
+            <td>
+                M</td>
+            <td>
+                124 (0x7C)</td>
+            <td>
+                |</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                78 (0x4E)</td>
+            <td>
+                N</td>
+            <td>
+                125 (0x7D)</td>
+            <td>
+                }</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                79 (0x4F)</td>
+            <td>
+                O</td>
+            <td>
+                126 (0x7E)</td>
+            <td>
+            </td>
+        </tr>
+    </table>
+    <pre>
+ 
+</pre>
+    <hr />
+    <h3><a name="Single-Byte Functions"></a>Single-Byte Functions</h3>
+    <p>Single-byte functions range from 128 (0x80) through 207 (0xCF). These are single-byte
+    functions that appear in a document as a stand-alone function code. They may or may
+    not be paired and may change depending upon their function in the file. The math functions
+    145 (0x91) to 151 (0x97) are reserved by WP 6.0 for DOS. WP 7.0 and up for Windows,
+    use table formulas and floating cells.<br />
+    </p>
+    <table border="1" width="97%" cellpadding="5">
+        <tr valign="top">
+            <td width="20%">
+                <strong>Dec (Hex)</strong></td>
+            <td width="79%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                128 (0x80)</td>
+            <td>
+                <strong>Soft Space</strong>
+                <p>Equivalent of an ASCII 0x20. May not be used as a hidden code.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                129 (0x81)</td>
+            <td>
+                <strong>Hard Space</strong>
+                <p>A hard space holds two words together on one line (names, dates, etc).</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                130 (0x82)</td>
+            <td>
+                <strong>Soft Hyphen in Line</strong>
+                <p>A soft hyphen divides a word and displays a hyphen when the word falls near the end
+                of a line. If the word does not need to be broken, the soft hyphen code remains in the
+                document, but has no effect. When the code has no effect, the soft hyphen is <em>in
+                    line</em>.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                131 (0x83)</td>
+            <td>
+                <strong>Soft Hyphen at End of Line</strong>
+                <p>When the soft hyphen falls at the end of the line and needs to be displayed, the
+                soft hyphen <em>in line</em> function is changed to a soft hyphen <em>at end of line</em>and
+                the hyphen is displayed.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                132 (0x84)</td>
+            <td>
+                <strong>Hard Hyphen in Line</strong>
+                <p>Hyphen code [-] which will appear whether the word falls at the end of the line or
+                not.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                133 (0x85)</td>
+            <td>
+                <strong>Auto Hyphen at End of Line</strong>
+                <p>When any function other than the user inserts a hyphen, it is referred to as auto-hyphenation.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                134 (0x86)</td>
+            <td>
+                <strong>Invisible Return in Line</strong>
+                <p>The [HyphSrt] code indicates that a word can be broken at this point, but a hyphen
+                won't be visible in the document. It is used in situations like "Fonts/Styles/Graphics,"
+                where the string could be broken after a "/" but there is no need for a hyphen to be
+                seen.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                135 (0x87)</td>
+            <td>
+                <strong>Dormant Hard Return</strong>
+                <p>Whenever a [HRt] code appears alone at the top of a page that starts with a soft
+                page break, the formatter changes the Hard Return code into a Dormant Hard Return code
+                [Dorm HRt]. This ensures that an unwanted blank line is not inserted at the top of a
+                page. As the document is edited, if [Dorm HRt] moves from the top of a page, the formatter
+                changes it back to a normal Hard Return code.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                136 (0x88)</td>
+            <td>
+                <strong>Soft End of Center/Align</strong>
+                <p>When text is longer than a single line, it wraps. The formatter inserts a soft End
+                of Line, which causes centering to end, but not the paragraph.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                137 (0x89)</td>
+            <td>
+                <strong>Hard End of Center/Align</strong>
+                <p>The Enter key is pressed, ending the line, the centering, and the paragraph. If the
+                original code was [Just:Center], then centering is ended for that line and begins again
+                on the next line.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                138 (0x8A)</td>
+            <td>
+                <strong>Generate Text Place Holder</strong>
+                <p>This function and the next work as a pair. Together they mark the location of a page
+                number. When tables are generated (ToA, ToC, etc.) these markers are used to find the
+                page numbers quickly.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                139 (0x8B)</td>
+            <td>
+                <strong>Generate End Text Holder</strong>
+                <p>Paired with the previous function, this function marks the end of a page number position.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                140 (0x8C)</td>
+            <td>
+                <strong>Style Separator Mark</strong>
+                <p>Separates styles when the Enter key is used to turn off a style or to link to other
+                styles.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                141 (0x8D)</td>
+            <td>
+                <strong>Start of Text to Skip</strong>
+                <p>This function and the next work as a pair. Together they surround text for several
+                different reasons. The surrounded text is passed over by the formatter and is not displayed.
+                These codes may be inserted by the merge formatter or they may be used by the outline
+                when using collapsible outlines. Another possible use is within tables, when there is
+                more text than will fit in a cell but the size of the cell doesn't change.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                142 (0x8E)</td>
+            <td>
+                <strong>End of Text to Skip</strong>
+                <p>Paired with the previous function, this function marks the end of text to skip.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                143 (0x8F)</td>
+            <td>
+                <strong>Exited Hyphenation</strong>
+                <p>This function is used for checking, but is never actually inserted into any document.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                144 (0x90)</td>
+            <td>
+                <strong>Cancel Hyphenation</strong>
+                <p>Used to mark a word that WP has hyphenated [HyphIgnWrd] so that it will not be hyphenated
+                and so that the user is not prompted to hyphenate that word again.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                145 (0x91)</td>
+            <td>
+                <strong>Do Subtotal</strong>
+                <p>This function (+) adds all entries above it.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                146 (0x92)</td>
+            <td>
+                <strong>Subtotal Entry</strong>
+                <p>Subtotal entry function.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                147 (0x93)</td>
+            <td>
+                <strong>Do Total</strong>
+                <p>This function (=) adds all subtotals above it.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                148 (0x94)</td>
+            <td>
+                <strong>Total Entry</strong>
+                <p>Total entry function.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                149 (0x95)</td>
+            <td>
+                <strong>Do Grand Total</strong>
+                <p>This function (*) adds all totals above it.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                150 (0x96)</td>
+            <td>
+                <strong>Calculation Column</strong>
+                <p>Calculation column function.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                151 (0x97)</td>
+            <td>
+                <strong>Math Negate</strong>
+                <p>Distinguishes a minus sign from a hyphen.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                152 (0x98)</td>
+            <td>
+                <strong>Reserved</strong>.</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                153 (0x99)</td>
+            <td>
+                <strong>No Revert</strong>
+                <p>No revert for this style.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                154 (0x9A)</td>
+            <td>
+                <strong>Optional Space</strong>
+                <p>Optional space for selection cleanup.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                155 (0x9B)</td>
+            <td>
+                <strong>Speller Clean On</strong>
+                <p>Start of clean spelled area.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                156 (0x9C)</td>
+            <td>
+                <strong>Speller Clean Off</strong>
+                <p>End of clean spelled area.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                157 (0x9D)</td>
+            <td>
+                <strong>Joiner Control</strong>
+                <p>(Mideast) Joiner control.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                158 (0x9E)</td>
+            <td>
+                <strong>Non-Joiner Control</strong>
+                <p>(Mideast) Non-joiner control.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                159 (0x9F)</td>
+            <td>
+                <strong>Weak On</strong>
+                <p>International.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                160 (0xA0)</td>
+            <td>
+                <strong>Weak Off</strong>
+                <p>International.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                161 (0xA1)</td>
+            <td>
+                <strong>Decimal Align End</strong>
+                <p>(Mideast) End of right-to-left decimal align.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                162 (0xA2)</td>
+            <td>
+                <strong>Speller Dirty On</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                163 (0xA3)</td>
+            <td>
+                <strong>Speller Dirty Off</strong></td>
+        </tr>
+    </table>
+    <br />
+    <p>Functions 180 (0xB4)-207 (0xCF) are soft End of Line single-byte functions. Corresponding
+    multi-byte functions are found in the End of Line group.</p>
+    <table border="1" width="97%" cellpadding="5">
+        <tr valign="top">
+            <td width="20%">
+                <strong>Dec (Hex)</strong></td>
+            <td width="79%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                180 (0xB4)</td>
+            <td>
+                <strong>Deletable Hard EOP</strong>
+                <p>An End of Page is inserted by the formatter. The graphic being inserted into the
+                document will not fit on the remainder of the page, so it is moved to the next page.
+                If text is deleted so the graphic can fit, the code is removed.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                181 (0xB5)</td>
+            <td>
+                <strong>Deletable Hard EOC/EOP</strong>
+                <p>The formatter inserts an End of Column because the graphic does not fit in the remainder
+                of the column, and the inserted End of Column causes an End of Page.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                182 (0xB6)</td>
+            <td>
+                <strong>Deletable Hard EOC</strong>
+                <p>The formatter inserts an End of Column.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                183 (0xB7)</td>
+            <td>
+                <strong>Deletable Hard EOL/EOC/EOP</strong>
+                <p>The formatter inserts an End of Line which causes a paragraph to end; this causes
+                an End of Column and an End of Page. For example, a table must begin on a new line.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                184 (0xB8)</td>
+            <td>
+                <strong>Deletable Hard EOL/EOC</strong>
+                <p>The formatter inserts a Hard End of Line which causes an End of Column.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                185 (0xB9)</td>
+            <td>
+                <strong>Deletable Hard EOL</strong>
+                <p>The formatter inserts a Hard End of Line.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                186 (0xBA)</td>
+            <td>
+                <strong>Deletable Soft EOL/EOC/EOP</strong>
+                <p>The formatter inserts a Soft End of Line (paragraph should not end) which causes
+                an End of Column and an End of Page.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                187 (0xBB)</td>
+            <td>
+                <strong>Deletable Soft EOL/EOC</strong>
+                <p>The formatter inserts a soft End of Line which causes an End of Column.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                188 (0xBC)</td>
+            <td>
+                <strong>Deletable Soft EOL</strong>
+                <p>The formatter inserts a soft End of Line.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                189 (0xBD)</td>
+            <td>
+                <strong>Table Off/EOC/EOP</strong>
+                <p>Table off causes an End of Column and an End of Page.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                190 (0xBE)</td>
+            <td>
+                <strong>Table Off/EOC</strong>
+                <p>Table off causes an End of Column.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                191 (0xBF)</td>
+            <td>
+                <strong>Table Off</strong>
+                <p>Table off function.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                192 (0xC0)</td>
+            <td>
+                <strong>Table Row/Hard EOP</strong>
+                <p>A hard End of Page within a table causes an End of Page.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                193 (0xC1)</td>
+            <td>
+                <strong>Table Row/Hard EOC/EOP</strong>
+                <p>A table is within a column and a hard End of Page causes an End of Column and an
+                End of Page.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                194 (0xC2)</td>
+            <td>
+                <strong>Table Row/Hard EOC</strong>
+                <p>A table is within a column and a hard End of Page causes an End of Column.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                195 (0xC3)</td>
+            <td>
+                <strong>Table Row/EOC/EOP</strong>
+                <p>Formatter inserts a soft End of Row at the end of a column and a page which causes
+                an End of Column and an End of Page.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                196 (0xC4)</td>
+            <td>
+                <strong>Table Row/EOC</strong>
+                <p>Formatter inserts a soft End of Row at the end of a column which causes an End of
+                Column.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                197 (0xC5)</td>
+            <td>
+                <strong>Table Row</strong>
+                <p>A soft End of Row which is inserted by the formatter.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                198 (0xC6)</td>
+            <td>
+                <strong>Table Cell</strong>
+                <p>End of cell. (There is no <em>hard cell</em> function.)</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                199 (0xC7)</td>
+            <td>
+                <strong>Hard EOP</strong>
+                <p>The user presses Ctrl-Enter to insert a [HRt] code. The insertion point is moved
+                to the beginning of the next page.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                200 (0xC8)</td>
+            <td>
+                <strong>Hard EOC/EOP</strong>
+                <p>A hard End of Column causes an End of Page.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                201 (0xC9)</td>
+            <td>
+                <strong>Hard EOC</strong>
+                <p>A hard End of Column.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                202 (0xCA)</td>
+            <td>
+                <strong>Hard EOL/EOC/EOP</strong>
+                <p>A hard End of Line (Enter) causes an End of Column and an End of Page.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                203 (0xCB)</td>
+            <td>
+                <strong>Hard EOL/EOC</strong>
+                <p>A hard End of Line (Enter) causes an End of Column.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                204 (0xCC)</td>
+            <td>
+                <strong>Hard EOL</strong>
+                <p>User inserts a code (Enter) and the insertion point is moved to the beginning of
+                the next line.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                205 (0xCD)</td>
+            <td>
+                <strong>Soft EOL/EOC/EOP</strong>
+                <p>Text wraps, causing an End of Line which causes an End of Column and an End of Page.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                206 (0xCE)</td>
+            <td>
+                <strong>Soft EOL/EOC</strong>
+                <p>Text wraps, causing an End of Line which causes an End of Column.</p>
+            </td>
+        </tr>
+        <tr valign="top">
+            <td>
+                207 (0xCF)</td>
+            <td>
+                <strong>Soft EOL</strong>
+                <p>The formatter inserts a code at the end of a line. Its position changes automatically
+                as text is added or deleted.</p>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>

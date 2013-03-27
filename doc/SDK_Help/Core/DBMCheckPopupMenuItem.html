@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DBMCheckPopupMenuItem function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBMSetCtl3DBorderFlag.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DBMDeletePopupMenuItem.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dialog_box_manager.html">Creating dialog boxes</a> :
+        DBMCheckPopupMenuItem function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp544727"></a>
+
+  <h4 class="pHeading3">DBMCheckPopupMenuItem function</h4><a name="wp544729"></a>
+
+  <p class="pBody">The <code class="cCode">DBMCheckPopupMenuItem</code> function places a check mark by a particular item in the menu associated with the
+  specified pop-up control. The function first removes the check from any previously checked menu item.</p><a name="wp544731"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+VOID FAR PASCAL DBMCheckPopupMenuItem (<a name="wp544733"> </a>
+HWND hPopup,<a name="wp544735"> </a>
+WORD wID,<a name="wp544737"> </a>
+WORD usFlags );<a name="wp544739"> </a>
+</pre>
+  </div><a name="wp544741"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp544744"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1291725"></a>
+
+          <p class="pBody"><code class="cCode">hPopup</code></p>
+        </td>
+
+        <td>
+          <a name="wp1291727"></a>
+
+          <p class="pBody">Specifies the handle to the pop-up control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1291729"></a>
+
+          <p class="pBody"><code class="cCode">wID</code></p>
+        </td>
+
+        <td>
+          <a name="wp1291731"></a>
+
+          <p class="pBody">Specifies the ID of the menu item to check</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1291733"></a>
+
+          <p class="pBody"><code class="cCode">usFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp1291735"></a>
+
+          <p class="pBody">Takes one of the following flags:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1291737"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">MF_BYCOMMAND wID</code> - specifies the menu-item identifier (default)</li>
+              </ul>
+            </div><a name="wp1291738"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">MF_BYPOSITION wID</code> - specifies the menu-item position, where the first item is <code class="cCode">0</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1291642"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp544748"></a>
+
+  <p class="pBody">None</p>
+</body>
+</html>

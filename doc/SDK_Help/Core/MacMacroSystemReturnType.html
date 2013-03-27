@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>MacMacroSystemReturnType persistent macro variable definition</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="MAC_VALUE_TYPE2.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WmacInitMacroSystem.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Persistent_macro_variables.html">Using persistent macro
+        variables</a> : MacMacroSystemReturnType persistent macro variable definition</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1280645"></a>
+
+  <h4 class="pHeading3">MacMacroSystemReturnType persistent macro variable definition</h4><a name="wp1280646"></a>
+
+  <p class="pBody"><code class="cCode">MacMacroSystemReturnType</code> is an enumerated type that defines the various parameter types used by the <code class=
+  "cCode">WmacInitMacroSystem</code> and <code class="cCode">WmacUninitMacroSystem</code> commands.</p><a name="wp550237"></a>
+
+  <h5 class="pHeading4">C Structure</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef enum _MacMacroSystemReturnType<a name="wp550239"> </a>
+{<a name="wp550241"> </a>
+MAC_INIT_SUCCESS, <a name="wp550243"> </a>
+MAC_INIT_ALREADY_INITIALIZED, <a name="wp550245"> </a>
+MAC_INIT_NOT_INITIALIZED, <a name="wp550247"> </a>
+MAC_INIT_WINEXEC_FAILED, <a name="wp550249"> </a>
+MAC_INIT_NOT_RUNNING <a name="wp550251"> </a>
+} MacMacroSystemReturnType;<a name="wp550253"> </a>
+</pre>
+  </div><a name="wp550255"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp550258"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp522059"></a>
+
+          <p class="pBody"><code class="cCode">MAC_INIT_SUCCESS</code></p>
+        </td>
+
+        <td>
+          <a name="wp522061"></a>
+
+          <p class="pBody">Indicates that the initialization of the macro system was successful</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522067"></a>
+
+          <p class="pBody"><code class="cCode">MAC_INIT_ALREADY_INITIALIZED</code></p>
+        </td>
+
+        <td>
+          <a name="wp522069"></a>
+
+          <p class="pBody">Indicates that the macro system was previously initialized</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522075"></a>
+
+          <p class="pBody"><code class="cCode">MAC_INIT_NOT_INITIALIZED</code></p>
+        </td>
+
+        <td>
+          <a name="wp522077"></a>
+
+          <p class="pBody">Indicates that the macro system was not initialized</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522083"></a>
+
+          <p class="pBody"><code class="cCode">MAC_INIT_WINEXEC_FAILED</code></p>
+        </td>
+
+        <td>
+          <a name="wp522085"></a>
+
+          <p class="pBody">Indicates that the initialization of the macro system failed</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp522091"></a>
+
+          <p class="pBody"><code class="cCode">MAC_INIT_NOT_RUNNING</code></p>
+        </td>
+
+        <td>
+          <a name="wp522093"></a>
+
+          <p class="pBody">Indicates that the macro system is not running</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

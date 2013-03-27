@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:27" />
+
+  <title>TPValInfo functional element</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="TPH_RETURNVAL.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Creating_QP_Add-in_DLLs.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Third_Party_DLL_Entry_Points.html">Using entry points in Third Party Handler DLLs</a> : <a href=
+        "Structures_Types_and_Constants_used_by_functions.html">Choosing elements for required functions in Third Party Handler DLLs</a> : TPValInfo functional
+        element</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1173760"></a>
+
+  <h4 class="pHeading3">TPValInfo functional element</h4><a name="wp555284"></a>
+
+  <p class="pBody">The <code class="cCode">TPValInfo</code> functional element provides command-validation information. This information is used by the DLL to
+  control the display of a menu or a toolbar item (see "<a href="TPHValidateToken.html#wp554562">TPHValidateToken function</a>" for more
+  information).</p><a name="wp555286"></a>
+
+  <h5 class="pHeading4">C structure</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct _TPValInfo<a name="wp555288"> </a>
+{<a name="wp555290"> </a>
+UINT uType;<a name="wp555292"> </a>
+UINT uMenuID;<a name="wp555294"> </a>
+UINT uPos;<a name="wp555296"> </a>
+HWND hwnd;<a name="wp555298"> </a>
+HMENU hMenu;<a name="wp555300"> </a>
+} TPValInfo, FAR*LPTPValInfo;<a name="wp555302"> </a>
+</pre>
+  </div><a name="wp555304"></a>
+
+  <h5 class="pHeading4">Pascal record</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+TPValInfo = record<a name="wp555306"> </a>
+uType  : Word;<a name="wp555308"> </a>
+uMenuID  : Word;<a name="wp555310"> </a>
+uPos  : Word;<a name="wp555312"> </a>
+hwnd  : HWND;<a name="wp555314"> </a>
+hMenu  : HMENU;;<a name="wp555316"> </a>
+end; <a name="wp555318"> </a>
+LPTPValInfo = TPValInfo;<a name="wp555320"> </a>
+</pre>
+  </div><a name="wp555322"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp555325"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp526004"></a>
+
+          <p class="pBody"><code class="cCode">uType</code></p>
+        </td>
+
+        <td>
+          <a name="wp526006"></a>
+
+          <p class="pBody">Specifies the item type to validate</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526012"></a>
+
+          <p class="pBody"><code class="cCode">uMenuID</code></p>
+        </td>
+
+        <td>
+          <a name="wp526014"></a>
+
+          <p class="pBody">Specifies the item identifier to validate</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526020"></a>
+
+          <p class="pBody"><code class="cCode">uPos</code></p>
+        </td>
+
+        <td>
+          <a name="wp526022"></a>
+
+          <p class="pBody">Specifies the item position to validate</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526028"></a>
+
+          <p class="pBody"><code class="cCode">hwnd</code></p>
+        </td>
+
+        <td>
+          <a name="wp526030"></a>
+
+          <p class="pBody">Specifies the handle to the toolbar window to validate</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526036"></a>
+
+          <p class="pBody"><code class="cCode">hMenu</code></p>
+        </td>
+
+        <td>
+          <a name="wp526038"></a>
+
+          <p class="pBody">Specifies the handle to the menu to validate</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp563161"></a>
+
+  <p class="pBody"></p>
+</body>
+</html>

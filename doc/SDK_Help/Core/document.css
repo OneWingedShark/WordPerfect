@@ -1,0 +1,334 @@
+/* Default style for links */
+a:active  { color: #0000CC}
+a:hover   { color: #CC0033}
+a:link    { color: #3366CC}
+a:visited { color: #9999CC}
+
+/* Default style */
+body { 
+	background: white; 
+	font-family: sans-serif;
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 10pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+	margin: 6px 6px 6px 6px;
+}
+/* Use this style for footnote numbers */
+span.Footnote
+{
+  font-size: small;
+  vertical-align: super
+}
+
+
+h1
+{
+	font-size: 20pt;
+	font-style: normal;
+	border-bottom-style: solid;
+	border-bottom-width: 2;
+	border-bottom-color: #1F337B;
+	color: #1F337B;
+	margin-top: 2px;
+}
+
+h2
+{
+	font-size: 14pt;
+	font-style: italic;
+	border-bottom-style: solid;
+	border-bottom-width: 1;
+	border-bottom-color: #1F337B;
+	color: #1F337B;
+}
+
+h3
+{
+	font-size: 12pt;
+	font-style: italic;
+	color: black;
+}
+
+h4
+{
+	font-size: 11pt;
+	font-style: normal;
+	margin-left: 10px;
+}
+
+p
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 10pt;
+	margin-left: 20px;
+}
+
+pre
+{
+	margin-left: 20px;
+}
+
+dt
+{
+	margin-left: 20px;
+	font-weight: bold;
+}
+.title
+{
+	font-size: 18pt;
+	font-weight: bold;
+	color: #000099;
+}
+a:link
+{
+	text-decoration: none;
+	color: #3353C1;
+}
+a:visited
+{
+	text-decoration: none;
+	color: #3353C1;
+}
+a:active
+{
+	text-decoration: none;
+	color: #3353C1;
+}
+a:hover
+{
+	text-decoration: underline;
+	color: #3353C1;
+}
+.date
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 9pt;
+	font-style: normal;
+	font-weight: bold;
+	color: #000000;
+	text-decoration: none;
+}
+.footer
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #21357C;
+	text-decoration: none;
+}
+.footerwhite
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #ffffff;
+	text-decoration: none;
+}
+.bodytext
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 10pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+.normaltext
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 10pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+.bodywhite
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 10pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #ffffff;
+	text-decoration: none;
+}
+.bodybold
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 10pt;
+	font-style: oblique;
+	font-weight: 700;
+	color: #000000;
+	text-decoration: none;
+}
+.headline
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 12pt;
+	font-style: oblique;
+	font-weight: 700;
+	color: #21357C;
+	text-decoration: none;
+}
+.navigation
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 8pt;
+	font-style: oblique;
+	font-weight: 700;
+	color: #000000;
+	text-decoration: none;
+}
+.navnormal
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #000000;
+	text-decoration: none;
+}
+.private
+{
+	font-size: 8pt;
+	color: #999999;
+}
+.nopad
+{
+	margin: 0px;
+	padding: 0px;
+	vertical-align: top;
+}
+.draft
+{
+	font-size: 14pt;
+	color: #FF0000;
+	font-weight: bold;
+}
+p.menu
+{
+	margin-top: 0px;
+}
+div.menu
+{
+	font-weight: bold;
+}
+.status
+{
+	color: red;
+	font-size: 14pt;
+	font-weight: bold;
+}
+.definition
+{
+	color: #667788;
+}
+.newcontent
+{
+	color: #FF0000;
+}
+a.button
+{
+	padding-top: 1px;
+	padding-right: 1px;
+	padding-bottom: 1px;
+	padding-left: 1px;
+}
+a.button:hover
+{
+	background-color: threedface;
+	padding-top: 0px;
+	padding-right: 0px;
+	padding-bottom: 0px;
+	padding-left: 0px;
+	border-top: 1px solid threedhighlight;
+	border-right: 1px solid threedshadow;
+	border-bottom: 1px solid threedshadow;
+	border-left: 1px solid threedhighlight;
+}
+.toolbar
+{
+	background-color: threedface;
+	border-top: 2px solid threedhighlight;
+	border-right: 2px solid threedshadow;
+	border-bottom: 2px solid threedshadow;
+	border-left: 2px solid threedhighlight;
+	padding-top: 2px;
+	padding-bottom: 2px;
+	font-size: 8pt;
+}
+
+
+pre { 
+font-family: monospace;
+font-size: 10pt; 
+}
+
+code {
+font-family: monospace;
+font-size: 10pt; 
+font-weight: bold;
+}
+
+hr { 
+height: 1;
+color: navy; 
+}
+
+frameset {
+	border-left: none;
+	border-right: none;
+	border-top: none;
+	border-bottom: none;
+}
+
+table
+{
+	padding: 0 0 0 0;
+	border-collapse: collapse;
+	border-color: #99AABB;
+	border-width: thin;
+	margin-left:20px;
+}
+
+td
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #000000;
+	border-color: #99AABB;
+	text-decoration: none;
+	vertical-align: top;
+}
+
+tr
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 8pt;
+	font-style: normal;
+	font-weight: normal;
+	color: #000000;
+	border-color: #99AABB;
+	text-decoration: none;
+	vertical-align: top;
+}
+
+
+th
+{
+	font-family: Arial, Helvetica, Swiss721, sans-serif;
+	font-size: 10pt;
+	font-style: normal;
+	font-weight: bold;
+	color: #000000;
+	text-decoration: none;
+	background-color: #CCDDEE;
+	border-color: #99AABB;
+	vertical-align: top;
+}

@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Using executable programs with Quattro Pro</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QPA_DLL_custom_functions.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Quattro_Pro_AddIns_samples.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Quattro_Pro_Add-ins.html">Understanding
+        Quattro Pro Add-ins</a> : Using executable programs with Quattro Pro</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1272122"></a>
+
+  <h4 class="pHeading3">Using executable programs with Quattro Pro</h4><a name="wp1272123"></a>
+
+  <p class="pBody">Executable programs (EXE) can indirectly hook into the DLL interface through specialized DLLs. This section covers programs that interact
+  with Quattro Pro in this way. Unlike DLLs, executable programs do not need to be in the same folder that qpw.exe is in. However, an EXE program can be used
+  only in those situations where IMPURE functions are used. This means that EXE programs can be used in macros and links. They cannot be used as cell
+  formulas.</p><a name="wp1272124"></a>
+
+  <p class="pBody">Unlike DLLs, executable files cannot access import functions directly. But there is a way for executable files to work with some of the
+  import functions indirectly. There are two DLLs that you must use when working with an executable file:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1272125"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>qpwhost.dll</li>
+      </ul>
+    </div><a name="wp1272126"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>qpwcall.dll</li>
+      </ul>
+    </div>
+  </div><a name="wp1272127"></a>
+
+  <p class="pBody">These files come with the standard Quattro Pro package, but they are copied to the hard drive only when you select to install the
+  interactive tutors for Quattro Pro during installation. If they have been copied to the hard drive, they can be found in the main Quattro Pro program
+  folder.</p><a name="wp1272128"></a>
+
+  <p class="pBody">Each time the user starts Quattro Pro, Quattro looks for <code class="cCode">QPWHOST</code> in its folder. If it finds it, Quattro Pro loads
+  it automatically. The qpwhost.dll creates a hidden window of which the sole purpose is to receive specially encoded messages from <code class=
+  "cCode">QPWCALL</code>, convert these messages into import function calls, do the call, and send back a result.</p><a name="wp1272129"></a>
+
+  <p class="pBody">The qpwcall.dll file is a DLL to which your EXE needs to link. <code class="cCode">QPWCALL</code> supports a subset of the qprowin.def
+  import functions. You make the calls to <code class="cCode">QPWCALL</code> exactly like a DLL would call a qprowin.def function.</p><a name="wp1272130"></a>
+
+  <p class="pBody">You can link <code class="cCode">QPWCALL</code> to your EXE program in one of the following three ways:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1272131"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Run <code class="cCode">IMPLIB</code> against the qpwcall.dll, to statically link your EXE program with the DLL. Refer to the documentation that
+        came with your compiler on how to use <code class="cCode">IMPLIB</code>.</li>
+      </ul>
+    </div><a name="wp1272132"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Put <code class="cCode">IMPORTS</code> statements in your DEF file for each of the functions you want to use. In this case, the qpwcall.dll file
+        must be in the Windows search path. For example, to use <code class="cCode">QProGetCellReferenceText</code>, you would add the following line to the
+        <code class="cCode">IMPORTS</code> section of your EXE DEF file:</li>
+      </ul>
+    </div><a name="wp1274644"></a>
+
+    <p class="pBodyRelative"><code class="cCode">IMPORT QPWCALL.QProGetCellReferenceText</code></p><a name="wp1272134"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Dynamically link your EXE to qpwcall.dll. Your EXE would need to load the DLL and then link to the supported import functions. You can find
+        information on dynamic linking in most Windows programming manuals.</li>
+      </ul>
+    </div>
+  </div><a name="wp1272135"></a>
+
+  <p class="pBody">Besides linking to the <code class="cCode">QPWCALL</code> DLL, your EXE program will also need to include the qprowin.h file.</p><a name=
+  "wp1272136"></a>
+
+  <p class="pBody">The following is a list of the import functions supported by <code class="cCode">QPWCALL</code>:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1272137"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProExecute</code></li>
+      </ul>
+    </div><a name="wp1272138"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProExecuteMacro</code></li>
+      </ul>
+    </div><a name="wp1272139"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProFormatRange</code></li>
+      </ul>
+    </div><a name="wp1272140"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetArgumentSeparator</code></li>
+      </ul>
+    </div><a name="wp1272141"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetCellFormat</code></li>
+      </ul>
+    </div><a name="wp1272142"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetCellReferenceText</code></li>
+      </ul>
+    </div><a name="wp1272143"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetCurrentRange</code></li>
+      </ul>
+    </div><a name="wp1272144"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetDecimalSeparator</code></li>
+      </ul>
+    </div><a name="wp1272145"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetFormattedCell</code></li>
+      </ul>
+    </div><a name="wp1272146"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetMainWindowHandle</code></li>
+      </ul>
+    </div><a name="wp1272147"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetProperty</code></li>
+      </ul>
+    </div><a name="wp1272148"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetRangeText</code></li>
+      </ul>
+    </div><a name="wp1272149"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetThousandsSeparator</code></li>
+      </ul>
+    </div><a name="wp1272150"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProGetUnparsedCell</code></li>
+      </ul>
+    </div><a name="wp1272151"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProParseCell</code></li>
+      </ul>
+    </div><a name="wp1272152"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProParseCellReference</code></li>
+      </ul>
+    </div><a name="wp1272153"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProParseDateString</code></li>
+      </ul>
+    </div><a name="wp1272154"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProParseRange</code></li>
+      </ul>
+    </div><a name="wp1272155"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProParseTimeString</code></li>
+      </ul>
+    </div><a name="wp1272156"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProReset</code></li>
+      </ul>
+    </div><a name="wp1272157"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProSetCurrentRange</code></li>
+      </ul>
+    </div><a name="wp1272158"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">QProSetProperty</code></li>
+      </ul>
+    </div>
+  </div><a name="wp1272159"></a>
+
+  <p class="pBody">You can use Quattro Pro commands and links, such as the macro command <code class="cCode">{EXECUTE}</code>, to run EXE programs such as
+  <code class="cCode">QTEST</code> from within Quattro Pro.</p>
+</body>
+</html>

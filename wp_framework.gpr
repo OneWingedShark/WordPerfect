@@ -1,0 +1,26 @@
+project Wp_Framework is
+
+   for Main use ("WP_Test.adb");
+   for Source_Dirs use (".", "src\**");
+
+   package Ide is
+      for Documentation_Dir use "doc";
+   end Ide;
+
+   package Builder is
+      for Default_Switches ("ada") use ("-j4", "-k", "-C", "-s", "-m");
+   end Builder;
+
+   package Compiler is
+      for Default_Switches ("ada") use ("-O3", "-gnat12", "-gnatE", "-fstack-check", "-gnato", "-gnatn", "-funroll-loops", "-ffunction-sections");
+   end Compiler;
+
+   package Pretty_Printer is
+      for Default_Switches ("ada") use ("-i4");
+   end Pretty_Printer;
+
+   for Object_Dir use "obj";
+   for Exec_Dir use ".";
+
+end Wp_Framework;
+

@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:32" />
+
+  <title>Lesson 2: Using arguments</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Lesson_1_Defining_a_new_custom_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Lesson_3_Using_multiple_arguments.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Creating_QP_Add-in_DLLs.html">Creating Quattro Pro Add-in DLLs</a> : Lesson 2: Using arguments</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp532287"></a>
+
+  <h3 class="pHeading2">Lesson 2: Using arguments</h3><a name="wp532289"></a>
+
+  <p class="pBody">Before beginning this lesson, do the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp532291"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Load the qshell.cpp file into your program editor.</li>
+      </ul>
+    </div><a name="wp532293"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Save qshell.cpp as lesson02.cpp in your data folder.</li>
+      </ul>
+    </div>
+  </div><a name="wp532295"></a>
+
+  <p class="pBody">This lesson will create a simple custom function called SELF that will accept a single argument and return that value to the
+  spreadsheet.</p><a name="wp1269650"></a>
+
+  <h5 class="pHeading4">Step 1</h5><a name="wp532297"></a>
+
+  <p class="pBody">Replace <code class="cCode">DUMMY</code> with <code class="cCode">SELF</code> in the <code class="cCode">SelfDefStructure</code> of the
+  qshell.cpp file. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532299"> </a>
+// Quattro Pro prescribed header (and other overhead)<a name="wp532301"> </a>
+//===============================================================<a name="wp532303"> </a>
+SelfDefStructure MyFuncs[] = {<a name="wp532305"> </a>
+{<a name="wp532307"> </a>
+"PURE double PASCAL SELF(double)", // Function Command <a name="wp532309"> </a>
+(FarProc)&amp;SELF, // Pointer to function <a name="wp532311"> </a>
+"Help", // Help Line <a name="wp532313"> </a>
+"SELF" // English name <a name="wp532315"> </a>
+}, <a name="wp532317"> </a>
+NULL // Always null terminate the list! <a name="wp532319"> </a>
+};<a name="wp532321"> </a>
+</pre>
+  </div><a name="wp532323"></a>
+
+  <p class="pBody">You've just set up a custom function named <code class="cCode">SELF</code>. The <code class="cCode">PURE</code> keyword defines your
+  function as a PURE type of function, <code class="cCode">double</code> describes the return of the function is a double, and <code class=
+  "cCode">SELF(double)</code> says the name of the function is SELF and accepts a double as its only argument, <code class="cCode">(FarProc)&amp;SELF</code>
+  states that this is a Far call (required), <code class="cCode">"Help"</code> is the Help-line text, and <code class="cCode">"SELF"</code> is the English form
+  of the name used if this function is translated internationally.</p><a name="wp532325"></a>
+
+  <h5 class="pHeading4">Step 2</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+Now you must prototype the function in the DLL. Your code should 
+appear as follows:<a name="wp1269692"> </a>
+//===============================================================<a name="wp532327"> </a>
+// Add-In function prototypes<a name="wp532329"> </a>
+//===============================================================<a name="wp532331"> </a>
+DOUBLE Exported SELF(double x);<a name="wp532333"> </a>
+</pre>
+  </div><a name="wp532335"></a>
+
+  <h5 class="pHeading4">Step 3</h5><a name="wp1269704"></a>
+
+  <p class="pBody">Now you must tell the DLL what to do when <code class="cCode">SELF</code> is called. Change the main function code area to appear as
+  follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532337"> </a>
+// MAIN FUNCTION CODE<a name="wp532339"> </a>
+//===============================================================<a name="wp532341"> </a>
+DOUBLE Exported SELF(double x)<a name="wp532343"> </a>
+{<a name="wp532345"> </a>
+DoubleReturn ( x ); <a name="wp532347"> </a>
+}<a name="wp532349"> </a>
+</pre>
+  </div><a name="wp532353"></a>
+
+  <p class="pBody"><code class="cCode">SELF(double x)</code> is called and accepts the argument <code class="cCode">x</code>. <code class="cCode">DoubleReturn
+  x</code> then returns the value it was passed. For a complete explanation of <code class="cCode">DOUBLE</code> and <code class="cCode">DoubleReturn</code>,
+  please see "<a href="Borland_and_Microsoft_C.html#wp1271948">Understanding the differences between Borland C++ and Microsoft C++</a>."</p><a name=
+  "wp1269739"></a>
+
+  <h5 class="pHeading4">Step 4</h5><a name="wp532355"></a>
+
+  <p class="pBody">Save this file as lesson02.cpp.</p><a name="wp532357"></a>
+
+  <h5 class="pHeading4">Step 5</h5><a name="wp1269743"></a>
+
+  <p class="pBody">Create your custom function. Refer to your compiler documentation for further information on making a DLL.</p><a name="wp532359"></a>
+
+  <h5 class="pHeading4">Step 6</h5><a name="wp1269747"></a>
+
+  <p class="pBody">Start Quattro Pro, and type <code class="cCode">@LESSON02.SELF(2)</code> in any cell. The number <code class="cCode">2</code> should appear
+  in the cell.</p>
+</body>
+</html>

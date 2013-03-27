@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WfsExpandPath function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WfsDoesFileExist.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WfsFileAttr.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        WfsExpandPath function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp547399"></a>
+
+  <h4 class="pHeading3">WfsExpandPath function</h4><a name="wp547401"></a>
+
+  <p class="pBody">The <code class="cCode">WfsExpandPath</code> function expands a pathname fragment into a fully-qualified pathname. For example, ..\mydir
+  would be expanded to C:\util\mydir. The parameters for this function are assumed to be ANSI strings.</p><a name="wp547403"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL SHAPI WfsExpandPath (<a name="wp547405"> </a>
+LPSTR lpszInPath,<a name="wp547407"> </a>
+LPSTR lpszOutPath );<a name="wp547409"> </a>
+</pre>
+  </div><a name="wp547411"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp547414"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp518495"></a>
+
+          <p class="pBody"><code class="cCode">lpszInPath</code></p>
+        </td>
+
+        <td>
+          <a name="wp518497"></a>
+
+          <p class="pBody">Acts as a pointer to the path fragment to expand</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518503"></a>
+
+          <p class="pBody"><code class="cCode">lpszOutPath</code></p>
+        </td>
+
+        <td>
+          <a name="wp518505"></a>
+
+          <p class="pBody">Acts as a pointer to a buffer to hold the fully expanded path</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp547416"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp547418"></a>
+
+  <p class="pBody">Returns zero if the conversion was successful, or <code class="cCode">-1</code> if it was not successful.</p>
+</body>
+</html>

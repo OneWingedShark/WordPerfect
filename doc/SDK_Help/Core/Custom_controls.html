@@ -1,0 +1,5304 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Creating custom controls</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {margin-left: 2em}
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WcvtConvertHandle.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="CMYK_STRUCT.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Creating custom controls</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp539497"></a>
+
+  <h3 class="pHeading2">Creating custom controls</h3><a name="wp1294730"></a>
+
+  <p class="pBody">Windows provides a set of standard controls that can be used to design a basic user interface for an application.</p><a name=
+  "wp1294760"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1307489"></a>
+
+          <h5 class="pHeading4">Standard control<br />
+          (provided by Windows)</h5>
+        </th>
+
+        <th>
+          <a name="wp1307491"></a>
+
+          <h5 class="pHeading4">Class name definition</h5>
+        </th>
+
+        <th>
+          <a name="wp1307493"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1294737"></a>
+
+          <p class="pBody">Button (<code class="cCode">"button"</code>)</p>
+        </td>
+
+        <td>
+          <a name="wp1294739"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_BUTTON</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294774"></a>
+
+          <p class="pBody">Is a push-button</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1294741"></a>
+
+          <p class="pBody">Combo box (<code class="cCode">"combobox"</code>)</p>
+        </td>
+
+        <td>
+          <a name="wp1294743"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_COMBOBOX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294776"></a>
+
+          <p class="pBody">Provides the combined functionality of an edit box and a list box</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1294745"></a>
+
+          <p class="pBody">Edit box (<code class="cCode">"edit"</code>)</p>
+        </td>
+
+        <td>
+          <a name="wp1294747"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_ENTRYFIELD</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294778"></a>
+
+          <p class="pBody">Allows entry of data</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1294749"></a>
+
+          <p class="pBody">List box (<code class="cCode">"listbox"</code>)</p>
+        </td>
+
+        <td>
+          <a name="wp1294751"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_LISTBOX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294780"></a>
+
+          <p class="pBody">Provides a list of items from which to choose</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1294753"></a>
+
+          <p class="pBody">Scroll bar (<code class="cCode">"scrollbar"</code>)</p>
+        </td>
+
+        <td>
+          <a name="wp1294755"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_SCROLLBAR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294782"></a>
+
+          <p class="pBody">Is used for scrolling within a window (to display content that doesn't fit)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1294757"></a>
+
+          <p class="pBody">Static control (<code class="cCode">"static"</code>)</p>
+        </td>
+
+        <td>
+          <a name="wp1294759"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_STATIC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294784"></a>
+
+          <p class="pBody">Displays static text</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1294728"></a>
+
+  <p class="pBody">However, many Corel&nbsp;WordPerfect&nbsp;Office applications share custom controls, to support features and provide a common look and feel
+  across products. The PerfectFit custom controls allow developers to create dialog-box controls that look and feel like the dialog-box controls in
+  WordPerfect.</p><a name="wp539501"></a>
+
+  <p class="pBody">The following custom controls have been implemented. They include some of the controls that existed in earlier version of PerfectFit and
+  shared code.</p><a name="wp1295058"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1307501"></a>
+
+          <h5 class="pHeading4">Custom control<br />
+          (provided by PerfectFit)</h5>
+        </th>
+
+        <th>
+          <a name="wp1307503"></a>
+
+          <h5 class="pHeading4">Class name definition</h5>
+        </th>
+
+        <th>
+          <a name="wp1307505"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507852"></a>
+
+          <p class="pBody">Bitmap</p>
+        </td>
+
+        <td>
+          <a name="wp507854"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_BITMAP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295005"></a>
+
+          <p class="pBody">Displays a bitmap</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507860"></a>
+
+          <p class="pBody">Color wheel</p>
+        </td>
+
+        <td>
+          <a name="wp507862"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_COLOR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295007"></a>
+
+          <p class="pBody">Allows selection of a color</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507868"></a>
+
+          <p class="pBody">Counter</p>
+        </td>
+
+        <td>
+          <a name="wp507870"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_COUNTER</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295009"></a>
+
+          <p class="pBody">Allows entry of a numeric value</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507876"></a>
+
+          <p class="pBody">Date</p>
+        </td>
+
+        <td>
+          <a name="wp507878"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_DATE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295011"></a>
+
+          <p class="pBody">Allows entry or selection of a date</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507884"></a>
+
+          <p class="pBody">Drag/drop well</p>
+        </td>
+
+        <td>
+          <a name="wp507886"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_DDWELL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295013"></a>
+
+          <p class="pBody">Is a recessed box that displays an icon and performs drag/drop functionality according to the WordPerfect drag/drop protocol</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507892"></a>
+
+          <p class="pBody">Filename entry</p>
+        </td>
+
+        <td>
+          <a name="wp507894"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_FILENAME</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295015"></a>
+
+          <p class="pBody">Assists entry or selection of a file or folder</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507900"></a>
+
+          <p class="pBody">Group box</p>
+        </td>
+
+        <td>
+          <a name="wp507902"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_GROUPBOX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294957"></a>
+
+          <p class="pBody">Groups a set of related controls</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507908"></a>
+
+          <p class="pBody">Horizontal line</p>
+        </td>
+
+        <td>
+          <a name="wp507910"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_HLINE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294959"></a>
+
+          <p class="pBody">Displays a horizontal line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507916"></a>
+
+          <p class="pBody">Name search list box</p>
+        </td>
+
+        <td>
+          <a name="wp507918"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_NS_LISTBOX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295017"></a>
+
+          <p class="pBody">Is a list box that supports a search by content</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507924"></a>
+
+          <p class="pBody">Pop-down button</p>
+        </td>
+
+        <td>
+          <a name="wp507926"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_POPDOWN_BUTTON</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295023"></a>
+
+          <p class="pBody">Displays a menu</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507932"></a>
+
+          <p class="pBody">Pop-down combo box</p>
+        </td>
+
+        <td>
+          <a name="wp507934"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_POPDOWN_COMBO</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295035"></a>
+
+          <p class="pBody">Is an edit box with a menu button that affects the contents of the edit box</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507940"></a>
+
+          <p class="pBody">Pop-down list box button</p>
+        </td>
+
+        <td>
+          <a name="wp507942"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_POPDOWN_LISTBOX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294967"></a>
+
+          <p class="pBody">Is a list box with a menu button</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507948"></a>
+
+          <p class="pBody">Pop-up button</p>
+        </td>
+
+        <td>
+          <a name="wp507950"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_POPUP_BUTTON</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295029"></a>
+
+          <p class="pBody">Displays a menu</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507956"></a>
+
+          <p class="pBody">Progress indicator</p>
+        </td>
+
+        <td>
+          <a name="wp507958"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_PROGRESS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295041"></a>
+
+          <p class="pBody">Is a static control that displays the percent of completion for an ongoing operation</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507964"></a>
+
+          <p class="pBody">Recessed box</p>
+        </td>
+
+        <td>
+          <a name="wp507966"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_RECESSEDBOX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295043"></a>
+
+          <p class="pBody">Is a static text box that appears recessed</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507972"></a>
+
+          <p class="pBody">Shadow box</p>
+        </td>
+
+        <td>
+          <a name="wp507974"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_SHADOWBOX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295045"></a>
+
+          <p class="pBody">Is a static text box with a shadow behind it</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507980"></a>
+
+          <p class="pBody">Static path</p>
+        </td>
+
+        <td>
+          <a name="wp507982"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_STATICPATH</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295047"></a>
+
+          <p class="pBody">Displays a filename in a limited space</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507988"></a>
+
+          <p class="pBody">Status bar</p>
+        </td>
+
+        <td>
+          <a name="wp507990"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_SBAR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295049"></a>
+
+          <p class="pBody">Is a bar for displaying status at the bottom of a dialog box</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507996"></a>
+
+          <p class="pBody">Vertical line</p>
+        </td>
+
+        <td>
+          <a name="wp507998"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_VLINE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294981"></a>
+
+          <p class="pBody">Displays a vertical line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp508004"></a>
+
+          <p class="pBody">Window editor</p>
+        </td>
+
+        <td>
+          <a name="wp508006"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_EDIT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294995"></a>
+
+          <p class="pBody">Allows display/entry of strings containing WordPerfect extended characters</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp508012"></a>
+
+          <p class="pBody">WP combo box</p>
+        </td>
+
+        <td>
+          <a name="wp508014"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_WPCOMBOBOX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294997"></a>
+
+          <p class="pBody">Is a combo box that accepts and displays WordPerfect word strings</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp508020"></a>
+
+          <p class="pBody">WP list box</p>
+        </td>
+
+        <td>
+          <a name="wp508022"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_WPLISTBOX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1294999"></a>
+
+          <p class="pBody">Is a list box that accepts and displays WordPerfect word strings</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp508028"></a>
+
+          <p class="pBody">WP static</p>
+        </td>
+
+        <td>
+          <a name="wp508030"></a>
+
+          <p class="pBody"><code class="cCode">WCWP_WPSTATIC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1295001"></a>
+
+          <p class="pBody">Is a static control that accepts and displays WordPerfect word strings</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1295064"></a>
+
+  <p class="pBody">To use any of the controls, see the SCWIN32.H file (which is stored at
+  X:\Program&nbsp;Files\Corel\WordPerfect&nbsp;Office&nbsp;X6\SDK\Include, where X: is the drive where your Program&nbsp;Files folder is
+  stored). This file contains the definitions for all the custom controls, messages, notifications, function prototypes and macros.</p><a name="wp539556"></a>
+
+  <p class="pBody">For details on specific custom controls and the features available to them, please see the following subsections:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1295067"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1295062">Understanding bitmap display controls</a></li>
+      </ul>
+    </div><a name="wp1295360"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1296100">Understanding color wheel controls</a></li>
+      </ul>
+    </div><a name="wp1295871"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1297834">Understanding counter controls</a></li>
+      </ul>
+    </div><a name="wp1297708"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1299066">Understanding date controls</a></li>
+      </ul>
+    </div><a name="wp1299197"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1299793">Understanding drag/drop well controls</a></li>
+      </ul>
+    </div><a name="wp1299817"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1300642">Understanding filename entry controls</a></li>
+      </ul>
+    </div><a name="wp1300929"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1300941">Understanding name search list box controls</a></li>
+      </ul>
+    </div><a name="wp1301383"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1302315">Understanding pop-up/pop-down controls</a></li>
+      </ul>
+    </div><a name="wp1302415"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1302768">Understanding progress indicator controls</a></li>
+      </ul>
+    </div><a name="wp1302799"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1303247">Understanding recessed box controls and shadow box controls</a></li>
+      </ul>
+    </div><a name="wp1303379"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1303556">Understanding static path controls</a></li>
+      </ul>
+    </div><a name="wp1303578"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1303936">Understanding status bar controls</a></li>
+      </ul>
+    </div><a name="wp1303797"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1306654">Understanding window editor controls</a></li>
+      </ul>
+    </div><a name="wp1306501"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1311208">Understanding WP combo box controls</a></li>
+      </ul>
+    </div><a name="wp1307509"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1312404">Understanding WP list box controls</a></li>
+      </ul>
+    </div><a name="wp1311714"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Custom_controls.html#wp1312801">Understanding WP static controls</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1295062"></a>
+
+  <h5 class="pHeading4">Understanding bitmap display controls</h5><a name="wp539558"></a>
+
+  <p class="pBody">A bitmap display control is used to display a bitmap - transparently on the background, if desired. A bitmap display control is used like a
+  static control; it displays the bitmap indicated in its client area.</p><a name="wp539560"></a>
+
+  <p class="pBody">The class name for bitmap display controls is <code class="cCode">WCWP_BITMAP</code>.</p><a name="wp539564"></a>
+
+  <p class="pBody">The following styles are available to bitmap display controls.</p><a name="wp539567"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1295132"></a>
+
+          <h5 class="pHeading4">Style</h5>
+        </th>
+
+        <th>
+          <a name="wp1295134"></a>
+
+          <h5 class="pHeading4">Effect</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp508041"></a>
+
+          <p class="pBody"><code class="cCode">BMPS_SHARED_ RESOURCE</code></p>
+        </td>
+
+        <td>
+          <a name="wp508043"></a>
+
+          <p class="pBody">The bitmap specified in the <code class="cCode">lpszName</code> of the <code class="cCode">CreateWindow(&nbsp;)</code> call
+          references a bitmap in the <code class="cCode">WPRES_SHARED_RESOURCE</code> resource. This is the default.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp508049"></a>
+
+          <p class="pBody"><code class="cCode">BMPS_TASK_ RESOURCE</code></p>
+        </td>
+
+        <td>
+          <a name="wp508051"></a>
+
+          <p class="pBody">The bitmap specified in the <code class="cCode">lpszName</code> of the <code class="cCode">CreateWindow(&nbsp;)</code> call
+          references a bitmap in the <code class="cCode">WPRES_TASK_RESOURCE</code> resource.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp508057"></a>
+
+          <p class="pBody"><code class="cCode">BMPS_SIZECTLTOBMP</code></p>
+        </td>
+
+        <td>
+          <a name="wp508059"></a>
+
+          <p class="pBody">The size of the control is matched to the size of the bitmap that is displayed. Using this style leaves the dimensions of the bitmap
+          unaltered and thus looks best.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp508065"></a>
+
+          <p class="pBody"><code class="cCode">BMPS_SIZEBMPTOCTL</code></p>
+        </td>
+
+        <td>
+          <a name="wp508067"></a>
+
+          <p class="pBody">The bitmap is shrunk or stretched to fit within the dimensions of the control.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp508073"></a>
+
+          <p class="pBody"><code class="cCode">BMPS_TRANSPARENT</code></p>
+        </td>
+
+        <td>
+          <a name="wp508075"></a>
+
+          <p class="pBody">The bitmap is displayed transparently on its background.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp539603"></a>
+
+  <p class="pBody">The following messages are available to bitmap display controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1295212"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="BMPM_SETFILE.html#wp1312790">BMPM_SETFILE message</a></li>
+      </ul>
+    </div><a name="wp1295513"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="BMPM_SETHBITMAP.html#wp539614">BMPM_SETHBITMAP message</a></li>
+      </ul>
+    </div><a name="wp1295517"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="BMPM_SETTRANSPARENTCOLOR.html#wp539623">BMPM_SETTRANSPARENTCOLOR message</a></li>
+      </ul>
+    </div><a name="wp1295521"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="BMPM_SETUSERHBITMAPMASK.html#wp539634">BMPM_SETUSERHBITMAPMASK message</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1295233"></a>
+
+  <p class="pBody">The following notification is available to bitmap display controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1295237"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1310884">WM_COMMAND notification</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1296100"></a>
+
+  <h5 class="pHeading4">Understanding color wheel controls</h5><a name="wp1296101"></a>
+
+  <p class="pBody">A color wheel control lets the user display and manipulate color values. The native color model of the control is Hue, Lightness and
+  Saturation (HLS). RGB, HSB and CMYK color models are supported by conversion functions that are provided for the various color models.</p><a name=
+  "wp1296102"></a>
+
+  <p class="pBody">The class name for color wheel controls is <code class="cCode">WCWP_COLOR</code>.</p><a name="wp1296103"></a>
+
+  <p class="pBody">The following style is available to color wheel controls.</p><a name="wp1296113"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1296106"></a>
+
+          <h5 class="pHeading4">Style</h5>
+        </th>
+
+        <th>
+          <a name="wp1296108"></a>
+
+          <h5 class="pHeading4">Effect</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1296110"></a>
+
+          <p class="pBody"><code class="cCode">CLRS_NOPALETTE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1296112"></a>
+
+          <p class="pBody">The color wheel control does not use the Windows color palette.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1296114"></a>
+
+  <p class="pBody">The following structures are available to color wheel controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1296118"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CMYK_STRUCT.html#wp1313164">CMYK_STRUCT structure</a></li>
+      </ul>
+    </div><a name="wp1296122"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="HLS_STRUCT.html#wp1313208">HLS_STRUCT structure</a></li>
+      </ul>
+    </div><a name="wp1296126"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="HSB_STRUCT.html#wp1313247">HSB_STRUCT structure</a></li>
+      </ul>
+    </div><a name="wp1296130"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="RGB_STRUCT.html#wp1313286">RGB_STRUCT structure</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1296131"></a>
+
+  <p class="pBody">The following functions are available to color wheel controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1296135"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="ClrBlendColors.html#wp1313823">ClrBlendColors function</a></li>
+      </ul>
+    </div><a name="wp1296139"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="ClrCMYKtoRGB.html#wp1313353">ClrCMYKtoRGB function</a></li>
+      </ul>
+    </div><a name="wp1296143"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="ClrHLStoRGB.html#wp1313376">ClrHLStoRGB function</a></li>
+      </ul>
+    </div><a name="wp1296147"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="ClrHSBtoRGB.html#wp1313399">ClrHSBtoRGB function</a></li>
+      </ul>
+    </div><a name="wp1296151"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="ClrRainbowColors.html#wp1313422">ClrRainbowColors function</a></li>
+      </ul>
+    </div><a name="wp1296155"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="ClrRGBtoCMYK.html#wp1313450">ClrRGBtoCMYK function</a></li>
+      </ul>
+    </div><a name="wp1296159"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="ClrRGBtoHLS.html#wp1313473">ClrRGBtoHLS function</a></li>
+      </ul>
+    </div><a name="wp1296163"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="ClrRGBtoHSB.html#wp1313496">ClrRGBtoHSB function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1296164"></a>
+
+  <p class="pBody">The following messages are available to color wheel controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1296168"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="HLS_GETVALUE.html#wp540114">HLS_GETVALUE message</a></li>
+      </ul>
+    </div><a name="wp1296172"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="HLS_SETVALUE.html#wp540123">HLS_SETVALUE message</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1296173"></a>
+
+  <p class="pBody">The following notification is available to color wheel controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1296177"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1310884">WM_COMMAND notification</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1297834"></a>
+
+  <h5 class="pHeading4">Understanding counter controls</h5><a name="wp1297835"></a>
+
+  <p class="pBody">A counter control combines an edit control with increment and decrement buttons.</p><a name="wp1297836"></a>
+
+  <p class="pBody">The control has two styles. The standard style makes it very easy to prompt the user for an integer within a given range. The owner-drawn
+  style provides a visually consistent control that lets the user enter whatever data the application programmer desires.</p><a name="wp1297837"></a>
+
+  <p class="pBody">The counter control, in its default style, allows the program to set a minimum value, a maximum value, a current value, and a step value.
+  The scroll buttons do not increment or decrement the value beyond the valid range of values. If the control has the auto-validate style and the user enters a
+  value outside the range, the value is automatically set to the nearest boundary value when the control loses focus.</p><a name="wp1297838"></a>
+
+  <p class="pBody">The owner-drawn style of counter control provides a visually consistent control that lets the user enter anything in the edit area that can
+  be entered in a standard edit control. The owner-drawn counter control notifies the owner when the user has clicked the increment or decrement buttons. It is
+  the owner's responsibility to alter the contents of the counter control appropriately. The counter control handles <code class="cCode">WM_GETTEXT</code>
+  (that is, the <code class="cCode">GetWindowText(&nbsp;)</code> function) and <code class="cCode">WM_SETTEXT</code> (that is, the <code class=
+  "cCode">SetWindowText(&nbsp;)</code> function) in the same way as a standard edit control; it is not possible to set a minimum, maximum, or step value for an
+  owner-drawn counter control.</p><a name="wp1297839"></a>
+
+  <p class="pBody">The class name for counter controls is <code class="cCode">WCWP_COUNTER</code>.</p><a name="wp1297840"></a>
+
+  <p class="pBody">The following styles are available to counter controls.</p><a name="wp1297862"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1297843"></a>
+
+          <h5 class="pHeading4">Style</h5>
+        </th>
+
+        <th>
+          <a name="wp1297845"></a>
+
+          <h5 class="pHeading4">Effect</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1297847"></a>
+
+          <p class="pBody"><code class="cCode">CNTS_AUTOHSCROLL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1297849"></a>
+
+          <p class="pBody">The entered text is scrolled horizontally when the edge of the field is reached.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1297851"></a>
+
+          <p class="pBody"><code class="cCode">CNTS_AUTOVALIDATE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1297853"></a>
+
+          <p class="pBody">The value entered in the control is automatically validated when the control loses focus.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1297855"></a>
+
+          <p class="pBody"><code class="cCode">CNTS_NOSCROLL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1297857"></a>
+
+          <p class="pBody">The control is displayed without the increment/decrement buttons.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1297859"></a>
+
+          <p class="pBody"><code class="cCode">CNTS_OWNERDRAWN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1297861"></a>
+
+          <p class="pBody">The application is made responsible for handling the meaning of the increment/decrement buttons. The user is allowed to enter
+          anything in the control.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1297863"></a>
+
+  <p class="pBody">The following functions are available to counter controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1297867"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WcntFixedPointToStr.html#wp1313527">WcntFixedPointToStr function</a></li>
+      </ul>
+    </div><a name="wp1297871"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WcntStrToFixedPoint.html#wp1313550">WcntStrToFixedPoint function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1297872"></a>
+
+  <p class="pBody">The following messages are available to counter controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1297876"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_GETEDITHWND.html#wp540353">CNT_GETEDITHWND message</a></li>
+      </ul>
+    </div><a name="wp1297880"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_GETMAXSTRING.html#wp540366">CNT_GETMAXSTRING message</a></li>
+      </ul>
+    </div><a name="wp1297884"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_GETMAXVALUE.html#wp540375">CNT_GETMAXVALUE message</a></li>
+      </ul>
+    </div><a name="wp1297888"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_GETMINSTRING.html#wp540388">CNT_GETMINSTRING message</a></li>
+      </ul>
+    </div><a name="wp1297892"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_GETMINVALUE.html#wp540397">CNT_GETMINVALUE message</a></li>
+      </ul>
+    </div><a name="wp1297896"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_GETSTEPVALUE.html#wp540410">CNT_GETSTEPVALUE message</a></li>
+      </ul>
+    </div><a name="wp1297900"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_GETVALUE.html#wp540423">CNT_GETVALUE message</a></li>
+      </ul>
+    </div><a name="wp1297904"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_ISINRANGE.html#wp540436">CNT_ISINRANGE message</a></li>
+      </ul>
+    </div><a name="wp1297908"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_SETFORMAT.html#wp540449">CNT_SETFORMAT message</a></li>
+      </ul>
+    </div><a name="wp1297912"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_SETMAXVALUE.html#wp540463">CNT_SETMAXVALUE message</a></li>
+      </ul>
+    </div><a name="wp1297916"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_SETMINVALUE.html#wp540476">CNT_SETMINVALUE message</a></li>
+      </ul>
+    </div><a name="wp1297920"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_SETSTEPVALUE.html#wp540489">CNT_SETSTEPVALUE message</a></li>
+      </ul>
+    </div><a name="wp1297924"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="CNT_SETVALUE.html#wp540502">CNT_SETVALUE message</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1297929"></a>
+
+    <div class="pSmartList1">
+      The following standard edit control messages are also supported and passed through to the edit control child of the counter control:
+    </div>
+
+    <div class="pSmartList2 pSmartList2 c2">
+      <a name="wp1297930"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_GETMODIFY</code></li>
+        </ul>
+      </div><a name="wp1297931"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_LIMITTEXT</code></li>
+        </ul>
+      </div><a name="wp1297932"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_REPLACESEL</code></li>
+        </ul>
+      </div><a name="wp1297933"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_SETMODIFY</code></li>
+        </ul>
+      </div><a name="wp1297934"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_SETSEL</code></li>
+        </ul>
+      </div>
+    </div>
+  </div><a name="wp1297935"></a>
+
+  <p class="pBody">The following notification is available to counter controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1297939"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1310884">WM_COMMAND notification</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1299066"></a>
+
+  <h5 class="pHeading4">Understanding date controls</h5><a name="wp1299067"></a>
+
+  <p class="pBody">A date control is used to assist the entry of dates by providing a calendar-browsing dialog box. It appears as an edit field with a button
+  to the right that features a calendar page icon. If the button is clicked (or the F4 key is pressed), a dialog box appears from which the user can select a
+  date. The selected date is displayed in the format chosen in the Windows control panel.</p><a name="wp1299068"></a>
+
+  <p class="pBody">The keyboard interface for the calendar dialog box is as follows.</p><a name="wp1299098"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1299071"></a>
+
+          <h5 class="pHeading4">Key</h5>
+        </td>
+
+        <td>
+          <a name="wp1299073"></a>
+
+          <h5 class="pHeading4">Result</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299075"></a>
+
+          <p class="pBody">Left</p>
+        </td>
+
+        <td>
+          <a name="wp1299077"></a>
+
+          <p class="pBody">Goes back one day</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299079"></a>
+
+          <p class="pBody">Right</p>
+        </td>
+
+        <td>
+          <a name="wp1299081"></a>
+
+          <p class="pBody">Goes forward one day</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299083"></a>
+
+          <p class="pBody">Up</p>
+        </td>
+
+        <td>
+          <a name="wp1299085"></a>
+
+          <p class="pBody">Goes back one week</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299087"></a>
+
+          <p class="pBody">Down</p>
+        </td>
+
+        <td>
+          <a name="wp1299089"></a>
+
+          <p class="pBody">Goes forward one week</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299091"></a>
+
+          <p class="pBody">PgUp</p>
+        </td>
+
+        <td>
+          <a name="wp1299093"></a>
+
+          <p class="pBody">Goes back one month</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299095"></a>
+
+          <p class="pBody">PgDn</p>
+        </td>
+
+        <td>
+          <a name="wp1299097"></a>
+
+          <p class="pBody">Goes forward one month</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1299099"></a>
+
+  <p class="pBody">The mouse interface for the calendar dialog box is as follows.</p><a name="wp1299129"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1299102"></a>
+
+          <h5 class="pHeading4">Click</h5>
+        </td>
+
+        <td>
+          <a name="wp1299104"></a>
+
+          <h5 class="pHeading4">Result</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299106"></a>
+
+          <p class="pBody">@@</p>
+        </td>
+
+        <td>
+          <a name="wp1299108"></a>
+
+          <p class="pBody">Goes back one year</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299110"></a>
+
+          <p class="pBody">!!</p>
+        </td>
+
+        <td>
+          <a name="wp1299112"></a>
+
+          <p class="pBody">Goes forward one year</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299114"></a>
+
+          <p class="pBody">@</p>
+        </td>
+
+        <td>
+          <a name="wp1299116"></a>
+
+          <p class="pBody">Goes back one month</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299118"></a>
+
+          <p class="pBody">!</p>
+        </td>
+
+        <td>
+          <a name="wp1299120"></a>
+
+          <p class="pBody">Goes forward one month</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299122"></a>
+
+          <p class="pBody">Date</p>
+        </td>
+
+        <td>
+          <a name="wp1299124"></a>
+
+          <p class="pBody">Selects that date and dismisses the dialog box</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299126"></a>
+
+          <p class="pBody">Today</p>
+        </td>
+
+        <td>
+          <a name="wp1299128"></a>
+
+          <p class="pBody">Selects today's date and dismisses the dialog box</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1299130"></a>
+
+  <p class="pBody">The date control is used like a normal edit control. It responds to most of the same messages as an edit control and sends notifications to
+  its parent that are the same as those for an edit control. When you specify dimensions for the control, the button is placed inside the dimensions you give
+  and the edit field portion of the control fills the remainder of the area.</p><a name="wp1299131"></a>
+
+  <p class="pBody">The class name for the date controls is <code class="cCode">WCWP_DATE</code>.</p><a name="wp1299132"></a>
+
+  <p class="pBody">The following style is available to date controls.</p><a name="wp1299142"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1299135"></a>
+
+          <h5 class="pHeading4">Style</h5>
+        </th>
+
+        <th>
+          <a name="wp1299137"></a>
+
+          <h5 class="pHeading4">Effect</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1299139"></a>
+
+          <p class="pBody"><code class="cCode">DATES_VALIDATE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1299141"></a>
+
+          <p class="pBody">When the focus is moved from the field, the string in the field is checked to see whether it is a valid date string and is
+          reformatted to a standard display format</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1299143"></a>
+
+  <p class="pBody">The following structure is available to date controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1299147"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WPDate.html#wp1313582">WPDate structure</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1299148"></a>
+
+  <p class="pBody">The following messages are available to date controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1299152"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DATE_GETDATE.html#wp540706">DATE_GETDATE message</a></li>
+      </ul>
+    </div><a name="wp1299156"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DATE_SETDATE.html#wp540719">DATE_SETDATE message</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1299158"></a>
+
+    <div class="pSmartList1">
+      The following standard Windows edit control messages are also available to date controls:
+    </div>
+
+    <div class="pSmartList2 pSmartList2 c2">
+      <a name="wp1299159"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_CANUNDO</code></li>
+        </ul>
+      </div><a name="wp1299160"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_EMPTYUNDOBUFFER</code></li>
+        </ul>
+      </div><a name="wp1299161"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_GETMODIFY</code></li>
+        </ul>
+      </div><a name="wp1299162"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_GETSEL</code></li>
+        </ul>
+      </div><a name="wp1299163"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_LIMITTEXT</code></li>
+        </ul>
+      </div><a name="wp1299164"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_REPLACESEL</code></li>
+        </ul>
+      </div><a name="wp1299165"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_SETMODIFY</code></li>
+        </ul>
+      </div><a name="wp1299166"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_SETSEL</code></li>
+        </ul>
+      </div><a name="wp1299167"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_UNDO</code></li>
+        </ul>
+      </div><a name="wp1299168"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_ENABLE</code></li>
+        </ul>
+      </div><a name="wp1299169"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_GETDLGCODE</code></li>
+        </ul>
+      </div><a name="wp1299170"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_GETFONT</code></li>
+        </ul>
+      </div><a name="wp1299171"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_GETTEXT</code></li>
+        </ul>
+      </div><a name="wp1299172"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_GETTEXTLENGTH</code></li>
+        </ul>
+      </div><a name="wp1299173"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_SETTEXT</code></li>
+        </ul>
+      </div>
+    </div>
+  </div><a name="wp1299174"></a>
+
+  <p class="pBody">The following notification is available to date controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1299178"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1310884">WM_COMMAND notification</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1299793"></a>
+
+  <h5 class="pHeading4">Understanding drag/drop well controls</h5><a name="wp1299794"></a>
+
+  <p class="pBody">A drag/drop well control looks like a recessed box with an icon in it. It handles the WordPerfect drag/drop protocol on behalf of the parent
+  of the control. The user presses and holds the left mouse button to drag an object from this control to another window that can accept the dragged object.
+  This control can also be a destination, so it can accept an object dragged and dropped onto it.</p><a name="wp1299795"></a>
+
+  <p class="pBody">The class name for drag/drop well controls is <code class="cCode">WCWP_DDWELL</code>. The window text is the name of the icon to be
+  displayed in the control.</p><a name="wp1299796"></a>
+
+  <p class="pBody">The following structure is available to drag/drop well controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1299800"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DDWDATA.html#wp1313664">DDWDATA structure</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1299801"></a>
+
+  <p class="pBody">The following notification is available to drag/drop well controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1299805"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1310884">WM_COMMAND notification</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1300642"></a>
+
+  <h5 class="pHeading4">Understanding filename entry controls</h5><a name="wp1300643"></a>
+
+  <p class="pBody">A filename entry control is used to assist the entry of filenames or folder paths by providing a browsing dialog box. A filename entry
+  control appears as an edit field with a button to the right that has a file folder icon. If the button is clicked (or the F4 key is pressed), a dialog box
+  appears allowing the user to select a file or a folder.</p><a name="wp1300644"></a>
+
+  <p class="pBody">A filename entry control is used like a normal edit control. It responds to most of the same messages as an edit control and sends
+  notifications to its parent that include those for an edit control. When you specify dimensions for the control, the button is placed inside the dimensions
+  given, and the edit field portion of the control fills the remainder of the area.</p><a name="wp1300645"></a>
+
+  <p class="pBody">The class name for filename entry controls is <code class="cCode">WCWP_FILENAME</code>.</p><a name="wp1300646"></a>
+
+  <p class="pBody">The following styles are available to filename entry controls.</p><a name="wp1300664"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1300649"></a>
+
+          <h5 class="pHeading4">Style</h5>
+        </th>
+
+        <th>
+          <a name="wp1300651"></a>
+
+          <h5 class="pHeading4">Effect</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1300653"></a>
+
+          <p class="pBody"><code class="cCode">FNES_FO_DOESNTHAVETOEXIST</code></p>
+        </td>
+
+        <td>
+          <a name="wp1300655"></a>
+
+          <p class="pBody">The filename entered is not required to exist.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1300657"></a>
+
+          <p class="pBody"><code class="cCode">FNES_PATHNAME</code></p>
+        </td>
+
+        <td>
+          <a name="wp1300659"></a>
+
+          <p class="pBody">A folder path is expected rather than a filename. When the control's button is clicked to bring up the Select directory dialog box,
+          the path entered there is validated unless the <code class="cCode">FNES_FO_DOESNTHAVETOEXIST</code> style bit is also set. If the pathname entered is
+          not valid, an error message box is displayed. If the pathname entered is valid but does not exist, a <code class="cCode">"Create? Yes or No"</code>
+          message box is displayed, allowing the user to create the path. Note that validation occurs only from the dialog box. For the user to validate what
+          is typed into the edit portion of the control, the owner of the control must perform the validation himself, usually on a <code class=
+          "cCode">KILLFOCUS</code> message or notification.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1300661"></a>
+
+          <p class="pBody"><code class="cCode">FNES_PATHNAME_NOVALIDATE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1300663"></a>
+
+          <p class="pBody">The folder path is not validated.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1300665"></a>
+
+  <p class="pBody">The following function is available to filename entry controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1300669"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfneGetEditHwnd.html#wp1313737">WfneGetEditHwnd function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1300670"></a>
+
+  <p class="pBody">The following messages are available to filename entry controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1300674"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="FNE_SETDEFDIR.html#wp541047">FNE_SETDEFDIR message</a></li>
+      </ul>
+    </div><a name="wp1300678"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="FNE_SETDEFTMPL.html#wp541056">FNE_SETDEFTMPL message</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1300680"></a>
+
+    <div class="pSmartList1">
+      The following standard edit control messages are also supported and passed through to the edit control child of the filename search control:
+    </div>
+
+    <div class="pSmartList2 pSmartList2 c2">
+      <a name="wp1300681"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_CANUNDO</code></li>
+        </ul>
+      </div><a name="wp1300682"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_EMPTYUNDOBUFFER</code></li>
+        </ul>
+      </div><a name="wp1300683"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_GETMODIFY</code></li>
+        </ul>
+      </div><a name="wp1300684"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_GETSEL</code></li>
+        </ul>
+      </div><a name="wp1300685"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_LIMITTEXT</code></li>
+        </ul>
+      </div><a name="wp1300686"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_REPLACESEL</code></li>
+        </ul>
+      </div><a name="wp1300687"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_SETMODIFY</code></li>
+        </ul>
+      </div><a name="wp1300688"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_SETSEL</code></li>
+        </ul>
+      </div><a name="wp1300689"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EM_UNDO</code></li>
+        </ul>
+      </div><a name="wp1300690"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_ENABLE</code></li>
+        </ul>
+      </div><a name="wp1300691"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_GETDLGCODE</code></li>
+        </ul>
+      </div><a name="wp1300692"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_GETFONT</code></li>
+        </ul>
+      </div><a name="wp1300693"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_GETTEXT</code></li>
+        </ul>
+      </div><a name="wp1300694"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_GETTEXTLENGTH</code></li>
+        </ul>
+      </div><a name="wp1300695"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">WM_SETTEXT</code></li>
+        </ul>
+      </div>
+    </div>
+  </div><a name="wp1300696"></a>
+
+  <p class="pBody">The following notification is available to filename entry controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1300700"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1310884">WM_COMMAND notification</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1300702"></a>
+
+    <div class="pSmartList1">
+      The following standard edit control notifications are also supported and sent from the filename entry control to the edit control child of the filename
+      search control:
+    </div>
+
+    <div class="pSmartList2 pSmartList2 c2">
+      <a name="wp1300703"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EN_CHANGE</code></li>
+        </ul>
+      </div><a name="wp1300704"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EN_ERRSPACE</code></li>
+        </ul>
+      </div><a name="wp1300705"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EN_HSCROLL</code></li>
+        </ul>
+      </div><a name="wp1300706"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EN_KILLFOCUS</code></li>
+        </ul>
+      </div><a name="wp1300707"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EN_MAXTEXT</code></li>
+        </ul>
+      </div><a name="wp1300708"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EN_SETFOCUS</code></li>
+        </ul>
+      </div><a name="wp1300709"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">EN_UPDATE</code></li>
+        </ul>
+      </div>
+    </div>
+  </div><a name="wp1300941"></a>
+
+  <h5 class="pHeading4">Understanding name search list box controls</h5><a name="wp1300942"></a>
+
+  <p class="pBody">A name search list box provides a way to search for an item in a list box by using the entire text of the item. This control is part of the
+  dialog box manager system. A name search list box is a custom control that implements WordPerfect-style name search as a replacement for the Windows-standard
+  first-character search. It can be used just like a standard list box in dialog boxes or windows. As each character is entered, a search string is displayed
+  in a small window located above the list box - this window can be moved to a different location by using <code class="cCode">WPMSG_SET_NSLB_POPUP</code> -
+  and the best match is selected in the list box.</p><a name="wp1300943"></a>
+
+  <p class="pBody">In a sorted list box, a binary search is performed through the list box to find the item that most closely matches the search string. If the
+  list box is owner-drawn, the parent of the list box is asked to make the comparison through the <code class="cCode">WM_COMPAREITEM</code> message. If the
+  list box is not owner-drawn, then a case-insensitive lexical comparison is made. This comparison does not work if any of the characters that fall between `Z'
+  and `a' - that is, the left brace ( [ ), the backslash ( \ ), the right brace ( ] ), the caret (^ ), the underscore ( _ ), or the apostrophe ( ' ) - appears
+  in the list box item or the search string. A search is performed when a character is added or removed in the search pop-up.</p><a name="wp1300944"></a>
+
+  <p class="pBody">In an unsorted list box, a sequential search is initiated from the item that currently has the focus or, if no item is selected, from the
+  first item in the list box. The search wraps around from the end of the list box to the start of the list box if necessary. A match occurs when a perfect
+  prefix match is found. If a perfect prefix match is not found, then the focus does not change. If the list box is owner-drawn, then the owner of the list box
+  is asked to make the comparison though the <code class="cCode">WM_COMPAREITEM</code> message. If the list box is not owner-drawn, then a case-insensitive
+  lexical comparison is made. This comparison does not work if any of the characters that fall between `Z' and `a' - that is, the left brace ( [ ), the
+  backslash ( \ ), the right brace ( ] ), the caret (^ ), the underscore ( _ ), or the apostrophe ( ' ) - appears in the list box item or the search string. A
+  search is performed only when a character is added, not when one is removed.</p><a name="wp1300945"></a>
+
+  <p class="pBody">In an owner-drawn list box, the owner of the list box is asked to perform each comparison through the <code class=
+  "cCode">WM_COMPAREITEM</code> message. There is an override capability to terminate the search early; see the <code class="cCode">WM_COMPAREITEM</code>
+  message for details.</p><a name="wp1300946"></a>
+
+  <p class="pBody">All previous selections are deselected with each character entered for a name search.</p><a name="wp1300947"></a>
+
+  <p class="pBody">The name search pop-up appears on the first column of a multi-column list box, unless the position is changed though the <code class=
+  "cCode">WPMSG_SET_NSLB_POPUP</code> message. When a selection is made, the list box ensures that the item selected is completely visible.</p><a name=
+  "wp1300948"></a>
+
+  <p class="pBody">The class name for name search list box controls is <code class="cCode">WCWP_NS_LISTBOX</code>.</p><a name="wp1300949"></a>
+
+  <p class="pBody">The following messages are available to name search list box controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1300950"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="NSLB_CANCELPOPUP.html#wp1301023">NSLB_CANCELPOPUP message</a></li>
+      </ul>
+    </div><a name="wp1301387"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="NSLB_QUERYPOPUP.html#wp1301036">NSLB_QUERYPOPUP message</a></li>
+      </ul>
+    </div><a name="wp1301391"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMPAREITEM.html#wp1301051">WM_COMPAREITEM message</a></li>
+      </ul>
+    </div><a name="wp1301395"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WPMSG_SET_NSLB_POPUP.html#wp1301081">WPMSG_SET_NSLB_POPUP message</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1302315"></a>
+
+  <h5 class="pHeading4">Understanding pop-up/pop-down controls</h5><a name="wp1302316"></a>
+
+  <p class="pBody">A pop-up menu button control is a button that, when clicked, displays a menu from which selections can be made. The text on the button face
+  is normally the currently checked menu item. On the right side of the button are small up/down arrows which, when pressed, typically display a menu over the
+  button (with the selected item directly over the button).</p><a name="wp1302317"></a>
+
+  <p class="pBody">A pop-down menu button control is a button that, when clicked, displays a menu from which selections can be made. The text on the button
+  face can be set. On the right side of the button is a small down arrow which, when pressed, typically pops up a menu directly below the button.</p><a name=
+  "wp1302318"></a>
+
+  <p class="pBody">A pop-down combo box control is an edit box with a button to its right. The button has a small arrow pointing at the edit box that, when
+  clicked, displays a menu used to affect the contents of the edit box.</p>
+
+  <p class="pTip"><img src="images/tip.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1302319"></a>
+
+    <div class="pSmartList1">
+      Working examples of the definition and use of the pop-up menu button and pop-down combo box controls are in the sample program.
+    </div>
+  </div><a name="wp1302320"></a>
+
+  <p class="pBody">The class names for these pop-up/pop-down controls are as follows:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1302321"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>pop-up menu button controls: <code class="cCode">WCWP_POPUP_BUTTON</code></li>
+      </ul>
+    </div><a name="wp1302322"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>pop-down menu button controls: <code class="cCode">WCWP_POPDOWN_BUTTON</code></li>
+      </ul>
+    </div><a name="wp1302323"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>pop-down combo box controls: <code class="cCode">WCWP_POPDOWN_COMBO</code></li>
+      </ul>
+    </div>
+  </div><a name="wp1302324"></a>
+
+  <p class="pBody">If a pop-up/pop-down control is used in a Dialog Box Manager (DBM) dialog box, the font of the dialog box is used to draw the control's text
+  (rather than any font set via a <code class="cCode">WM_SETFONT</code> message to the control) - in other words, the control uses the font obtained via a
+  <code class="cCode">WM_GETFONT</code> message sent to its parent. If a pop-up/pop-down control is not on a DBM dialog box, a <code class=
+  "cCode">WM_SETFONT</code> can be sent to it to change the default font that is used for drawing text on the face of the button.</p><a name="wp1302325"></a>
+
+  <p class="pBody">The following functions are available to pop-up/pop-down controls used in a DBM dialog box. For documentation on these functions, see
+  "<a href="Recessed_box_control_functions.html#wp543391">Creating dialog boxes</a>."</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1302329"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">VOID FAR PASCAL DBMCheckPopupMenuItem ( HWND hPopup, WORD wID, WORD usFlags );</code></li>
+      </ul>
+    </div><a name="wp1302330"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">BOOL FAR PASCAL DBMDeletePopupMenuItem ( HWND hPopup, WORD wID, WORD usFlags );</code></li>
+      </ul>
+    </div><a name="wp1302331"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">VOID FAR PASCAL DBMDrawPopupBitmap ( HDC hTargetDC, int nTargetX, int nTargetY, HBITMAP hBitmap, WORD usBMPWidth, WORD
+        usBMPHeight, LONG lnROP );</code></li>
+      </ul>
+    </div><a name="wp1302332"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">VOID FAR PASCAL DBMForcePopupButtonRepaint ( HWND hPopup );</code></li>
+      </ul>
+    </div><a name="wp1302333"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">VOID FAR PASCAL DBMGetCheckedMenuInfo ( HWND hPopup, LPWORD lpusPosition, LPWORD lpusID );</code></li>
+      </ul>
+    </div><a name="wp1302334"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">HBITMAP FAR PASCAL DBMGetCheckMarkInfo ( LPWORD lpusWidth, LPWORD lpHeight );</code></li>
+      </ul>
+    </div><a name="wp1302335"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">LPDBM_BDOWN_CBACK_PROC FAR PASCAL DBMGetPopupBDownCBack ( HWND hPopup );</code></li>
+      </ul>
+    </div><a name="wp1302336"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">HWND FAR PASCAL DBMGetPopupButton ( HWND hPopup );</code></li>
+      </ul>
+    </div><a name="wp1302337"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">DWORD FAR PASCAL DBMGetPopupDWORD ( HWND hPopup );</code></li>
+      </ul>
+    </div><a name="wp1302338"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">WORD FAR PASCAL DBMGetPopupHIWORD ( HWND hPopup );</code></li>
+      </ul>
+    </div><a name="wp1302339"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">WORD FAR PASCAL DBMGetPopupLOWORD ( HWND hPopup );</code></li>
+      </ul>
+    </div><a name="wp1302340"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">HMENU FAR PASCAL DBMGetPopupMenu ( HWND hPopup );</code></li>
+      </ul>
+    </div><a name="wp1302341"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">BOOL FAR PASCAL DBMInsertPopupMenuItem ( HWND hPopup, int nPosition, WORD usFlags, WORD usID, LPSTR lpID );</code></li>
+      </ul>
+    </div><a name="wp1302342"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">BOOL FAR PASCAL DBMIsPopupOwnerDraw ( HWND hPopup );</code></li>
+      </ul>
+    </div><a name="wp1302343"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">BOOL FAR PASCAL DBMPopupMenuItemExists ( HWND hPopup, WORD usID, WORD usFlags );</code></li>
+      </ul>
+    </div><a name="wp1302344"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">WORD FAR PASCAL DBMQueryButtonOverhead ( VOID );</code></li>
+      </ul>
+    </div><a name="wp1302345"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">VOID FAR PASCAL DBMSetPopupBDownCBack ( HWND hPopup, LPDBM_BDOWN_CBACK_PROC lpfnBDownCBack );</code></li>
+      </ul>
+    </div><a name="wp1302346"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">VOID FAR PASCAL DBMSetPopupDWORD ( HWND hPopup, DWORD lusDWord );</code></li>
+      </ul>
+    </div><a name="wp1302347"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">VOID FAR PASCAL DBMSetPopupHIWORD ( HWND hPopup, WORD usHIWord );</code></li>
+      </ul>
+    </div><a name="wp1302348"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">VOID FAR PASCAL DBMSetPopupLOWORD ( HWND hPopup, WORD usLOWord );</code></li>
+      </ul>
+    </div><a name="wp1302349"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">HMENU FAR PASCAL DBMSetPopupMenu ( HWND hPopup, HMENU hNewMenu );</code></li>
+      </ul>
+    </div>
+  </div><a name="wp1302350"></a>
+
+  <p class="pBody">The following macros are available to pop-up/pop-down controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1302354"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="GET_POPDOWN_COMBO_EDIT.html#wp1313860">GET_POPDOWN_COMBO_EDIT macro</a></li>
+      </ul>
+    </div><a name="wp1302358"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="GET_POPDOWN_COMBO_EDIT_PROC.html#wp541652">GET_POPDOWN_COMBO_EDIT_PROC macro</a></li>
+      </ul>
+    </div><a name="wp1302362"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="GET_POPDOWN_COMBO_POPDOWN.html#wp541669">GET_POPDOWN_COMBO_POPDOWN macro</a></li>
+      </ul>
+    </div><a name="wp1302366"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="SET_POPDOWN_COMBO_EDIT.html#wp541686">SET_POPDOWN_COMBO_EDIT macro</a></li>
+      </ul>
+    </div><a name="wp1302370"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="SET_POPDOWN_COMBO_EDIT_PROC.html#wp541707">SET_POPDOWN_COMBO_EDIT_PROC macro</a></li>
+      </ul>
+    </div><a name="wp1302374"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="SET_POPDOWN_COMBO_POPDOWN.html#wp541728">SET_POPDOWN_COMBO_POPDOWN macro</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1302375"></a>
+
+  <p class="pBody">The following notification is available to pop-up/pop-down controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1302379"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1310884">WM_COMMAND notification</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1302381"></a>
+
+    <div class="pSmartList1">
+      In addition, the following DBM messages can be sent to pop-up/pop-down controls:
+    </div>
+
+    <div class="pSmartList2 pSmartList2 c2">
+      <a name="wp1302385"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><a href="DBM_POPM_BUTTON_GLYPH.html#wp545999">DBM_POPM_BUTTON_GLYPH message</a></li>
+        </ul>
+      </div><a name="wp1302386"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><a href="DBM_POPM_ENABLE.html#wp546022">DBM_POPM_ENABLE message</a></li>
+        </ul>
+      </div><a name="wp1302387"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><a href="DBM_POPM_SETBBITMAP.html#wp546045">DBM_POPM_SETBBITMAP message</a></li>
+        </ul>
+      </div><a name="wp1302388"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><a href="DBM_POPM_SETBSTRING.html#wp546070">DBM_POPM_SETBSTRING message</a></li>
+        </ul>
+      </div><a name="wp1302389"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><a href="DBM_POPM_SETFOCUS.html#wp546093">DBM_POPM_SETFOCUS message</a></li>
+        </ul>
+      </div><a name="wp1302390"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><a href="DBM_POPM_SHOW_GLYPH_ONLY.html#wp546116">DBM_POPM_SHOW_GLYPH_ONLY message</a></li>
+        </ul>
+      </div>
+    </div>
+  </div><a name="wp1302768"></a>
+
+  <h5 class="pHeading4">Understanding progress indicator controls</h5><a name="wp1302769"></a>
+
+  <p class="pBody">A progress indicator control is used to indicate the progress of an ongoing operation.</p><a name="wp1302770"></a>
+
+  <p class="pBody">The class name for progress indicator controls is <code class="cCode">WCWP_PROGRESS</code>.</p><a name="wp1302771"></a>
+
+  <p class="pBody">The following message is available to progress indicator controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1302775"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="PRO_SETPERCENT.html#wp1313762">PRO_SETPERCENT message</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1303247"></a>
+
+  <h5 class="pHeading4">Understanding recessed box controls and shadow box controls</h5><a name="wp1303248"></a>
+
+  <p class="pBody">Recessed box controls and shadow box controls are similar to the Windows static control. They can be used to display text.</p><a name=
+  "wp1303249"></a>
+
+  <p class="pBody">A recessed box control appears as a dark gray box recessed into the dialog box. Text is displayed in white.</p><a name="wp1303250"></a>
+
+  <p class="pBody">A shadow box control appears as a white box with a black border. The box appears raised from the dialog box with a shadow behind
+  it.</p><a name="wp1303251"></a>
+
+  <p class="pBody">The class names for these controls are as follows:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1303252"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>recessed box controls: <code class="cCode">WCWP_RECESSEDBOX</code></li>
+      </ul>
+    </div><a name="wp1303253"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>shadow box controls: <code class="cCode">WCWP_SHADOWBOX</code></li>
+      </ul>
+    </div>
+  </div><a name="wp1303254"></a>
+
+  <p class="pBody">The following styles are available to these controls.</p><a name="wp1303276"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1303257"></a>
+
+          <h5 class="pHeading4">Style</h5>
+        </th>
+
+        <th>
+          <a name="wp1303259"></a>
+
+          <h5 class="pHeading4">Effect</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303261"></a>
+
+          <p class="pBody"><code class="cCode">SS_LEFT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303263"></a>
+
+          <p class="pBody">The text is left-justified.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303265"></a>
+
+          <p class="pBody"><code class="cCode">SS_RIGHT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303267"></a>
+
+          <p class="pBody">The text is right-justified.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303269"></a>
+
+          <p class="pBody"><code class="cCode">SS_CENTER</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303271"></a>
+
+          <p class="pBody">The text is centered.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1303273"></a>
+
+          <p class="pBody"><code class="cCode">SS_WP_WORDSTRING</code></p>
+        </td>
+
+        <td>
+          <a name="wp1303275"></a>
+
+          <p class="pBody">The strings sent for display via <code class="cCode">WPM_SETTEXT_6W</code> are WordPerfect word strings.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1303277"></a>
+
+  <p class="pBody">The following Dialog Box Manager (DBM) functions are available to recessed box controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1303279"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMGetRecessedBoxBrush.html#wp545495">DBMGetRecessedBoxBrush function</a></li>
+      </ul>
+    </div><a name="wp1303281"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMGetRecessedBoxClientRect.html#wp545525">DBMGetRecessedBoxClientRect function</a></li>
+      </ul>
+    </div><a name="wp1303283"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMGetRecessedBoxTextColor.html#wp545560">DBMGetRecessedBoxTextColor function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1303284"></a>
+
+  <p class="pBody">The following DBM functions are available to shadow box controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1303286"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMGetShadowboxBrush.html#wp545852">DBMGetShadowboxBrush function</a></li>
+      </ul>
+    </div><a name="wp1303288"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMGetShadowboxClientRect.html#wp545881">DBMGetShadowboxClientRect function</a></li>
+      </ul>
+    </div><a name="wp1303290"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMGetShadowboxTextColor.html#wp545914">DBMGetShadowboxTextColor function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1303360"></a>
+
+  <p class="pBody">Both recessed box controls and shadow box controls respond to the same messages as Windows static controls. When using the <code class=
+  "cCode">SS_WP_WORDSTRING</code> style, you should use <code class="cCode">WPM_SETTEXT_6W</code>, <code class="cCode">WPM_GETTEXT_6W</code>, and <code class=
+  "cCode">WPM_GETTEXTLENGTH</code>, which work with WordPerfect word strings rather than ANSI strings.</p><a name="wp1303556"></a>
+
+  <h5 class="pHeading4">Understanding static path controls</h5><a name="wp1303557"></a>
+
+  <p class="pBody">A static path control is similar to a Windows static control. It can be used to display a path.</p><a name="wp1303558"></a>
+
+  <p class="pBody">A static path control automatically shortens the path if the entire path does not fit within the space of the window. If a path must be
+  displayed in a window as static text, using this control ensures that the filename at the end - the most important part of the path - is displayed. Any
+  undisplayed part of the path is shown as an ellipsis ( ... ).</p><a name="wp1303559"></a>
+
+  <p class="pBody">When given a path via <code class="cCode">WM_SETTEXT</code> or <code class="cCode">SetWindowText(&nbsp;)</code>, this control does not
+  destroy the path that is sent to it, even though it may display only a portion of that path. If you get the text of the control, the full path (not a partial
+  path with an ellipsis in the middle) is returned.</p><a name="wp1303560"></a>
+
+  <p class="pBody">The class name for static path controls is <code class="cCode">WCWP_STATICPATH</code>.</p><a name="wp1303562"></a>
+
+  <p class="pBody">The following function is available to static path controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1303566"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="SquashFilename.html#wp1313787">SquashFilename function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1312865"></a>
+
+  <p class="pBody">A static path control responds to the same messages as a Windows static control.</p><a name="wp1303936"></a>
+
+  <h5 class="pHeading4">Understanding status bar controls</h5><a name="wp1303937"></a>
+
+  <p class="pBody">Status bar controls are part of the Dialog Box Manager (DBM) system. A status bar control provides a status bar at the bottom of a dialog
+  box for displaying messages.</p><a name="wp1303938"></a>
+
+  <p class="pBody">There are API functions available so that you can set up your own paint procedure to display in the status bar.</p><a name="wp1303939"></a>
+
+  <p class="pBody">A status bar can be created in a dialog box via a macro provided in the SCWIN32.H file (which is stored at
+  X:\Program&nbsp;Files\Corel\WordPerfect&nbsp;Office&nbsp;X6\SDK\Include, where X: is the drive where your Program&nbsp;Files folder is
+  stored).</p><a name="wp1303940"></a>
+
+  <p class="pBody">The class name for status bar controls is <code class="cCode">WCWP_SBAR</code>.</p><a name="wp1303941"></a>
+
+  <p class="pBody">Unlike for most controls, the ID for status bar controls is predefined. To update the text in the status bar, call the Windows API function
+  <code class="cCode">SetWindowText(&nbsp;)</code> by using this predefined ID. This status bar ID is defined in the SCWIN32.H file as <code class=
+  "cCode">IDSBAR</code>.</p><a name="wp1303942"></a>
+
+  <p class="pBody">The following functions are available to status bar controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1303943"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">HDC FAR PASCAL</code></li>
+      </ul>
+    </div><a name="wp1303944"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">DBMGetSBarDC ( HWND hSBar )</code></li>
+      </ul>
+    </div><a name="wp1303945"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">WORD FAR PASCAL DBMGetSBarHeight ( HWND hSBar )</code></li>
+      </ul>
+    </div><a name="wp1303946"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">VOID FAR PASCAL DBMGetSBarRect ( HWND hSBar, LPRECT lpstRect )</code></li>
+      </ul>
+    </div><a name="wp1303947"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">VOID FAR PASCAL DBMReleaseSBarDC (HWND hSBar, HDC hDC )</code></li>
+      </ul>
+    </div><a name="wp1303948"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">LPDBM_SBAR_PAINT_PROC FAR PASCAL DBMSetSBarPaintProc (HWND hSBar, LPDBM_SBAR_PAINT_PROC lpfnPaintProc )</code></li>
+      </ul>
+    </div>
+  </div><a name="wp1303949"></a>
+
+  <p class="pBody">The following macros are available to status bar controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1303953"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBM_SBAR_CONTROL.html#wp510252">DBM_SBAR_CONTROL macro</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1306654"></a>
+
+  <h5 class="pHeading4">Understanding window editor controls</h5><a name="wp1306655"></a>
+
+  <p class="pBody">A window editor control is similar to a Windows edit control, except that it allows the entry of WordPerfect extended characters and
+  function codes.</p><a name="wp1306656"></a>
+
+  <p class="pBody">The class name for window editor controls is <code class="cCode">WCWP_EDIT</code>.</p><a name="wp1306657"></a>
+
+  <p class="pBody">On creation, the text field can contain <code class="cCode">"n,m"</code> where <code class="cCode">n</code> is the maximum number of
+  characters that can be entered in the field and <code class="cCode">m</code> (if present) is the buffer size (in bytes) to be used by the window editor. If
+  <code class="cCode">m</code> is not specified, the maximum buffer size of 2048 bytes is assumed. In almost all cases, <code class="cCode">m</code> should not
+  be specified because it does not reliably limit the amount of data that can be entered; the window editor works with WordPerfect document strings internally,
+  and the buffer size relates to document strings. The only situation where you would specify <code class="cCode">m</code> is when you have several window
+  editor controls on a dialog box and you do not want to use 2048 bytes of memory for each one.</p><a name="wp1306658"></a>
+
+  <p class="pBody">The following styles are available to window editor controls.</p><a name="wp1306692"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1306661"></a>
+
+          <h5 class="pHeading4">Style</h5>
+        </th>
+
+        <th>
+          <a name="wp1306663"></a>
+
+          <h5 class="pHeading4">Effect</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306665"></a>
+
+          <p class="pBody"><code class="cCode">WES_ATTRIBUTES</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306667"></a>
+
+          <p class="pBody">Attribute-control keys are allowed.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306669"></a>
+
+          <p class="pBody"><code class="cCode">WES_NOCOMPOSE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306671"></a>
+
+          <p class="pBody">The Compose dialog box is not allowed.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306673"></a>
+
+          <p class="pBody"><code class="cCode">WES_NOEDIT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306675"></a>
+
+          <p class="pBody">Editing is not allowed. No cursor is available, and no scrolling is allowed.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306677"></a>
+
+          <p class="pBody"><code class="cCode">WES_NOTABS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306679"></a>
+
+          <p class="pBody">Tabs are not accepted.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306681"></a>
+
+          <p class="pBody"><code class="cCode">WES_NOTINDLG</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306683"></a>
+
+          <p class="pBody">Navigation keys can be used when not in a dialog box.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306685"></a>
+
+          <p class="pBody"><code class="cCode">WES_SOFTRET</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306687"></a>
+
+          <p class="pBody">Soft returns are left in strings.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306689"></a>
+
+          <p class="pBody"><code class="cCode">WES_WORDWRAP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306691"></a>
+
+          <p class="pBody">Word-wrapping is turned on.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1306693"></a>
+
+  <p class="pBody">Window editor controls also support the following standard control styles:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1306694"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">ES_LOWERCASE</code></li>
+      </ul>
+    </div><a name="wp1306695"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">ES_MULTILINE</code></li>
+      </ul>
+    </div><a name="wp1306696"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">ES_NOHIDESEL</code></li>
+      </ul>
+    </div><a name="wp1306697"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">ES_PASSWORD</code></li>
+      </ul>
+    </div><a name="wp1306698"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">ES_READONLY</code> - No editing is allowed, but the cursor is available and scrolling is allowed</li>
+      </ul>
+    </div><a name="wp1306699"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">ES_UPPERCASE</code></li>
+      </ul>
+    </div><a name="wp1306700"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">ES_WANTRETURN</code></li>
+      </ul>
+    </div><a name="wp1306701"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">WS_BORDER</code></li>
+      </ul>
+    </div><a name="wp1306702"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">WS_HSCROLL</code></li>
+      </ul>
+    </div><a name="wp1306703"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">WS_VSCROLL</code></li>
+      </ul>
+    </div>
+  </div><a name="wp1306704"></a>
+
+  <p class="pBody">The following structures are available to window editor controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1306708"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WECODETAB.html#wp1313829">WECODETAB structure</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1306709"></a>
+
+  <p class="pBody">Window editor controls respond to many of the same messages as normal edit controls. The following messages can be used by a window editor
+  control.</p><a name="wp1306818"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1307224"></a>
+
+          <h5 class="pHeading4">Message</h5>
+        </th>
+
+        <th>
+          <a name="wp1307226"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306712"></a>
+
+          <p class="pBody"><code class="cCode">EM_CANUNDO</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306714"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306716"></a>
+
+          <p class="pBody"><code class="cCode">EM_GETLINECOUNT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306718"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306720"></a>
+
+          <p class="pBody"><code class="cCode">EM_GETMODIFY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306722"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306724"></a>
+
+          <p class="pBody"><code class="cCode">EM_GETRECT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306726"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306728"></a>
+
+          <p class="pBody"><code class="cCode">EM_GETSEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306730"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306732"></a>
+
+          <p class="pBody"><code class="cCode">EM_LIMITTEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306734"></a>
+
+          <p class="pBody">Limits only the text the user can enter. It has no effect on any text already in the edit control when the message is sent, nor does
+          it affect the length of text copied to the edit control by the <code class="cCode">WM_SETTEXT</code> or <code class="cCode">EM_REPLACESEL</code>
+          message.</p><a name="wp1306735"></a>
+
+          <p class="pBody">This message has the following members:</p>
+
+          <div class="pSmartList1 pSmartList1 c2">
+            <a name="wp1306736"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">wParam</code> - Specifies the maximum number of characters that can be put in the field. Tab, hard-return, soft-return,
+                and hard-page codes count as characters; other function codes do not. To limit both characters and function codes, use the <code class=
+                "cCode">WEM_LIMITALL</code> message.</li>
+              </ul>
+            </div><a name="wp1306737"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">lParam</code> - Is set to <code class="cCode">0L</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306739"></a>
+
+          <p class="pBody"><code class="cCode">EM_LINESCROLL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306741"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306743"></a>
+
+          <p class="pBody"><code class="cCode">EM_REPLACESEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306745"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306747"></a>
+
+          <p class="pBody"><code class="cCode">EM_SETMODIFY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306749"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306751"></a>
+
+          <p class="pBody"><code class="cCode">EM_ SETPASSWORDCHAR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306753"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306755"></a>
+
+          <p class="pBody"><code class="cCode">EM_SETRECT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306757"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306759"></a>
+
+          <p class="pBody"><code class="cCode">EM_SETSEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306761"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306763"></a>
+
+          <p class="pBody"><code class="cCode">EM_UNDO</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306765"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306767"></a>
+
+          <p class="pBody"><code class="cCode">WM_COPY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306769"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306771"></a>
+
+          <p class="pBody"><code class="cCode">WM_CUT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306773"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306775"></a>
+
+          <p class="pBody"><code class="cCode">WM_ENABLE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306777"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306779"></a>
+
+          <p class="pBody"><code class="cCode">WM_GETFONT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306781"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306783"></a>
+
+          <p class="pBody"><code class="cCode">WM_GETTEXTLENGTH</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306785"></a>
+
+          <p class="pBody">Is the same as the Windows API message. It returns the number of bytes occupied by the WordPerfect document string that is in the
+          window editor control; this is the length (excluding the <code class="cCode">NULL</code>) returned by the <code class="cCode">WEM_GETTEXT_6D</code>
+          message, which is sufficient (though perhaps bigger than necessary) for the <code class="cCode">WM_GETTEXT</code> message.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306787"></a>
+
+          <p class="pBody"><code class="cCode">WM_KILLFOCUS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306789"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306791"></a>
+
+          <p class="pBody"><code class="cCode">WM_LBUTTONDBLCLK</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306793"></a>
+
+          <p class="pBody">Selects the word at the cursor. It is the same as the Windows API message.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306795"></a>
+
+          <p class="pBody"><code class="cCode">WM_PASTE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306797"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306799"></a>
+
+          <p class="pBody"><code class="cCode">WM_RBUTTONDOWN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306801"></a>
+
+          <p class="pBody">Activates the Writing Tools menu. It is the same as the Windows API message.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306803"></a>
+
+          <p class="pBody"><code class="cCode">WM_SETFOCUS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306805"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306807"></a>
+
+          <p class="pBody"><code class="cCode">WM_SETFONT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306809"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306811"></a>
+
+          <p class="pBody"><code class="cCode">WM_SETTEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306813"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1306815"></a>
+
+          <p class="pBody"><code class="cCode">WM_UNDO</code></p>
+        </td>
+
+        <td>
+          <a name="wp1306817"></a>
+
+          <p class="pBody">Is the same as the Windows API message</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1306819"></a>
+
+  <p class="pBody">Window editor controls also support the following custom messages:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1307557"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_BLOCK.html#wp1313866">WEM_BLOCK message</a></li>
+      </ul>
+    </div><a name="wp1309237"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_BOLD.html#wp1313872">WEM_BOLD message</a></li>
+      </ul>
+    </div><a name="wp1309241"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_COMPOSE.html#wp1313878">WEM_COMPOSE message</a></li>
+      </ul>
+    </div><a name="wp1309245"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_ENABLEWRITINGTOOLS.html#wp1313894">WEM_ENABLEWRITINGTOOLS message</a></li>
+      </ul>
+    </div><a name="wp1309249"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_EXTCHAR.html#wp1313910">WEM_EXTCHAR message</a></li>
+      </ul>
+    </div><a name="wp1309253"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_FUNCTBL_6D.html#wp1313926">WEM_FUNCTBL_6D message</a></li>
+      </ul>
+    </div><a name="wp1309257"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_FUNCTBL_6W.html#wp1313942">WEM_FUNCTBL_6W message</a></li>
+      </ul>
+    </div><a name="wp1309261"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_GETATTRIBUTE.html#wp1313958">WEM_GETATTRIBUTE message</a></li>
+      </ul>
+    </div><a name="wp1309265"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_GETBLOCK.html#wp1313976">WEM_GETBLOCK message</a></li>
+      </ul>
+    </div><a name="wp1309269"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_GETBLOCK_6D.html#wp1313992">WEM_GETBLOCK_6D message</a></li>
+      </ul>
+    </div><a name="wp1309273"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_GETBLOCK_6W.html#wp1314008">WEM_GETBLOCK_6W message</a></li>
+      </ul>
+    </div><a name="wp1309277"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_GETSELBYTE.html#wp1314024">WEM_GETSELBYTE message</a></li>
+      </ul>
+    </div><a name="wp1309281"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_GETTEXT_6D.html#wp1314042">WEM_GETTEXT_6D message</a></li>
+      </ul>
+    </div><a name="wp1309285"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_GETTEXT_6W.html#wp1314058">WEM_GETTEXT_6W message</a></li>
+      </ul>
+    </div><a name="wp1309289"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_GETTEXTLENGTH_6W.html#wp1314074">WEM_GETTEXTLENGTH_6W message</a></li>
+      </ul>
+    </div><a name="wp1309293"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_ITALIC.html#wp1314092">WEM_ITALIC message</a></li>
+      </ul>
+    </div><a name="wp1309297"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_LIMITALL.html#wp1314098">WEM_LIMITALL message</a></li>
+      </ul>
+    </div><a name="wp1309301"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_NORMAL.html#wp1314114">WEM_NORMAL message</a></li>
+      </ul>
+    </div><a name="wp1309305"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_REPLACESEL_6D.html#wp1314120">WEM_REPLACESEL_6D message</a></li>
+      </ul>
+    </div><a name="wp1309309"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_REPLACESEL_6W.html#wp1314136">WEM_REPLACESEL_6W message</a></li>
+      </ul>
+    </div><a name="wp1309313"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_SEARCH_6D.html#wp1314152">WEM_SEARCH_6D message</a></li>
+      </ul>
+    </div><a name="wp1309317"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_SETLANG.html#wp1314168">WEM_SETLANG message</a></li>
+      </ul>
+    </div><a name="wp1309321"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_SETSELBYTE.html#wp1314184">WEM_SETSELBYTE message</a></li>
+      </ul>
+    </div><a name="wp1309325"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_SETTEXT_6D.html#wp1314200">WEM_SETTEXT_6D message</a></li>
+      </ul>
+    </div><a name="wp1309329"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_SETTEXT_6W.html#wp1314216">WEM_SETTEXT_6W message</a></li>
+      </ul>
+    </div><a name="wp1309333"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_SETRVLCHARS.html#wp1314232">WEM_SETRVLCHARS message</a></li>
+      </ul>
+    </div><a name="wp1309337"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_SRCHCODES.html#wp1314248">WEM_SRCHCODES message</a></li>
+      </ul>
+    </div><a name="wp1309341"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_TOKENKEY.html#wp1314264">WEM_TOKENKEY message</a></li>
+      </ul>
+    </div><a name="wp1309345"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_UNDERLINE.html#wp1314280">WEM_UNDERLINE message</a></li>
+      </ul>
+    </div><a name="wp1309349"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WEM_WORDWRAP.html#wp1314286">WEM_WORDWRAP message</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1306995"></a>
+
+  <p class="pBody">The following notification is available to window editor controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1306999"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1310884">WM_COMMAND notification</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1307000"></a>
+
+  <p class="pBody">The following standard edit control notifications are sent to the parent of a window editor control:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1307001"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">EN_SETFOCUS</code></li>
+      </ul>
+    </div><a name="wp1307002"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">EN_KILLFOCUS</code></li>
+      </ul>
+    </div><a name="wp1307003"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">EN_CHANGE</code></li>
+      </ul>
+    </div>
+  </div><a name="wp1307004"></a>
+
+  <p class="pBody">The following custom notifications are sent to the parent of a window editor control.</p><a name="wp1307018"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1307235"></a>
+
+          <h5 class="pHeading4">Custom notification</h5>
+        </th>
+
+        <th>
+          <a name="wp1307237"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307007"></a>
+
+          <p class="pBody"><code class="cCode">WEN_SELECTON</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307009"></a>
+
+          <p class="pBody">Indicates that select is on</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307011"></a>
+
+          <p class="pBody"><code class="cCode">WEN_SELECTOFF</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307013"></a>
+
+          <p class="pBody">Indicates that select is off</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307015"></a>
+
+          <p class="pBody"><code class="cCode">WEN_ATTRIBUTE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307017"></a>
+
+          <p class="pBody">Indicates that attributes have changed</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1307019"></a>
+
+  <p class="pBody">The following command tokens are available to window editor controls.</p><a name="wp1307193"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1307292"></a>
+
+          <h5 class="pHeading4">Command token</h5>
+        </th>
+
+        <th>
+          <a name="wp1307294"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307026"></a>
+
+          <p class="pBody"><code class="cCode">wetokLeft</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307028"></a>
+
+          <p class="pBody">Moves left one character</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307030"></a>
+
+          <p class="pBody"><code class="cCode">wetokRight</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307032"></a>
+
+          <p class="pBody">Moves right one character</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307034"></a>
+
+          <p class="pBody"><code class="cCode">wetokUp</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307036"></a>
+
+          <p class="pBody">Moves up one line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307038"></a>
+
+          <p class="pBody"><code class="cCode">wetokDown</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307040"></a>
+
+          <p class="pBody">Moves down one line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307042"></a>
+
+          <p class="pBody"><code class="cCode">wetokHome</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307044"></a>
+
+          <p class="pBody">Moves to the beginning of the line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307046"></a>
+
+          <p class="pBody"><code class="cCode">wetokEnd</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307048"></a>
+
+          <p class="pBody">Moves to the end of the line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307050"></a>
+
+          <p class="pBody"><code class="cCode">wetokWordLeft</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307052"></a>
+
+          <p class="pBody">Moves to the start of the word to the left</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307054"></a>
+
+          <p class="pBody"><code class="cCode">wetokWordRight</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307056"></a>
+
+          <p class="pBody">Moves to the start of the word to the right</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307058"></a>
+
+          <p class="pBody"><code class="cCode">wetokCtlHome</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307060"></a>
+
+          <p class="pBody">Moves to the beginning of the entry field</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307062"></a>
+
+          <p class="pBody"><code class="cCode">wetokCtlEnd</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307064"></a>
+
+          <p class="pBody">Moves to the end of the entry field</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307066"></a>
+
+          <p class="pBody"><code class="cCode">wetokPageUp</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307068"></a>
+
+          <p class="pBody">Moves up one screen</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307070"></a>
+
+          <p class="pBody"><code class="cCode">wetokPageDown</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307072"></a>
+
+          <p class="pBody">Moves down one screen</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307074"></a>
+
+          <p class="pBody"><code class="cCode">wetokPageLeft</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307076"></a>
+
+          <p class="pBody">Is the same as pressing CTRL + PGUP</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307078"></a>
+
+          <p class="pBody"><code class="cCode">wetokPageRight</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307080"></a>
+
+          <p class="pBody">Is the same as pressing CTRL + PGDN</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307082"></a>
+
+          <p class="pBody"><code class="cCode">wetokInsert</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307084"></a>
+
+          <p class="pBody">Toggles Insert/Replace mode</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307086"></a>
+
+          <p class="pBody"><code class="cCode">wetokShiftLeft</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307088"></a>
+
+          <p class="pBody">Extends selection one position left</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307090"></a>
+
+          <p class="pBody"><code class="cCode">wetokShiftRight</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307092"></a>
+
+          <p class="pBody">Extends selection one position right</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307094"></a>
+
+          <p class="pBody"><code class="cCode">wetokShiftUp</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307096"></a>
+
+          <p class="pBody">Extends selection up a line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307098"></a>
+
+          <p class="pBody"><code class="cCode">wetokShiftDn</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307100"></a>
+
+          <p class="pBody">Extends selection down a line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307102"></a>
+
+          <p class="pBody"><code class="cCode">wetokCtlShiftRight</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307104"></a>
+
+          <p class="pBody">Selects to the end of the word to the right</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307106"></a>
+
+          <p class="pBody"><code class="cCode">wetokCtlShiftLeft</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307108"></a>
+
+          <p class="pBody">Selects to the beginning of the word to the left</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307110"></a>
+
+          <p class="pBody"><code class="cCode">wetokShiftHome</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307112"></a>
+
+          <p class="pBody">Selects to the beginning of the line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307114"></a>
+
+          <p class="pBody"><code class="cCode">wetokShiftEnd</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307116"></a>
+
+          <p class="pBody">Selects to the end of the line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307118"></a>
+
+          <p class="pBody"><code class="cCode">wetokCtlShiftHome</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307120"></a>
+
+          <p class="pBody">Selects to the beginning of the entry field</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307122"></a>
+
+          <p class="pBody"><code class="cCode">wetokCtlShiftEnd</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307124"></a>
+
+          <p class="pBody">Selects to the end of the entry field</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307126"></a>
+
+          <p class="pBody"><code class="cCode">wetokCtlBack</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307128"></a>
+
+          <p class="pBody">Deletes word</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307130"></a>
+
+          <p class="pBody"><code class="cCode">wetokCtlDelete</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307132"></a>
+
+          <p class="pBody">Deletes to the end of the line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307134"></a>
+
+          <p class="pBody"><code class="cCode">wetokShiftPageUp</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307136"></a>
+
+          <p class="pBody">Extends selection up a page</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307138"></a>
+
+          <p class="pBody"><code class="cCode">wetokShiftPageDown</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307140"></a>
+
+          <p class="pBody">Extends selection down a page</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307142"></a>
+
+          <p class="pBody"><code class="cCode">wetokDEOB</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307144"></a>
+
+          <p class="pBody">Deletes to the end of the buffer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307146"></a>
+
+          <p class="pBody"><code class="cCode">wetokRtn</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307148"></a>
+
+          <p class="pBody">Inserts a hard return</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307150"></a>
+
+          <p class="pBody"><code class="cCode">wetokDelLft</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307152"></a>
+
+          <p class="pBody">Deletes the character to the left of the cursor</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307154"></a>
+
+          <p class="pBody"><code class="cCode">wetokDelRgt</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307156"></a>
+
+          <p class="pBody">Deletes the character to the right of the cursor</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307158"></a>
+
+          <p class="pBody"><code class="cCode">wetokTab</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307160"></a>
+
+          <p class="pBody">Inserts a tab character</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307162"></a>
+
+          <p class="pBody"><code class="cCode">wetokBOL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307164"></a>
+
+          <p class="pBody">Moves to the beginning of the line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307166"></a>
+
+          <p class="pBody"><code class="cCode">wetokEOL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307168"></a>
+
+          <p class="pBody">Moves to the end of the line</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307170"></a>
+
+          <p class="pBody"><code class="cCode">wetokCut</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307172"></a>
+
+          <p class="pBody">Cuts selected text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307174"></a>
+
+          <p class="pBody"><code class="cCode">wetokCopy</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307176"></a>
+
+          <p class="pBody">Copies selected text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307178"></a>
+
+          <p class="pBody"><code class="cCode">wetokClear</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307180"></a>
+
+          <p class="pBody">Deletes selected text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307182"></a>
+
+          <p class="pBody"><code class="cCode">wetokPaste</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307184"></a>
+
+          <p class="pBody">Pastes at the cursor position</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307186"></a>
+
+          <p class="pBody"><code class="cCode">wetokUndo</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307188"></a>
+
+          <p class="pBody">Undoes the last completed action</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1307190"></a>
+
+          <p class="pBody"><code class="cCode">wetokDelWord</code></p>
+        </td>
+
+        <td>
+          <a name="wp1307192"></a>
+
+          <p class="pBody">Deletes the word the cursor is in</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1307201"></a>
+
+  <p class="pBody">To display functions as codes such as <code class="cCode">[BOLD]</code> or <code class="cCode">[CENTER]</code> in a window editor, you must
+  use the <code class="cCode">WEM_FUNCTBL_6D</code> message, where <code class="cCode">wParam</code> contains the number of entries of <code class=
+  "cCode">WECODETAB</code> and <code class="cCode">lParam</code> points to array of <code class="cCode">WECODETAB</code>.</p><a name="wp1307202"></a>
+
+  <p class="pBody">All codes must be in the function range <code class="cCode">0x80 0xFF</code> and refer to WordPerfect document codes. (For word string
+  codes, use the <code class="cCode">WEM_FUNCTBL_6W</code> message.)</p><a name="wp1307203"></a>
+
+  <p class="pBody">Do not use <code class="cCode">0x99 0xA8</code>. These are used internally.</p><a name="wp1307204"></a>
+
+  <p class="pBody">Make sure that the functions in the table are in numerical order, and put the main function in the high byte and the subfunction (if any) in
+  the low byte.</p><a name="wp1307344"></a>
+
+  <p class="pBody">In the following example, all strings are displayed with ANSI characters only:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+static WECODETAB fnctbl[] = {<a name="wp1307205"> </a>
+0x8000, "TEST",<a name="wp1307206"> </a>
+0xf000, "BOLD",<a name="wp1307207"> </a>
+0xd202, "DEF COL" };<a name="wp1307208"> </a>
+SendMessage( hwnd, WEM_FUNCTBL_6D, 3, (LONG) fnctbl );<a name="wp1307209"> </a>
+</pre>
+  </div><a name="wp1307211"></a>
+
+  <p class="pBody">To insert individual codes in a window editor, use the function <code class="cCode">WEM_REPLACESEL_6D</code> or <code class=
+  "cCode">WEM_REPLACESEL_6W</code>.</p><a name="wp1307355"></a>
+
+  <p class="pBody">In the following example, a bold code is inserted into the window editor at the current cursor position.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+SendMessage( hEdit, WEM_REPLACESEL_6D, NULL,<a name="wp1307212"> </a>
+ (LONG)(LPSTR)"\xF0" );<a name="wp1307213"> </a>
+</pre>
+  </div><a name="wp1311208"></a>
+
+  <h5 class="pHeading4">Understanding WP combo box controls</h5><a name="wp1311209"></a>
+
+  <p class="pBody">A WP combo box control provides a combo box that can accept and display WordPerfect word strings.</p><a name="wp1311210"></a>
+
+  <p class="pBody">The class name for WP combo box controls is <code class="cCode">WCWP_WPCOMBOBOX</code>.</p><a name="wp1311211"></a>
+
+  <p class="pBody">The following styles are available to WP combo box controls.</p><a name="wp1311249"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1311214"></a>
+
+          <h5 class="pHeading4">Style</h5>
+        </th>
+
+        <th>
+          <a name="wp1311216"></a>
+
+          <h5 class="pHeading4">Effect</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311218"></a>
+
+          <p class="pBody"><code class="cCode">WCBS_AUTOHSCROLL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1311220"></a>
+
+          <p class="pBody">This is equivalent to <code class="cCode">CBS_AUTOHSCROLL</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311222"></a>
+
+          <p class="pBody"><code class="cCode">WCBS_DISABLENOSCROLL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1311224"></a>
+
+          <p class="pBody">This is equivalent to <code class="cCode">CBS_DISABLENOSCROLL</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311226"></a>
+
+          <p class="pBody"><code class="cCode">WCBS_DROPDOWN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1311228"></a>
+
+          <p class="pBody">This is equivalent to <code class="cCode">CBS_DROPDOWN</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311230"></a>
+
+          <p class="pBody"><code class="cCode">WCBS_DROPDOWNLIST</code></p>
+        </td>
+
+        <td>
+          <a name="wp1311232"></a>
+
+          <p class="pBody">This is equivalent to <code class="cCode">CBS_DROPDOWNLIST</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311234"></a>
+
+          <p class="pBody"><code class="cCode">WCBS_HASSTRINGS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1311236"></a>
+
+          <p class="pBody">This is equivalent to <code class="cCode">CBS_HASSTRINGS</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311238"></a>
+
+          <p class="pBody"><code class="cCode">WCBS_NOINTEGRAL HEIGHT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1311240"></a>
+
+          <p class="pBody">This is equivalent to <code class="cCode">CBS_NOINTEGRALHEIGHT</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311242"></a>
+
+          <p class="pBody"><code class="cCode">WCBS_SIMPLE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1311244"></a>
+
+          <p class="pBody">This is equivalent to <code class="cCode">CBS_SIMPLE</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1311246"></a>
+
+          <p class="pBody"><code class="cCode">WCBS_SORT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1311248"></a>
+
+          <p class="pBody">This is equivalent to <code class="cCode">CBS_SORT</code>.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1311250"></a>
+
+  <p class="pBody">The following messages are available to WP combo box controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1311254"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_ADDSTRING.html#wp1314302">WCB_ADDSTRING message</a></li>
+      </ul>
+    </div><a name="wp1311258"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_DELETESTRING.html#wp1314308">WCB_DELETESTRING message</a></li>
+      </ul>
+    </div><a name="wp1311262"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_FINDSTRING.html#wp1314314">WCB_FINDSTRING message</a></li>
+      </ul>
+    </div><a name="wp1311266"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_FINDSTRINGEXACT.html#wp1314320">WCB_FINDSTRINGEXACT message</a></li>
+      </ul>
+    </div><a name="wp1311270"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETCOUNT.html#wp1314326">WCB_GETCOUNT message</a></li>
+      </ul>
+    </div><a name="wp1311274"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETCURSEL.html#wp1314332">WCB_GETCURSEL message</a></li>
+      </ul>
+    </div><a name="wp1311278"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETDROPPEDCONTROLRECT.html#wp1314338">WCB_GETDROPPEDCONTROLRECT message</a></li>
+      </ul>
+    </div><a name="wp1311282"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETDROPPEDSTATE.html#wp1314344">WCB_GETDROPPEDSTATE message</a></li>
+      </ul>
+    </div><a name="wp1311286"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETDWORD.html#wp1314350">WCB_GETDWORD message</a></li>
+      </ul>
+    </div><a name="wp1311290"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETEDITSEL.html#wp1314369">WCB_GETEDITSEL message</a></li>
+      </ul>
+    </div><a name="wp1311294"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETEXTENDEDUI.html#wp1314375">WCB_GETEXTENDEDUI message</a></li>
+      </ul>
+    </div><a name="wp1311298"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETITEMDATA.html#wp1314381">WCB_GETITEMDATA message</a></li>
+      </ul>
+    </div><a name="wp1311302"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETITEMHEIGHT.html#wp1314387">WCB_GETITEMHEIGHT message</a></li>
+      </ul>
+    </div><a name="wp1311306"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETLBTEXT.html#wp1314393">WCB_GETLBTEXT message</a></li>
+      </ul>
+    </div><a name="wp1311310"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETLBTEXTLEN.html#wp1314399">WCB_GETLBTEXTLEN message</a></li>
+      </ul>
+    </div><a name="wp1311314"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETTEXT_6W.html#wp1314405">WCB_GETTEXT_6W message</a></li>
+      </ul>
+    </div><a name="wp1311318"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_GETTEXTLEN_6W.html#wp1314424">WCB_GETTEXTLEN_6W message</a></li>
+      </ul>
+    </div><a name="wp1311322"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_INSERTSTRING.html#wp1314441">WCB_INSERTSTRING message</a></li>
+      </ul>
+    </div><a name="wp1311326"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_LIMITTEXT.html#wp1314447">WCB_LIMITTEXT message</a></li>
+      </ul>
+    </div><a name="wp1311330"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_RESETCONTENT.html#wp1314453">WCB_RESETCONTENT message</a></li>
+      </ul>
+    </div><a name="wp1311334"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_SELECTSTRING.html#wp1314459">WCB_SELECTSTRING message</a></li>
+      </ul>
+    </div><a name="wp1311338"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_SETCURSEL.html#wp1314465">WCB_SETCURSEL message</a></li>
+      </ul>
+    </div><a name="wp1311342"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_SETEDITSEL.html#wp1314471">WCB_SETEDITSEL message</a></li>
+      </ul>
+    </div><a name="wp1311346"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_SETEXTENDEDUI.html#wp1314477">WCB_SETEXTENDEDUI message</a></li>
+      </ul>
+    </div><a name="wp1311350"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_SETITEMDATA.html#wp1314483">WCB_SETITEMDATA message</a></li>
+      </ul>
+    </div><a name="wp1311354"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_SETDWORD.html#wp1314489">WCB_SETDWORD message</a></li>
+      </ul>
+    </div><a name="wp1311358"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_SETTEXT_6W.html#wp1314506">WCB_SETTEXT_6W message</a></li>
+      </ul>
+    </div><a name="wp1311362"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_SETLBWIDTH.html#wp1314523">WCB_SETLBWIDTH message</a></li>
+      </ul>
+    </div><a name="wp1311366"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WCB_SHOWDROPDOWN.html#wp1314540">WCB_SHOWDROPDOWN message</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1311367"></a>
+
+  <p class="pBody">The following notification is available to WP combo box controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1311368"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1310884">WM_COMMAND notification</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1312404"></a>
+
+  <h5 class="pHeading4">Understanding WP list box controls</h5><a name="wp1312405"></a>
+
+  <p class="pBody">A WP list box control provides a list box that can accept and display WordPerfect word strings. It also provides the name-search
+  capabilities described in "<a href="Custom_controls.html#wp1300941">Understanding name search list box controls</a>."</p><a name="wp1312409"></a>
+
+  <p class="pBody">A WP list box is a custom control that operates in a way similar to the standard Windows list box control. However, instead of using ANSI
+  strings, the WP list box uses WordPerfect word strings.</p><a name="wp1312410"></a>
+
+  <p class="pBody">The class name for WP list box controls is <code class="cCode">WCWP_WPLISTBOX</code>.</p><a name="wp1312411"></a>
+
+  <p class="pBody">The following styles are available to WP list box controls.</p><a name="wp1312482"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1312414"></a>
+
+          <h5 class="pHeading4">Style</h5>
+        </th>
+
+        <th>
+          <a name="wp1312416"></a>
+
+          <h5 class="pHeading4">Effect</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312418"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_CHECKBOXES</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312420"></a>
+
+          <p class="pBody">Check boxes are displayed in front of items in the list box. Items that are selected have their check boxes checked; items not
+          selected have their check box unchecked. The <code class="cCode">WLBS_MULTIPLESEL</code> style is typically used with this style. This style cannot
+          be used with either of the owner-drawn styles.</p><a name="wp1312421"></a>
+
+          <p class="pBody">When <code class="cCode">WLBS_CHECKBOXES</code> and <code class="cCode">WLBS_MULTIPLESEL</code> are used, the name search does not
+          select or deselect anything; rather, it just moves the focus rectangle to the item that matches the name search.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312423"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_ DISABLENOSCROLL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312425"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_DISABLENOSCROLL</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312427"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_EXTENDEDSEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312429"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_EXTENDEDSEL</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312431"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_HASSTRINGS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312433"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_HASSTRINGS</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312435"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_HIGHCAPACITY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312437"></a>
+
+          <p class="pBody">The list box has a capacity larger than 64K. Normally, the list box is limited to 64K of very efficient, high-speed heap memory. If
+          the <code class="cCode">WLBS_HIGHCAPACITY</code> style is used, the list box can hold more than 64K of data, but it operates more slowly and is less
+          memory-efficient because of the different memory allocation scheme that is used.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312439"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_MULTICOLUMN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312441"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_MULTICOLUMN</code>. The <code class="cCode">WLBS_MULTICOLUMN</code> style
+          provides columns of homogeneous data. If you want a standard list box whose items contain multiple pieces separated by tabs, you can use the
+          <code class="cCode">WLBS_USETABSTOPS</code> style bit; then, in the WordPerfect word strings that you give to the list box, you must separate the
+          columns with tab characters (<code class="cCode">0xF909</code>).</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312443"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_MULTIPLESEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312445"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_MULTIPLESEL</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312447"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_NOINTEGRAL HEIGHT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312449"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_NOINTEGRALHEIGHT</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312451"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_NOREDRAW</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312453"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_NOREDRAW</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312455"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_NOTIFY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312457"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_NOTIFY</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312459"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_OWNERDRAW FIXED</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312461"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_OWNERDRAWFIXED</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312463"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_OWNERDRAW VARIABLE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312465"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_OWNERDRAWVARIABLE</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312467"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_SORT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312469"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_SORT</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312471"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_STANDARD</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312473"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_STANDARD</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312475"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_USETABSTOPS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312477"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_USETABSTOPS</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312479"></a>
+
+          <p class="pBody"><code class="cCode">WLBS_WANT KEYBOARDINPUT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312481"></a>
+
+          <p class="pBody">This has the same effect as <code class="cCode">LBS_WANTKEYBOARDINPUT</code>.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1312483"></a>
+
+  <p class="pBody">The following messages are available to WP list box controls.</p><a name="wp1312532"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1312486"></a>
+
+          <h5 class="pHeading4">Message</h5>
+        </th>
+
+        <th>
+          <a name="wp1312488"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312490"></a>
+
+          <p class="pBody"><code class="cCode">WLB_CANCELPOPUP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312492"></a>
+
+          <p class="pBody">Is the same as the <code class="cCode">NSLB_CANCELPOPUP</code> message described for name search list box controls</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312494"></a>
+
+          <p class="pBody"><code class="cCode">WM_COMPAREITEM</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312496"></a>
+
+          <p class="pBody">Is the same as described for name search list box controls. In the <code class="cCode">COMPAREITEMSTRUCT</code> that is received,
+          the <code class="cCode">CtlType</code> field is set to <code class="cCode">ODT_WPLISTBOX</code> for <code class="cCode">WM_COMPAREITEM</code>
+          messages sent to sort items in the list box. When the <code class="cCode">WM_COMPAREITEM</code> message is sent because of activation of the name
+          search feature, the <code class="cCode">CtlType</code> field is set to <code class="cCode">ODT_WPLISTBOX_CI</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312498"></a>
+
+          <p class="pBody"><code class="cCode">WLB_DRAGDROP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312500"></a>
+
+          <p class="pBody">Enables this control as a drag/drop source or destination (or both). When an item is clicked with the mouse, the drag/drop
+          functionality occurs. For more information, see "<a href="Custom_controls.html#wp1299793">Understanding drag/drop well controls</a>." The
+          <code class="cCode">wParam</code> item contains <code class="cCode">DD_SOURCE</code> and/or <code class="cCode">DD_DEST</code> to enable the control
+          as a source or destination, or both.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312505"></a>
+
+          <p class="pBody"><code class="cCode">WLB_ENABLENAME SEARCH</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312507"></a>
+
+          <p class="pBody">Contains a flag in <code class="cCode">wParam</code> indicating whether a name search is to be allowed on this control. <code class=
+          "cCode">TRUE</code> (the default) means that a name search is allowed; <code class="cCode">FALSE</code> means that a name search is not allowed.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312509"></a>
+
+          <p class="pBody"><code class="cCode">WLB_GETTEXTPTR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312511"></a>
+
+          <p class="pBody">Is similar to <code class="cCode">WLB_GETTEXT</code>, except that a pointer to the text for the list box item is returned rather
+          than the actual text. <code class="cCode">wParam</code> is the list box item number, and <code class="cCode">lParam</code> is <code class=
+          "cCode">0L</code>. This message works only when the <code class="cCode">WLBS_HASSTRINGS</code> style is set (which is the case unless you have
+          specified the list box to be owner-drawn and have not specified <code class="cCode">WLBS_HASSTRINGS</code>). If the index in <code class=
+          "cCode">wParam</code> is invalid or the <code class="cCode">WLBS_HASSTRINGS</code> style is not set, <code class="cCode">NULL</code> is returned.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312513"></a>
+
+          <p class="pBody"><code class="cCode">WLB_GRAYITEMS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312515"></a>
+
+          <p class="pBody">Causes all items to be displayed in gray text, including any selected item</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312517"></a>
+
+          <p class="pBody"><code class="cCode">WLB_NOTIFY_HWND</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312519"></a>
+
+          <p class="pBody">Sets the window handle to which notifications will be sent. By default, notifications are sent to the parent of the list box. The
+          notifications can be directed to an alternate window by using this message.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312521"></a>
+
+          <p class="pBody"><code class="cCode">WLB_QUERYPOPUP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312523"></a>
+
+          <p class="pBody">Is the same as the <code class="cCode">NSLB_QUERYPOPUP</code> message described for name search list box controls</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312525"></a>
+
+          <p class="pBody"><code class="cCode">WLB_SETSORT COLUMN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312527"></a>
+
+          <p class="pBody">Sets the character offset at which sorting occurs and name search starts. <code class="cCode">wParam</code> is the character offset
+          (not the byte offset).</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312529"></a>
+
+          <p class="pBody"><code class="cCode">WPMSG_SET_NSLB_ POPUP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312531"></a>
+
+          <p class="pBody">Is the same as described for name search list box controls</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1312533"></a>
+
+  <p class="pBody">Most of the standard list box messages that can be sent to a Windows list box have corresponding messages for WP list box controls. Their
+  meaning is the same except as noted below.</p><a name="wp1312563"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1312536"></a>
+
+          <h5 class="pHeading4">Message</h5>
+        </th>
+
+        <th>
+          <a name="wp1312538"></a>
+
+          <h5 class="pHeading4">Difference</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312540"></a>
+
+          <p class="pBody"><code class="cCode">WLB_ADDSTRING</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312542"></a>
+
+          <p class="pBody">Expects a WordPerfect word string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312544"></a>
+
+          <p class="pBody"><code class="cCode">WLB_FINDSTRING</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312546"></a>
+
+          <p class="pBody">Expects a WordPerfect word string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312548"></a>
+
+          <p class="pBody"><code class="cCode">WLB_FINDSTRINGEXACT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312550"></a>
+
+          <p class="pBody">Expects a WordPerfect word string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312552"></a>
+
+          <p class="pBody"><code class="cCode">WLB_GETTEXT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312554"></a>
+
+          <p class="pBody">Returns a WordPerfect word string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312556"></a>
+
+          <p class="pBody"><code class="cCode">WLB_GETTEXTLEN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312558"></a>
+
+          <p class="pBody">Returns the length, in bytes, of the word string (not including the two null bytes)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312560"></a>
+
+          <p class="pBody"><code class="cCode">WLB_INSERTSTRING</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312562"></a>
+
+          <p class="pBody">Expects a WordPerfect word string</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1312564"></a>
+
+  <p class="pBody">The following notification is available to WP list box controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1312568"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WM_COMMAND.html#wp1310884">WM_COMMAND notification</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1312569"></a>
+
+  <p class="pBody">In addition, the following notifications are sent.</p><a name="wp1312587"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1312572"></a>
+
+          <h5 class="pHeading4">Notification</h5>
+        </td>
+
+        <td>
+          <a name="wp1312574"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312576"></a>
+
+          <p class="pBody"><code class="cCode">WLBN_RBUTTONDOWN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312578"></a>
+
+          <p class="pBody">Indicates that the right mouse button was pressed down</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312580"></a>
+
+          <p class="pBody"><code class="cCode">WLBN_VK_DELETE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312582"></a>
+
+          <p class="pBody">Indicates that the DELETE key was pressed</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1312584"></a>
+
+          <p class="pBody"><code class="cCode">WLBN_VK_INSERT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1312586"></a>
+
+          <p class="pBody">Indicates that the INSERT key was pressed</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1312801"></a>
+
+  <h5 class="pHeading4">Understanding WP static controls</h5><a name="wp1312802"></a>
+
+  <p class="pBody">A WP static control accepts and displays text in the same way as a Windows static control except that the text string given to it must be a
+  WordPerfect word string.</p><a name="wp1312803"></a>
+
+  <p class="pBody">The class names for WP static controls are <code class="cCode">WCWP_WPSTATIC</code> and <code class=
+  "cCode">WCWP_UPDATESTATIC</code>.</p><a name="wp1312804"></a>
+
+  <p class="pBody">The following styles for WP static controls are the same as for Windows static controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1312805"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">SS_LEFT</code></li>
+      </ul>
+    </div><a name="wp1312806"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">SS_CENTER</code></li>
+      </ul>
+    </div><a name="wp1312807"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">SS_RIGHT</code></li>
+      </ul>
+    </div>
+  </div><a name="wp1312808"></a>
+
+  <p class="pBody">The following messages are available to WP static controls:</p>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp1312812"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WPM_GETTEXT_6W.html#wp1314546">WPM_GETTEXT_6W message</a></li>
+      </ul>
+    </div><a name="wp1312816"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WPM_GETTEXTLENGTH_6W.html#wp1314552">WPM_GETTEXTLENGTH_6W message</a></li>
+      </ul>
+    </div><a name="wp1312820"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WPM_SETTEXT_6W.html#wp1314558">WPM_SETTEXT_6W message</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

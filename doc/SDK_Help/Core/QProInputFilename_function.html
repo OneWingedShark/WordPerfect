@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProInputFilename function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProInputDouble_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProInputInteger_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "User_interface_functions_added_in_Corel_Quattro_Pro_1.html">User-interface functions added in Quattro Pro 1</a> : QProInputFilename function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1280330"></a>
+
+  <h4 class="pHeading3">QProInputFilename function</h4><a name="wp1280331"></a>
+
+  <p class="pBody">This function prompts the user to enter a filename. <code class="cCode">PathName</code> must be a valid path for this function to
+  work.</p><a name="wp1280332"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL QProInputFilename(<a name="wp1280333"> </a>
+LPSTR Prompt,<a name="wp1280334"> </a>
+LPSTR Pathname,<a name="wp1280335"> </a>
+UINT MaxLen,<a name="wp1280336"> </a>
+LPSTR ExtensionTemplate);<a name="wp1280337"> </a>
+</pre>
+  </div><a name="wp1280338"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1280356"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1280341"></a>
+
+          <p class="pBody"><code class="cCode">Prompt</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280343"></a>
+
+          <p class="pBody">Specifies the string with which to prompt the user</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280345"></a>
+
+          <p class="pBody"><code class="cCode">PathName</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280347"></a>
+
+          <p class="pBody">Specifies the far pointer to output string buffer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280349"></a>
+
+          <p class="pBody"><code class="cCode">MaxLen</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280351"></a>
+
+          <p class="pBody">Specifies the number of bytes for output buffer (including null byte)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1280353"></a>
+
+          <p class="pBody"><code class="cCode">ExtensionTemplate</code></p>
+        </td>
+
+        <td>
+          <a name="wp1280355"></a>
+
+          <p class="pBody">Specifies the extension template for wildcarding. This is not a filename mask but a filename extension mask, so do not include the
+          period. For example, <code class="cCode">"DOC"</code>, <code class="cCode">"*"</code>, or <code class="cCode">"WB1"</code> would be appropriate.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1280357"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1280358"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, or it returns <code class="cCode">FALSE</code> otherwise (for example,
+  if an escape is entered).</p><a name="wp1280359"></a>
+
+  <h5 class="pHeading4">Samples</h5><a name="wp1280361"></a>
+
+  <p class="pBody">For an example, please see "<a href="Lesson_13_User_interface_functions.html#wp533413">Lesson 13: User interface functions</a><a href=
+  "Creating_QP_Add-in_DLLs.html#wp532095">" in the Quattro Pro Add-in DLL tutorial</a>.</p>
+</body>
+</html>

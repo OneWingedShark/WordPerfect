@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:20:43" />
+
+  <title>Using Presentations as a DDE server</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Using_Quattro_Pro_as_a_DDE_server.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="PerfectScript_support_for_DDE.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="WordPerfect_Office_Dynamic_Data_Exchange.html">Using Dynamic Data Exchange (DDE)</a> : Using Presentations as a DDE
+        server</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp555562"></a>
+
+  <h3 class="pHeading2">Using Presentations as a DDE server</h3><a name="wp1269593"></a>
+
+  <p class="pBody">Presentations can function as a DDE server.</p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1269598"></a>
+
+    <div class="pSmartList1">
+      Through PerfectScript, Presentations can act as a DDE client. For more information, see "<a href="PerfectScript_support_for_DDE.html#wp555633">Using
+      PerfectScript to set up a DDE client</a>."
+    </div>
+  </div><a name="wp555566"></a>
+
+  <h5 class="pHeading4">Specifying the server name</h5><a name="wp555568"></a>
+
+  <p class="pBody">Presentations supports the following server name for the DDE application: <code class="cCode">Presentations</code>.</p><a name=
+  "wp555570"></a>
+
+  <h5 class="pHeading4">Using supported topics</h5><a name="wp555572"></a>
+
+  <p class="pBody">Presentations supports the single topic <code class="cCode">command</code>. This topic allows you to send any valid PerfectScript command
+  string to Presentations for processing - for example, <code class="cCode">FileOpen(&nbsp;"myfile.wpg"&nbsp;)</code>, <code class=
+  "cCode">AddSlide(&nbsp;5&nbsp;)</code>, or <code class="cCode">EnvCurrentSlideNumber(&nbsp;)</code>.</p><a name="wp555574"></a>
+
+  <h5 class="pHeading4">Sending commands</h5><a name="wp555576"></a>
+
+  <p class="pBody">The client application can use its equivalent of the <code class="cCode">DDEExecute</code> statement to send PerfectScript command strings
+  to Presentations. Multiple PerfectScript commands can be concatenated and sent as a single <code class="cCode">DDEExecute</code> transaction. An alternative
+  method for executing commands is to use the equivalent of the <code class="cCode">DDERequest</code> transaction, as described later in this
+  section.</p><a name="wp555578"></a>
+
+  <h5 class="pHeading4">Requesting information</h5><a name="wp555580"></a>
+
+  <p class="pBody">Presentations provides access to its system variables through DDE. A client application can use its equivalent of the <code class=
+  "cCode">DDERequest</code> statement to send a system-variable query command to Presentations; Presentations then returns the value for the specified system
+  variable as an ANSI string. Boolean values are returned as either <code class="cCode">"TRUE"</code> or <code class="cCode">"FALSE"</code>, and numeric values
+  are returned as their ANSI string representations (for example, <code class="cCode">"357"</code> ). <code class="cCode">DDERequest</code> transactions must
+  be sent individually; they cannot be concatenated.</p><a name="wp555582"></a>
+
+  <h5 class="pHeading4">Using valid command strings</h5><a name="wp555584"></a>
+
+  <p class="pBody">Presentations supports any syntactically correct PerfectScript command that adheres to the following criteria:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp555586"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>The command string must consist only of PerfectScript Presentations product commands.</li>
+      </ul>
+    </div><a name="wp526238"></a>
+
+    <p class="pIndentedRelative">VALID: <code class="cCode">FileOpenDlg()</code></p><a name="wp526246"></a>
+
+    <p class="pIndentedRelative">VALID: <code class="cCode">AddSlide( 5 )</code></p><a name="wp526254"></a>
+
+    <p class="pIndentedRelative">INVALID: <code class="cCode">ASSIGN( x; 5 ) AddSlide( x )</code></p>
+  </div><a name="wp555589"></a>
+
+  <p class="pBody"></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp555591"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Presentation system variables (commands beginning with <code class="cCode">Env</code>) are valid only with <code class="cCode">DDERequest</code>
+        transactions.</li>
+      </ul>
+    </div><a name="wp526267"></a>
+
+    <p class="pIndentedRelative">VALID: <code class="cCode">EnvCurrentSlideNumber</code></p><a name="wp526275"></a>
+
+    <p class="pIndentedRelative">VALID: <code class="cCode">EnvPaths( Program! )</code></p>
+  </div><a name="wp555594"></a>
+
+  <p class="pBody"></p><a name="wp555596"></a>
+
+  <p class="pBody">The command string cannot reference any PerfectScript variables.</p><a name="wp526288"></a>
+
+  <p class="pIndentedRelative">VALID: <code class="cCode">AddSlide ( 5 )</code></p><a name="wp526296"></a>
+
+  <p class="pIndentedRelative">INVALID: <code class="cCode">AddSlide ( x )</code></p><a name="wp526304"></a>
+
+  <p class="pIndentedRelative">INVALID: <code class="cCode">FileOpen( vFile )</code></p><a name="wp555599"></a>
+
+  <p class="pBody"></p><a name="wp1270233"></a>
+
+  <p class="pBody">In addition to the Presentations product PerfectScript commands, Presentations also supports the <code class="cCode">MacroFilePlay</code>
+  command.</p><a name="wp1270234"></a>
+
+  <h5 class="pHeading4">Using the MacroFilePlay(&nbsp;macroname&nbsp;) command</h5><a name="wp1270235"></a>
+
+  <p class="pBody">When this command is sent, Presentations attempts to play the script specified in the <code class="cCode">macroname</code> parameter. This
+  parameter is a quoted string that should contain the full path and name of the PerfectScript macro. If you do not include the full path, Presentations
+  attempts to locate the script by looking in the default macro folder and the Presentations program folder.</p>
+</body>
+</html>

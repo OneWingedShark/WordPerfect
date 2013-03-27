@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DBMPopupMenuItemExists function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBMIsPopupOwnerDraw.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DBMQueryButtonOverhead.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dialog_box_manager.html">Creating dialog boxes</a> :
+        DBMPopupMenuItemExists function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp545207"></a>
+
+  <h4 class="pHeading3">DBMPopupMenuItemExists function</h4><a name="wp545209"></a>
+
+  <p class="pBody">The <code class="cCode">DBMPopupMenuItemExists</code> function determines whether a menu item exists in the pop-up menu.</p><a name=
+  "wp545211"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL FAR PASCAL DBMPopupMenuItemExists (<a name="wp545213"> </a>
+HWND hPopup,<a name="wp545215"> </a>
+WORD usID,<a name="wp545217"> </a>
+WORD usFlags );<a name="wp545219"> </a>
+</pre>
+  </div><a name="wp545221"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp545224"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1293214"></a>
+
+          <p class="pBody"><code class="cCode">hPopup</code></p>
+        </td>
+
+        <td>
+          <a name="wp1293216"></a>
+
+          <p class="pBody">Specifies the handle to the pop-up control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1293218"></a>
+
+          <p class="pBody"><code class="cCode">usID</code></p>
+        </td>
+
+        <td>
+          <a name="wp1293220"></a>
+
+          <p class="pBody">Specifies the identifier of the menu item, depending on the value of <code class="cCode">usFlags</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1293222"></a>
+
+          <p class="pBody"><code class="cCode">usFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp1293224"></a>
+
+          <p class="pBody">Takes one of the following flags:</p><a name="wp1293225"></a>
+
+          <p class="pBody"><code class="cCode">MF_BYCOMMAND usID</code> - specifies the menu item identifier</p><a name="wp1293226"></a>
+
+          <p class="pBody"><code class="cCode">MF_BYPOSITION usID</code> - specifies the menu item position, where first item is zero</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp545226"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp545228"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if the specified pop-up menu item exists, <code class="cCode">FALSE</code>
+  otherwise.</p>
+</body>
+</html>

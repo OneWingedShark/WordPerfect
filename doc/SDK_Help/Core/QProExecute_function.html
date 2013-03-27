@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProExecute function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProGetProperty_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProSetProperty_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "Object_functions_added_in_Corel_Quattro_Pro_1.html">Object functions added in Quattro Pro 1</a> : QProExecute function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp559082"></a>
+
+  <h4 class="pHeading3">QProExecute function</h4><a name="wp559084"></a>
+
+  <p class="pBody">This function executes a Quattro Pro command. The inlet name is used for commands, such as <code class="cCode">WhatIf</code>, that have
+  multiple execution entry points (<code class="cCode">1Way</code> and <code class="cCode">2Way</code>); otherwise, it should always be <code class=
+  "cCode">NULL</code>.</p><a name="wp559086"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL QProExecute(<a name="wp559088"> </a>
+LPSTR pCommandName,<a name="wp559090"> </a>
+LPSTR pInletName,<a name="wp559092"> </a>
+BOOL Special);<a name="wp559094"> </a>
+</pre>
+  </div><a name="wp559096"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp559099"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp528018"></a>
+
+          <p class="pBody"><code class="cCode">pCommandName</code></p>
+        </td>
+
+        <td>
+          <a name="wp528020"></a>
+
+          <p class="pBody">Specifies the name of command</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528026"></a>
+
+          <p class="pBody"><code class="cCode">pInletName</code></p>
+        </td>
+
+        <td>
+          <a name="wp528028"></a>
+
+          <p class="pBody">Specifies the name of inlet; <code class="cCode">NULL</code> in most cases</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528034"></a>
+
+          <p class="pBody">Special</p>
+        </td>
+
+        <td>
+          <a name="wp528036"></a>
+
+          <p class="pBody">Is always <code class="cCode">FALSE</code>, unless otherwise noted. Incorrectly setting this value can cause problems.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp559101"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp559103"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, or it returns <code class="cCode">FALSE</code> otherwise (for example,
+  if a protection error is encountered).</p><a name="wp559105"></a>
+
+  <h5 class="pHeading4">Samples</h5><a name="wp559109"></a>
+
+  <p class="pBody">For a sample, please see "<a href="Lesson_12_Executing_a_command_object.html#wp533313">Lesson 12: Executing a command object</a><a href=
+  "Creating_QP_Add-in_DLLs.html#wp532095">" in the Quattro Pro Add-in DLL tutorial</a>.</p>
+</body>
+</html>

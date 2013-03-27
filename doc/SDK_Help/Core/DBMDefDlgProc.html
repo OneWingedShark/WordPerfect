@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DBMDefDlgProc function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {margin-left: 2em}
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBMCreateDialogParam2.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DBMDialogBoxParam.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dialog_box_manager.html">Creating dialog boxes</a> : DBMDefDlgProc
+        function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp543742"></a>
+
+  <h4 class="pHeading3">DBMDefDlgProc function</h4><a name="wp543744"></a>
+
+  <p class="pBody">For DBM dialog boxes, the <code class="cCode">DBMDefDlgProc</code> function must be called from within the dialog-box procedure to handle
+  those messages that are not handled by the dialog-box procedure. It is analogous to the Windows API function <code class=
+  "cCode">DefDlgProc(&nbsp;)</code>.</p><a name="wp543748"></a>
+
+  <p class="pBody">Several working examples of this function can be found in the DBM dialog-box procedures of the sample program.</p><a name="wp543750"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL FAR PASCAL DBMDefDlgProc (<a name="wp543752"> </a>
+HWND hDlg,<a name="wp543754"> </a>
+UINT usMessage,<a name="wp543756"> </a>
+UINT wParam,<a name="wp543758"> </a>
+LONG lParam );<a name="wp543760"> </a>
+</pre>
+  </div><a name="wp543762"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp543765"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp512623"></a>
+
+          <p class="pBody"><code class="cCode">hDlg</code></p>
+        </td>
+
+        <td>
+          <a name="wp512625"></a>
+
+          <p class="pBody">Specifies the handle of the dialog-box instance</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp512631"></a>
+
+          <p class="pBody"><code class="cCode">usMessage</code></p>
+        </td>
+
+        <td>
+          <a name="wp512633"></a>
+
+          <p class="pBody">Specifies the message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp512639"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp512641"></a>
+
+          <p class="pBody">Specifies the <code class="cCode">WORD</code> value associated with the message</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp512647"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp512649"></a>
+
+          <p class="pBody">Specifies the <code class="cCode">LONG</code> value associated with the message</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp543767"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp543769"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if the message was handled, <code class="cCode">FALSE</code> otherwise.</p><a name=
+  "wp543771"></a>
+
+  <h5 class="pHeading4">See also</h5>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp543773"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMCreateDialogParam.html#wp543622">DBMCreateDialogParam function</a></li>
+      </ul>
+    </div><a name="wp1289497"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMCreateDialogParam2.html#wp543683">DBMCreateDialogParam2 function</a></li>
+      </ul>
+    </div><a name="wp1291267"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMDialogBoxParam.html#wp1291274">DBMDialogBoxParam function</a></li>
+      </ul>
+    </div><a name="wp1291268"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMDialogBoxParam2.html#wp543850">DBMDialogBoxParam2 function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

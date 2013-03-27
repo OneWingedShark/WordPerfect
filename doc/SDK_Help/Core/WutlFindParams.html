@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WutlFindParams function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WutlAllocTaskParam.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="About_dialog.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="PerfectFit_registration.html">Registering PerfectFit</a> :
+        WutlFindParams function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1270475"></a>
+
+  <h4 class="pHeading3">WutlFindParams function</h4><a name="wp1270476"></a>
+
+  <p class="pBody">The <code class="cCode">WutlFindParams</code> function finds all the task-specific parameters. This is called by an application prior to
+  link-window creation. It goes through all startup options as specified by the function's parameters. The application's parameter handler is called each time
+  a parameter is found. The application-supplied parameter structure (<code class="cCode">hTaskParams</code>) is used in the link-window structure to supply
+  the knowledge of the application's task startup state to PerfectFit.</p><a name="wp1270477"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+UTLParamCntType SHAPI WutlFindParams ( <a name="wp1270478"> </a>
+LPCSTR lpszCmdLine, <a name="wp1270479"> </a>
+LPDosEnvVars lpDosEnvVars, <a name="wp1270480"> </a>
+LPCSTR lpszEnvFile, <a name="wp1270481"> </a>
+UTLHTaskParams hTaskParams, <a name="wp1270482"> </a>
+UTLLPParamHandler lpParamHandler ); <a name="wp1270483"> </a>
+</pre>
+  </div><a name="wp1270484"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1270506"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1270487"></a>
+
+          <p class="pBody"><code class="cCode">lpszCmdLine</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270489"></a>
+
+          <p class="pBody">Specifies the command-line parameters (if any) passed upon application startup</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270491"></a>
+
+          <p class="pBody"><code class="cCode">lpDosEnvVars</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270493"></a>
+
+          <p class="pBody">Specifies any DOS-environment variables you want to pass to PerfectFit or to your program. If a parameter passed is
+          application-specific, it is ignored by PerfectFit.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270495"></a>
+
+          <p class="pBody"><code class="cCode">lpszEnvFile</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270497"></a>
+
+          <p class="pBody">Specifies the path and file name of the .env file used by your application.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270499"></a>
+
+          <p class="pBody"><code class="cCode">hTaskParams</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270501"></a>
+
+          <p class="pBody">Specifies the handle to a memory block. This memory block holds the specific parameters for the task (that is, your program). These
+          parameters include the .env file switches, DOS-environment variables, and the command-line parameters passed by your application.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270503"></a>
+
+          <p class="pBody"><code class="cCode">lpParamHandler</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270505"></a>
+
+          <p class="pBody">Specifies an optional long pointer to a callback function that allows your application to process the task-specific parameters
+          passed in</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1270507"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1270508"></a>
+
+  <p class="pBody">Number of parameters found is returned.</p>
+</body>
+</html>

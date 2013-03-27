@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Understanding tokenization</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="PerfectFit_shared_code.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="PerfectFit_overview.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="PerfectFit_shared_code.html">Understanding
+        PerfectFit shared code</a> : Understanding tokenization</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1276176"></a>
+
+  <h4 class="pHeading3">Understanding tokenization</h4><a name="wp1276180"></a>
+
+  <p class="pBody">Many Corel&nbsp;WordPerfect&nbsp;Office application APIs are based on the concept of tokenization. A tokenized application is one where
+  low-level events, such as a mouse click or key press, are packaged into a meaningful representations or tokens, such as "Save the current file" or "Send a
+  new mail message." These tokens are then processed by the application.</p><a name="wp1276181"></a>
+
+  <p class="pBody">Tokenization offers many advantages to an application. Most importantly, tokenization allows for a robust integration environment to be
+  created.</p><a name="wp1276182"></a>
+
+  <h5 class="pHeading4">Understanding the terminology of tokenization</h5><a name="wp1276186"></a>
+
+  <p class="pBody">In the Corel&nbsp;WordPerfect&nbsp;Office SDK documentation, you will notice that the terms "token," "command," and "macro command" are used
+  interchangeably. These terms are equivalent and refer to high-level application events.</p><a name="wp1276455"></a>
+
+  <p class="pBody">You will also find reference to a data structure called a "theta" or a "dynatheta." These terms refer to the specific data structure used to
+  represent a token or command inside of the Corel&nbsp;WordPerfect&nbsp;Office applications.</p><a name="wp1276190"></a>
+
+  <h5 class="pHeading4">Understanding the practical uses for a tokenized interface</h5><a name="wp1276194"></a>
+
+  <p class="pBody">Using the development environment for Corel&nbsp;WordPerfect&nbsp;Office applications requires frequently sending tokens to
+  Corel&nbsp;WordPerfect&nbsp;Office applications. This can be done in many ways, depending on the circumstances involved;</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1276198"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>by playing a PerfectScript macro</li>
+      </ul>
+    </div><a name="wp1276199"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>by sending Dynamic Data Exchange (DDE) commands</li>
+      </ul>
+    </div><a name="wp1276200"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>by using the Windows Open API</li>
+      </ul>
+    </div><a name="wp1276201"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>by using the Command Interface</li>
+      </ul>
+    </div>
+  </div><a name="wp1276515"></a>
+
+  <p class="pBody">Developers are free to mix and match these methods as necessary. However, not all methods are supported by all
+  Corel&nbsp;WordPerfect&nbsp;Office applications.</p>
+</body>
+</html>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:20:43" />
+
+  <title>Using WordPerfect as a DDE server</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WordPerfect_Office_DDE_application_and_topic_names.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18"
+      height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Using_Quattro_Pro_as_a_DDE_server.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="WordPerfect_Office_Dynamic_Data_Exchange.html">Using Dynamic Data Exchange (DDE)</a> : Using WordPerfect as a DDE server</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1269448"></a>
+
+  <h3 class="pHeading2">Using WordPerfect as a DDE server</h3><a name="wp555424"></a>
+
+  <p class="pBody">WordPerfect can function as a DDE server.</p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1269526"></a>
+
+    <div class="pSmartList1">
+      Through PerfectScript, WordPerfect can act as a DDE client. For more information, see "<a href="PerfectScript_support_for_DDE.html#wp555633">Using
+      PerfectScript to set up a DDE client</a>."
+    </div>
+  </div><a name="wp1269839"></a>
+
+  <h5 class="pHeading4">Specifying the server name</h5><a name="wp555428"></a>
+
+  <p class="pBody">WordPerfect supports the following server name for the DDE application: <code class="cCode">WPWin11_Macros</code>.</p><a name=
+  "wp1269843"></a>
+
+  <h5 class="pHeading4">Using supported topics</h5><a name="wp555432"></a>
+
+  <p class="pBody">WordPerfect supports the single topic <code class="cCode">Commands</code>. This topic allows you to send any valid PerfectScript command
+  string - for example, <code class="cCode">FileOpen(&nbsp;"myfile.wpd"&nbsp;)</code> or <code class="cCode">PrintFullDoc()</code> - to WordPerfect for
+  processing.</p><a name="wp1269847"></a>
+
+  <h5 class="pHeading4">Sending commands</h5><a name="wp555436"></a>
+
+  <p class="pBody">The client application can use its equivalent of the <code class="cCode">DDEExecute</code> statement to send PerfectScript command strings
+  to WordPerfect. Multiple PerfectScript commands can be concatenated and sent as a single <code class="cCode">DDEExecute</code> transaction.</p><a name=
+  "wp1269851"></a>
+
+  <h5 class="pHeading4">Using valid command strings</h5><a name="wp555440"></a>
+
+  <p class="pBody">WordPerfect supports any syntactically correct PerfectScript command that adheres to the following criteria:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp555442"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>The command string must contain only PerfectScript WordPerfect product commands.</li>
+      </ul>
+    </div><a name="wp526138"></a>
+
+    <p class="pIndentedRelative">VALID: <code class="cCode">FileOpen(&nbsp;"myfile.wpd"&nbsp;) PrintFullDoc()</code></p><a name="wp526146"></a>
+
+    <p class="pIndentedRelative">VALID: <code class="cCode">FontDlg()</code></p><a name="wp526154"></a>
+
+    <p class="pIndentedRelative">INVALID: <code class="cCode">ASSIGN( vFile; "myfile.wpd" ) FileOpen( vFile )</code></p>
+  </div><a name="wp555445"></a>
+
+  <p class="pBody"></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp555447"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>The command cannot return a value. WordPerfect does not support <code class="cCode">DDERequest</code> type transactions. For example, the
+        WordPerfect system variables (such as <code class="cCode">?variablename</code>) and the <code class="cCode">GetData</code> command are not valid.</li>
+      </ul>
+    </div><a name="wp526167"></a>
+
+    <p class="pIndentedRelative">INVALID: <code class="cCode">?PathMacros</code></p>
+  </div><a name="wp555450"></a>
+
+  <p class="pBody"></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp555452"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>The command string cannot reference any PerfectScript variables.</li>
+      </ul>
+    </div><a name="wp526180"></a>
+
+    <p class="pIndentedRelative">INVALID: <code class="cCode">FileExists(&nbsp;vBool; "myfile.wpd"&nbsp;)</code></p>
+  </div><a name="wp555457"></a>
+
+  <p class="pBody">In addition to the WordPerfect product PerfectScript commands, WordPerfect also supports the following commands: <code class=
+  "cCode">MacroFilePlay</code>, <code class="cCode">MacroTemplatePlay</code>, and <code class="cCode">ExitWordPerfect</code>.</p><a name="wp555459"></a>
+
+  <h5 class="pHeading4">Using the MacroFilePlay(&nbsp;macroname&nbsp;) command</h5><a name="wp555461"></a>
+
+  <p class="pBody">When this command is sent, WordPerfect attempts to play the script specified in the <code class="cCode">macroname</code> parameter. This
+  parameter is a quoted string that should contain the full path and name of the PerfectScript macro. If you do not include the full path, WordPerfect attempts
+  to locate the script by looking in the default macro folder and the WordPerfect program folder.</p><a name="wp555463"></a>
+
+  <h5 class="pHeading4">Using the MacroTemplatePlay(&nbsp;template;&nbsp;macroname&nbsp;) command</h5><a name="wp555465"></a>
+
+  <p class="pBody">This command is similar to <code class="cCode">MacroFilePlay</code>, except that it is used to play template macros.</p><a name=
+  "wp1269786"></a>
+
+  <p class="pBody">The first parameter, <code class="cCode">template</code>, should be one of the following enumeration values: <code class=
+  "cCode">DefaultTemplate!</code> or <code class="cCode">CurrentTemplate!</code>, which are defined as zero (<code class="cCode">0</code>) and one
+  (<code class="cCode">1</code>) respectively.</p><a name="wp1269787"></a>
+
+  <p class="pBody">The second parameter is a quoted string that should contain the name of the PerfectScript macro.</p><a name="wp555467"></a>
+
+  <h5 class="pHeading4">Using the ExitWordPerfect() command</h5><a name="wp555469"></a>
+
+  <p class="pBody">This command does not have any parameters; however, its parentheses are required. Sending this command causes WordPerfect to shut down.</p>
+</body>
+</html>

@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:20:43" />
+
+  <title>OnDDEAdvise CALL command</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DDETerminateAll_command.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_Glossary.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="WordPerfect_Office_Dynamic_Data_Exchange.html">Using Dynamic Data Exchange (DDE)</a> : <a href=
+        "PerfectScript_support_for_DDE.html">Using PerfectScript to set up a DDE client</a> : OnDDEAdvise CALL command</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1270724"></a>
+
+  <h4 class="pHeading3">OnDDEAdvise CALL command</h4><a name="wp1270725"></a>
+
+  <p class="pBody">The <code class="cCode">OnDDEAdvise</code> CALL command establishes a link with another application to provide a method for checking whether
+  a value received by <code class="cCode">DDERequest</code> has changed. If the value changes, <code class="cCode">OnDDEAdvise</code> causes the specified
+  label to be called.</p><a name="wp1270726"></a>
+
+  <h5 class="pHeading4">Syntax</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+ONDDEADVISE CALL( Result; ConversationId; ItemName; Label )<a name="wp1270727"> </a>
+</pre>
+  </div><a name="wp1270728"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1270746"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1270731"></a>
+
+          <p class="pBody"><code class="cCode">Result</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270733"></a>
+
+          <p class="pBody">Contains a nonzero value if the link was established. If the link was not established, it is set to zero.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270735"></a>
+
+          <p class="pBody"><code class="cCode">ConversationId</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270737"></a>
+
+          <p class="pBody">Specifies the handle to the DDE conversation obtained in the <code class="cCode">DDEInitiate()</code> call</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270739"></a>
+
+          <p class="pBody"><code class="cCode">ItemName</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270741"></a>
+
+          <p class="pBody">Specifies the name of the variable in the other application to monitor. It must be the same as the item specified in the
+          <code class="cCode">DDERequest()</code> call.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1270743"></a>
+
+          <p class="pBody"><code class="cCode">Label</code></p>
+        </td>
+
+        <td>
+          <a name="wp1270745"></a>
+
+          <p class="pBody">Specifies a macro label to be called whenever the specified value changes</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1270718"></a>
+
+  <p class="pBody"></p>
+</body>
+</html>

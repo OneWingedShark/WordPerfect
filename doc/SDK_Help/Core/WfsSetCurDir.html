@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WfsSetCurDir function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WfsRemovePathSlash.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WfsSetCurDrive.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        WfsSetCurDir function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp547975"></a>
+
+  <h4 class="pHeading3">WfsSetCurDir function</h4><a name="wp547977"></a>
+
+  <p class="pBody">The <code class="cCode">WfsSetCurDir</code> function changes the current working folder. This function does not change the current drive; to
+  change the current drive, use <code class="cCode">WfsSetCurDrive(&nbsp;)</code>. The input to this function is assumed to be an ANSI string and may contain a
+  final backslash ( \ ).</p><a name="wp547979"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int SHAPI WfsSetCurDir ( LPSTR lpszCurrentPath );<a name="wp547981"> </a>
+</pre>
+  </div><a name="wp547983"></a>
+
+  <h5 class="pHeading4">Parameter</h5><a name="wp547986"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp519339"></a>
+
+          <p class="pBody"><code class="cCode">lpszCurrentPath</code></p>
+        </td>
+
+        <td>
+          <a name="wp519341"></a>
+
+          <p class="pBody">Acts as a pointer to the name of the folder to use as the new working folder. This name should not be larger than <code class=
+          "cCode">FS_PATHNAME_BUFSIZE</code> (<code class="cCode">143</code>).</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp547988"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp547990"></a>
+
+  <p class="pBody">Returns zero if the folder change was successful, or <code class="cCode">-1</code> if the folder change was unsuccessful.</p>
+</body>
+</html>

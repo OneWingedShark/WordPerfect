@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>PIDBBM_BTN_INSERT message</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="PIDBBM_BTN_DELETE.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="PIDBBM_GETBBARINFO.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Toolbars.html">Creating toolbars</a> : PIDBBM_BTN_INSERT
+        message</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553410"></a>
+
+  <h4 class="pHeading3">PIDBBM_BTN_INSERT message</h4><a name="wp553412"></a>
+
+  <p class="pBody">An application sends this message to add a new button to the toolbar. A button can be added to the end of the list by setting LOWORD
+  (<code class="cCode">lParam</code>) to <code class="cCode">BB_INSERTBEFOREPOSITION</code> and HIWORD (<code class="cCode">lParam</code>) to <code class=
+  "cCode">-1</code>.</p><a name="wp553414"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp553417"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp523966"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp523968"></a>
+
+          <p class="pBody">Specifies the theta ID of the button to add</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523974"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code> (low)</p>
+        </td>
+
+        <td>
+          <a name="wp523976"></a>
+
+          <p class="pBody">If set to <code class="cCode">BB_INSERTBEFOREID</code>, inserts the button before the first button whose ID matches the one
+          specified in <code class="cCode">HIWORD</code> (<code class="cCode">lParam</code>). In other words, the button takes the location previously held by
+          the button specified in <code class="cCode">wParam</code>, and that button and all subsequent buttons are moved down. If set to <code class=
+          "cCode">BB_INSERTAFTERID</code>, inserts the button after the first button whose ID matches the one specified in <code class="cCode">HIWORD</code>
+          (<code class="cCode">lParam</code>). If set to <code class="cCode">BB_INSERTBEFOREPOSITION</code>, inserts the button before the first button in the
+          <code class="cCode">HIWORD</code> (<code class="cCode">lParam</code>) position.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523982"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code> (high)</p>
+        </td>
+
+        <td>
+          <a name="wp523984"></a>
+
+          <p class="pBody">Is either a theta ID, a position (<code class="cCode">0</code> to <code class="cCode">n-1</code>), or <code class="cCode">-1</code>,
+          depending on what value is used in the <code class="cCode">LOWORD</code> (<code class="cCode">lParam</code>) position</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp553419"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp553421"></a>
+
+  <p class="pBody">The return value is non-zero if a button was successfully added. Otherwise, <code class="cCode">0</code> is returned.</p>
+</body>
+</html>

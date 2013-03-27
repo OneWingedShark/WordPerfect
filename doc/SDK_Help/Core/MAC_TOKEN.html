@@ -1,0 +1,248 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:27" />
+
+  <title>MAC_TOKEN functional element</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="MAC_RETURNVAL.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="MAC_TOKENERROR.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Third_Party_DLL_Entry_Points.html">Using entry points in Third Party Handler DLLs</a> : <a href=
+        "Structures_Types_and_Constants_used_by_functions.html">Choosing elements for required functions in Third Party Handler DLLs</a> : MAC_TOKEN functional
+        element</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp554863"></a>
+
+  <h4 class="pHeading3">MAC_TOKEN functional element</h4><a name="wp554865"></a>
+
+  <p class="pBody">The <code class="cCode">MAC_TOKEN</code> functional element represents a Corel&nbsp;WordPerfect&nbsp;Office command, and it contains
+  information identifying the command and its parameters.</p><a name="wp554867"></a>
+
+  <h5 class="pHeading4">C structure</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct_tagMAC_TOKEN<a name="wp554869"> </a>
+{<a name="wp554871"> </a>
+HSZ   hszCommand;<a name="wp554873"> </a>
+MAC_IPCVERSION  Version;<a name="wp554875"> </a>
+HSZ   hszRequestor;<a name="wp554877"> </a>
+MAC_MACROID  dwMacroID;<a name="wp554879"> </a>
+ATOM   atomApp;<a name="wp554881"> </a>
+WORD   wReserved;<a name="wp554883"> </a>
+MAC_TOKENID  wTokenID<a name="wp554885"> </a>
+MAC_COUNT  cParam;<a name="wp554887"> </a>
+DWORD   dwFlags;<a name="wp554889"> </a>
+DWORD   dwReserved;<a name="wp554891"> </a>
+MAC_PARAM  DataBlock[1];<a name="wp554893"> </a>
+} MAC_TOKEN, FAR *LPMAC_TOKEN;<a name="wp554895"> </a>
+</pre>
+  </div><a name="wp554897"></a>
+
+  <h5 class="pHeading4">Pascal Record</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+MAC_TOKEN = record<a name="wp554899"> </a>
+eCommand  : DWord;<a name="wp554901"> </a>
+dwVersion  : DWord ; <a name="wp554903"> </a>
+atomRequestor : ATOM;<a name="wp554905"> </a>
+dwMacroID : LongInt;<a name="wp554907"> </a>
+atomApp : ATOM;<a name="wp554909"> </a>
+wReserved : Word; <a name="wp554911"> </a>
+wTokenID : Word;<a name="wp554913"> </a>
+cParam : DWord;<a name="wp554915"> </a>
+dwFlags : LongInt;<a name="wp554917"> </a>
+dwReserved : LongInt;<a name="wp554919"> </a>
+DataBlock : array [0..0] of MAC_PARAM;<a name="wp554921"> </a>
+end;<a name="wp554923"> </a>
+LPMAC_TOKEN = ^MAC_TOKEN;<a name="wp554925"> </a>
+</pre>
+  </div><a name="wp554927"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp554930"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp524887"></a>
+
+          <p class="pBody"><code class="cCode">hszCommand</code></p>
+        </td>
+
+        <td>
+          <a name="wp524889"></a>
+
+          <p class="pBody">Indicates where the PerfectScript command originated</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524895"></a>
+
+          <p class="pBody"><code class="cCode">Version</code></p>
+        </td>
+
+        <td>
+          <a name="wp524897"></a>
+
+          <p class="pBody">Indicates the version of IPC. Set to <code class="cCode">0</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524903"></a>
+
+          <p class="pBody"><code class="cCode">hszRequestor</code></p>
+        </td>
+
+        <td>
+          <a name="wp524905"></a>
+
+          <p class="pBody">Acts as a unique application identifier</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524911"></a>
+
+          <p class="pBody"><code class="cCode">dwMacroID</code></p>
+        </td>
+
+        <td>
+          <a name="wp524913"></a>
+
+          <p class="pBody">Indicates the application ID for the command. Should always be <code class="cCode">0L</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524919"></a>
+
+          <p class="pBody"><code class="cCode">atomApp</code></p>
+        </td>
+
+        <td>
+          <a name="wp524921"></a>
+
+          <p class="pBody">Indicates the Atom of the application that sent the command.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524927"></a>
+
+          <p class="pBody"><code class="cCode">wReserved</code></p>
+        </td>
+
+        <td>
+          <a name="wp524929"></a>
+
+          <p class="pBody">Reserved. Set to <code class="cCode">0</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524935"></a>
+
+          <p class="pBody"><code class="cCode">wTokenID</code></p>
+        </td>
+
+        <td>
+          <a name="wp524937"></a>
+
+          <p class="pBody">Indicates the PerfectScript command ID</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524943"></a>
+
+          <p class="pBody"><code class="cCode">cParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp524945"></a>
+
+          <p class="pBody">Indicates the number of parameters passed with the command</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524951"></a>
+
+          <p class="pBody"><code class="cCode">dwFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp524953"></a>
+
+          <p class="pBody">Set to <code class="cCode">0</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524959"></a>
+
+          <p class="pBody"><code class="cCode">dwReserved</code></p>
+        </td>
+
+        <td>
+          <a name="wp524961"></a>
+
+          <p class="pBody">Reserved</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524967"></a>
+
+          <p class="pBody"><code class="cCode">DataBlock</code></p>
+        </td>
+
+        <td>
+          <a name="wp524969"></a>
+
+          <p class="pBody">Indicates the parameter data block pointer. <code class="cCode">DataBlock[0]</code> contains the data for the first parameter.
+          <code class="cCode">DataBlock[1]</code> contains data for the second parameter, and so on for as many parameters as exist.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

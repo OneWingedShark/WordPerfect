@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProGetRangeText function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProGetRange_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProParseCellReference_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "Reference_conversion_functions_added_in_Corel_Quattro_Pro_1.html">Reference-conversion functions added in Quattro Pro 1</a> : QProGetRangeText
+        function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp560268"></a>
+
+  <h4 class="pHeading3">QProGetRangeText function</h4><a name="wp560270"></a>
+
+  <p class="pBody">This function converts <code class="cCode">Range</code> to a text string.</p><a name="wp560272"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+void QProGetRangeText(<a name="wp560274"> </a>
+LPRange  pRange,<a name="wp560276"> </a>
+LPSTR  Result,<a name="wp560278"> </a>
+UINT  MaxResult);<a name="wp560280"> </a>
+</pre>
+  </div><a name="wp560282"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp560285"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp528544"></a>
+
+          <p class="pBody"><code class="cCode">pRange</code></p>
+        </td>
+
+        <td>
+          <a name="wp528546"></a>
+
+          <p class="pBody">Specifies the input range. For <code class="cCode">Range</code> structure, see the <a href=
+          "QProGetRange_function.html#wp560118">QProGetRange function</a>. Verify the notebook index is valid (<code class="cCode">pRange-&gt;Notebook</code>),
+          or problems may occur.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528552"></a>
+
+          <p class="pBody"><code class="cCode">Result</code></p>
+        </td>
+
+        <td>
+          <a name="wp528554"></a>
+
+          <p class="pBody">Specifies the far pointer to output string buffer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528560"></a>
+
+          <p class="pBody"><code class="cCode">MaxResult</code></p>
+        </td>
+
+        <td>
+          <a name="wp528562"></a>
+
+          <p class="pBody">Specifies the number of bytes of output buffer (including null byte)</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp560287"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp560289"></a>
+
+  <p class="pBody">None</p>
+</body>
+</html>

@@ -1,0 +1,366 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DBMGrayString function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBMGetDlgBGColor.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DBMIsDialogMessage.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dialog_box_manager.html">Creating dialog boxes</a> : DBMGrayString
+        function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp544017"></a>
+
+  <h4 class="pHeading3">DBMGrayString function</h4><a name="wp544019"></a>
+
+  <p class="pBody">The <code class="cCode">DBMGrayString</code> function is a simplified interface to the Windows <code class="cCode">GrayString(&nbsp;)</code>
+  function.</p><a name="wp544021"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL FAR PASCAL DBMGrayString (<a name="wp544023"> </a>
+HDC hDC,<a name="wp544025"> </a>
+LPSTR lpString,<a name="wp544027"> </a>
+int nCount,<a name="wp544029"> </a>
+LPRECT lpstRect,<a name="wp544031"> </a>
+WORD usDTFlags );<a name="wp544033"> </a>
+</pre>
+  </div><a name="wp544035"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp544038"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1290178"></a>
+
+          <p class="pBody"><code class="cCode">hDC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290180"></a>
+
+          <p class="pBody">Specifies the handle of the device context</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290182"></a>
+
+          <p class="pBody"><code class="cCode">lpString</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290184"></a>
+
+          <p class="pBody">Specifies the address of the string to paint gray</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290186"></a>
+
+          <p class="pBody"><code class="cCode">nCount</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290188"></a>
+
+          <p class="pBody">Specifies the length of the string in characters</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290190"></a>
+
+          <p class="pBody"><code class="cCode">lpstRect</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290192"></a>
+
+          <p class="pBody">Specifies the address of the rectangle structure that holds the location to put the grayed string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290194"></a>
+
+          <p class="pBody"><code class="cCode">usDTFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290196"></a>
+
+          <p class="pBody">Specifies text-formatting flags. The flags used for this function are the same as for the Windows <code class=
+          "cCode">DrawText(&nbsp;)</code> function.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp544040"></a>
+
+  <p class="pBody">The text-formatting flags available to the <code class="cCode">usDTFlags</code> parameter are as follows.</p><a name="wp1290220"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1290174"></a>
+
+          <h5 class="pHeading4">Flag</h5>
+        </th>
+
+        <th>
+          <a name="wp1290176"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290118"></a>
+
+          <p class="pBody"><code class="cCode">DT_BOTTOM</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290120"></a>
+
+          <p class="pBody">Lines up the text with the bottom of the dialog box. The <code class="cCode">DT_SINGLELINE</code> flag must be used with it.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290122"></a>
+
+          <p class="pBody"><code class="cCode">DT_CALCRECT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290124"></a>
+
+          <p class="pBody">Based on <code class="cCode">lpstRect</code>, adjusts the size of the rectangle to fit the text that is going into it. For
+          multi-lined text, the bottom of the rectangle is adjusted to fit the last line of text. For single-lined text, the right side of the rectangle is
+          adjusted to show the full line of text.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290126"></a>
+
+          <p class="pBody"><code class="cCode">DT_CENTER</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290128"></a>
+
+          <p class="pBody">Centers the text from left to right</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290130"></a>
+
+          <p class="pBody"><code class="cCode">DT_EXPANDTABS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290132"></a>
+
+          <p class="pBody">Adds the necessary space to the text to represent tab codes in the text. The default number of spaces added is <code class=
+          "cCode">8</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290134"></a>
+
+          <p class="pBody"><code class="cCode">DT_EXTERNALLEADING</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290136"></a>
+
+          <p class="pBody">If the current font has any extra leading (space) above or below it, this leading is normally ignored. Use this flag to include this
+          leading.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290138"></a>
+
+          <p class="pBody"><code class="cCode">DT_LEFT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290140"></a>
+
+          <p class="pBody">Lines up text with the left side</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290142"></a>
+
+          <p class="pBody"><code class="cCode">DT_NOCLIP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290144"></a>
+
+          <p class="pBody">Doesn't clip text to stay within window boundaries</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290146"></a>
+
+          <p class="pBody"><code class="cCode">DT_NOPREFIX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290148"></a>
+
+          <p class="pBody">Causes the <code class="cCode">&amp;</code> character to appear as a standard character. (Normally, placing the <code class=
+          "cCode">&amp;</code> character before another character tells Windows to underline the other character omit the <code class="cCode">&amp;</code>
+          character.)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290150"></a>
+
+          <p class="pBody"><code class="cCode">DT_RIGHT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290152"></a>
+
+          <p class="pBody">Lines up text with the right side</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290154"></a>
+
+          <p class="pBody"><code class="cCode">DT_SINGLELINE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290156"></a>
+
+          <p class="pBody">Ignores carriage returns and line feeds in the text. The text comes out as one line.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290158"></a>
+
+          <p class="pBody"><code class="cCode">DT_TABSTOP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290160"></a>
+
+          <p class="pBody">Redefines how many spaces are used for tab characters. When using this flag, put the number of spaces in the high byte of the
+          <code class="cCode">usDTFlags</code>. The default is <code class="cCode">8</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290162"></a>
+
+          <p class="pBody"><code class="cCode">DT_TOP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290164"></a>
+
+          <p class="pBody">Lines up text with the top. The <code class="cCode">DTSINGLELINE</code> flag must be used with this flag.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290166"></a>
+
+          <p class="pBody"><code class="cCode">DT_VCENTER</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290168"></a>
+
+          <p class="pBody">Centers text top to bottom. The <code class="cCode">DT_SINGLELINE</code> flag must be used with this flag.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1290170"></a>
+
+          <p class="pBody"><code class="cCode">DT_WORDBREAK</code></p>
+        </td>
+
+        <td>
+          <a name="wp1290172"></a>
+
+          <p class="pBody">Wraps lines to the next line when the contents of the line extends past the right boundary of the given rectangle. Lines are broken
+          between words and at carriage return/line feed codes.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1289970"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp544042"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, <code class="cCode">FALSE</code> otherwise.</p>
+</body>
+</html>

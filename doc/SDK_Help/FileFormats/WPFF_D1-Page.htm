@@ -1,0 +1,549 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: D1 Page Functions</h2>
+    <p><strong>Page Group - Function 209 (0xD1)</strong></p>
+    <p>The Page Group subfunctions have page orientation.</p>
+    <hr />
+    <h3>0xD100</h3>
+    <p><strong>Top Margin Set</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;0 (0x00)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[top margin (WPU)] distance from top edge of paper to text
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD101</h3>
+    <p><strong>Bottom Margin Set</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;1 (0x01)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[bottom margin (WPU)]  distance from bottom edge of paper to text (WPU)
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD102</h3>
+    <p><strong>Suppress Page Characteristics</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;2 (0x02)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new suppress code&gt;
+  bit 0: suppress page numbering
+  bit 1: suppress current page numbering and print page number at bottom center
+  bit 2: suppress header A
+  bit 3: suppress header B
+  bit 4: suppress footer A
+  bit 5: suppress footer B
+  bit 6: suppress watermark A
+  bit 7: suppress watermark B
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD103</h3>
+    <p><strong>Page Number Position</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;3 (0x03)&gt; [size = variable] &lt;flags = PRFXID&gt;
+&lt;number of prefix IDs = 1&gt;
+[page numbering font PID (type=0x55)] (0 if use flag is 0)
+[size of non-deletable information = 22]
+[hash (matched typeface descriptor)]
+&lt;use flag&gt;
+  0 = use document initial values for font, point size, attributes and colors
+  1 = use values in function
+[copy of page numbering font PID]
+[ point size (WPU)]
+&lt;page number position&gt;
+  0 = none
+  1 = top left
+  2 = top center
+  3 = top right
+  4 = top left and right
+  5 = bottom left
+  6 = bottom center
+  7 = bottom right
+  8 = bottom left and right
+  9 = top inside left and right
+  10= bottom inside left and right
+[matched font index in font list]
+[matched point size of font (WPU)]
+[attributes, 1st word]
+  bit 0: 1 = extra large
+  bit 1: 1 = very large
+  bit 2: 1 = large
+  bit 3: 1 = small print
+  bit 4: 1 = fine print
+  bit 5: 1 = superscript
+  bit 6: 1 = subscript
+  bit 7: 1 = outline
+  bit 8: 1 = italics
+  bit 9: 1 = shadow
+  bit 10: 1 = redline
+  bit 11: 1 = double underline
+  bit 12: 1 = bold
+  bit 13: 1 = strikeout
+  bit 14: 1 = underline
+  bit 15: 1 = small caps
+[attributes, 2nd word]
+  bit 0: 1 = blink
+  bit 1: 1 = reverse video
+&lt;color (RGBS)&gt; x 4
+[page number height] (calculated)
+&lt;new page position override&gt; optional (see &lt;page number position&gt; above)
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD104</h3>
+    <p><strong>Center Current Page Top to Bottom</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;4 (0x04)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new center current page state&gt;
+  bit 0: 0 = off, 1 = center current page
+  bits 1-7: undefined
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD105</h3>
+    <p><strong>Center Page Top to Bottom</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;5 (0x05)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new center page state&gt;
+  bit 0: 0 = off, 1 = center page
+  bits 1-7: undefined
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD106</h3>
+    <p><strong>Widow/Orphan On/Off</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;6 (0x06)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new widow/orphan state&gt;
+  bit 0: 0 = off, 1 = on
+  bits 1-7: undefined
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD107</h3>
+    <p><strong>Set Space Between Footnotes</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;7 (0x07)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[new space between footnotes (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD108</h3>
+    <p><strong>Set Space Between Endnotes</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;8 (0x08)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[new space between endnotes (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD109</h3>
+    <p><strong>Footnote Minimum Amount to Keep Together</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;9 (0x09)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[new footnote minimum amount (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD10A</h3>
+    <p><strong>Endnote Minimum Amount to Keep Together</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;10 (0x0A)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[new endnote minimum amount (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD10B</h3>
+    <p><strong>Footnote Number Restart on Each Page</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;11 (0x0B)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new restart footnote number state&gt;
+bit 0: 0 = off, 1 = restart number of each page
+bits 1-7: undefined
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD10C</h3>
+    <p><strong>Footnote Continued Message</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;12 (0x0C)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new footnote continued state&gt;
+bit 0: 0 = off, 1 = output footnote continued message
+bits 1-7: undefined
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD10D</h3>
+    <p><strong>Footnote Text Position</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;13 (0x0D)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new footnote text position&gt;
+bit 0: 0 = bottom of page, 1 = after text
+bits 1-7: undefined
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD10E</h3>
+    <p><strong>Footnote Separator Line</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;14 (0x0E)&gt; [size = 22] &lt;flags = PRFXID&gt;
+&lt;number of prefix IDs = 1&gt;
+[line information PID (type=0x40)]
+[size of non-deletable information = 9]
+[space above line (WPU)]
+[space below line (WPU)]
+&lt;alignment&gt;
+  0 = left
+  1 = full
+  2 = center
+  3 = right
+  4 = set position
+[width of line, if not full]
+[position of start of line, if alignment = set position]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD10F</h3>
+    <p><strong>Binding Width</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;15 (0x0F)&gt; [size = 13] &lt;flags = 0&gt;
+[size of non-deletable information = 3]
+&lt;binding flag&gt;
+  bits 0-1:
+    00 = left
+    01 = right
+    10 = top
+    11 = bottom
+  bits 2-7: undefined
+[binding width (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD110</h3>
+    <p><strong>Page Border</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;16 (0x10)&gt; [size = variable] &lt;flags = PRFXID&gt;
+&lt;number of PIDs (minimum 2)&gt;
+[border template PID (type=0x44)]  required, may be 0
+[fill template PID (type=0x43)]  required, may be 0
+</pre>
+    <p>If number of PIDs &gt; 2, then any border line template prefix IDs appear in the
+    following order as indicated by the border override flags.</p>
+    <pre>
+[left side line template PID (type=0x42)]
+[right side line template PID (type=0x42)]
+[top side line template PID (type=0x42)]
+[bottom side line template PID (type=0x42)]
+[separator side line template PID (type=0x42)]
+[size of non-deletable information = variable]
+&lt;reserved&gt; x 14
+[total size of override data]  not including this word
+[border override flags]
+See <em>Specific Format of Border Override Flags and Data</em> below.
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <p><strong>General Format of Border Override Flags and Data</strong></p>
+    <p>The border may have associated override flags. The override flags are a 16-bit entity
+    (short value) and each bit corresponds to data in the border definition.</p>
+    <p>For each bit in the border override flags, there is corresponding data. The size
+    of the data depends on what the override bit represents. The order of the data depends
+    on the order of the override bits, with one exception, noted below. For example, if
+    both bits 15 and 14 in the override flag are set, the data corresponding to bit 15 appear
+    earlier in the override data area than the data corresponding to bit 14. The exception
+    is for border or fill template overrides. Because the data are prefix IDs, the data
+    appear in the prefix ID area at the beginning of the function. The order of the prefix
+    IDs corresponds to the bit order of the override flags.<br />
+    <br />
+    If an override bit is set in the border override flags, a mask appears defining which
+    bits within the corresponding data are overridden followed by the actual override data.
+    For example, assume a data byte has two fields, the first field covering bits 0-3 and
+    the second field covering bits 4-7. Assume the first field (bits 0-3) is to be overridden
+    but the second field (bits 4-7) is not. The corresponding override bit will be set in
+    the border override flags word. The data corresponding to this override bit will be
+    a mask byte (value 0x0F) and a data byte, of which only the bottom 4 bits matter.<br />
+    </p>
+    <p><strong>Specific Format of Border Override Flags and Data</strong></p>
+    <pre>
+Bit 15: Border counter data
+If the border information override bit is set in the border override flags, the following data appear:
+  [total size of border template override data] not including this word
+  [border template override flags]
+  The following data appear according to bits set in the border template override flags:
+    Bit 15: Border prefix ID flags. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    Bit 14: Border general flags data. Corresponding data:
+      &lt;mask&gt;
+      &lt;data&gt;
+    Bit 13: Corner radius data. Corresponding data:
+      [corner radius]
+    Bit 12: Inside spacing data. Corresponding data:
+      [left inside spacing]
+      [right inside spacing]
+      [top inside spacing]
+      [bottom inside spacing]
+    Bit 11: Outside spacing data. Corresponding data:
+      [left outside spacing]
+      [right outside spacing]
+      [top outside spacing]
+      [bottom outside spacing]
+    Bit 10: Drop shadow data. Corresponding data:
+      &lt;drop shadow flag&gt;
+      [drop shadow spacing]
+      &lt;shadow color (RGBS)&gt; x 4
+    Bit 9: Border color data. Corresponding data:
+      &lt;border color (RGBS)&gt; x 4
+    Bit 8-0: currently undefined
+Bit 14: Fill data override.
+If the fill information override bit is set in the border override flags, the following data appear:
+  [total size of fill template override data]  not including this word
+  [fill template override flags]
+  The following data appear according to bits set in the fill template override flags:
+    Bit 15: Fill colors override. Corresponding data:
+      &lt;foreground/start color (RGBS)&gt; x 4
+      &lt;background/start color (RGBS)&gt; x 4
+    Bit 14-0: currently undefined
+Bits 13-0: currently undefined
+</pre>
+    <hr />
+    <h3>0xD111</h3>
+    <p><strong>Form</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;17 (0x11)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 82]
+&lt;matched form hash table index&gt;
+[matched form hash value]
+[desired length (WPU)]
+[desired width (WPU)]
+&lt;type&gt;
+&lt;orientation&gt;
+  0 = portrait
+  1 = landscape
+&lt;type name length&gt;
+[type name] x 36
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD112</h3>
+    <p><strong>Form Labels</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;18 (0x12)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 100]
+[ width (WPU)]
+[ length (WPU)]
+&lt;number of columns per page&gt;
+&lt;number of rows per page&gt;
+[label width (WPU)]
+[label length (WPU)]
+[left offset - top left corner (WPU)]
+[top offset - top left corner (WPU)]
+[distance between label columns (WPU)]
+[distance between label rows (WPU)]
+[label left margin (WPU)]
+[label right margin (WPU)]
+[label top margin (WPU)]
+[label bottom margin (WPU)]
+[label description] x 37 (word string)
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD113</h3>
+    <p><strong>Double-Sided Printing</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;19 (0x13)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+&lt;new double-sided printing mode&gt;
+  bit 0: 0 = off, 1 = on
+  bit 1: 0 = long edge duplexing, 1 = short edge duplexing
+  bits 2-7: undefined
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD114</h3>
+    <p><strong>Logical Pages</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;20 (0x14)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+&lt;new number of columns per page&gt;
+&lt;new number of rows per page&gt;
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD115</h3>
+    <p><strong>Delayed Codes</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;21 (0x15)&gt; [size = variable] &lt;flags = PRFXID&gt;
+&lt;number of PIDs = 1&gt;
+  [delayed codes PID (type=0x08)]
+[size of non-deletable information = 4]
+[hash of codes]
+[number of pages to delay]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <p>The Page Delay feature gives the user the option of setting the page formatting for
+    subsequent pages. The user may specify at the beginning of the document (or any other
+    place) how the page formatting will appear one or more pages later.</p>
+    <p>Consider the example of the first page of a document that is printed on letterhead,
+    but all remaining pages are printed on standard paper. At the beginning of the document
+    the user may specify a two-inch top margin to leave room for the letterhead on page
+    one. The user may also specify a one-inch top margin, delayed one page, so all remaining
+    pages have a one-inch top margin. If the document is less than one page, the delayed
+    page format code never takes effect.</p>
+    <hr />
+    <h3>0xD116</h3>
+    <p><strong>Start of Delayed Codes</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;22 (0x16)&gt; [size = variable] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information]
+&lt;number of IDs and hashes&gt;
+The following three words are repeated for each count:
+  [ID]
+  [hash]
+  [page number]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD117</h3>
+    <pre>
+<strong>End of Delayed Codes </strong>
+&lt;209 (0xD1)&gt; &lt;23 (0x17)&gt; [size = 10] &lt;flags = 3 (encased function)&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD118</h3>
+    <p><strong>Page Number Format (text)</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;24 (0x18)&gt; [size = variable] &lt;flags = PRFXID&gt;
+&lt;number of PIDs = 1&gt;
+  [new PID of the format string (type=0x62)]
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD119</h3>
+    <p><strong>Text Direction (Asia)</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;25 (0x19)&gt; [size = 11] &lt;flags = 0&gt;
+[size of non-deletable information = 1]
+[text direction]
+  0 = horizontal
+  1 = vertical
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD11A</h3>
+    <p><strong>Header Separator Distance</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;26 (0x1A)&gt; [size = 12] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[new vertical size (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD11B</h3>
+    <p><strong>Footer Separator Distance</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;27 (0x1B)&gt; [size = 12] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[ vertical size (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD11C</h3>
+    <p><strong>Line Count</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;28 (0x1C)&gt; [size = variable] &lt;flags = PRFXID&gt;
+&lt;number of PIDs = 1&gt;
+[definition PID]
+[size of non-deletable information = 4]
+[line count (WUWORD)]
+[line height (WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD11D</h3>
+    <p><strong>Logical Page Flow</strong></p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;29 (0x1D)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[flow direction]
+  0 = left to right, top to bottom
+  1 = top to bottom, right to left
+  2 = right to left, top to bottom
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD1&gt;
+</pre>
+    <hr />
+    <h3>0xD11E</h3>
+    <p>New in WP9</p>
+    <p><strong>Minimum Header Size</strong><br />
+    <br />
+    &lt;209 (0xD1)&gt; &lt;30 (0x1E)&gt; [size = 0x0E] &lt;flags = 0&gt;<br />
+    [size of non-deletable information = 2]<br />
+    [minimum header size]<br />
+    [deletable data = old minimum header size]<br />
+    [size = 0x0E] &lt;0xD1&gt;</p>
+    <hr />
+    <h3>0xD11E</h3>
+    <p>New in WP9</p>
+    <p><strong>Minimum Footer Size</strong><br />
+    </p>
+    <pre>
+&lt;209 (0xD1)&gt; &lt;31 (0x1F)&gt; [size = 0x0E] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[minimum footer size]
+[deletable data = old minimum footer size]
+[size = 0x0E] &lt;0xD1&gt;
+</pre>
+</body>
+</html>

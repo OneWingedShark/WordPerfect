@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:27" />
+
+  <title>MAC_PARAM functional element</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Structures_Types_and_Constants_used_by_functions.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18"
+      height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="MAC_RETURNVAL.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Third_Party_DLL_Entry_Points.html">Using entry points in Third Party Handler DLLs</a> : <a href=
+        "Structures_Types_and_Constants_used_by_functions.html">Choosing elements for required functions in Third Party Handler DLLs</a> : MAC_PARAM functional
+        element</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp554733"></a>
+
+  <h4 class="pHeading3">MAC_PARAM functional element</h4><a name="wp554735"></a>
+
+  <p class="pBody">The <code class="cCode">MAC_PARAM</code> functional element stores a PerfectScript command's parameter information.</p><a name=
+  "wp554737"></a>
+
+  <h5 class="pHeading4">C structure</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct_tagMAC_PARAM<a name="wp554739"> </a>
+{<a name="wp554741"> </a>
+MAC_VALUE_TYPE eType;<a name="wp554743"> </a>
+WORD   wFlags;<a name="wp554745"> </a>
+WORD   wReserved;<a name="wp554747"> </a>
+union<a name="wp554749"> </a>
+{<a name="wp554751"> </a>
+DWORD  dwValue;<a name="wp554753"> </a>
+void far*  lpvPtr;<a name="wp554755"> </a>
+double  drValue;<a name="wp554757"> </a>
+}uData;<a name="wp554759"> </a>
+}MAC_PARAM, FAR*LPMAC_PARAM;<a name="wp554761"> </a>
+</pre>
+  </div><a name="wp554763"></a>
+
+  <h5 class="pHeading4">Pascal record</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+MAC_PARAM = record<a name="wp554765"> </a>
+eType  : DWord;<a name="wp554767"> </a>
+wFlags  : Word;<a name="wp554769"> </a>
+wReserved : Word;<a name="wp554771"> </a>
+case TMacParamData of<a name="wp554773"> </a>
+TPHDWORD : ( dwValue : LongInt );<a name="wp554775"> </a>
+TPHVOIDPTR : ( lpvPtr  : Pointer );<a name="wp554777"> </a>
+TPHDOUBLE : ( drValue : double );<a name="wp554779"> </a>
+end;<a name="wp554781"> </a>
+LPMAC_PARAM = ^MAC_PARAM;<a name="wp554783"> </a>
+</pre>
+  </div><a name="wp554785"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp554788"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp524789"></a>
+
+          <p class="pBody"><code class="cCode">eType</code></p>
+        </td>
+
+        <td>
+          <a name="wp524791"></a>
+
+          <p class="pBody">Specifies the parameter type enumeration</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524797"></a>
+
+          <p class="pBody"><code class="cCode">wFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp524799"></a>
+
+          <p class="pBody">If this parameter is required, <code class="cCode">wFlags</code> should be set to <code class="cCode">0</code>. If it listed as
+          optional or you want the application to ignore the parameter, <code class="cCode">wFlags</code> should be set to hex value <code class=
+          "cCode">8000</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524805"></a>
+
+          <p class="pBody"><code class="cCode">wReserved</code></p>
+        </td>
+
+        <td>
+          <a name="wp524807"></a>
+
+          <p class="pBody">Reserved</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp524813"></a>
+
+          <p class="pBody"><code class="cCode">StData</code></p>
+        </td>
+
+        <td>
+          <a name="wp524815"></a>
+
+          <p class="pBody">Specifies the union containing parameter data:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp1270146"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">dwValue</code> = integer-type data</li>
+              </ul>
+            </div><a name="wp1270151"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">lpvPtr</code> = string-type data</li>
+              </ul>
+            </div><a name="wp1270156"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">drValue</code> = floating-point data</li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

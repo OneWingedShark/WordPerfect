@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Performing a sample Third Party Handler task</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="PerfectScript_command_handling.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Accessing_TPH_samples.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Understanding_TPH.html">Understanding Third
+        Party Handlers</a> : Performing a sample Third Party Handler task</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1269782"></a>
+
+  <h4 class="pHeading3">Performing a sample Third Party Handler task</h4><a name="wp1269783"></a>
+
+  <p class="pBody">The following examples help to bring the concept of Third Party Handlers together. To avoid duplication, the examples are shown using C
+  syntax.</p><a name="wp1269784"></a>
+
+  <h5 class="pHeading4">WordPerfect example</h5><a name="wp1269785"></a>
+
+  <p class="pBody">This example shows how to use a dynatheta, created when <code class="cCode">TPHEntry()</code> was called, to add the About Third Party...
+  menu item to the Help menu in WordPerfect.</p><a name="wp1269786"></a>
+
+  <p class="pBody">When the menu or button is selected, the menu item makes a call to the PerfectFit About Dialog API, which is used to display an About dialog
+  box similar to the one in WordPerfect. This is done in the <code class="cCode">TPHHandleToken()</code> function.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int FAR PASCAL TPHHandleToken (LPTPH_RETURNVAL lpRetData,<a name="wp1269787"> </a>
+                                HWND  hLinkWnd, WORD  msg)<a name="wp1269788"> </a>
+{<a name="wp1269789"> </a>
+  WMEMOBJECT MenuHandle;<a name="wp1269790"> </a>
+  HBITMAP    hBmp;<a name="wp1269791"> </a>
+  /* Add menu item to Help menu.*/<a name="wp1269792"> </a>
+  if( lpRetData-&gt;lpTokenData-&gt;wTokenID  == MENULOAD_TKN)<a name="wp1269793"> </a>
+  {<a name="wp1269794"> </a>
+    MenuHandle =(WMEMOBJECT) lpRetData- lpTokenData- 
+DataBlock[0].uData.dwValue;<a name="wp1269795"> </a>
+    if (*((LPDWORD)MenuHandle+2) &amp; WPMF_EDITOR)<a name="wp1269796"> </a>
+    {<a name="wp1269797"> </a>
+      return DLL_HAN_NOT_HANDLED;<a name="wp1269798"> </a>
+    }<a name="wp1269799"> </a>
+    lpfnWpidMenuItemInsert(MenuHandle, WP_HelpMenu, 
+WPMF_BYPOSITION, (WORD)0, <a name="wp1269800"> </a>
+                           WPWPThetaID, 0, NULL, 0);<a name="wp1269801"> </a>
+  }<a name="wp1269802"> </a>
+  /* Bring up personal About dialog when menu is selected.*/<a name="wp1269803"> </a>
+  if(lpRetData-&gt;lpTokenData-&gt;wTokenID == dWPWPThetaID)<a name="wp1269804"> </a>
+  {<a name="wp1269805"> </a>
+    hBmp = LoadBitmap (hInstance, (LPSTR)"TPHBMP");<a name="wp1269806"> </a>
+    WutlAboutBox(GetFocus( ), UTL_ABOUT_ALL, hBmp, 0x1e3a, "About 
+Third-party Handler","TPH.DLL", "7.0", "12345", NULL);<a name="wp1269807"> </a>
+    return DLL_HAN_NO_ERROR;<a name="wp1269808"> </a>
+  }<a name="wp1269809"> </a>
+  return DLL_HAN_NOT_HANDLED;<a name="wp1269810"> </a>
+} // end TPHHandleToken<a name="wp1269811"> </a>
+</pre>
+  </div><a name="wp1269812"></a>
+
+  <h5 class="pHeading4">Presentations example</h5><a name="wp1269813"></a>
+
+  <p class="pBody">This example summarizes how a DLL can be used to manage Presentations. This example shows how to use a dynatheta, created when <code class=
+  "cCode">TPHEntry()</code> was called, to add the Signature menu option to the Tools menu in Presentations. When selected, the menu item sends PerfectScript
+  commands to Presentations, to retrieve a bitmap of a signature. This is accomplished by using <code class="cCode">TPHHandleToken</code>.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int FAR PASCAL TPHHandleToken ( LPTPH_RETURNVAL lpRetData,<a name="wp1269814"> </a>
+                                     HWND hLinkWnd, WUWORD msg )<a name="wp1269815"> </a>
+{<a name="wp1269816"> </a>
+  WMEMOBJECT    MenuHandle;<a name="wp1269817"> </a>
+  DWORD         dwRV;<a name="wp1269818"> </a>
+  long          lCurrentMode, lLeft, lTop, lRight, lBottom, lIndex,<a name="wp1269819"> </a>
+                lGradient;<a name="wp1269820"> </a>
+  /* Add menu item to the Tools menu.*/<a name="wp1269821"> </a>
+  if( lpRetData-&gt;lpTokenData-&gt;wTokenID  == MENULOAD_TKN)<a name="wp1269822"> </a>
+  {<a name="wp1269823"> </a>
+    MenuHandle =(WMEMOBJECT) lpRetData- lpTokenData- 
+DataBlock[0].uData.dwValue;<a name="wp1269824"> </a>
+    if (*((LPDWORD)MenuHandle+2) &amp; WPMF_EDITOR)<a name="wp1269825"> </a>
+    {<a name="wp1269826"> </a>
+      return DLL_HAN_NOT_HANDLED;<a name="wp1269827"> </a>
+    }<a name="wp1269828"> </a>
+    lpfnWpidMenuItemInsert(MenuHandle, PR_MenuTools, 
+WPMF_BYPOSITION, (WORD)0, <a name="wp1269829"> </a>
+                           dwPPRThetaID, 0, NULL, 0);<a name="wp1269830"> </a>
+  }<a name="wp1269831"> </a>
+  /* Menu item is selected.*/<a name="wp1269832"> </a>
+  if(lpRetData-&gt;lpTokenData-&gt;wTokenID == dWPPRThetaID)<a name="wp1269833"> </a>
+  {<a name="wp1269834"> </a>
+    /* Check Presentations current mode.*/<a name="wp1269835"> </a>
+    InitTkn(0);<a name="wp1269836"> </a>
+    dwRV = SendTkn(PR_ENVCURRENTMODE);<a name="wp1269837"> </a>
+    if(dwRV != MAC_NO_ERROR)<a name="wp1269838"> </a>
+    {<a name="wp1269839"> </a>
+      return DLL_HAN_NO_ERROR;<a name="wp1269840"> </a>
+    }<a name="wp1269841"> </a>
+    else<a name="wp1269842"> </a>
+    {<a name="wp1269843"> </a>
+      lCurrentMode = lpMacRetVal-&gt;rv.uValue.lData;<a name="wp1269844"> </a>
+      FreeTkn();<a name="wp1269845"> </a>
+    }<a name="wp1269846"> </a>
+    /* When in Draw mode retrieve in bitmap file.*/<a name="wp1269847"> </a>
+    if(lCurrentMode == 1)<a name="wp1269848"> </a>
+    {<a name="wp1269849"> </a>
+      lLeft= 1400;<a name="wp1269850"> </a>
+      lTop= 9202;<a name="wp1269851"> </a>
+      lRight= 4601;<a name="wp1269852"> </a>
+      lBottom= 8122;<a name="wp1269853"> </a>
+      lIndex= 0;<a name="wp1269854"> </a>
+      lGradient= 0;<a name="wp1269855"> </a>
+      InitTkn(7);<a name="wp1269856"> </a>
+      AddTknParm(0, eParmWordSigned, 0, lLeft);<a name="wp1269857"> </a>
+      AddTknParm(1, eParmWordSigned, 0, lTop);<a name="wp1269858"> </a>
+      AddTknParm(2, eParmWordSigned, 0, lRight);<a name="wp1269859"> </a>
+      AddTknParm(3, eParmWordSigned, 0, lBottom);<a name="wp1269860"> </a>
+      AddTknParm(4, eParmWPFname, 0, "signatur.bmp");<a name="wp1269861"> </a>
+      AddTknParm(5, eParmWordUnsigned, 0, lIndex);<a name="wp1269862"> </a>
+      AddTknParm(6, eParmEnumeration, 0, lGradient);<a name="wp1269863"> </a>
+      SendTkn(PR_RetrieveFigure);<a name="wp1269864"> </a>
+      FreeTkn();<a name="wp1269865"> </a>
+    }<a name="wp1269866"> </a>
+  }<a name="wp1269867"> </a>
+  return DLL_HAN_NOT_HANDLED;<a name="wp1269868"> </a>
+} // end TPHHandleToken<a name="wp1269869"> </a>
+</pre>
+  </div>
+</body>
+</html>

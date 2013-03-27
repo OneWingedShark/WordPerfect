@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>Quattro Pro File Format</title>
+</head>
+<body>
+    <h1>Quattro Pro File Format</h1>
+    <p><a href="qpff_Index.htm">Back to main page</a></p>
+    <h2>Global Records - 0x0000-0x03FF</h2>
+    <p>The following are global records, which span from 0x0000 to 0x03FF.</p>
+    <hr />
+    <h3>0x0001</h3>
+    <p><strong>BOF : Beginning of file</strong><br />
+    </p>
+    <pre>
+[record type = 1 (0x0001)]
+[body length = 14]
+{ID}  QP id (always the following "QPW9")
+[version] 
+    0 = QP9 
+[build #]
+[last saved] 
+  bits 0-3: last saved by
+    0 = 3rd party
+    1 = QP Win
+    2 = Beta
+    3 = Reserved 1
+    4 = Reserved 2
+  bit 4: 
+    1 = ever saved by 3rd party
+  bit 5: 
+    1 = ever saved by Beta version
+  bit 6-15: reserved
+[lowest version]
+[number of pages]
+</pre>
+    <hr />
+    <h3>0x0002</h3>
+    <p><strong>EOF: End of file</strong><br />
+    </p>
+    <pre>
+[record type = 2 (0x0002)]
+[body length = 8]
+{prev end = 0}
+{nested end}  file position of the last end of notebook (EON) record
+</pre>
+    <hr />
+    <h3>0x0003</h3>
+    <p><strong>PASSWORD CONTROL</strong><br />
+    </p>
+    <pre>
+[record type = 3 (0x0003)]
+[body length = 2]
+[ type ] 
+  bits 0-3: level
+    0 = none
+    1 = low
+    2 = med
+    3 = high
+    4 = lock
+  bit 4: require a password to open
+  bit 5: ask for password on open
+  bit 6: open in read only mode
+  bits 7-15: unused
+</pre>
+    <hr />
+    <h3>0x0004</h3>
+    <p><strong>PASSWORD</strong><br />
+    </p>
+    <pre>
+[record type = 4 (0x0004)]
+[body length = 20]
+&lt;char&gt; x 20
+</pre>
+    <hr />
+    <h3>0x0005</h3>
+    <p><strong>USER</strong><br />
+    </p>
+    <p>Identifies the creator of the notebook and the last one to modify it.</p>
+    <pre>
+[record type = 5 (0x0005)]
+[body length = variable]
+QSTR_LABEL  creator of the notebook
+QSTR_LABEL  last one to save the notebook
+</pre>
+    <hr />
+    <h3>0x0006</h3>
+    <p><strong>FONT_NAME_LIST</strong><br />
+    </p>
+    <p>Font names, referenced by FONT record</p>
+    <pre>
+[record type = 6 (0x0006)]
+[body length = variable]
+[number of fonts]
+QSTR_LABEL  font name
+</pre>
+    <hr />
+    <h3>0x0007</h3>
+    <p><strong>FONT_LIST</strong><br />
+    </p>
+    <p>List of notebook fonts</p>
+    <pre>
+[record type = 7 (0x0007)]
+[body length = variable]
+[number of fonts]
+FONTINFO x number of fonts
+</pre>
+    <hr />
+    <h3>0x0008</h3>
+    <p><strong>USER_DEFINED_FORMAT</strong><br />
+    </p>
+    <pre>
+[record type = 8 (0x0008)]
+[body length = variable]
+{id}  current number of the user format
+&lt;description&gt; x ?  description of the format (string terminated by two null bytes)
+[number of sub formats]
+[has RTF size]  does the Rtf Info change the size of the characters 
+[is old format]  was read in from an QP8 file and not editted
+For each sub format, the following are saved
+  [size]  size of this sub format
+  [format length]  number for RTF Tokens in the subformat
+  RTFToken x format length
+  [length of RTFinfo]
+  QRTFATTR  attribute information
+  &lt;background color&gt;
+  &lt;precision&gt;
+    bits 0-3: after decimal point precision
+    bits 4-7: number of leading zeros to force
+  &lt;decimal digits&gt;
+    bits 0-3: number of requested digits before decimal
+    bits 4-7: number of zeros in the exponent for scientific
+  &lt;scientific digits&gt;
+    bits 0-3: number of requested digits in scientific
+    bits 4-11: denominator for fraction in the format
+  &lt;number part&gt;
+    bit 0: is part number format
+    bit 1: included exponent
+    bit 2: is part date format
+    bit 3: is part time format
+    bit 4: includes am/pm in time format
+    bit 5: uses thousands seperator
+    bit 6: is part fraction
+    bit 7: the denominator is a set number (not 1 - denominator with best fit)
+  [line info]  not supported in this version
+  {line colors}  not supported in this version
+  [formula size]
+  &lt;operator type&gt;
+  &lt;left side type (value, this cell, other cell)&gt;
+  &lt;right side type (value, this cell, other cell)&gt;
+  &lt;is formula to be used&gt;
+  SSREF  formula left side (Can be a double, nothing, or a cell ref)
+  SSREF  formula right side (Can be a double, nothing, or a cell ref)
+  [condition size]
+  &lt;comparison type&gt;
+  &lt;left side type (value, this cell, other cell)&gt;
+  &lt;right side type (value, this cell, other cell)&gt;
+  SSREF  condition left side (Can be a double, nothing, or a cell ref)
+  SSREF  condition right side (Can be a double, nothing, or a cell ref)
+</pre>
+    <hr />
+    <h3>0x0009</h3>
+    <p><strong>STYLE_LIST</strong><br />
+    </p>
+    <pre>
+[record type = 9 (0x0009)]
+[body length = variable]
+[count]
+STYLE_LIST x count
+</pre>
+    <hr />
+    <h3>0x000A</h3>
+    <p><strong>FORMAT_LIST</strong><br />
+    </p>
+    <p>List of notebook cell formats. For every field from ifont down to patrn, whether
+    a WORD or BYTE or 2 or more bits thereof, if every bit in the field is set to 1, then
+    the meaning is "default" or "don't use" for that field</p>
+    <pre>
+[record type = 10 (0x000a)]
+[body length = variable]
+{count}
+FORMAT x count
+</pre>
+    <hr />
+    <h3>0x000B</h3>
+    <p><strong>DLL</strong><br />
+    </p>
+    <pre>
+[record type = 11 (0x000b)]
+[body length = variable]
+[id]
+QSTR_LABEL  name
+</pre>
+    <hr />
+    <h3>0x000C</h3>
+    <p><strong>DLL_FUNCTION</strong></p>
+    <pre>
+[record type = 12 (0x000C)]
+[body length = variable]
+[id]  index into the DLL
+QSTR_LABEL  name
+</pre>
+    <hr />
+    <h3>0x0101</h3>
+    <p><strong>BLOCK</strong><br />
+    </p>
+    <p>Data range (used to pre-allocate and index into sheets, columns, and cell lists)</p>
+    <pre>
+[record type = 257 (0x0101)]
+[body length = 10]
+[type of data represented in this block]
+[index of first element in the range]
+[index of last element in the range]
+{position in file of data}  repeated (last-first+1) times for BOS or BOC but not for cell data
+</pre>
+    <hr />
+    <h3>0x0102</h3>
+    <p><strong>BLOCK_L</strong><br />
+    </p>
+    <pre>
+[record type = 258 (0x0102)]
+[body length = 12]
+[type of data represented in this block]
+{index of first element in range}
+{index of last element in range}
+{position in file of data}
+</pre>
+    <hr />
+    <h3>0x0103</h3>
+    <p><strong>COLLECTION</strong><br />
+    </p>
+    <pre>
+SSREF x ?  1 or more SSREFs
+</pre>
+</body>
+</html>

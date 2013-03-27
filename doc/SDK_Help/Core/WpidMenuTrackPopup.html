@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidMenuTrackPopup function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidMenuItemSetText.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Message_box.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Menus.html">Creating menus</a> : WpidMenuTrackPopup function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp549861"></a>
+
+  <h4 class="pHeading3">WpidMenuTrackPopup function</h4><a name="wp549863"></a>
+
+  <p class="pBody">The <code class="cCode">WpidMenuTrackPopup</code> function tracks a pop-up from a WP menu</p><a name="wp549865"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL FAR PASCAL WpidMenuTrackPopup ( <a name="wp549867"> </a>
+WMEMOBJECT WPMenu, <a name="wp549869"> </a>
+WORD wMenuID, <a name="wp549871"> </a>
+DWORD dwFlags, <a name="wp549873"> </a>
+int x, <a name="wp549875"> </a>
+int y, <a name="wp549877"> </a>
+HWND hwndOwner, <a name="wp549879"> </a>
+LPRECT lprc ); <a name="wp549881"> </a>
+</pre>
+  </div><a name="wp549883"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp549886"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp521331"></a>
+
+          <p class="pBody"><code class="cCode">WPMenu</code></p>
+        </td>
+
+        <td>
+          <a name="wp521333"></a>
+
+          <p class="pBody">Specifies the handle to menu object memory that owns this pop-up</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521339"></a>
+
+          <p class="pBody"><code class="cCode">wMenuID</code></p>
+        </td>
+
+        <td>
+          <a name="wp521341"></a>
+
+          <p class="pBody">Specifies the menu ID of the pop-up to track</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521347"></a>
+
+          <p class="pBody"><code class="cCode">dwFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp521349"></a>
+
+          <p class="pBody">Allows the following flags:</p>
+
+          <div class="pSmartList1 pSmartList1 c1">
+            <a name="wp521351"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_BYCOMMAND</code></li>
+              </ul>
+            </div><a name="wp521353"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_BYPOSITION</code></li>
+              </ul>
+            </div><a name="wp521355"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_EMBEDDEDMENU</code></li>
+              </ul>
+            </div><a name="wp521357"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_ENABLED</code></li>
+              </ul>
+            </div><a name="wp521359"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_POPUP</code></li>
+              </ul>
+            </div><a name="wp521361"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_SEPARATOR</code></li>
+              </ul>
+            </div><a name="wp521363"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_STRING</code></li>
+              </ul>
+            </div><a name="wp521365"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_SYSMENU</code></li>
+              </ul>
+            </div><a name="wp521367"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNCHECKED</code></li>
+              </ul>
+            </div><a name="wp521369"></a>
+
+            <div class="pSmartList1">
+              <ul>
+                <li><code class="cCode">WPMF_UNHILITE</code></li>
+              </ul>
+            </div>
+          </div>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521375"></a>
+
+          <p class="pBody"><code class="cCode">x</code></p>
+        </td>
+
+        <td>
+          <a name="wp521377"></a>
+
+          <p class="pBody">Specifies the x-position of the location to place the pop-up</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521383"></a>
+
+          <p class="pBody"><code class="cCode">y</code></p>
+        </td>
+
+        <td>
+          <a name="wp521385"></a>
+
+          <p class="pBody">Specifies the y-position of the location to place the pop-up</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521391"></a>
+
+          <p class="pBody"><code class="cCode">hwndOwner</code></p>
+        </td>
+
+        <td>
+          <a name="wp521393"></a>
+
+          <p class="pBody">Specifies the HWND that owns the tracking pop-up</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp521399"></a>
+
+          <p class="pBody"><code class="cCode">lprc</code></p>
+        </td>
+
+        <td>
+          <a name="wp521401"></a>
+
+          <p class="pBody">Specifies the rectangle for tracking</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp549888"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp549890"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful and <code class="cCode">FALSE</code> if unsuccessful.</p>
+</body>
+</html>

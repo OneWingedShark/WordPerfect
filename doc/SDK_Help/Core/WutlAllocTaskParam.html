@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WutlAllocTaskParam function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WshVersion.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WutlFindParams.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="PerfectFit_registration.html">Registering PerfectFit</a> :
+        WutlAllocTaskParam function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1270462"></a>
+
+  <h4 class="pHeading3">WutlAllocTaskParam function</h4><a name="wp1270463"></a>
+
+  <p class="pBody">The <code class="cCode">WutlAllocTaskParam</code> function allocates memory for task-specific parameters. The handle returned is then placed
+  in the link-window structure prior to calling the Windows function <code class="cCode">CreateWindow(&nbsp;)</code>.</p><a name="wp1270464"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+UTLHTaskParams FAR PASCAL WutlAllocTaskParam ( void ); <a name="wp1270465"> </a>
+</pre>
+  </div><a name="wp1270466"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp1270467"></a>
+
+  <p class="pBody">None</p><a name="wp1270468"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1270469"></a>
+
+  <p class="pBody">The handle to a task-parameter block is returned. This value is <code class="cCode">0</code> if no parameters are passed on the command
+  line.</p><a name="wp1271756"></a>
+
+  <p class="pBody">This function can be called during the call to <code class="cCode">WutlFindParams(&nbsp;)</code>. The fourth parameter of <code class=
+  "cCode">WutlFindParams(&nbsp;)</code> is a handle to the task-parameter block, which is also the return value from <code class=
+  "cCode">WutlAllocTaskParam(&nbsp;)</code>.</p>
+</body>
+</html>

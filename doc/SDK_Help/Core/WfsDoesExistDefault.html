@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WfsDoesExistDefault function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WfsDoesDirExist.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WfsDoesExistEx.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        WfsDoesExistDefault function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp547288"></a>
+
+  <h4 class="pHeading3">WfsDoesExistDefault function</h4><a name="wp547290"></a>
+
+  <p class="pBody">The <code class="cCode">WfsDoesExistDefault</code> function validates the input file specification (path+filename, path, filename, template,
+  and so forth) and determines whether it exists, using <code class="cCode">lpszDefault</code> to fill in any missing components. It also parses the file
+  specification into its path and filename/template components. The input file specification is assumed to be an ANSI string. The path can have a final
+  backslash ( \ ). The <code class="cCode">lpszOutPath</code> and <code class="cCode">lpszOutName</code> parameters string can be passed in as
+  NULL.</p><a name="wp547292"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+short SHAPI WfsDoesExistDefault (<a name="wp547294"> </a>
+LPSTR lpszDefault,<a name="wp547296"> </a>
+LPSTR lpszInSpec,<a name="wp547298"> </a>
+LPSTR lpszOutPath,<a name="wp547300"> </a>
+LPSTR lpszOutName );<a name="wp547302"> </a>
+</pre>
+  </div><a name="wp547304"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp547307"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp518278"></a>
+
+          <p class="pBody"><code class="cCode">lpszDefault</code></p>
+        </td>
+
+        <td>
+          <a name="wp518280"></a>
+
+          <p class="pBody">Specifies the default value used to fill in missing components of <code class="cCode">lpszInSpec</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518286"></a>
+
+          <p class="pBody"><code class="cCode">lpszInSpec</code></p>
+        </td>
+
+        <td>
+          <a name="wp518288"></a>
+
+          <p class="pBody">Acts as a pointer to the file specification to validate</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518294"></a>
+
+          <p class="pBody"><code class="cCode">lpszOutPath</code></p>
+        </td>
+
+        <td>
+          <a name="wp518296"></a>
+
+          <p class="pBody">Acts as a pointer to a buffer that contains the drive/directory component</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518302"></a>
+
+          <p class="pBody"><code class="cCode">lpszOutName</code></p>
+        </td>
+
+        <td>
+          <a name="wp518304"></a>
+
+          <p class="pBody">Acts as a pointer to a buffer that contains the filename (or template) component</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp547309"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp547311"></a>
+
+  <p class="pBody">Returns one of the values listed in the following table.</p><a name="wp547314"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp518315"></a>
+
+          <h5 class="pHeading4">Return value</h5>
+        </td>
+
+        <td>
+          <a name="wp518317"></a>
+
+          <h5 class="pHeading4">Condition</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518323"></a>
+
+          <p class="pBody"><code class="cCode">FS_EMPTY</code></p>
+        </td>
+
+        <td>
+          <a name="wp518325"></a>
+
+          <p class="pBody">Indictates that the file specification was empty</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518331"></a>
+
+          <p class="pBody"><code class="cCode">FS_INVALIDDRIVE</code></p>
+        </td>
+
+        <td>
+          <a name="wp518333"></a>
+
+          <p class="pBody">Indictates that the specified drive was invalid</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518339"></a>
+
+          <p class="pBody"><code class="cCode">FS_INVALIDDIR</code></p>
+        </td>
+
+        <td>
+          <a name="wp518341"></a>
+
+          <p class="pBody">Indictates that the specified folder was invalid</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518347"></a>
+
+          <p class="pBody"><code class="cCode">FS_FILEDIRNOTFOUND</code></p>
+        </td>
+
+        <td>
+          <a name="wp518349"></a>
+
+          <p class="pBody">Indictates that the specified drive or folder was not found</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518355"></a>
+
+          <p class="pBody"><code class="cCode">FS_ISDIR</code></p>
+        </td>
+
+        <td>
+          <a name="wp518357"></a>
+
+          <p class="pBody">Indictates that file specification had a valid folder name (in <code class="cCode">lpszOutPath</code>)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518363"></a>
+
+          <p class="pBody"><code class="cCode">FS_ISFILENAME</code></p>
+        </td>
+
+        <td>
+          <a name="wp518365"></a>
+
+          <p class="pBody">Indictates that the file specification had a valid filename (<code class="cCode">lpszOutPath</code> points to drive, full folder,
+          and filename)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518371"></a>
+
+          <p class="pBody"><code class="cCode">FS_ISTEMPLATE</code></p>
+        </td>
+
+        <td>
+          <a name="wp518373"></a>
+
+          <p class="pBody">Indictates that the file specification had (optionally) a valid drive/dir, and included a file template (for example, it had
+          wildcard characters)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518379"></a>
+
+          <p class="pBody"><code class="cCode">FS_INVALIDFILENAME</code></p>
+        </td>
+
+        <td>
+          <a name="wp518381"></a>
+
+          <p class="pBody">Indictates that the file specification had an invalid filename</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

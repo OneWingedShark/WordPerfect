@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WutlAboutBox function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="About_dialog.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Clipboard_support.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="About_dialog.html">Creating About boxes</a> : WutlAboutBox
+        function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp539018"></a>
+
+  <h4 class="pHeading3">WutlAboutBox function</h4><a name="wp539020"></a>
+
+  <p class="pBody">The <code class="cCode">WutlAboutBox</code> function displays an About box with all pertinent fields shown, based on the flags passed in the
+  function's <code class="cCode">wFlags</code> parameter.</p><a name="wp539022"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+VOID SHAPI WutlAboutBox (<a name="wp539024"> </a>
+HWND  hwndParent,<a name="wp539026"> </a>
+WORD  wFlags,<a name="wp539028"> </a>
+HBITMAP hBmp,<a name="wp539030"> </a>
+WORD  wDateStamp,<a name="wp539032"> </a>
+LPAZ  lpazCaption,<a name="wp539034"> </a>
+LPAZ  lpazAppName,<a name="wp539036"> </a>
+LPAZ  lpazVersion,<a name="wp539038"> </a>
+LPAZ  lpazLicense,<a name="wp539040"> </a>
+LPAZ FAR* lplpazMisc );<a name="wp539042"> </a>
+</pre>
+  </div><a name="wp539044"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp507289"></a>
+
+  <p class="pBody">The <code class="cCode">hwndParent</code> parameter specifies the parent of the About box.</p><a name="wp507297"></a>
+
+  <p class="pBody">The <code class="cCode">wFlags</code> parameter specifies the flag values for the data to be displayed in the About box.</p><a name=
+  "wp507305"></a>
+
+  <p class="pBody">The <code class="cCode">hBmp</code> parameter specifies the handle to the calling application's bitmap. This can also be an icon. However,
+  if you specify this parameter as an icon, you must set the <code class="cCode">UTL_ABOUT_ICON</code> flag in the <code class="cCode">wFlags</code>
+  parameter.</p><a name="wp1272055"></a>
+
+  <p class="pBody">The <code class="cCode">wDateStamp</code> parameter specifies the date format of the value passed, as follows:</p><a name="wp539054"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp507322"></a>
+
+          <h5 class="pHeading4">Value</h5>
+        </td>
+
+        <td>
+          <a name="wp507324"></a>
+
+          <h5 class="pHeading4"># of bits</h5>
+        </td>
+
+        <td>
+          <a name="wp507326"></a>
+
+          <h5 class="pHeading4">Possible values</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507334"></a>
+
+          <p class="pBody"><code class="cCode">Day</code></p>
+        </td>
+
+        <td>
+          <a name="wp507336"></a>
+
+          <p class="pBody">5</p>
+        </td>
+
+        <td>
+          <a name="wp507338"></a>
+
+          <p class="pBody"><code class="cCode">1</code> to <code class="cCode">31</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507346"></a>
+
+          <p class="pBody"><code class="cCode">Month</code></p>
+        </td>
+
+        <td>
+          <a name="wp507348"></a>
+
+          <p class="pBody">4</p>
+        </td>
+
+        <td>
+          <a name="wp507350"></a>
+
+          <p class="pBody"><code class="cCode">1</code> to <code class="cCode">12</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp507358"></a>
+
+          <p class="pBody"><code class="cCode">Year</code></p>
+        </td>
+
+        <td>
+          <a name="wp507360"></a>
+
+          <p class="pBody">7</p>
+        </td>
+
+        <td>
+          <a name="wp507362"></a>
+
+          <p class="pBody"><code class="cCode">1980</code> to <code class="cCode">2099</code> and <code class="cCode">1980 == 0</code></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp539056"></a>
+
+  <p class="pBody">The following code is used to extract the date from the <code class="cCode">WORD</code> (<code class="cCode">wDate</code>) that is
+  passed:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+Day = wDate &amp; 0x1F;<a name="wp539058"> </a>
+Month = (wDate &amp; 0x1E0) &gt;&gt; 5;<a name="wp539060"> </a>
+Year = ((wDate &amp; 0xFE00) &gt;&gt; 9) + 1980;<a name="wp539062"> </a>
+</pre>
+  </div><a name="wp539064"></a>
+
+  <p class="pBody">The <code class="cCode">lpazCaption</code> parameter specifies the title of the About box.</p><a name="wp539068"></a>
+
+  <p class="pBody">The <code class="cCode">lpazAppName</code> parameter specifies the name of the application to be displayed in the About box.</p><a name=
+  "wp539072"></a>
+
+  <p class="pBody">The <code class="cCode">lpazVersion</code> parameter specifies the textual version of the calling application.</p><a name="wp539076"></a>
+
+  <p class="pBody">The <code class="cCode">lpazLicense</code> parameter specifies the user's license number. It can be <code class="cCode">NULL</code>;
+  however, if you use a <code class="cCode">NULL</code> value and you specify <code class="cCode">UTL_ABOUT_LICENSE</code> in the <code class=
+  "cCode">wFlags</code> parameter, no change is reflected when a user enters a license number in the About box.</p><a name="wp539080"></a>
+
+  <p class="pBody">The <code class="cCode">lplpazMisc</code> parameter specifies a pointer to miscellaneous information to be displayed in the About box. You
+  can have up to five strings displayed in the box. Use <code class="cCode">NULL</code> to display no extra text. If fewer than five strings are to be
+  displayed, use a <code class="cCode">NULL</code> pointer to terminate the list. Strings can also have the tab character ( <code class="cCode">\t</code> )
+  embedded, causing the string to be displayed like other strings in the About box with a label and field.</p><a name="wp539084"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp539086"></a>
+
+  <p class="pBody">None</p>
+</body>
+</html>

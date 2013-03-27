@@ -1,0 +1,356 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>Quattro Pro File Format</title>
+</head>
+<body>
+    <h1>Quattro Pro File Format</h1>
+    <p><a href="qpff_Index.htm">Back to main page</a></p>
+    <h2>Sheet Records - 0x0600-0x06FF</h2>
+    <p>The following are sheet records, which span from 0x0600 to 0x06FF.</p>
+    <hr />
+    <h3>0x0601</h3>
+    <p><strong>BOS : Beginning of sheet</strong></p>
+    <p>The data in each sheet begins with a BOS record. The stream position of each BOS
+    is referred to in the BLOCK record. There is a corresponding EOS record.</p>
+    <p>[record type = 1537 (0x0601)]</p>
+    <p>[body length = variable]</p>
+    <p>[sheet] sheet # for all cell records to follow until EOS</p>
+    <p>[firstCol] index of first column</p>
+    <p>[lastCol] index of last column (write 0 if unknown)?</p>
+    <p>{firstRow} index of first row</p>
+    <p>{lastRow} index of last row (write 0 if unknown)?</p>
+    <p>[format] sheet default format index (-1 = use notebook default)</p>
+    <p>[flags]</p>
+    <p>bits 0-3: hidden</p>
+    <p>0 = normal</p>
+    <p>1 = hidden</p>
+    <p>2 = very hidden (only showable through Microsoft Visual Basic routine)</p>
+    <p>15 = use notebook default</p>
+    <p>bits 4-7: type</p>
+    <p>0 = normal sheet</p>
+    <p>1 = dialog sheet</p>
+    <p>2 = macro sheet</p>
+    <p>3 = object sheet</p>
+    <p>4 = Microsoft Visual Basic module</p>
+    <p>5 = chart</p>
+    <p>bits 8-15: reserved</p>
+    <p>QSTR_LABEL name sheet name (if any)</p>
+    <hr />
+    <h3>0x0602</h3>
+    <p><strong>EOS : End of sheet</strong></p>
+    <p>[record type = 1538 (0x0602)]</p>
+    <p>[body length = 8]</p>
+    <p>{prev end} file position of previous end of sheet record (or corresponding beginning
+    of sheet record if this is the first sheet)</p>
+    <p>{nested end} file position of the last end of column record (0 if none)</p>
+    <hr />
+    <h3>0x603</h3>
+    <p><strong>SHEET_PROTECT</strong></p>
+    <p>Sheet protection flag - Enables or disables protection for a page.</p>
+    <p>[record type = 1539 (0x0603)]</p>
+    <p>[body length = 2]</p>
+    <p>[sheet protect]</p>
+    <p>0 = not protected</p>
+    <p>1 = protected</p>
+    <hr />
+    <h3>0x604</h3>
+    <p><strong>SHEET_PASSWORD</strong></p>
+    <p><strong><u>UNIMPLEMENTED</u></strong></p>
+    <p>Sheet password - encrypted password for sheet</p>
+    <p>[record type = 1540 (0x0604)]</p>
+    <p>[body length = variable]</p>
+    <p>[password length]</p>
+    <p>&lt;string&gt; x ?</p>
+    <hr />
+    <h3>0x605</h3>
+    <p><strong>SHEET_HEADER</strong></p>
+    <p><strong><u>UNIMPLEMENTED</u></strong>[record type = 1541 (0x0605)]</p>
+    <p>[body length = variable]</p>
+    <p>[flag]</p>
+    <p>0 = print on every page of the sheet</p>
+    <p>1 = print on just first page of the sheet</p>
+    <p>2 = print on every page other than the first page of the sheet</p>
+    <p>QSTR_LABEL header</p>
+    <hr />
+    <h3>0x606</h3>
+    <p><strong>SHEET_FOOTER</strong></p>
+    <p><strong><u>UNIMPLEMENTED</u></strong>[record type = 1542 (0x0606)]</p>
+    <p>[body length = variable]</p>
+    <p>[flag]</p>
+    <p>0 = print on every page of the sheet</p>
+    <p>1 = print on just first page of the sheet</p>
+    <p>2 = print on every page other than the first page of the sheet</p>
+    <p>QSTR_LABEL footer</p>
+    <hr />
+    <h3>0x0610</h3>
+    <p><strong>SHEET_DISPLAY_ZEROES</strong></p>
+    <p>&nbsp;</p>
+    <p>[record type = 1552 (0x0610)]</p>
+    <p>[body length = 1]</p>
+    <p>&lt;display zeroes&gt;</p>
+    <hr />
+    <h3>0x0611</h3>
+    <p><strong>SHEET_LINE_COLOR</strong></p>
+    <p>[record type = 1553 (0x0611)]</p>
+    <p>[body length = 1]</p>
+    <p>&lt;line color&gt;</p>
+    <hr />
+    <h3>0x0612</h3>
+    <p><strong>SHEET_DATA_ALIGN</strong></p>
+    <p>[record type = 1554 (0x0612)]</p>
+    <p>[body length = 4]</p>
+    <p>[label align]</p>
+    <p>[value align]</p>
+    <hr />
+    <h3>0x0613</h3>
+    <p><strong>SHEET_CONDITIONAL_COLOR</strong></p>
+    <p>[record type = 1555 (0x0613)]</p>
+    <p>[body length = 24]</p>
+    <p>[enabled]</p>
+    <p>[[lower bound]]</p>
+    <p>[[upper bound]]</p>
+    <p>&lt;below&gt;</p>
+    <p>&lt;normal&gt;</p>
+    <p>&lt;above&gt;</p>
+    <p>&lt;ERR&gt;</p>
+    <hr />
+    <h3>0x0614</h3>
+    <p><strong>SHEET_OBJ_PROTECT</strong></p>
+    <p>Indicates if objects on this sheet are locked</p>
+    <p>[record type = 1556 (0x0614)]</p>
+    <p>[body length = 2]</p>
+    <p>[protection] 1 = objects are locked</p>
+    <hr />
+    <h3>0x0615</h3>
+    <p><strong>SHEET_TAB_COLOR</strong></p>
+    <p>[record type = 1557 (0x0615)]</p>
+    <p>[body length = 4]</p>
+    <p>&lt;red&gt;</p>
+    <p>&lt;green&gt;</p>
+    <p>&lt;blue&gt;</p>
+    <p>&lt;system&gt;</p>
+    <hr />
+    <h3>0x0616</h3>
+    <p><strong>SHEET_ZOOM_FACTOR</strong></p>
+    <p>[record type = 1558 (0x0616)]</p>
+    <p>[body length = 4]</p>
+    <p>{zoom}</p>
+    <hr />
+    <h3>0x0617</h3>
+    <p><strong>SHEET_PAGEBREAKS</strong></p>
+    <p>[record type = 1559 (0x0617)]</p>
+    <p>[body length = variable]</p>
+    <p>[type] row or column</p>
+    <p>[page breaks] x ?</p>
+    <hr />
+    <h3>0x0618</h3>
+    <p><strong>SHEET_PAGEBREAKS_L</strong></p>
+    <p>[record type = 1560 (0x0618)]</p>
+    <p>[body length = variable]</p>
+    <p>[type] row or column</p>
+    <p>[page breaks] x ?</p>
+    <hr />
+    <h3>0x061A</h3>
+    <p><strong>SHEET_CELL_LINKS<br />
+    </strong></p>
+    <p>[record type = 1562 (0x061a)]</p>
+    <p>[body length = variable]</p>
+    <p>[row]</p>
+    <p>[col]</p>
+    <p>[flags]</p>
+    <p>QSTR_LABEL text</p>
+    <p>QSTR_LABEL loc</p>
+    <p>QSTR_LABEL link</p>
+    <hr />
+    <h3>0x061B</h3>
+    <p><strong>SHEET_QUICK_FILTER_RANGE</strong></p>
+    <p>[record type = 1563 (0x061B)]</p>
+    <p>[body length = 12]</p>
+    <p>[begin column]</p>
+    <p>[end column]</p>
+    <p>{begin row}</p>
+    <p>{end row}</p>
+    <hr />
+    <h3>0x061C</h3>
+    <p><strong>SHEET_QUICK_FILTER_DATA</strong></p>
+    <p>[record type = 1564 (0x061c)]</p>
+    <p>[body length = variable]</p>
+    <p>[col] column that this applies to</p>
+    <p>[flags]</p>
+    <p>bits 0-1: data type</p>
+    <p>0 = double</p>
+    <p>1 = string</p>
+    <p>2 = short</p>
+    <p>bits 2-3:</p>
+    <p>0 = OR</p>
+    <p>1 = AND</p>
+    <p>bit 4: number represents a date</p>
+    <p>bit 5-15: unused</p>
+    <p>&lt;op code&gt;</p>
+    <p>&lt;format type&gt; exists for double data type only</p>
+    <p>[[dNum]] exists for double data type only</p>
+    <p>[strLength] exists for string data type only</p>
+    <p>&lt;data&gt; x ? data exists for string data type only</p>
+    <p>[nNum] exists for short data type only</p>
+    <hr />
+    <h3>0x061D</h3>
+    <p><strong>SHEET_SUPER_CELLS</strong></p>
+    <p>[record type = 1565 (0x061d)]</p>
+    <p>[body length = 16]</p>
+    <p>{beginCol}</p>
+    <p>{endCol}</p>
+    <p>{beginRow}</p>
+    <p>{endRow}</p>
+    <hr />
+    <h3>0x061E</h3>
+    <p><strong>SHEET_SPEED_CELLS</strong></p>
+    <p>[record type = 1566 (0x061e)]</p>
+    <p>[body length = variable]</p>
+    <p>[begin column]</p>
+    <p>[end column]</p>
+    <p>{begin row}</p>
+    <p>{end row}</p>
+    <p>[options]</p>
+    <p>[strlen]</p>
+    <p>&lt;data&gt; x ?</p>
+    <hr />
+    <h3>0x061F</h3>
+    <p><strong>SHEET_DB_QUERY</strong></p>
+    <p>[record type = 1567 (0x061f)]</p>
+    <p>[body length = variable]</p>
+    <p>SSREF destBlock</p>
+    <p>[dbType]</p>
+    <p>[flags]</p>
+    <p>bit 0: incHeadings</p>
+    <p>bits 1-15: unused</p>
+    <p>&lt;data&gt; x ?</p>
+    <h2>Pane Records</h2>
+    <p>Pane records are a subset of sheet records.</p>
+    <hr />
+    <h3>0x0630</h3>
+    <p><strong>SHEET_DEFAULT_ATTRS</strong></p>
+    <p>[record type = 1584 (0x0630)]</p>
+    <p>[body length = 2]</p>
+    <p>[styleID]</p>
+    <hr />
+    <h3>0x0631</h3>
+    <p><strong>SHEET_DEFAULT_ROW_HEIGHT</strong></p>
+    <p>For rows, only write out the global height if it is an override, because on load
+    the default font id takes precedence. Ditto for global width, only if it's different
+    than the default for that system... that way, when users load it into another system,
+    they see the same number of characters.</p>
+    <p>MSB indicates default is an override (does not follow font)</p>
+    <p>&nbsp;</p>
+    <p>[record type = 1585 (0x0631)]</p>
+    <p>[body length = 2]</p>
+    <p>[default height]</p>
+    <hr />
+    <h3>0x0632</h3>
+    <p><strong>SHEET_DEFAULT_COL_WIDTH</strong></p>
+    <p>[record type = 1586 (0x0632)]</p>
+    <p>[body length = 2]</p>
+    <p>[default width]</p>
+    <hr />
+    <h3>0x0633</h3>
+    <p><strong>SHEET_ROW_HEIGHT</strong></p>
+    <p>Only written if not default MSB indicates default is an override (does not follow
+    font)</p>
+    <p>&nbsp;</p>
+    <p>[record type = 1587(0x0633]</p>
+    <p>[body length = 6]</p>
+    <p>{row}</p>
+    <p>[height]</p>
+    <hr />
+    <h3>0x0634</h3>
+    <p><strong>SHEET_COLUMN_WIDTH</strong></p>
+    <p>This record is only written if not default.</p>
+    <p>[record type = 1588 (0x0634)]</p>
+    <p>[body length = 6]</p>
+    <p>{column}</p>
+    <p>[width]</p>
+    <hr />
+    <h3>0x0635</h3>
+    <p><strong>SHEET_ROW_RANGE</strong></p>
+    <p>[record type = 1589 (0x0635)]</p>
+    <p>[body length = 10]</p>
+    <p>{row first}</p>
+    <p>{row last}</p>
+    <p>[height]</p>
+    <hr />
+    <h3>0x0636</h3>
+    <p><strong>SHEET_COLUMN_RANGE</strong></p>
+    <p>[record type = 1590 (0x0636)]</p>
+    <p>[body length = 10]</p>
+    <p>{row first}</p>
+    <p>{row last}</p>
+    <p>[width]</p>
+    <hr />
+    <h3>0x0637</h3>
+    <p><strong>SHEET_MAX_FONT</strong></p>
+    <p>[record type = 1591 (0x0637)]</p>
+    <p>[body length = 6]</p>
+    <p>{row}</p>
+    <p>[fontIdMax]</p>
+    <hr />
+    <h3>0x0638</h3>
+    <p><strong>SHEET_MAX_FONT_RANGE</strong></p>
+    <p>[record type = 1592 (0x0638)]</p>
+    <p>[body length = 10]</p>
+    <p>{row first}</p>
+    <p>{row last}</p>
+    <p>[fontIdMax]</p>
+    <hr />
+    <h3>0x0639</h3>
+    <p><strong>SHEET_HIDDEN_ROW</strong></p>
+    <p>[record type = 1593 (0x0639)]</p>
+    <p>[body length = variable]</p>
+    <p>{count}</p>
+    <p>{used count}</p>
+    <p>{hidden} x count</p>
+    <hr />
+    <h3>0x063A</h3>
+    <p><strong>SHEET_HIDDEN_COLUMN</strong></p>
+    <p>[record type = 1594 (0x063a)]</p>
+    <p>[body length = variable]</p>
+    <p>{count}</p>
+    <p>{used count}</p>
+    <p>{hidden} x count</p>
+    <h2>Outline Records</h2>
+    <p>Outline records are a subset of sheet records.</p>
+    <hr />
+    <h3>0x063B</h3>
+    <p><strong>OUTLINE_ROW_COL_HEADER</strong></p>
+    <p>[record type = 1595 (0x063b)]</p>
+    <p>[body length = 4]</p>
+    <p>{flags}</p>
+    <p>bit 0: row summary before</p>
+    <p>bit 1: col summary before</p>
+    <p>bit 2: row hidden</p>
+    <p>bit 3: col hidden</p>
+    <p>bits 4-31: unused</p>
+    <hr />
+    <h3>0x063C</h3>
+    <p><strong>OUTLINE_ROW_NODE</strong></p>
+    <p>[record type = 1596 (0x063c)]</p>
+    <p>[body length = 12]</p>
+    <p>{begin node}</p>
+    <p>{end node}</p>
+    <p>{flags}</p>
+    <p>bit 0: collapsed</p>
+    <p>bit 1-31: unused</p>
+    <hr />
+    <h3>0x063D</h3>
+    <p><strong>OUTLINE_COL_NODE</strong></p>
+    <p>[record type = 1597 (0x063d)]</p>
+    <p>[body length = 12]</p>
+    <p>{begin node}</p>
+    <p>{end node}</p>
+    <p>{flags}</p>
+    <p>bit 0: collapsed</p>
+    <p>bit 1-31: unused</p>
+</body>
+</html>

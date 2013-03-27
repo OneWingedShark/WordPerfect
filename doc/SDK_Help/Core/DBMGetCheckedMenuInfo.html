@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DBMGetCheckedMenuInfo function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBMForcePopupButtonRepaint.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DBMGetCheckMarkInfo.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dialog_box_manager.html">Creating dialog boxes</a> :
+        DBMGetCheckedMenuInfo function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp544877"></a>
+
+  <h4 class="pHeading3">DBMGetCheckedMenuInfo function</h4><a name="wp544879"></a>
+
+  <p class="pBody">The <code class="cCode">DBMGetCheckedMenuInfo</code> function returns information in <code class="cCode">lpusPosition</code> and
+  <code class="cCode">lpusID</code> about the currently checked item in the menu associated with the specified pop-up control.</p><a name="wp544881"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+VOID FAR PASCAL DBMGetCheckedMenuInfo (<a name="wp544883"> </a>
+HWND hPopup,<a name="wp544885"> </a>
+LPWORD lpusPosition,<a name="wp544887"> </a>
+LPWORD lpusID );<a name="wp544889"> </a>
+</pre>
+  </div><a name="wp544891"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp544894"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp513826"></a>
+
+          <p class="pBody"><code class="cCode">hPopup</code></p>
+        </td>
+
+        <td>
+          <a name="wp513828"></a>
+
+          <p class="pBody">Specifies the handle of the pop-up control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp513834"></a>
+
+          <p class="pBody"><code class="cCode">lpusPosition</code></p>
+        </td>
+
+        <td>
+          <a name="wp513836"></a>
+
+          <p class="pBody">Specifies the position of the currently checked menu item, where the first item in the menu is at position zero</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp513842"></a>
+
+          <p class="pBody"><code class="cCode">lpusID</code></p>
+        </td>
+
+        <td>
+          <a name="wp513844"></a>
+
+          <p class="pBody">Acts as apointer to the location where the ID of the currently checked menu item is stored</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp544896"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp544898"></a>
+
+  <p class="pBody">None</p>
+</body>
+</html>

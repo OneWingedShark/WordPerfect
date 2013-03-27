@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:20:43" />
+
+  <title>Using Quattro Pro as a DDE server</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Using_WordPerfect_as_a_DDE_server.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Using_Presentations_as_a_DDE_server.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="WordPerfect_Office_Dynamic_Data_Exchange.html">Using Dynamic Data Exchange (DDE)</a> : Using Quattro Pro as a DDE server</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp555481"></a>
+
+  <h3 class="pHeading2">Using Quattro Pro as a DDE server</h3><a name="wp1269566"></a>
+
+  <p class="pBody">Quattro Pro can function as a DDE server.</p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1269571"></a>
+
+    <div class="pSmartList1">
+      Through PerfectScript, Quattro Pro can act as a DDE client. For more information, see "<a href="PerfectScript_support_for_DDE.html#wp555633">Using
+      PerfectScript to set up a DDE client</a>."
+    </div><a name="wp1269586"></a>
+
+    <div class="pSmartList1">
+      Quattro Pro can also act as a DDE client through its native macro language.
+    </div>
+  </div><a name="wp1269870"></a>
+
+  <h5 class="pHeading4">Specifying the server name</h5><a name="wp555487"></a>
+
+  <p class="pBody">Quattro Pro supports the following server name for the DDE application: <code class="cCode">QPW</code>.</p><a name="wp555491"></a>
+
+  <h5 class="pHeading4">Using supported topics</h5><a name="wp1269874"></a>
+
+  <p class="pBody">Quattro Pro supports the <code class="cCode">System</code> topic, through which you can request supported information from Quattro Pro and
+  play Quattro Pro macros. The following items can be requested under the <code class="cCode">System</code> topic:</p><a name="wp555494"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp526193"></a>
+
+          <p class="pBody"><code class="cCode">SysItems</code></p>
+        </td>
+
+        <td>
+          <a name="wp526195"></a>
+
+          <p class="pBody">Returns a list of items that can be requested</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526201"></a>
+
+          <p class="pBody"><code class="cCode">Topics</code></p>
+        </td>
+
+        <td>
+          <a name="wp526203"></a>
+
+          <p class="pBody">Returns a list of currently supported topics</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526209"></a>
+
+          <p class="pBody"><code class="cCode">Status</code></p>
+        </td>
+
+        <td>
+          <a name="wp526211"></a>
+
+          <p class="pBody">Returns the current application state for Quattro Pro (for example, <code class="cCode">READY</code> or <code class=
+          "cCode">WAIT</code>)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526217"></a>
+
+          <p class="pBody"><code class="cCode">Formats</code></p>
+        </td>
+
+        <td>
+          <a name="wp526219"></a>
+
+          <p class="pBody">Returns a list of currently supported Clipboard formats</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526225"></a>
+
+          <p class="pBody"><code class="cCode">Selection</code></p>
+        </td>
+
+        <td>
+          <a name="wp526227"></a>
+
+          <p class="pBody">Returns the coordinates of the currently active selection</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp555496"></a>
+
+  <p class="pBody">In addition, any Quattro Pro properties can be requested. When requesting properties, the property must be of the form <code class=
+  "cCode">"(PropertyGroup.Property)"</code>. The property must be enclosed in parentheses and quotation marks - for example, <code class=
+  "cCode">"(Application.Display)"</code>, <code class="cCode">"(Block.Shading)"</code>, or <code class="cCode">"(Block.Font)"</code>.</p><a name=
+  "wp555498"></a>
+
+  <p class="pBody">Quattro Pro also supports the name of any open notebook as a valid topic. A notebook name topic must be the fully qualified path and
+  filename of an open notebook. If the path is omitted, the DDE conversation cannot be established. Using a notebook name as a topic allows you to place
+  information into a notebook, query information from a notebook, and execute macro commands.</p><a name="wp555500"></a>
+
+  <h5 class="pHeading4">Sending commands</h5><a name="wp555502"></a>
+
+  <p class="pBody">The client application can use its equivalent of the <code class="cCode">DDEExecute</code> statement to send commands to Quattro Pro. When
+  the <code class="cCode">System</code> topic is used, any valid Quattro Pro macro name can be sent. When a notebook file is used as the topic, the command
+  string can be any valid macro command.</p><a name="wp1269898"></a>
+
+  <p class="pBody">The following PerfectScript example establishes a conversation with an open notebook and instructs Quattro Pro to perform the specified
+  macro command, namely <code class="cCode">{BEEP}</code>. This example assumes that the file c:\MyFiles\myfile.wb2 is currently open.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DDEINITIATE( ConvID; "QPW"; "c:\MyFiles\myfile.wb2" )<a name="wp555504"> </a>
+DDEEXECUTE( ConvID; "{BEEP}" ) <a name="wp555506"> </a>
+DDETERMINATE( ConvID )<a name="wp555508"> </a>
+</pre>
+  </div><a name="wp555510"></a>
+
+  <h5 class="pHeading4">Sending data</h5><a name="wp555512"></a>
+
+  <p class="pBody">If the client application needs to store data in a notebook cell or block of cells, it should use its equivalent of the <code class=
+  "cCode">DDEPoke</code> statement. When using <code class="cCode">DDEPoke</code> or an equivalent, the desired cell or block of cells should be sent as the
+  item value, and the actual data to store should be sent as the item data.</p><a name="wp1269920"></a>
+
+  <p class="pBody">The following PerfectScript example establishes a conversation with an open notebook and instructs Quattro Pro to store a number in cell
+  A:A1 and a label in cell A:B1 This example assumes that the file c:\MyFiles\myfile.wb2 is currently open.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DDEINITIATE( ConvID; "QPW"; "c:\MyFiles\myfile.wb2" )<a name="wp555514"> </a>
+DDEPOKE( ConvID; "A:A1"; 7576 ) <a name="wp555516"> </a>
+DDEPOKE( ConvID; "A:B1"; "My label text" )<a name="wp555518"> </a>
+DDETERMINATE( ConvID )<a name="wp555520"> </a>
+</pre>
+  </div><a name="wp555522"></a>
+
+  <h5 class="pHeading4">Requesting information</h5><a name="wp555524"></a>
+
+  <p class="pBody">A client application can request information from Quattro Pro by using its equivalent for the <code class="cCode">DDERequest</code>
+  statement. When the <code class="cCode">System</code> topic is used, the information described above may be requested. Contents of a cell or block of cells
+  may be requested when an open notebook is used as the topic. To request cell contents, the client application should pass the address of the desired cell or
+  block of cells with its <code class="cCode">DDERequest</code> transaction.</p><a name="wp1269945"></a>
+
+  <p class="pBody">The following PerfectScript example establishes a conversation with an open notebook and requests the contents of cell A:A1 from Quattro
+  Pro. This example assumes that the file c:\MyFiles\myfile.wb2 is currently open.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DDEINITIATE( ConvID; "QPW"; "c:\MyFiles\myfile.wb2" )<a name="wp555526"> </a>
+myVal := DDEREQUEST( ConvID; "A:A1" ) <a name="wp555528"> </a>
+DDETERMINATE( ConvID )<a name="wp555530"> </a>
+</pre>
+  </div><a name="wp555532"></a>
+
+  <h5 class="pHeading4">Using valid command strings</h5><a name="wp555534"></a>
+
+  <p class="pBody">The valid command strings accepted by Quattro Pro vary with the topic used.</p><a name="wp555536"></a>
+
+  <p class="pBody">For the <code class="cCode">System</code> topic, please note the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp555538"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>The command string can be one of the predefined items that is supported, as listed previously in this section.</li>
+      </ul>
+    </div><a name="wp555540"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>The command string can be any Quattro Pro property, enclosed in parentheses and quotation marks - for example, <code class=
+        "cCode">"(Application.Display)"</code>. For a list of available properties, please consult the Quattro Pro documentation.</li>
+      </ul>
+    </div><a name="wp555542"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>The command string can be any valid Quattro Pro macro.</li>
+      </ul>
+    </div>
+  </div><a name="wp555544"></a>
+
+  <p class="pBody">For the <code class="cCode">Notebook</code> topic, please note the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp555546"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">DDEExecute</code> commands can be any valid Quattro Pro macro command.</li>
+      </ul>
+    </div><a name="wp555548"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">DDERequest</code> commands can be any valid Quattro Pro address. Single cells, named blocks, and cell ranges are valid
+        addresses.</li>
+      </ul>
+    </div><a name="wp555550"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><code class="cCode">DDEPoke</code> commands can be any valid Quattro Pro address followed by a value to store in the specified location. Single
+        cells, named blocks, and cell ranges are valid addresses.</li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

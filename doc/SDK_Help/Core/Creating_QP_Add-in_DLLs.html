@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:32" />
+
+  <title>Creating Quattro Pro Add-in DLLs</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="TPValInfo.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Lesson_1_Defining_a_new_custom_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody">Creating Quattro Pro Add-in DLLs</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp532095"></a>
+
+  <h2 class="pHeading1">Creating Quattro Pro Add-in DLLs</h2><a name="wp532097"></a>
+
+  <p class="pBody">This tutorial shows you how to create Quattro Pro Add-in Dynamic Link Libraries (DLLs).</p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1269484"></a>
+
+    <div class="pSmartList1">
+      For basic information on Quattro Pro Add-ins, please see "<a href="Quattro_Pro_Add-ins.html#wp1275797">Understanding Quattro Pro Add-ins</a>."
+    </div>
+  </div><a name="wp1269425"></a>
+
+  <h5 class="pHeading4">Understanding the tutorial</h5><a name="wp532099"></a>
+
+  <p class="pBody">This tutorial leads you through the creation of custom functions in a DLL file by using the C language. It begins by outlining the most
+  basic steps for building new custom functions, and then gradually builds on those concepts by using import functions and cell blocks. The files used in each
+  of the 13 lessons of this tutorial are included in the Lessons folder of the SDK, but we recommend that you make the modifications to the qshell.cpp files
+  yourself. In the tutorial, there are three major items that are changed within the qshell.cpp: the <code class="cCode">SelfDefStructure</code>, the main code
+  area (replacing the <code class="cCode">DUMMY</code> function), and the function protoype.</p><a name="wp532101"></a>
+
+  <p class="pBody">To keep these tutorials succinct and straightforward, error trapping is ignored. You should implement your own error handling for your
+  applications. You can see basic error handling in some examples in the Samples folder.</p><a name="wp1269384"></a>
+
+  <p class="pBody">The lessons use C types of <code class="cCode">double</code>, <code class="cCode">int</code>, and <code class="cCode">char</code> to show
+  the versatility of the Quattro Pro interface with C/C++. To create the lesson DLLs, please follow the steps in "<a href=
+  "QPA_development_tools.html#wp1271969">Understanding development tools for Quattro Pro Add-ins</a>."</p><a name="wp1269385"></a>
+
+  <p class="pBody">All lessons contain examples of how to execute the custom function in Quattro Pro. For PURE functions, these examples are commands, such as
+  <code class="cCode">@LESSON01.FIVE</code>. The sample command executes the lesson code in one statement. PURE functions could also be executed with
+  <code class="cCode">@FIVE</code>. For the DLL code to be used in this way, you would add the <code class="cCode">INTERNAL</code> modifier to the <code class=
+  "cCode">ProcPrototype</code> of the PURE functions. For information on <code class="cCode">ProcPrototype</code>, see "<a href=
+  "Structures_types_enums.html#wp1271647">Understanding structures, types, and enumerations</a>."</p><a name="wp532113"></a>
+
+  <p class="pBody">Using this alternate command would require the extra step of loading the DLL first. For information, see "<a href=
+  "QPA_DLL_custom_functions.html#wp1272006">Using DLL custom functions with Quattro Pro</a>." When you are comfortable executing the lesson DLL with the
+  example command, we encourage you to try calling the lesson DLL again with the alternate command.</p><a name="wp532115"></a>
+
+  <p class="pBody">Qshell.cpp is a shell that you can use to begin any Quattro Pro Add-in DLL. For best results, please do the following when working with this
+  file:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp532117"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Avoid changing more than you need to. It doesn't take much change to create a working function.</li>
+      </ul>
+    </div><a name="wp532119"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Avoid changing any part of the <code class="cCode">LIBMAIN</code> or <code class="cCode">WEP</code> functions.</li>
+      </ul>
+    </div><a name="wp532121"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Remove comments, to reduce clutter.</li>
+      </ul>
+    </div><a name="wp532123"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Before starting each lesson, load the file into your program editor, and then save it under a new name in your data folder (for example,
+        <code class="cCode">lesson01.cpp</code>).</li>
+      </ul>
+    </div>
+  </div><a name="wp1269456"></a>
+
+  <h5 class="pHeading4">Navigating the tutorial</h5><a name="wp532125"></a>
+
+  <p class="pBody">This tutorial contains the following lessons:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp532177"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_1_Defining_a_new_custom_function.html#wp532191">Lesson 1: Defining a new custom function</a></li>
+      </ul>
+    </div><a name="wp1269917"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_2_Using_arguments.html#wp532287">Lesson 2: Using arguments</a></li>
+      </ul>
+    </div><a name="wp1269921"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_3_Using_multiple_arguments.html#wp532373">Lesson 3: Using multiple arguments</a></li>
+      </ul>
+    </div><a name="wp1270364"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_4_Using_variable_arguments.html#wp532463">Lesson 4: Using variable arguments</a></li>
+      </ul>
+    </div><a name="wp1270368"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_5_Using_import_functions_1.html#wp532551">Lesson 5: Using import functions, Part 1</a></li>
+      </ul>
+    </div><a name="wp1270372"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_6_Using_import_functions_2.html#wp532639">Lesson 6: Using import functions, Part 2</a></li>
+      </ul>
+    </div><a name="wp1270376"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_7_Using_blocks.html#wp532731">Lesson 7: Using blocks</a></li>
+      </ul>
+    </div><a name="wp1271091"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_8_Using_strings.html#wp532847">Lesson 8: Using strings</a></li>
+      </ul>
+    </div><a name="wp1271095"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_9_Using_optional_arguments.html#wp532987">Lesson 9: Using optional arguments</a></li>
+      </ul>
+    </div><a name="wp1271099"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_10_Example_of_an_IMPURE_custom_function.html#wp533121">Lesson 10: Example of an IMPURE custom function</a></li>
+      </ul>
+    </div><a name="wp1271103"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_11_Setting_an_objects_property.html#wp533221">Lesson 11: Setting an object's property</a></li>
+      </ul>
+    </div><a name="wp1271107"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_12_Executing_a_command_object.html#wp533313">Lesson 12: Executing a command object</a></li>
+      </ul>
+    </div><a name="wp1271111"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Lesson_13_User_interface_functions.html#wp533413">Lesson 13: User interface functions</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

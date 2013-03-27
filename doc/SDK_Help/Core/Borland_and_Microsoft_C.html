@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Understanding the differences between Borland C++ and Microsoft C++</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Custom_functions.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QPA_development_tools.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Quattro_Pro_Add-ins.html">Understanding
+        Quattro Pro Add-ins</a> : Understanding the differences between Borland C++ and Microsoft C++</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1271948"></a>
+
+  <h4 class="pHeading3">Understanding the differences between Borland C++ and Microsoft C++</h4><a name="wp1271949"></a>
+
+  <p class="pBody">All of the sample source code included with this SDK has been tested with both Microsoft and Borland C++. Other compilers may or may not
+  have problems with this sample code. For the most part, the sample and lesson code is interchangeable between Borland and Microsoft. However, in earlier
+  versions of the Microsoft compiler (prior to version 4.0) there are some steps that must be taken in your coding to keep compatibility between the
+  compilers.</p><a name="wp1271950"></a>
+
+  <p class="pBody">There is a major difference in how functions return double values between Borland and the early Microsoft compilers. The technical
+  information on this difference is documented here, for those interested.</p><a name="wp1271951"></a>
+
+  <p class="pBody">A Borland function pushes the double value on to the co-processor's stack. If there is no co-processor, an emulation is used. The calling
+  program is expected to pop the double value off the co-processor's stack to retrieve it.</p><a name="wp1271952"></a>
+
+  <p class="pBody">An early Microsoft compiler function puts the double value in the floating-point accumulator (<code class="cCode">_fac</code>). It then
+  passes a far pointer to the floating-point accumulator. The calling program uses the far pointer to access the value. Also, when the function is called, an
+  extra two bytes of information is pushed on to the program's stack at the time that the function is called.</p><a name="wp1271953"></a>
+
+  <p class="pBody">Because double values are used extensively with Quattro Pro, two defines and all of the Quattro Pro import functions have been redefined in
+  qprowin.h to keep compatibility between Borland and the early Microsoft C compilers. The 4.x and later versions of the Microsoft compilers use the same
+  method of receiving and returning double values that the Borland compilers used. Therefore, in these versions of the Microsoft compilers, double values can
+  be returned by using the standard return statement.</p><a name="wp1271954"></a>
+
+  <p class="pBody"><code class="cCode">DOUBLE</code> is used as the return type of your custom function. It replaces the double return type, for compatibility
+  with both Microsoft and Borland C functions. It can be used only as a return type - for example, <code class="cCode">DOUBLE Func( )</code>.</p><a name=
+  "wp1271956"></a>
+
+  <p class="pBody"><code class="cCode">DoubleReturn</code> replaces the standard return statement and is followed by the double value to be returned. The
+  double value must be in parentheses.</p><a name="wp1271958"></a>
+
+  <p class="pBody">This statement can be used only when returning a double value, for compatibility between early Microsoft (versions 4.x and earlier) and
+  Borland C compilers. If some other value is to be returned, you must continue to use the standard return statement. When returning a pointer to a double
+  value, the standard return statement must be used.</p>
+</body>
+</html>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WpidDynaThetaListGetTempID function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidDynaThetaGetModificationDate.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidDynaThetaRemove.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dynathetas.html">Setting up dynathetas</a> :
+        WpidDynaThetaListGetTempID function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp546607"></a>
+
+  <h4 class="pHeading3">WpidDynaThetaListGetTempID function</h4><a name="wp546609"></a>
+
+  <p class="pBody">The <code class="cCode">WpidDynaThetaListGetTempID</code> function gets a temporary theta ID value for a dynatheta.</p><a name=
+  "wp546611"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DTHETAID FAR PASCAL WpidDynaThetaListGetTempID (<a name="wp546613"> </a>
+ATOM atomAppName,<a name="wp546615"> </a>
+LPWZ lpwzThetaName );<a name="wp546617"> </a>
+</pre>
+  </div><a name="wp546619"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp546622"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp517738"></a>
+
+          <p class="pBody"><code class="cCode">atomAppName</code></p>
+        </td>
+
+        <td>
+          <a name="wp517740"></a>
+
+          <p class="pBody">Specifies the atom name of the application for which the theta was created</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517746"></a>
+
+          <p class="pBody"><code class="cCode">lpwzThetaName</code></p>
+        </td>
+
+        <td>
+          <a name="wp517748"></a>
+
+          <p class="pBody">Specifies the name of dynatheta found in the Windows Registry</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp546624"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp546626"></a>
+
+  <p class="pBody">This function returns a temporary theta ID if successful or <code class="cCode">DTHETAID_NULL</code> if unsuccessful.</p>
+</body>
+</html>

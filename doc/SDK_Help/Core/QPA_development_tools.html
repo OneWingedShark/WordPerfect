@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+
+  <title>Understanding development tools for Quattro Pro Add-ins</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Borland_and_Microsoft_C.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QPA_DLL_custom_functions.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Understanding_SDK_tech.html">Understanding the SDK technologies</a> : <a href="Quattro_Pro_Add-ins.html">Understanding
+        Quattro Pro Add-ins</a> : Understanding development tools for Quattro Pro Add-ins</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1271969"></a>
+
+  <h4 class="pHeading3">Understanding development tools for Quattro Pro Add-ins</h4><a name="wp1271970"></a>
+
+  <p class="pBody">These notes are provided to assist DLL developers in setting their compilers to create Quattro Pro Add-In DLLs.</p><a name="wp1271971"></a>
+
+  <h5 class="pHeading4">Creating a project of type DLL</h5><a name="wp1271972"></a>
+
+  <p class="pBody">Be sure to do the following when creating a project of type DLL:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1273884"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Add the folder containing qprowin.h to the Include folder of your compiler (This is normally
+        C:\Program&nbsp;Files\WordPerfect&nbsp;Office&nbsp;X6\SDK\Include).</li>
+      </ul>
+    </div><a name="wp1271973"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Add the appropriate LIB file (specific to your compiler) to your project. Use qprowin.lib for the Microsoft 4.x and version 5 compilers. Use
+        qprowin.lib for the Borland 5.x compilers. These files are normally found in the
+        C:\Program&nbsp;Files\WordPerfect&nbsp;Office&nbsp;X6\SDK\LIB folder. If you are using a different compiler version, you may need
+        to create a library from qpw.exe for your specific compiler. For more information, refer to your compiler's documentation.</li>
+      </ul>
+    </div><a name="wp1271974"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Set your compiler's Calling Convention to <code class="cCode">_StdCall</code> and the Structure Byte Alignment to <code class="cCode">1</code> (or
+        <code class="cCode">byte</code>).</li>
+      </ul>
+    </div>
+  </div><a name="wp1271975"></a>
+
+  <h5 class="pHeading4">Debugging</h5><a name="wp1271976"></a>
+
+  <p class="pBody">Refer to the documentation that came with your development environment for information on tools it has available for debugging DLLs. If you
+  are unable to use a debugger, the following tips may help.</p><a name="wp1271977"></a>
+
+  <p class="pBody">If you're writing a complex function such as a Bessel function, it's a good idea to test it thoroughly as a standalone program before trying
+  to integrate it into a DLL. Create an executable (EXE) file that writes into files the values that would go into cells.</p><a name="wp1271978"></a>
+
+  <p class="pBody">For complicated functions, another useful debugging technique is to write intermediate results to cells. The function can put results into
+  cells to check the validity of those computations.</p><a name="wp1271979"></a>
+
+  <p class="pBody">For functions where you are setting or executing objects (or both), use <code class="cCode">QProGetProperty</code> to make sure the property
+  is set correctly.</p><a name="wp1271980"></a>
+
+  <p class="pBody">Using <code class="cCode">MessageBox</code> can also help debug your code by tracking down non-functioning code. If you want to include the
+  window handle in the <code class="cCode">MessageBox</code> call, you should use <code class="cCode">QProGetMainWindowHandle</code>. This function enables you
+  to call <code class="cCode">MessageBox</code> from anywhere and pass it the proper handle. <code class="cCode">MessageBox</code> takes two parameters (both
+  pointers to characters), in which you can display information about which line of code the program is about to execute or even display variables within the
+  message box itself. See the Windows API documentation for more information on <code class="cCode">MessageBox</code>.</p><a name="wp1271981"></a>
+
+  <p class="pBody">You can debug a DLL with the Windows SDK Debug Kernel running or with a similar tool such as Bounds Checker. For more information on these
+  tools, refer to their respective documentation.</p><a name="wp1271982"></a>
+
+  <p class="pBody">An alternative to using <code class="cCode">MessageBox</code> is to use <code class="cCode">OutputDebug</code> and <code class=
+  "cCode">OutputDebugString</code>. For more information on <code class="cCode">OutputDebug</code> and <code class="cCode">OutputDebugString</code>, refer to
+  the Microsoft Windows API SDK.</p>
+</body>
+</html>

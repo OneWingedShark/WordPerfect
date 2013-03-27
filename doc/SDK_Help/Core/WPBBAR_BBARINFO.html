@@ -1,0 +1,333 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WPBBAR_BBARINFO structure</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Toolbars.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WPBBAR_BUTTON.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Toolbars.html">Creating toolbars</a> : WPBBAR_BBARINFO
+        structure</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553171"></a>
+
+  <h4 class="pHeading3">WPBBAR_BBARINFO structure</h4><a name="wp553173"></a>
+
+  <p class="pBody">The <code class="cCode">WPBBAR_BBARINFO</code> structure contains all the information needed by a program to define a toolbar, except for
+  the bitmaps and text of the individual buttons. When you create a new toolbar, a pointer to this structure should be passed in the parameter <code class=
+  "cCode">lParam</code> of the Window API <code class="cCode">CreateWindow(&nbsp;)</code> function. It can be filled by sending the Shared Code message
+  <code class="cCode">PIDBBM_GETBBARINFO</code> to the toolbar window.</p><a name="wp553175"></a>
+
+  <h5 class="pHeading4">Structure</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct{ <a name="wp553177"> </a>
+WORD idBBar;  <a name="wp553179"> </a>
+WZ wzName;  <a name="wp553181"> </a>
+WORD cButtons;  <a name="wp553183"> </a>
+HINSTANCE hinstGlyphs;  <a name="wp553185"> </a>
+HDS hds;  <a name="wp553187"> </a>
+HFONT hFont;  <a name="wp553189"> </a>
+RECT rcBBarFrame;  <a name="wp553191"> </a>
+COLORREF rgbBkColor;  <a name="wp553193"> </a>
+WORD pelInterlineMargin;  <a name="wp553195"> </a>
+WORD pelLeftMargin;  <a name="wp553197"> </a>
+WORD pelTopMargin;  <a name="wp553199"> </a>
+WORD pelRightMargin;  <a name="wp553201"> </a>
+WORD pelBottomMargin;  <a name="wp553203"> </a>
+WORD cLines;  <a name="wp553205"> </a>
+WORD cVisibleLines;  <a name="wp553207"> </a>
+WORD iScrollPos;  <a name="wp553209"> </a>
+WORD iScrollMax;  <a name="wp553211"> </a>
+WORD fHasScroller;} WPBBAR_BBARINFO, FAR *PWPBBAR_BBARINFO, NEAR 
+*NPWPBBAR_BBARINFO, FAR *LPWPBBAR_BBARINFO; <a name="wp553213"> </a>
+</pre>
+  </div><a name="wp553215"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp1284468"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1284397"></a>
+
+          <p class="pBody"><code class="cCode">idBBar</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284399"></a>
+
+          <p class="pBody">Identifier for this toolbar</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284401"></a>
+
+          <p class="pBody"><code class="cCode">wzName</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284403"></a>
+
+          <p class="pBody">Name of this toolbar in word string format</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284405"></a>
+
+          <p class="pBody"><code class="cCode">cButtons</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284407"></a>
+
+          <p class="pBody">Number of buttons on this toolbar</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284409"></a>
+
+          <p class="pBody"><code class="cCode">hinstGlyphs</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284411"></a>
+
+          <p class="pBody">DLL from which base theta glyphs are loaded</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284413"></a>
+
+          <p class="pBody"><code class="cCode">hds</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284415"></a>
+
+          <p class="pBody">Current data store handle. This is a handle to a template where the toolbar is stored.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284417"></a>
+
+          <p class="pBody"><code class="cCode">hFont</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284419"></a>
+
+          <p class="pBody">Font used for button text</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284421"></a>
+
+          <p class="pBody"><code class="cCode">rcBBarFrame</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284423"></a>
+
+          <p class="pBody">Toolbar size and position</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284425"></a>
+
+          <p class="pBody"><code class="cCode">rgbBkColor</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284427"></a>
+
+          <p class="pBody">Background color of the toolbar window</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284429"></a>
+
+          <p class="pBody"><code class="cCode">pelInterlineMargin</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284431"></a>
+
+          <p class="pBody">Space between wrapping rows or columns</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284433"></a>
+
+          <p class="pBody"><code class="cCode">pelLeftMargin</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284435"></a>
+
+          <p class="pBody">Left margin</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284437"></a>
+
+          <p class="pBody"><code class="cCode">pelTopMargin</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284439"></a>
+
+          <p class="pBody">Top margin</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284441"></a>
+
+          <p class="pBody"><code class="cCode">pelRightMargin</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284443"></a>
+
+          <p class="pBody">Right margin</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284445"></a>
+
+          <p class="pBody"><code class="cCode">pelBottomMargin</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284447"></a>
+
+          <p class="pBody">Bottom margin</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284449"></a>
+
+          <p class="pBody"><code class="cCode">cLines</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284451"></a>
+
+          <p class="pBody">Number of lines on the toolbar. This number specifies either rows or columns, depending on the current toolbar mode, such as "left
+          embedded."</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284453"></a>
+
+          <p class="pBody"><code class="cCode">cVisibleLines</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284455"></a>
+
+          <p class="pBody">Number of visible lines on the toolbar. Some lines may be hidden if the toolbar area is not large enough.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284457"></a>
+
+          <p class="pBody"><code class="cCode">iScrollPos</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284459"></a>
+
+          <p class="pBody">Current position of the scroll bar</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284461"></a>
+
+          <p class="pBody"><code class="cCode">iScrollMax</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284463"></a>
+
+          <p class="pBody">Greatest possible value for the scroll bar position. This value may change every time the toolbar is resized.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1284465"></a>
+
+          <p class="pBody"><code class="cCode">fHasScroller</code></p>
+        </td>
+
+        <td>
+          <a name="wp1284467"></a>
+
+          <p class="pBody"><code class="cCode">TRUE</code> if this toolbar is currently displaying a scroll bar. This flag is valid only if the toolbar has the
+          <code class="cCode">PIDBBS_NOSCROLLER</code> style.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

@@ -1,0 +1,933 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Creating menus</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c3 {text-align: left}
+  span.c2 {font-family: Wingdings 3}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="wseek.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WpidMenuCreate.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Creating menus</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp548619"></a>
+
+  <h3 class="pHeading2">Creating menus</h3><a name="wp548621"></a>
+
+  <p class="pBody">PerfectFit has many API functions that are used to manipulate menus in WordPerfect products. These functions allow you to add and delete
+  menu items from the application menus, modify the text for the current menu item, and query menu information.</p><a name="wp548623"></a>
+
+  <p class="pBody">Currently, these menu functions should be used only in conjunction with the PerfectFit Third-Party Handler (TPH) DLLs. Benefits for you as
+  the developer are as follows:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp548625"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Sub-classing of the application window is not required.</li>
+      </ul>
+    </div><a name="wp548627"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>The functions are easy to use and reflect the Windows API functions.</li>
+      </ul>
+    </div><a name="wp548629"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Custom menu items (including top-level menu items and submenu items) can be added to the WordPerfect application menus.</li>
+      </ul>
+    </div><a name="wp548631"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Menu items, button bar items, and dynathetas all work together for consistency.</li>
+      </ul>
+    </div>
+  </div><a name="wp548635"></a>
+
+  <p class="pBody">Dynathetas are referenced in the menu documentation, and any menu items added to an application menu should be added by implementing
+  dynathetas in your application. For information about dynathetas, see "<a href="Dynatheta_Functions.html#wp1270883">Setting up dynathetas</a>."</p><a name=
+  "wp1285554"></a>
+
+  <p class="pBody">Before you attempt to create a menu, you should understand the terminology involved.</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1285641"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Menus.html#wp1285559">Understanding menu-related terminology</a></li>
+      </ul>
+    </div><a name="wp1285897"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Menus.html#wp548685">Understanding thetas</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1285865"></a>
+
+  <p class="pBody">You should also understand the menu-related features that are available to you.</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1285866"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Menus.html#wp548717">Understanding menu flags</a></li>
+      </ul>
+    </div><a name="wp1285896"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Menus.html#wp549038">Understanding menu functions</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1286053"></a>
+
+  <p class="pBody">Finally, you should understand the procceses involved in creating menus.</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1286054"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Menus.html#wp1285927">Understanding how menu items are added</a></li>
+      </ul>
+    </div><a name="wp1286275"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Menus.html#wp1285983">Understanding how submenus are added</a></li>
+      </ul>
+    </div><a name="wp1286279"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="Menus.html#wp1286016">Understanding how top-level menus are added</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1285559"></a>
+
+  <h5 class="pHeading4">Understanding menu-related terminology</h5><a name="wp548667"></a>
+
+  <p class="pBody">An <em class="cEmphasis">embedded menu</em> is a pop-up menu that is placed within a menu. An embedded menu is normally separated from other
+  menu items by menu separator lines. For example, the Speller, Thesaurus, and Grammatik menu items (Writing Tools in WPWin) are items on an embedded menu. In
+  any WPGroup product, the Writing Tools menu, in edit mode, appears as one menu item called "Writing Tools."</p><a name="wp548669"></a>
+
+  <p class="pBody">A "menu" is actually a collection of embedded menus and menu items. Embedded menus make it possible for groups of menu items to be
+  manipulated as a whole. In addition, embedded menus allow new menu items to be placed relative to a grouping of items. For example, a Grammatik menu item
+  could easily be added to the bottom of the Writing Tools embedded menu, regardless of how the menus have been edited.</p><a name="wp548671"></a>
+
+  <p class="pBody">You can indicate whether a menu should be embedded. When an embedded menu is un-embedded, it becomes a submenu. Menus can be embedded
+  anywhere except on the top menu bar. Embedded menus cannot be nested.</p><a name="wp548675"></a>
+
+  <p class="pBody"><em class="cEmphasis">Menu separators</em> are the horizontal lines that separate menu items. You can specify whether a menu item or
+  embedded menu should have menu separators placed around it by using flag values supplied with the API.</p><a name="wp548677"></a>
+
+  <p class="pBody">A <em class="cEmphasis">top-level</em> menu is the main menu of an application.</p><a name="wp548683"></a>
+
+  <p class="pBody"><em class="cEmphasis">Pop-up menu</em>, <em class="cEmphasis">submenu</em>, and <em class="cEmphasis">cascading menu</em> are synonyms for a
+  menu that is invoked from a menu. One example is the Tools <span class="c2">}</span> Macros menu in WordPerfect for Windows 7.x.</p><a name="wp548685"></a>
+
+  <h5 class="pHeading4">Understanding thetas</h5><a name="wp548687"></a>
+
+  <p class="pBody">To understand thetas, you must first understand how commands are executed in a WordPerfect tokenized application.</p><a name=
+  "wp1285625"></a>
+
+  <p class="pBody">In a tokenized application, menu selections, toolbar selections, or macro commands are the methods used to execute commands. These commands
+  have low-level groups of information associated with them to provide a high-level interface to the user.</p><a name="wp1285626"></a>
+
+  <p class="pBody">A theta is defined as a structured group of information that is referenced by a command ID. It contains the interface information associated
+  with that ID. Most commands executed in a WordPerfect tokenized application are thetas. The following information is contained in the theta structure:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1285627"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>names and parameters for macro commands</li>
+      </ul>
+    </div><a name="wp1285628"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>the name of the theta</li>
+      </ul>
+    </div><a name="wp1285629"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>text for the command's menu</li>
+      </ul>
+    </div><a name="wp1285630"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>a bitmap for the command's toolbar</li>
+      </ul>
+    </div><a name="wp1285631"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>text for the command's toolbar</li>
+      </ul>
+    </div><a name="wp1285632"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Help text for the command's long prompt</li>
+      </ul>
+    </div>
+  </div><a name="wp548717"></a>
+
+  <h5 class="pHeading4">Understanding menu flags</h5><a name="wp548719"></a>
+
+  <p class="pBody">Most of the functions defined for the MenuAPI contain a parameter called <code class="cCode">dwFlags</code>. The following table contains
+  the values defined for this <code class="cCode">dwFlags</code> parameter.</p><a name="wp1285675"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c3">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp520109"></a>
+
+          <h5 class="pHeading4">Flag</h5>
+        </td>
+
+        <td>
+          <a name="wp520111"></a>
+
+          <h5 class="pHeading4">Definition</h5>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520117"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_AUTOMNEMONICS</code></p>
+        </td>
+
+        <td>
+          <a name="wp520119"></a>
+
+          <p class="pBody">Specifies that items have numeric mnemonics added automatically. Mnemonics begin with <code class="cCode">1</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520125"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_AUTOSEPARATOR</code></p>
+        </td>
+
+        <td>
+          <a name="wp520127"></a>
+
+          <p class="pBody">Places separators before and after menu if they are not already present</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520133"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_BITMAP</code></p>
+        </td>
+
+        <td>
+          <a name="wp520135"></a>
+
+          <p class="pBody">Draws a bitmap for an item</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520141"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_BYCOMMAND</code></p>
+        </td>
+
+        <td>
+          <a name="wp520143"></a>
+
+          <p class="pBody">Specifies the item referenced by ID</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520149"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_BYPOSITION</code></p>
+        </td>
+
+        <td>
+          <a name="wp520151"></a>
+
+          <p class="pBody">Specifies the item referenced by position</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520157"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_CHECKED</code></p>
+        </td>
+
+        <td>
+          <a name="wp520159"></a>
+
+          <p class="pBody">Specifies to check on an item</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520165"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_DISABLED</code></p>
+        </td>
+
+        <td>
+          <a name="wp520167"></a>
+
+          <p class="pBody">Disables an item</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520173"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_EDITOR</code></p>
+        </td>
+
+        <td>
+          <a name="wp520175"></a>
+
+          <p class="pBody">Specifies that the menu is currently being edited by a WPGroup application</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520181"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_EMBEDDEDMENU</code></p>
+        </td>
+
+        <td>
+          <a name="wp520183"></a>
+
+          <p class="pBody">Flags the menu as being embedded</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520189"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_ENABLED</code></p>
+        </td>
+
+        <td>
+          <a name="wp520191"></a>
+
+          <p class="pBody">Enables an item</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520197"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_GRAYED</code></p>
+        </td>
+
+        <td>
+          <a name="wp520199"></a>
+
+          <p class="pBody">Grays (dims) an item</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520205"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_HEADER</code></p>
+        </td>
+
+        <td>
+          <a name="wp520207"></a>
+
+          <p class="pBody">Specifies that the menu header is passed instead of a menu ID</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520213"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_HILITE</code></p>
+        </td>
+
+        <td>
+          <a name="wp520215"></a>
+
+          <p class="pBody">Sets the highlight state on item</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520221"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_MDIWINDOWMENU</code></p>
+        </td>
+
+        <td>
+          <a name="wp520223"></a>
+
+          <p class="pBody">Designates the MDI window menu</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520229"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_MENUBARBREAK</code></p>
+        </td>
+
+        <td>
+          <a name="wp520231"></a>
+
+          <p class="pBody">Is used to break a menu at predetermined location. For pop-up menus, puts the next menu item in new column and draws a vertical
+          bar.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520237"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_MENUBREAK</code></p>
+        </td>
+
+        <td>
+          <a name="wp520239"></a>
+
+          <p class="pBody">Is used to break a menu at a predetermined location. For pop-up menus, puts the next menu item in new column and does not draw a
+          vertical bar.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520245"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_OLEMENU</code></p>
+        </td>
+
+        <td>
+          <a name="wp520247"></a>
+
+          <p class="pBody">Designates the OLE menu</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520253"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_OWNERDRAW</code></p>
+        </td>
+
+        <td>
+          <a name="wp520255"></a>
+
+          <p class="pBody">Specifies that the item is drawn by application</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520261"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_POPUP</code></p>
+        </td>
+
+        <td>
+          <a name="wp520263"></a>
+
+          <p class="pBody">Specifies that the tem is a pop-up menu</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520269"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_SEPARATOR</code></p>
+        </td>
+
+        <td>
+          <a name="wp520271"></a>
+
+          <p class="pBody">Specifies that the tem is a separator</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520277"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_STRING</code></p>
+        </td>
+
+        <td>
+          <a name="wp520279"></a>
+
+          <p class="pBody">Specifies that the tem is an ANSI string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520285"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_SYSMENU</code></p>
+        </td>
+
+        <td>
+          <a name="wp520287"></a>
+
+          <p class="pBody">Specifies that the tem is in a system menu</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520293"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_UNCHECKED</code></p>
+        </td>
+
+        <td>
+          <a name="wp520295"></a>
+
+          <p class="pBody">Specifies that the tem is unchecked</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520301"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_UNHILITE</code></p>
+        </td>
+
+        <td>
+          <a name="wp520303"></a>
+
+          <p class="pBody">Removes highlight from item</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520309"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_UNREMOVEABLE</code></p>
+        </td>
+
+        <td>
+          <a name="wp520311"></a>
+
+          <p class="pBody">Marks an item as unremovable</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp520317"></a>
+
+          <p class="pBody"><code class="cCode">WPMF_USECHECKBITMAPS</code></p>
+        </td>
+
+        <td>
+          <a name="wp520319"></a>
+
+          <p class="pBody">Is reserved for future use</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1285681"></a>
+
+  <p class="pBody">In some functions, only a subset of these values is valid. See the documentation for any function to determine its valid flags.</p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1285682"></a>
+
+    <div class="pSmartList1">
+      In each of the following groups, the flags listed are mutually exclusive and cannot be used together:
+    </div>
+
+    <div class="pSmartList2 pSmartList2 c1">
+      <a name="wp1285683"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">MF_DISABLED</code>, <code class="cCode">MF_ENABLED</code>, and <code class="cCode">MF_GRAYED</code></li>
+        </ul>
+      </div><a name="wp1285684"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">MF_BITMAP</code>, <code class="cCode">MF_STRING</code>, and <code class="cCode">MF_OWNERDRAW</code></li>
+        </ul>
+      </div><a name="wp1285685"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">MF_MENUBARBREAK</code> and <code class="cCode">MF_MENUBREAK</code></li>
+        </ul>
+      </div><a name="wp1285686"></a>
+
+      <div class="pSmartList2">
+        <ul>
+          <li><code class="cCode">MF_CHECKED</code> and <code class="cCode">MF_UNCHECKED</code></li>
+        </ul>
+      </div>
+    </div>
+  </div><a name="wp549038"></a>
+
+  <h5 class="pHeading4">Understanding menu functions</h5><a name="wp549040"></a>
+
+  <p class="pBody">You can use the following functions to create menus:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp549116"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuCreate.html#wp1171012">WpidMenuCreate function</a></li>
+      </ul>
+    </div><a name="wp1286643"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuCreatePopup.html#wp549171">WpidMenuCreatePopup function</a></li>
+      </ul>
+    </div><a name="wp1286647"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuDestroy.html#wp549210">WpidMenuDestroy function</a></li>
+      </ul>
+    </div><a name="wp1286651"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuDisplayPopup.html#wp549249">WpidMenuDisplayPopup function</a></li>
+      </ul>
+    </div><a name="wp1286655"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuGetCount.html#wp549290">WpidMenuGetCount function</a></li>
+      </ul>
+    </div><a name="wp1286659"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemAppend.html#wp549329">WpidMenuItemAppend function</a></li>
+      </ul>
+    </div><a name="wp1286663"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemCheck.html#wp549376">WpidMenuItemCheck function</a></li>
+      </ul>
+    </div><a name="wp1286667"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemDelete.html#wp549417">WpidMenuItemDelete function</a></li>
+      </ul>
+    </div><a name="wp1286671"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="wMenuItemID.html#wp549454">wMenuItemID function</a></li>
+      </ul>
+    </div><a name="wp1286675"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemEnable.html#wp549478">WpidMenuItemEnable function</a></li>
+      </ul>
+    </div><a name="wp1286679"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemGetID.html#wp549519">WpidMenuItemGetID function</a></li>
+      </ul>
+    </div><a name="wp1286683"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemGetPosition.html#wp549560">WpidMenuItemGetPosition function</a></li>
+      </ul>
+    </div><a name="wp1286687"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemGetState.html#wp549601">WpidMenuItemGetState function</a></li>
+      </ul>
+    </div><a name="wp1286691"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemGetSubMenu.html#wp549642">WpidMenuItemGetSubMenu function</a></li>
+      </ul>
+    </div><a name="wp1286695"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemGetText.html#wp549683">WpidMenuItemGetText function</a></li>
+      </ul>
+    </div><a name="wp1286699"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemInsert.html#wp549728">WpidMenuItemInsert function</a></li>
+      </ul>
+    </div><a name="wp1286703"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemRemove.html#wp549777">WpidMenuItemRemove function</a></li>
+      </ul>
+    </div><a name="wp1286707"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuItemSetText.html#wp549818">WpidMenuItemSetText function</a></li>
+      </ul>
+    </div><a name="wp1286711"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WpidMenuTrackPopup.html#wp549861">WpidMenuTrackPopup function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1285927"></a>
+
+  <h5 class="pHeading4">Understanding how menu items are added</h5><a name="wp1285928"></a>
+
+  <p class="pBody">The process for adding a menu item to an existing menu is as follows.</p><a name="wp1285929"></a>
+
+  <p class="pBody">First, create a dynatheta for the new menu item.</p><a name="wp1285930"></a>
+
+  <p class="pBody">Next, using <code class="cCode">WpidMenuItemAppend(&nbsp;)</code> or <code class="cCode">WpidMenuItemInsert(&nbsp;)</code>, append or insert
+  the dynatheta into the position where you want to add it.</p><a name="wp1285931"></a>
+
+  <p class="pBody">Menu separators count as items on the pop-up menu, so make sure that you count the separators if you are adding a dynatheta by using the
+  <code class="cCode">WPMF_BYPOSITION</code> flag.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+WZ wzThetaName [50]; <a name="wp1285932"> </a>
+int nLen; <a name="wp1285933"> </a>
+char TempStr[MAX_TEXT_LEN]; <a name="wp1285934"> </a>
+WZ wzThetaMenuText[MAX_TEXT_LEN]; <a name="wp1285935"> </a>
+WZ wzThetaBBarText[MAX_TEXT_LEN]; <a name="wp1285936"> </a>
+WZ wzThetaPromptText[MAX_TEXT_LEN]; <a name="wp1285937"> </a>
+WZ wzThetaName[PID_MAXLENTHETANAME]; <a name="wp1285938"> </a>
+DTHETAID dThetaID; <a name="wp1285939"> </a>
+WMEMOBJECT wmoDynaTheta; <a name="wp1285940"> </a>
+W6azTowz ((LPAZ)"testtheta", (LPWZ)wzThetaName); <a name="wp1285941"> </a>
+if ((nLen = LoadString (hInstance, IDS_MENUTEXT1, (LPSTR)TempStr, 
+sizeof (TempStr))) != 0) <a name="wp1285942"> </a>
+{ <a name="wp1285943"> </a>
+W6azTowz (TempStr, wzThetaMenuText); <a name="wp1285944"> </a>
+} <a name="wp1285945"> </a>
+if ((nLen = LoadString (hInstance, IDS_BBARTEXT1, (LPSTR)TempStr, 
+sizeof (TempStr))) != 0) <a name="wp1285946"> </a>
+{ <a name="wp1285947"> </a>
+W6azTowz (TempStr, wzThetaBBarText); <a name="wp1285948"> </a>
+} <a name="wp1285949"> </a>
+if ((nLen = LoadString (hInstance, IDS_PRMT_TEXT1, (LPSTR)TempStr, 
+sizeof (TempStr))) != 0) <a name="wp1285950"> </a>
+{ <a name="wp1285951"> </a>
+W6azTowz (TempStr, wzThetaPromptText); <a name="wp1285952"> </a>
+} <a name="wp1285953"> </a>
+//Create the dynatheta <a name="wp1285954"> </a>
+if (NULL != (wmoDynaTheta = WpidThetaCreate ((LPWZ)wzThetaName, <a name="wp1285955"> </a>
+(WORD)0, //Reserved, must be 0 <a name="wp1285956"> </a>
+(WORD)0, <a name="wp1285957"> </a>
+wzThetaMenuText, <a name="wp1285958"> </a>
+wzThetaBBarText, <a name="wp1285959"> </a>
+wzThetaPromptText, <a name="wp1285960"> </a>
+0, <a name="wp1285961"> </a>
+0, <a name="wp1285962"> </a>
+1, // 1 = WP File Group <a name="wp1285963"> </a>
+(HBITMAP)0, //This will use the default bitmap <a name="wp1285964"> </a>
+0, // Reserved, must be 0 <a name="wp1285965"> </a>
+NULL, // Reserved, must be NULL <a name="wp1285966"> </a>
+0, <a name="wp1285967"> </a>
+NULL, <a name="wp1285968"> </a>
+NULL))) <a name="wp1285969"> </a>
+{ <a name="wp1285970"> </a>
+//Add the dynatheta to the Tools Menu in WPWin <a name="wp1285971"> </a>
+WpidMenuItemAppend (MenuHandle, //MenuHandle is global <a name="wp1285972"> </a>
+TOOLS_MENU, //WP Tools Menu <a name="wp1285973"> </a>
+WPMF_BYCOMMAND, <a name="wp1285974"> </a>
+wmoDynaTheta, <a name="wp1285975"> </a>
+0, NULL, 0); //These are all not used this time. <a name="wp1285976"> </a>
+} <a name="wp1285977"> </a>
+</pre>
+  </div><a name="wp1285983"></a>
+
+  <h5 class="pHeading4">Understanding how submenus are added</h5><a name="wp1285984"></a>
+
+  <p class="pBody">The process for adding a submenu to an existing menu is as follows.</p><a name="wp1285985"></a>
+
+  <p class="pBody">First, create a dynatheta for the new submenu to be added. Then, create all dynathetas to be added to the submenu.</p><a name=
+  "wp1285987"></a>
+
+  <p class="pBody">Next, create a pop-up menu by using <code class="cCode">WpidMenuCreatePopup(&nbsp;)</code>. The <code class="cCode">wMenuID</code> parameter
+  is the dynatheta ID for the new submenu to be added. The <code class="cCode">dwFlags</code> parameter is <code class="cCode">WPMF_Popup</code>. If a non-zero
+  value is returned, a pop-up menu has been successfully created in memory.</p><a name="wp1285988"></a>
+
+  <p class="pBody">Now, using <code class="cCode">WpidMenuItemAppend(&nbsp;)</code>, append the dynatheta IDs to be added to the submenu. The <code class=
+  "cCode">wMenuID</code> parameter is the dynatheta ID for the new submenu. The <code class="cCode">wMenuItemID</code> parameter is the dynatheta IDs to be
+  added to the submenu.</p><a name="wp1285989"></a>
+
+  <p class="pBody">Finally, using <code class="cCode">WpidMenuItemAppend(&nbsp;)</code>, append the dynatheta ID for the submenu item to the top-level menu or
+  submenu. The <code class="cCode">wMenuIDparameter</code> is the ID of the top-level menu or submenu to add to. These menu values are documented in the
+  SCWIN32.H file (which is stored at X:\Program&nbsp;Files\Corel\WordPerfect&nbsp;Office&nbsp;X6\SDK\Include, where X: is the drive where
+  your Program&nbsp;Files folder is stored). The <code class="cCode">wMenuItemIDparameter</code> is the dynatheta for the new submenu.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DTHETAID dTPHUtil, //Submenu dynatheta <a name="wp1285990"> </a>
+dTPHMenuWatch, //Menu watch dynatheta <a name="wp1285991"> </a>
+dTPHTokenWatch; //Token watch dynatheta <a name="wp1285992"> </a>
+//DynaTheta Creation <a name="wp1285993"> </a>
+. <a name="wp1285994"> </a>
+. <a name="wp1285995"> </a>
+. <a name="wp1285996"> </a>
+//End DynaTheta Creation <a name="wp1285997"> </a>
+//hMenu is a global handle to the main app's menu <a name="wp1285998"> </a>
+if (WpidMenuCreatePopup (hMenu, dTPHUtil, WPMF_Popup)) <a name="wp1285999"> </a>
+{ <a name="wp1286000"> </a>
+//Add the first dynatheta to the submenu <a name="wp1286001"> </a>
+WpidMenuItemAppend (hMenu, dTPHUtil, dwFlags, <a name="wp1286002"> </a>
+dTPHMenuWatch, 0, NULL, 0); <a name="wp1286003"> </a>
+//Add the other dynatheta to the submenu <a name="wp1286004"> </a>
+WpidMenuItemAppend (hMenu, dTPHUtil, dwFlags, <a name="wp1286005"> </a>
+dTPHTokenWatch, 0, NULL, 0); <a name="wp1286006"> </a>
+//Append the menu to the TOOLS menu <a name="wp1286007"> </a>
+WpidMenuItemApend (hMenu, TOOLS_MENU, <a name="wp1286008"> </a>
+(DWORD)WPMF_BYPOSITION | WPMF_Popup, -1, dTPHUtil); <a name="wp1286009"> </a>
+} <a name="wp1286010"> </a>
+</pre>
+  </div><a name="wp1286016"></a>
+
+  <h5 class="pHeading4">Understanding how top-level menus are added</h5><a name="wp1286017"></a>
+
+  <p class="pBody">The process for adding a top-level menu to the existing menu bar is as follows.</p><a name="wp1286018"></a>
+
+  <p class="pBody">First, create a dynatheta for the new top-level menu to be added. Then, create all dynathetas to be added to the top-level menu.</p><a name=
+  "wp1286020"></a>
+
+  <p class="pBody">Next, create a pop-up menu by using <code class="cCode">WpidMenuCreatePopup(&nbsp;)</code>. The <code class="cCode">wMenuID</code> parameter
+  is the dynatheta ID for the new top-level menu. The <code class="cCode">dwFlags</code> parameter is <code class="cCode">WPMF_Popup</code>. If a non-zero
+  value is returned, a pop-up menu has been successfully created in memory.</p><a name="wp1286021"></a>
+
+  <p class="pBody">Now, using <code class="cCode">WpidMenuItemAppend(&nbsp;)</code>, append the dynatheta IDs created for the top-level menu to the newly
+  created pop-up menu. The <code class="cCode">wMenuID</code> parameter is the dynatheta ID returned for the new top-level menu. The <code class=
+  "cCode">wMenuItemID</code> parameter is the dynatheta IDs returned for the dynathetas to be added to the top-level menu.</p><a name="wp1286022"></a>
+
+  <p class="pBody">Finally, using <code class="cCode">WpidMenuItemAppend(&nbsp;)</code>, append the dynatheta ID for the top-level menu item to the
+  application's main menu bar. The <code class="cCode">wMenuIDparameter</code> is <code class="cCode">TOP_LEVEL_MENU</code> (defined as <code class=
+  "cCode">ZERO</code> in the SCWIN32.H file). The <code class="cCode">wMenuItemIDparameter</code> is the dynatheta returned for the top-level menu
+  item.</p><a name="wp1286023"></a>
+
+  <p class="pBody">To insert a menu item in front of an existing top-level menu item, the <code class="cCode">wPreceedMenuID</code> is the theta value for that
+  top-level menu item. The menu theta IDs are defined in the SCWIN32.H file (which is stored at
+  X:\Program&nbsp;Files\Corel\WordPerfect&nbsp;Office&nbsp;X6\SDK\Include, where X: is the drive where your Program&nbsp;Files folder is
+  stored).</p><a name="wp1286024"></a>
+
+  <p class="pBody">All menu positions are zero-based. For example, the New menu option in WPWin 7.x is in position <code class="cCode">0</code>, Open is in
+  position <code class="cCode">1</code>, and so on.</p><a name="wp1286025"></a>
+
+  <p class="pBody">The designation for the top-level menu is <code class="cCode">0</code>. If you want to add a new menu item to the main window menu,
+  <code class="cCode">0</code> is the value to use in the <code class="cCode">wMenuID</code> parameter.</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+DTHETAID dTPHUtil, //Submenu dynatheta <a name="wp1286026"> </a>
+dTPHMenuWatch, //Menu watch dynatheta <a name="wp1286027"> </a>
+dTPHTokenWatch; //Token watch dynatheta <a name="wp1286028"> </a>
+//DynaTheta Creation <a name="wp1286029"> </a>
+. <a name="wp1286030"> </a>
+. <a name="wp1286031"> </a>
+. <a name="wp1286032"> </a>
+//End DynaTheta Creation <a name="wp1286033"> </a>
+//hMenu is a global handle to the main app's menu <a name="wp1286034"> </a>
+if (WpidMenuCreatePopup (hMenu, dTPHUtil, WPMF_Popup)) <a name="wp1286035"> </a>
+{ <a name="wp1286036"> </a>
+//Add the first dynatheta to the submenu <a name="wp1286037"> </a>
+WpidMenuItemAppend (hMenu, dTPHUtil, dwFlags, dTPHMenuWatch, 0, 
+NULL, 0); <a name="wp1286038"> </a>
+//Add the other dynatheta to the submenu <a name="wp1286039"> </a>
+WpidMenuItemAppend (hMenu, dTPHUtil, dwFlags, dTPHTokenWatch, 0, 
+NULL, 0); <a name="wp1286040"> </a>
+//Append the menu to the main window menu <a name="wp1286041"> </a>
+//TOP_LEVEL_MENU = 0 <a name="wp1286042"> </a>
+WpidMenuItemApend (hMenu, TOP_LEVEL_MENU, (DWORD)WPMF_BYPOSITION | 
+WPMF_POPUP, -1, dTPHUtil); <a name="wp1286043"> </a>
+} <a name="wp1286044"> </a>
+</pre>
+  </div>
+</body>
+</html>

@@ -1,0 +1,406 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DBMDrawPopupBitmap function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBMDeletePopupMenuItem.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DBMForcePopupButtonRepaint.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dialog_box_manager.html">Creating dialog boxes</a> :
+        DBMDrawPopupBitmap function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp544801"></a>
+
+  <h4 class="pHeading3">DBMDrawPopupBitmap function</h4><a name="wp544803"></a>
+
+  <p class="pBody">The <code class="cCode">DBMDrawPopupBitmap</code> function draws a bitmap on a pop-up. It is most useful for owner-drawn pop-up
+  controls.</p><a name="wp544805"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+VOID FAR PASCAL DBMDrawPopupBitmap (<a name="wp544807"> </a>
+HDC hTargetDC,<a name="wp544809"> </a>
+int nTargetX,<a name="wp544811"> </a>
+int nTargetY,<a name="wp544813"> </a>
+HBITMAP hBitmap,<a name="wp544815"> </a>
+WORD usBMPWidth,<a name="wp544817"> </a>
+WORD usBMPHeight,<a name="wp544819"> </a>
+LONG lnROP );<a name="wp544821"> </a>
+</pre>
+  </div><a name="wp544823"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp544826"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1292128"></a>
+
+          <p class="pBody"><code class="cCode">hTargetDC</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292130"></a>
+
+          <p class="pBody">Specifies the handle to the device context of the target control</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292132"></a>
+
+          <p class="pBody"><code class="cCode">nTargetX</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292134"></a>
+
+          <p class="pBody">Specifies the x-coordinate of the top-left corner of the bitmap, in dialog-box units</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292136"></a>
+
+          <p class="pBody"><code class="cCode">nTargetY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292138"></a>
+
+          <p class="pBody">Specifies the y-coordinate of the top-left corner of the bitmap, in dialog-box units</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292140"></a>
+
+          <p class="pBody"><code class="cCode">hBitmap</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292142"></a>
+
+          <p class="pBody">Specifies the handle to the bitmap to draw on the pop-up</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292144"></a>
+
+          <p class="pBody"><code class="cCode">usBMPWidth</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292146"></a>
+
+          <p class="pBody">Specifies the width of the bitmap. If <code class="cCode">0</code>, then <code class="cCode">DBMDrawPopupBitmap(&nbsp;)</code>
+          determines the dimension.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292148"></a>
+
+          <p class="pBody"><code class="cCode">usBMPHeight</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292150"></a>
+
+          <p class="pBody">Specifies the height of the bitmap. If <code class="cCode">0</code>, then <code class="cCode">DBMDrawPopupBitmap(&nbsp;)</code>
+          determines the dimension.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292152"></a>
+
+          <p class="pBody"><code class="cCode">lnROP</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292154"></a>
+
+          <p class="pBody">Specifies Raster Operation Codes as documented in the Windows <code class="cCode">BitBlt(&nbsp;)</code> function</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp544828"></a>
+
+  <p class="pBody">The following Raster Operation Codes are available to the <code class="cCode">lnROP</code> parameter.</p><a name="wp1291899"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1292118"></a>
+
+          <h5 class="pHeading4">Raster Operation Code</h5>
+        </th>
+
+        <th>
+          <a name="wp1292120"></a>
+
+          <h5 class="pHeading4">Definition</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292058"></a>
+
+          <p class="pBody"><code class="cCode">BLACKNESS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292060"></a>
+
+          <p class="pBody">Makes all the output go to black</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292062"></a>
+
+          <p class="pBody"><code class="cCode">DSTINVERT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292064"></a>
+
+          <p class="pBody">Inverts the final bitmap</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292066"></a>
+
+          <p class="pBody"><code class="cCode">MERGECOPY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292068"></a>
+
+          <p class="pBody">Overlays the source bitmap over a given pattern by using a Boolean <code class="cCode">AND</code> operation</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292070"></a>
+
+          <p class="pBody"><code class="cCode">MERGEPAINT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292072"></a>
+
+          <p class="pBody">Inverts and overlays a source bitmap over the destination bitmap by using a Boolean <code class="cCode">OR</code> operation</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292074"></a>
+
+          <p class="pBody"><code class="cCode">NOTSRCCOPY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292076"></a>
+
+          <p class="pBody">Inverts the source bitmap and copies it to the destination bitmap</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292078"></a>
+
+          <p class="pBody"><code class="cCode">NOTSRCERASE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292080"></a>
+
+          <p class="pBody">Overlays the source and destination bitmaps by using a Boolean <code class="cCode">OR</code> operation and then inverts the
+          results</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292082"></a>
+
+          <p class="pBody"><code class="cCode">PATCOPY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292084"></a>
+
+          <p class="pBody">Copies a given pattern to the destination bitmap</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292086"></a>
+
+          <p class="pBody"><code class="cCode">PATINVERT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292088"></a>
+
+          <p class="pBody">Overlays the pattern on the destination bitmap by using a Boolean <code class="cCode">XOR</code> operation</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292090"></a>
+
+          <p class="pBody"><code class="cCode">PATPAINT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292092"></a>
+
+          <p class="pBody">Overlays the source bitmap over a given pattern by using a Boolean <code class="cCode">OR</code> operation, and then overlays the
+          finished product over the destination bitmap by using another Boolean <code class="cCode">OR</code> operation</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292094"></a>
+
+          <p class="pBody"><code class="cCode">SRCAND</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292096"></a>
+
+          <p class="pBody">Overlays the source bitmap over the destination bitmap by using a Boolean <code class="cCode">AND</code> operation</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292098"></a>
+
+          <p class="pBody"><code class="cCode">SRCCOPY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292100"></a>
+
+          <p class="pBody">Copies source bitmap to destination</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292102"></a>
+
+          <p class="pBody"><code class="cCode">SRCERASE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292104"></a>
+
+          <p class="pBody">Inverts the destination bitmap, and then overlays the source bitmap over this inverted bitmap by using a Boolean <code class=
+          "cCode">AND</code> operation</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292106"></a>
+
+          <p class="pBody"><code class="cCode">SRCINVERT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292108"></a>
+
+          <p class="pBody">Overlays the source bitmap with the destination bitmap by using a Boolean <code class="cCode">XOR</code> operation</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292110"></a>
+
+          <p class="pBody"><code class="cCode">SRCPAINT</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292112"></a>
+
+          <p class="pBody">Overlays source bitmap over destination bitmap by using a Boolean <code class="cCode">OR</code> operation</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1292114"></a>
+
+          <p class="pBody"><code class="cCode">WHITENESS</code></p>
+        </td>
+
+        <td>
+          <a name="wp1292116"></a>
+
+          <p class="pBody">Makes the output completely white</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1291895"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp544830"></a>
+
+  <p class="pBody">None</p>
+</body>
+</html>

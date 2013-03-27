@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WcvtConvertHandle function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WcvtConvertFile.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WcvtDetectBufferFormat.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Document_conversion.html">Providing document conversion</a> :
+        WcvtConvertHandle function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp546272"></a>
+
+  <h4 class="pHeading3">WcvtConvertHandle function</h4><a name="wp546274"></a>
+
+  <p class="pBody">The <code class="cCode">WcvtConvertHandle</code> function converts the data referenced by a memory handle from one format to a handle that
+  references data in another format</p><a name="wp546276"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+WORD FAR PASCAL WcvtConvertHandle (<a name="wp546278"> </a>
+HGLOBAL hMem,<a name="wp546280"> </a>
+WORD wInFormat,<a name="wp546282"> </a>
+DWORD dwLen,<a name="wp546284"> </a>
+WORD wOutFormat,<a name="wp546286"> </a>
+WORD wFlags,<a name="wp546288"> </a>
+CVTINFO far* lpCvtInfo,<a name="wp546290"> </a>
+LPHANDLE lpHOut,<a name="wp546292"> </a>
+LPDWORD lpOutLen );<a name="wp546294"> </a>
+</pre>
+  </div><a name="wp546296"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp546299"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp516967"></a>
+
+          <p class="pBody">hMem</p>
+        </td>
+
+        <td>
+          <a name="wp516969"></a>
+
+          <p class="pBody">Specifies the handle to the data to be converted (in file format)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516975"></a>
+
+          <p class="pBody"><code class="cCode">wInFormat</code></p>
+        </td>
+
+        <td>
+          <a name="wp516977"></a>
+
+          <p class="pBody">Specifies the format of the input file, or <code class="cCode">CV_AUTODTKT</code> (<code class="cCode">1020</code>) to automatically
+          detect the input format</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516983"></a>
+
+          <p class="pBody"><code class="cCode">dwLen</code></p>
+        </td>
+
+        <td>
+          <a name="wp516985"></a>
+
+          <p class="pBody">Specifies the length of the data to be converted (does not need to include the null on null-terminated data types). If you pass
+          <code class="cCode">0</code> for this parameter and <code class="cCode">CVT_LENGTH_IN</code> is not set, this function attempts to calculate the
+          proper length. For text formats (ASCII, ANSI, RTF) the actual string length is used. For other formats, <code class="cCode">GlobalLength</code> on
+          the <code class="cCode">hMem</code> is used, which may be slightly larger than the actual data length.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516991"></a>
+
+          <p class="pBody"><code class="cCode">wOutFormat</code></p>
+        </td>
+
+        <td>
+          <a name="wp516993"></a>
+
+          <p class="pBody">Specifies the desired output format</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp516999"></a>
+
+          <p class="pBody"><code class="cCode">wFlags</code></p>
+        </td>
+
+        <td>
+          <a name="wp517001"></a>
+
+          <p class="pBody">Can be zero or any combination of the following flags:</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517007"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp517009"></a>
+
+          <p class="pBody"><code class="cCode">CVT_NODEFAULTS</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517015"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp517017"></a>
+
+          <p class="pBody"><code class="cCode">CVT_NODISKGRAPHICS</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517023"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp517025"></a>
+
+          <p class="pBody"><code class="cCode">CVT_LENGTH_IN</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517031"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp517033"></a>
+
+          <p class="pBody"><code class="cCode">CVT_LENGTH_OUT</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517039"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp517041"></a>
+
+          <p class="pBody"><code class="cCode">CVT_PLEASEWAIT</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517047"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp517049"></a>
+
+          <p class="pBody"><code class="cCode">CVT_PLEASEWAIT</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517055"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp517057"></a>
+
+          <p class="pBody"><code class="cCode">CVT_WINO</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517063"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp517065"></a>
+
+          <p class="pBody"><code class="cCode">CVT_WINCV</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517071"></a>
+
+          <p class="pBody">&nbsp;</p>
+        </td>
+
+        <td>
+          <a name="wp517073"></a>
+
+          <p class="pBody"><code class="cCode">CVT_SKIPPREFIX</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517079"></a>
+
+          <p class="pBody"><code class="cCode">lpCvtInfo</code></p>
+        </td>
+
+        <td>
+          <a name="wp517081"></a>
+
+          <p class="pBody">Is always NULL</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517087"></a>
+
+          <p class="pBody"><code class="cCode">lpHOu</code></p>
+        </td>
+
+        <td>
+          <a name="wp517089"></a>
+
+          <p class="pBody">Specifies the pointer to the location in which to store the handle to the converted data</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp517095"></a>
+
+          <p class="pBody"><code class="cCode">lpOutLen</code></p>
+        </td>
+
+        <td>
+          <a name="wp517097"></a>
+
+          <p class="pBody">Specifies the pointer to the location in which to store the length of the converted data (not including any possible null
+          terminator)</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp546301"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp546305"></a>
+
+  <p class="pBody">If successful, this function returns zero along with a new global memory handle to the converted data (<code class="cCode">lpHOut</code>)
+  and the length of the data (<code class="cCode">lpOutLen</code>).</p><a name="wp546307"></a>
+
+  <p class="pBody">The output data always contains at least one null byte or word at the end so that text formats are properly null-terminated. The length that
+  is returned does not include this null.</p>
+</body>
+</html>

@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WPBBAR_THIRDPARTY structure</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WPBBAR_BUTTON.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="PIDBBM_BTN_DELETE.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Toolbars.html">Creating toolbars</a> : WPBBAR_THIRDPARTY
+        structure</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp553300"></a>
+
+  <h4 class="pHeading3">WPBBAR_THIRDPARTY structure</h4><a name="wp553302"></a>
+
+  <p class="pBody">The <code class="cCode">WPBBAR_THIRDPARTY</code> structure contains the handle to a toolbar window, a handle to the template (data store)
+  where the toolbar is stored, the name of the toolbar, and the data store ID of the toolbar.</p><a name="wp553304"></a>
+
+  <p class="pBody">The information in this structure is passed to a third-party DLL as the first parameter of the token generated when a toolbar is being
+  loaded (<code class="cCode">0xD40A</code>) by a WordPerfect application (see the PerfectFit WOAPI sample, <code class="cCode">MenuTB.C</code>). The token ID
+  is defined in SCWIN.H as <code class="cCode">BUTTONBAR_LOAD</code>. If you need to manipulate or change the toolbar after this token has passed through the
+  third-party interface, you should save the information in this structure.</p><a name="wp553306"></a>
+
+  <h5 class="pHeading4">Structure</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct{ <a name="wp553308"> </a>
+WORD dsidBBar; <a name="wp553310"> </a>
+LPWZ lpwzName; <a name="wp553312"> </a>
+HWND hwnd; <a name="wp553314"> </a>
+HDS hds;} WPBBAR_THIRDPARTY, FAR *PWPBBAR_THIRDPARTY; <a name="wp553316"> </a>
+</pre>
+  </div><a name="wp553318"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp553321"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp523900"></a>
+
+          <p class="pBody"><code class="cCode">dsidBBar</code></p>
+        </td>
+
+        <td>
+          <a name="wp523902"></a>
+
+          <p class="pBody">Data store ID of toolbar. Used internally by PerfectFit and WordPerfect applications.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523908"></a>
+
+          <p class="pBody"><code class="cCode">lpwzName</code></p>
+        </td>
+
+        <td>
+          <a name="wp523910"></a>
+
+          <p class="pBody">Toolbar name (in <code class="cCode">WORD</code> string format)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523916"></a>
+
+          <p class="pBody"><code class="cCode">hwndBBar</code></p>
+        </td>
+
+        <td>
+          <a name="wp523918"></a>
+
+          <p class="pBody">Handle to the toolbar window. This window handle should be used when referencing a specific toolbar. Multiple toolbars can be
+          displayed at any given time, so the Windows API <code class="cCode">FindWindow(&nbsp;)</code> function is not be a reliable method for getting the
+          handle to the toolbar window.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp523924"></a>
+
+          <p class="pBody"><code class="cCode">hds</code></p>
+        </td>
+
+        <td>
+          <a name="wp523926"></a>
+
+          <p class="pBody">Handle to the template (data store) where the toolbar resource resides. This is used when saving the toolbar.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

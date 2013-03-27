@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProInputDouble function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="User_interface_functions_added_in_Corel_Quattro_Pro_1.html"><img alt="Previous Document" border="0" src="images/prev.gif" width=
+      "18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProInputFilename_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "User_interface_functions_added_in_Corel_Quattro_Pro_1.html">User-interface functions added in Quattro Pro 1</a> : QProInputDouble function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp560476"></a>
+
+  <h4 class="pHeading3">QProInputDouble function</h4><a name="wp560478"></a>
+
+  <p class="pBody">This function prompts the user to enter a number. This function does not support the input of calculated values (<code class=
+  "cCode">"1+2"</code>, <code class="cCode">@RAND</code>, and so on). The user is required to input the value within the given inclusive range. This function
+  calls itself until it gets a value within the specified range.</p><a name="wp560480"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL QProInputDouble(<a name="wp560482"> </a>
+LPSTR  Prompt,<a name="wp560484"> </a>
+Double  *pDouble,<a name="wp560486"> </a>
+Double  Lower,<a name="wp560488"> </a>
+Double  Upper,<a name="wp560490"> </a>
+BOOL  StartBlanked);<a name="wp560492"> </a>
+</pre>
+  </div><a name="wp560494"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp560497"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp528668"></a>
+
+          <p class="pBody"><code class="cCode">Prompt</code></p>
+        </td>
+
+        <td>
+          <a name="wp528670"></a>
+
+          <p class="pBody">Specifies the string with which to prompt the user</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528676"></a>
+
+          <p class="pBody"><code class="cCode">pDouble</code></p>
+        </td>
+
+        <td>
+          <a name="wp528678"></a>
+
+          <p class="pBody">Specifies the pointer to input/output value</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528684"></a>
+
+          <p class="pBody"><code class="cCode">Lower</code></p>
+        </td>
+
+        <td>
+          <a name="wp528686"></a>
+
+          <p class="pBody">Specifies the lower bound of acceptable input</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528692"></a>
+
+          <p class="pBody"><code class="cCode">Upper</code></p>
+        </td>
+
+        <td>
+          <a name="wp528694"></a>
+
+          <p class="pBody">Specifies the upper bound of acceptable input</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528700"></a>
+
+          <p class="pBody"><code class="cCode">StartBlanked</code></p>
+        </td>
+
+        <td>
+          <a name="wp528702"></a>
+
+          <p class="pBody">Specifies <code class="cCode">TRUE</code> if field should initially be blank</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp560499"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp560501"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, or it returns <code class="cCode">FALSE</code> otherwise (for example,
+  if an escape is entered).</p><a name="wp560503"></a>
+
+  <h5 class="pHeading4">Samples</h5><a name="wp560507"></a>
+
+  <p class="pBody">For an example, please see "<a href="Lesson_13_User_interface_functions.html#wp533413">Lesson 13: User interface functions</a><a href=
+  "Creating_QP_Add-in_DLLs.html#wp532095">" in the Quattro Pro Add-in DLL tutorial</a>.</p>
+</body>
+</html>

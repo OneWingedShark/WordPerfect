@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>DBMEndDialog function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {margin-left: 2em}
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="DBMDialogBoxParam2.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="DBMForceDlgRepaint.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Dialog_box_manager.html">Creating dialog boxes</a> : DBMEndDialog
+        function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp543909"></a>
+
+  <h4 class="pHeading3">DBMEndDialog function</h4><a name="wp543911"></a>
+
+  <p class="pBody">The <code class="cCode">DBMEndDialog</code> function must be called to dismiss all DBM dialog boxes (both modal and modeless). This function
+  is similar to the Windows API <code class="cCode">EndDialog(&nbsp;)</code> function. It is the only function that can be used to close DBM dialogs
+  boxes.</p><a name="wp543915"></a>
+
+  <p class="pBody">There is a working example of this function in each of the dialog-box procedures of the sample program.</p><a name="wp543917"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+VOID FAR PASCAL DBMEndDialog (<a name="wp543919"> </a>
+HWND hDlg,<a name="wp543921"> </a>
+int nExitCode );<a name="wp543923"> </a>
+</pre>
+  </div><a name="wp543925"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp543928"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp512758"></a>
+
+          <p class="pBody"><code class="cCode">hDlg</code></p>
+        </td>
+
+        <td>
+          <a name="wp512760"></a>
+
+          <p class="pBody">Specifies the handle of the dialog-box instance</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp512766"></a>
+
+          <p class="pBody"><code class="cCode">nExitCode</code></p>
+        </td>
+
+        <td>
+          <a name="wp512768"></a>
+
+          <p class="pBody">Specifies the value returned to the caller of <code class="cCode">DBMDialogBoxParam(&nbsp;)</code> or <code class=
+          "cCode">DBMDialogBoxParam2(&nbsp;)</code></p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp543930"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp543932"></a>
+
+  <p class="pBody">None</p><a name="wp543934"></a>
+
+  <h5 class="pHeading4">See also</h5>
+
+  <div class="pSmartList1 pSmartList1 c2">
+    <a name="wp543936"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMCreateDialogParam.html#wp543622">DBMCreateDialogParam function</a></li>
+      </ul>
+    </div><a name="wp1289827"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMCreateDialogParam2.html#wp543683">DBMCreateDialogParam2 function</a></li>
+      </ul>
+    </div><a name="wp1289830"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMDialogBoxParam.html#wp1291274">DBMDialogBoxParam function</a></li>
+      </ul>
+    </div><a name="wp1289833"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="DBMDialogBoxParam2.html#wp543850">DBMDialogBoxParam2 function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

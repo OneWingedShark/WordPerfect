@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WM_COMPAREITEM message</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="NSLB_QUERYPOPUP.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WPMSG_SET_NSLB_POPUP.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> :
+        WM_COMPAREITEM message</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp1301051"></a>
+
+  <h4 class="pHeading3">WM_COMPAREITEM message</h4><a name="wp1301052"></a>
+
+  <p class="pBody">The <code class="cCode">WM_COMPAREITEM</code> message is sent by an owner-drawn name search list box to the parent of the list box as a
+  request for it to perform a comparison.</p><a name="wp1301053"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp1301063"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1301056"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1301058"></a>
+
+          <p class="pBody">Is set to <code class="cCode">0</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1301060"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp1301062"></a>
+
+          <p class="pBody">Contains a long pointer to <code class="cCode">COMPAREITEMSTUCT</code> data structure (see Windows Programmer's Reference Vol. 3). A
+          long pointer to the search string is contained in <code class="cCode">itemData2</code>. The index of the item in the list box to make the comparison
+          with is contained in <code class="cCode">itemID1</code>. The value of <code class="cCode">itemData1</code> is undefined.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1301064"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp1301078"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp1301067"></a>
+
+          <p class="pBody"><code class="cCode">-1</code></p>
+        </td>
+
+        <td>
+          <a name="wp1301069"></a>
+
+          <p class="pBody">Item 1 sorts before the search string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1301071"></a>
+
+          <p class="pBody"><code class="cCode">0</code></p>
+        </td>
+
+        <td>
+          <a name="wp1301073"></a>
+
+          <p class="pBody">Item 1 matches the search string</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1301075"></a>
+
+          <p class="pBody"><code class="cCode">1</code></p>
+        </td>
+
+        <td>
+          <a name="wp1301077"></a>
+
+          <p class="pBody">Item sorts after the search string</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1301079"></a>
+
+  <p class="pBody"><code class="cCode">itemID2</code> of the <code class="cCode">COMPAREITEMSTRUCT</code> can be used to short-circuit the search. It is
+  initialized to <code class="cCode">1</code> before the message is sent. If it is greater than <code class="cCode">1</code> when the message is returned, then
+  the value in <code class="cCode">itemID2</code> is used as the item to select and no more comparisons are made.</p><a name="wp1301080"></a>
+
+  <p class="pBody">In the <code class="cCode">COMPAREITEMSTRUCT</code> that is received, the <code class="cCode">CtlType</code> field isset to <code class=
+  "cCode">ODT_LISTBOX</code> for <code class="cCode">WM_COMPAREITEM</code> messages sent to sort items in the list box. When the <code class=
+  "cCode">WM_COMPAREITEM</code> message is sent because of activation of the name search feature, the <code class="cCode">CtlType</code> field is set to
+  <code class="cCode">ODT_NAMESEARCHLISTBOX</code>.</p>
+</body>
+</html>

@@ -1,0 +1,51 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: E0 Tab Functions</h2>
+    <p><strong>Tab Group - Function 224 (0xE0)</strong></p>
+    <p>The Tab Group subfunctions have character orientation.</p>
+    <hr />
+    <h3>0xE000</h3>
+    <p><strong>Tab</strong></p>
+    <pre>
+&lt;224 (0xE0)&gt; &lt;tab definition shown below&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 0]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xE0&gt;
+
+
+&lt;tab definition&gt;
+  bit 0: 1 = soft type (tab, align, center, and so forth), (uses the tab set definition type)
+  bit 1: 1 = dot leader
+  bit 2: 1 = generic search (only used in search code, ignore bits 0 and 1 when comparing)
+  bits 3-7: tab type
+    00000 = back tab
+    00001 = table tab
+    00010 = left tab
+    00100 = bar tab
+    00110 = left indent
+    00111 = left/right indent
+    01000 = center on margins
+    01001 = center on current position
+    01010 = center tab
+    10000 = flush right
+    10010 = right tab
+    11010 = decimal tab
+  bits 6-7 are the alignment bits:
+    00 = no alignment
+    01 = center
+    10 = right alignment
+    11 = decimal alignment
+  bits 4-5 are not 00 if the tab type uses the tab table to get the next tab position.
+  bit 3 is used to make each type unique.
+</pre>
+</body>
+</html>

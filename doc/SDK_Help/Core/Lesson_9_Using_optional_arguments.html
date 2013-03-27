@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:32" />
+
+  <title>Lesson 9: Using optional arguments</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Lesson_8_Using_strings.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Lesson_10_Example_of_an_IMPURE_custom_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Creating_QP_Add-in_DLLs.html">Creating Quattro Pro Add-in DLLs</a> : Lesson 9: Using optional arguments</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp532987"></a>
+
+  <h3 class="pHeading2">Lesson 9: Using optional arguments</h3><a name="wp532989"></a>
+
+  <p class="pBody">Before beginning this lesson, do the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp532991"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Load the qshell.cpp file into your program editor.</li>
+      </ul>
+    </div><a name="wp532993"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Save qshell.cpp as lesson09.cpp in your data folder.</li>
+      </ul>
+    </div>
+  </div><a name="wp532995"></a>
+
+  <p class="pBody">Optional arguments in the custom function <code class="cCode">DAY2</code> give the user a way to define which day is the first day of the
+  week. The first argument is <code class="cCode">1</code> to <code class="cCode">7</code>. If there is a second argument, it is <code class="cCode">1</code>
+  or <code class="cCode">2</code>.</p><a name="wp1270516"></a>
+
+  <h5 class="pHeading4">Step 1</h5><a name="wp532997"></a>
+
+  <p class="pBody">Replace <code class="cCode">DUMMY</code> with <code class="cCode">DAY2</code> in the <code class="cCode">SelfDefStructure</code> of the
+  qshell.cpp file. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532999"> </a>
+// Quattro Pro prescribed header (and other overhead)<a name="wp533001"> </a>
+//===============================================================<a name="wp533003"> </a>
+SelfDefStructure MyFuncs[] = {<a name="wp533005"> </a>
+{<a name="wp533007"> </a>
+"PURE asciiz PASCAL DAY2(OAHandle)", // Function Command <a name="wp533009"> </a>
+(FarProc)&amp;DAY2, // Pointer to _exported function <a name="wp533011"> </a>
+"Help", // Help Line (samples use Help) <a name="wp533013"> </a>
+"DAY2" // English name (match name above) <a name="wp533015"> </a>
+}, <a name="wp533017"> </a>
+NULL // Always null terminate the list! <a name="wp533019"> </a>
+};<a name="wp533021"> </a>
+</pre>
+  </div><a name="wp533025"></a>
+
+  <p class="pBody"><code class="cCode">OAhandle</code> is the trigger to accept optional values. For information on <code class="cCode">ProcPrototype</code>,
+  see "<a href="Structures_types_enums.html#wp1271647">Understanding structures, types, and enumerations</a>."</p><a name="wp1270545"></a>
+
+  <h5 class="pHeading4">Step 2</h5><a name="wp533027"></a>
+
+  <p class="pBody">Now you must prototype the function in the DLL. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533029"> </a>
+// Add-In function prototypes<a name="wp533031"> </a>
+//===============================================================<a name="wp533033"> </a>
+LPSTR Exported DAY2(OAHandle hOA);<a name="wp533035"> </a>
+</pre>
+  </div><a name="wp533037"></a>
+
+  <p class="pBody">Now you must tell the DLL what to do when <code class="cCode">DAY2</code> is called.</p><a name="wp533039"></a>
+
+  <h5 class="pHeading4">Step 3</h5><a name="wp1270555"></a>
+
+  <p class="pBody">Change the main function code area to appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533041"> </a>
+// MAIN FUNCTION CODE<a name="wp533043"> </a>
+//===============================================================<a name="wp533045"> </a>
+char *days[] = {<a name="wp533047"> </a>
+"Sunday", <a name="wp533049"> </a>
+"Monday", <a name="wp533051"> </a>
+"Tuesday", <a name="wp533053"> </a>
+"Wednesday", <a name="wp533055"> </a>
+"Thursday", <a name="wp533057"> </a>
+"Friday", <a name="wp533059"> </a>
+"Saturday", <a name="wp533061"> </a>
+"Sunday" <a name="wp533063"> </a>
+}; <a name="wp533065"> </a>
+LPSTR Exported DAY2(OAHandle hOA)<a name="wp533067"> </a>
+{<a name="wp533069"> </a>
+LPSTR st; <a name="wp533071"> </a>
+int args = QProPureGetOptValueCount(hOA); <a name="wp533073"> </a>
+int x = (int)QProPureGetOptNumber(hOA,0); <a name="wp533075"> </a>
+int y = (int)QProPureGetOptNumber(hOA,1); <a name="wp533077"> </a>
+if (args == 2) <a name="wp533079"> </a>
+x+= (y - 1); <a name="wp533081"> </a>
+if (x &lt;1 || x&gt; 7) <a name="wp533083"> </a>
+st = "Invalid Entry"; <a name="wp533085"> </a>
+else <a name="wp533087"> </a>
+st = days[x-1]; <a name="wp533089"> </a>
+return st; <a name="wp533091"> </a>
+}<a name="wp533093"> </a>
+</pre>
+  </div><a name="wp533095"></a>
+
+  <p class="pBody"><code class="cCode">QproPureGetOptValueCount</code> gets the number of items in the list.</p><a name="wp533097"></a>
+
+  <p class="pBody"><code class="cCode">X = QProPureGetOptNumber</code> gets the first (<code class="cCode">0</code>) arguments value.</p><a name=
+  "wp533099"></a>
+
+  <p class="pBody"><code class="cCode">Y = QProPureGetOptNumber</code> gets the second (<code class="cCode">1</code>) arguments value.</p><a name=
+  "wp533101"></a>
+
+  <p class="pBody"><code class="cCode">Invalid Entry</code> is the return if the number is not <code class="cCode">1</code> to <code class=
+  "cCode">7</code>.</p><a name="wp1270605"></a>
+
+  <h5 class="pHeading4">Step 4</h5><a name="wp533103"></a>
+
+  <p class="pBody">Save this file as lesson09.cpp.</p><a name="wp533105"></a>
+
+  <h5 class="pHeading4">Step 5</h5><a name="wp1270609"></a>
+
+  <p class="pBody">Create your custom function. Refer to your compiler documentation for further information on making a DLL.</p><a name="wp1270616"></a>
+
+  <h5 class="pHeading4">Step 6</h5><a name="wp533107"></a>
+
+  <p class="pBody">Start Quattro Pro and type <code class="cCode">@LESSON09.DAY2(1)</code> in any cell. The string <code class="cCode">"Sunday"</code> should
+  appear in the cell.</p><a name="wp1270641"></a>
+
+  <p class="pBody">Type <code class="cCode">@LESSON09.DAY2(1,2)</code> in any cell. The string <code class="cCode">"Monday"</code> should appear in the
+  cell.</p>
+</body>
+</html>

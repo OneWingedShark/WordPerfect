@@ -1,0 +1,82 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: D2 Column Functions</h2>
+    <p><strong>Column Group - Function 210 (0xD2)</strong></p>
+    <p>The Column Group subfunctions have column orientation.</p>
+    <hr />
+    <h3>0xD200</h3>
+    <p><strong>Left Margin Set</strong></p>
+    <pre>
+&lt;210 (0xD2)&gt; &lt;0 (0x00)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[ left margin (WPU)] distance from left edge of paper to text
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD2&gt;
+</pre>
+    <hr />
+    <h3>0xD201</h3>
+    <p><strong>Right Margin Set</strong></p>
+    <pre>
+&lt;210 (0xD2)&gt; &lt;1 (0x01)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information = 2]
+[ right margin (WPU)] distance from right edge of paper to text
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD2&gt;
+</pre>
+    <hr />
+    <h3>0xD202</h3>
+    <p><strong>Define Text Columns</strong></p>
+    <pre>
+&lt;210 (0xD2)&gt; &lt;2 (0x02)&gt; [size = variable] &lt;flags = 0&gt;
+[size of non-deletable information]
+&lt;column type&gt;
+  bits 0-1:
+    0 = newspaper
+    1 = newspaper with vertical balance
+    2 = parallel
+    3 = parallel with protect
+  Bit 1 can be used to determine if the columns are newspaper or parallel.
+{spacing between rows (WPSP)}
+&lt;number of columns (0-24)&gt;  0 or 1 = columns off
+The following exist only if number of columns &gt;  1, and is repeated for each column. 
+The width between columns information does not exist for the last column:
+  &lt;column n definition&gt;
+    bit 0: 0 = fixed point value (WPFP),
+           1 = fixed width (WPU)
+    bit 1 is only valide if bit zero is set
+    bit 1: 0 = (HTML) widths are pixel widths
+        1 = (HTML) widths are percentages
+  [column n width (WPFP or WPU)]
+  &lt;width between columns n and n+1 definition&gt;
+    bit 0: 0 = fixed point value (WPFP),
+    1 = fixed width (WPU)
+  [width between columns n and n+1 (WPFP or WPU)]
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD2&gt;
+
+If WPFP, column width values are the percentage of the remaining available width on
+the page after margin widths and spaces between columns are subtracted from the total
+page count.
+</pre>
+    <hr />
+    <h3>0xD203</h3>
+    <p><strong>Column Border</strong></p>
+    <p>Same format as Page Border function 209 (0xD1) subfunction 16 (0x10).</p>
+    <pre>
+&lt;210 (0xD2)&gt; &lt;3 (0x03)&gt; [size = variable] &lt;flags=PRFXID&gt;
+..
+..
+..
+[size] &lt;0xD2&gt;
+</pre>
+</body>
+</html>

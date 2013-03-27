@@ -1,0 +1,643 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2><a name="Overview"></a>Variable-Length Multi-Byte Functions</h2>
+    <p>The codes for variable-length multi-byte functions [208 (0xD0) through 239 (0xEF)]
+    appear twice each time the function is invoked. The first occurrence is the begin gate,
+    and the second occurrence is the end gate. In addition, each begin gate is followed
+    by a subgroup byte, a value of size short (16 bits), and a function flags byte. If the
+    flags byte indicates that there is prefix data associated with the function, a number
+    of prefix ID bytes come next, followed by the prefix index-ID words. Next is a word
+    (16 bits) showing the size of the non-deletable information. Any non-deletable function
+    data is then included, followed by any deletable data. The deletable data format is
+    not documented. It pertains to formatter information, can change at any time, and is
+    rewritten each time a document is retrieved into WordPerfect. You can skip over deletable
+    data by using the size word to move to the next function code. Following the deletable
+    data are a size word and the end gate. The size of the function is the total size of
+    the function including gates. Here is a textual representation of the variable-length
+    function code structure:</p>
+    <p>The structure of variable-length functions is represented as follows (indented fields
+    may or may not exist depending on the flags field):</p>
+    <pre>
+&lt;group&gt;
+&lt;subgroup&gt;
+[size]
+&lt;flags byte&gt;
+&lt;number of prefix IDs&gt;
+  [prefix ID 1]
+  ..
+  [prefix ID n]
+[size of non-deletable information]
+&lt;non-deletable information&gt; x non-deletable size
+&lt;undocumented deletable data&gt; x ?
+[size]
+&lt;group&gt;
+
+The prefix ID information will exist only if bit 7 of the flags byte is set (see <em>
+    Flags Byte Information</em> below). Be aware that prefix ID information may be added to functions
+at any time. The undocumented deletable data may or may not appear in a file created
+by WordPerfect. Developers should never create a file with deletable data. It is noted
+in the documentation as a signal that an indeterminate length of unspecified data may
+appear in existing files and must be skipped. Be aware that functions which do not
+currently contain deletable data may be modified at any time to include deletable data.
+</pre>
+    <p><strong>Flags Byte Information</strong></p>
+    <p>The function flags byte is defined as follows:<br />
+    bits 0-2: 0 = not a reverted, paired, or encased function.</p>
+    <pre>
+  1 = Simple paired function.  Begin/On codes are even subfunctions and End/Off codes are the next subfunction.
+  2 = Encased/paired function.  Begin/On codes are mod 4=0 subfunctions (multiple-of-4 subfunctions) followed
+immediately by Begin/Off, End/On and End/Off codes numbered consecutively.
+  3 = Encased function.  Begin/On codes are even subfunctions and End/Off codes are the next odd subfunction.
+  4 = reserved
+  5 = reserved
+  6 = revert function off.
+  7 = revert function on.
+bit 3: reserved - 8 (0x08)
+bit 4: reserved - 16 (0x10)
+bit 5: reserved - 32 (0x20)
+bit 6: 1 = ignore function - 64 (0x40) this function is inactive due to the context of a function enclosing it.
+bit 7: 1 = prefix IDs follow - 128 (0x80) represented as PRFXID
+</pre>
+    <h2><a name="EOL_Functions"></a>Variable-Length Multi-Byte Functions: D0 EOL Functions</h2>
+    <p><b>Function 208 (0xD0) = End-of-Line Group</b></p>
+    <p>The End-of-Line Group subfunctions have EOL orientation.</p>
+    <p>Subfunctions 0 to 28 (0x1C) of this group are interchangeable with the single-byte
+    function codes 180 (0xB4) to 207 (0xCF). WP 7.0 uses the deletable area of the multi-byte
+    functions to store formatter data and will change between corresponding codes as needed.
+    A program reading WP 7.0 documents must handle both the multi-byte and single-byte functions.
+    A program writing documents should use only the single-byte function codes.</p>
+    <p>An additional level of subfunctions is defined for the End-of-Line function group
+    which will be called <em>embedded subfunctions</em>. These embedded subfunctions will
+    be contained between the begin and end gates of an End-of-Line group subfunction. They
+    are not used with any other functions. See <em>End-of-Line Group Non-Deletable Embedded
+        Subfunctions</em>below for definitions of the individual embedded subfunctions.
+    Deletable embedded subfunctions exist but are not documented. An application programmer
+    only needs to be aware of the deletable data in order to skip over it in existing documents.
+    Since the corresponding single-byte functions are used to create a document, an application
+    never generates functions in this group.<br />
+    </p>
+    <p><strong>Subfunctions: 0 (0x00) - 28 (0x1C)</strong></p>
+    <table>
+        <tr valign="top">
+            <td width="22%">
+                <strong>Subfunction</strong></td>
+            <td width="43%">
+                <strong>Description</strong></td>
+            <td width="34%">
+                <strong>Conversion/Search mappings</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0 (0x00)</td>
+            <td>
+                Beginning of File</td>
+            <td>
+                Ignore</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1 (0x01)</td>
+            <td>
+                Soft End of Line</td>
+            <td>
+                Space</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2 (0x02)</td>
+            <td>
+                Soft End of Column</td>
+            <td>
+                Space</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3 (0x03)</td>
+            <td>
+                Soft EOC at EOP</td>
+            <td>
+                Space</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4 (0x04)</td>
+            <td>
+                Hard End of Line</td>
+            <td>
+                Hard Return</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5 (0x05)</td>
+            <td>
+                Hard EOL at EOC</td>
+            <td>
+                Hard Return</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6 (0x06)</td>
+            <td>
+                Hard EOL at EOP</td>
+            <td>
+                Hard Return</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7 (0x07)</td>
+            <td>
+                Hard End of Column</td>
+            <td>
+                Hard End of Column</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8 (0x08)</td>
+            <td>
+                Hard EOC at EOP</td>
+            <td>
+                Hard End of Column</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9 (0x09)</td>
+            <td>
+                Hard End of Page</td>
+            <td>
+                Hard End of Page</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                10 (0x0A)</td>
+            <td>
+                Table Cell</td>
+            <td>
+                Table Cell</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                11 (0x0B)</td>
+            <td>
+                Table Row and Cell</td>
+            <td>
+                Table Row</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                12 (0x0C)</td>
+            <td>
+                Table Row at EOC</td>
+            <td>
+                Table Row</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                13 (0x0D)</td>
+            <td>
+                Table Row at EOP</td>
+            <td>
+                Table Row</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                14 (0x0E)</td>
+            <td>
+                Table Row at Hard EOC</td>
+            <td>
+                Hard Table Row</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                15 (0x0F)</td>
+            <td>
+                Table Row at Hard EOC at EOP</td>
+            <td>
+                Hard Table Row</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                16 (0x10)</td>
+            <td>
+                Table Row at Hard EOP</td>
+            <td>
+                Hard Table Row</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                17 (0x11)</td>
+            <td>
+                Table Off</td>
+            <td>
+                Table Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                18 (0x12)</td>
+            <td>
+                Table Off at EOC</td>
+            <td>
+                Table Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                19 (0x13)</td>
+            <td>
+                Table Off at EOC at EOP</td>
+            <td>
+                Table Off</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                20 (0x14)</td>
+            <td>
+                Deletable Soft EOL</td>
+            <td>
+                Space</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                21 (0x15)</td>
+            <td>
+                Deletable Soft EOC</td>
+            <td>
+                Space</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                22 (0x16)</td>
+            <td>
+                Deletable Soft EOC at EOP</td>
+            <td>
+                Space</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                23 (0x17)</td>
+            <td>
+                Deletable Hard EOL</td>
+            <td>
+                Hard Return</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                24 (0x18)</td>
+            <td>
+                Deletable Hard EOL at EOC</td>
+            <td>
+                Hard Return</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                25 (0x19)</td>
+            <td>
+                Deletable Hard EOL at EOP</td>
+            <td>
+                Hard Return</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                26 (0x1A)</td>
+            <td>
+                Deletable Hard EOC</td>
+            <td>
+                Hard End of Column</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                27 (0x1B)</td>
+            <td>
+                Deletable Hard EOC at EOP</td>
+            <td>
+                Hard End of Column</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                28 (0x1C)</td>
+            <td>
+                Deletable Hard EOP</td>
+            <td>
+                Hard End of Page</td>
+        </tr>
+    </table>
+    <p>The structure for the End-of-Line function group is shown below. This format is unique
+    in that the non-deletable data area also contains deletable data.</p>
+    <pre>
+&lt;208 (0xD0)&gt; &lt;0 to 28 (0x1C)&gt; [size = variable] &lt;flags = 0 or PRFXID&gt;
+</pre>
+    <p>If the prefix ID bit is set, the following information exists:</p>
+    <pre>
+&lt;number of prefix IDs&gt;
+  [cell top line template PID (type=0x42)]
+  [cell left line template PID (type=0x42)]
+  [cell bottom line template PID (type=0x42)]
+  [cell right line template PID (type=0x42)]
+  [cell fill template PID (type=0x43)]
+[size of deletable and non-deletable subfunctions]
+[size of deletable subfunction data]
+&lt;deletable subfunctions&gt; x ?
+&lt;non-deletable subfunctions&gt; x ?  may be absent if no actions are performed
+[size] &lt;0xD0&gt;
+</pre>
+    <p><strong>End-of-Line Group Non-Deletable Embedded Subfunctions</strong></p>
+    <p>The End-of-Line Group embedded subfunctions have EOL orientation.</p>
+    <p>The End-of-Line Group non-deletable embedded subfunctions are only found within the
+    non-deletable portion of the End-of-Line Group functions: function 208 (0xD0) including
+    subfunctions 0 (0x00) through 28 (0x1C). Some of the embedded subfunctions described
+    below are fixed length and some are variable length.</p>
+    <hr />
+    <h3>0xD080</h3>
+    <p><strong>Row Information Embedded Subfunction</strong></p>
+    <pre>
+&lt;128 (0x80)&gt; (size = 5)
+&lt;row flags&gt;
+  bit 0: 
+    0 = multi-line text (wrapping)
+    1 = single line of text (no wrap)
+  bit 1: 
+    0 = automatic height
+    1 = fixed height
+  bit 2: 
+    0 = not a header row
+    1 = this is a header row
+[row height if fixed (WPU)]
+&lt;128 (0x80)&gt;
+</pre>
+    <hr />
+    <h3>0xD081</h3>
+    <p><strong>New Cell Formula Embedded Subfunction</strong></p>
+    <pre>
+&lt;129 (0x81)&gt; [size = variable]
+[length of formula]
+&lt;tokenized formula&gt; x length of formula see <em>Table Formulas</em> for list of formula codes
+[length]
+&lt;129 (0x81)&gt;
+</pre>
+    <hr />
+    <h3>0xD082</h3>
+    <p><strong>New Top Gutter Spacing Embedded Subfunction</strong></p>
+    <pre>
+&lt;130 (0x82)&gt; (size = 4)
+[new top gutter spacing (WPU)]
+&lt;130 (0x82)&gt;
+</pre>
+    <hr />
+    <h3>0xD083</h3>
+    <p><strong>New Bottom Gutter Spacing Embedded Subfunction</strong></p>
+    <pre>
+&lt;131 (0x83)&gt; (size = 4)
+[new bottom gutter spacing (WPU)]
+&lt;131 (0x83)&gt;
+</pre>
+    <hr />
+    <h3>0xD084</h3>
+    <p><strong>Cell Information Embedded Subfunction</strong></p>
+    <pre>
+&lt;132 (0x84)&gt; (size = 9)
+&lt;flag&gt;
+  bit 0: 1 = use cell attributes
+  bit 1: 1 = use cell justification
+  bits 2-5: not used
+  bit 6: 1 = ignore in calculations
+  bit 7: 1 = cell is locked
+&lt;justification&gt;
+  bits 0-2: justification
+    0 = left
+    1 = full
+    2 = center
+    3 = right
+    4 = all (kinto waritsuke)
+    5 = decimal align
+&lt;alignment&gt;
+  bits 0-1: vertical alignment
+    0 = top
+    1 = center
+    2 = bottom
+    3 = full
+[attribute word 1]
+  bit 0: 1 = extra large
+  bit 1: 1 = very large
+  bit 2: 1 = large
+  bit 3: 1 = small print
+  bit 4: 1 = fine print
+  bit 5: 1 = superscript
+  bit 6: 1 = subscript
+  bit 7: 1 = outline
+  bit 8: 1 = italics
+  bit 9: 1 = shadow
+  bit 10: 1 = redline
+  bit 11: 1 = double underline
+  bit 12: 1 = bold
+  bit 13: 1 = strikeout
+  bit 14: 1 = underline
+  bit 15: 1 = small caps
+[attribute word 2]
+  bit 0: 1 = blink
+  bit 1: 1 = reverse video
+&lt;132 (0x84)&gt;
+</pre>
+    <hr />
+    <h3>0xD085</h3>
+    <p><strong>Cell Spanning Information Embedded Subfunction</strong></p>
+    <pre>
+&lt;133 (0x85)&gt; (size = 4)
+&lt;number of cells spanned horizontally&gt; bit 7 is set if spanned from left
+&lt;number of cells spanned vertically&gt; bit 7 is set if spanned from above
+&lt;133 (0x85)&gt;
+</pre>
+    <hr />
+    <h3>0xD086</h3>
+    <p><strong>Cell Fill Colors Embedded Subfunction</strong></p>
+    <pre>
+&lt;134 (0x86)&gt; (size = 10)
+&lt;foreground color (RGBS)&gt; x 4
+&lt;background color (RGBS)&gt; x 4
+&lt;134 (0x86)&gt;
+</pre>
+    <hr />
+    <h3>0xD087</h3>
+    <p><strong>Cell Line Color Embedded Subfunction</strong></p>
+    <pre>
+&lt;135 (0x87)&gt; (size = 6)
+&lt;color (RGBS)&gt; x 4
+&lt;135 (0x87)&gt;
+</pre>
+    <hr />
+    <h3>0xD088</h3>
+    <p><strong>Cell Number Type Embedded Subfunction</strong></p>
+    <pre>
+&lt;136 (0x88)&gt; (size = 5)
+[number type]
+  bits 0-3: number of digits to display after decimal point or date index information
+  bit 4: 1 = display with commas
+  bit 5: rounding
+    0 = use full precision in calculations
+    1 = use displayed precision
+  bits 6-7: negative numbers
+    0 = '-'  (use minus sign)
+    1 = ()  (use parentheses)
+    2 = CR/DR  (use credit/debit symbols)
+    3 = not defined
+  bits 8-11: standard formats
+    0 = general
+    1 = integer
+    2 = fixed
+    3 = percent
+    4 = currency
+    5 = accounting
+    6 = commas
+    7 = scientific
+    8 = date
+    9 = text
+  bit 12: 1 = text
+  bit 13: 1 = set currency symbol on
+  bits 14-15: notation
+    0 = floating point
+    1 = scientific
+    2 = fixed
+    3 = not defined
+&lt;currency type&gt;
+  bits 0-6: index of the desired currency, default = 0
+  bit 7: alignment
+&lt;currency type flags&gt;
+  bits 0-3: number of digits for decimal
+  bit 7:
+    0 = currency symbol after
+    1 = currency symbol before
+&lt;136 (0x88)&gt;
+</pre>
+    <hr />
+    <h3>0xD089</h3>
+    <p><strong>Cell Floating Point Number Embedded Subfunction</strong></p>
+    <pre>
+&lt;137 (0x89)&gt; (size = 11)
+&lt;IEEE  format floating point number&gt; x 8
+&lt;floating point source&gt; - Added in WP 7.0
+&lt;137 (0x89)&gt;
+</pre>
+    <p>The IEEE value is an 8-byte floating point value. The format of the 8 bytes is separated
+    into the following bit fields going from the high order bit to the low order bit.<br />
+    </p>
+    <p>bit 63: Sign bit. 0 = positive value, 1 = negative value</p>
+    <p>bits 62-52: Exponent [if exponent is 0x3FF, the value is 1 (fraction value)]. The
+    decimal point is to the left of bit 51, and to the right of bit 52 of the fractional
+    bits. If this value is non-zero, there is an imaginary bit 52 that is set to 1. If this
+    value is zero, the value for the floating point number is zero.</p>
+    <p>bits 51-0: Fractional value in base 2 number system. Binary values are used in the
+    following chart since they are base 2.<br />
+    </p>
+    <table border="1" width="50%" cellpadding="5">
+        <tr valign="top">
+            <td colspan="4" align="center" width="16%">
+                <strong>Floating Point Examples</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <strong>Sign Bit</strong></td>
+            <td width="29%">
+                <strong>Exponent Bits</strong></td>
+            <td width="23%">
+                <strong>Fraction Bits</strong></td>
+            <td width="30%">
+                <strong>Result</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1</td>
+            <td>
+                0x03FF</td>
+            <td>
+                100111b</td>
+            <td>
+                -1.100111b</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0</td>
+            <td>
+                0x03FE</td>
+            <td>
+                100111b</td>
+            <td>
+                .1100111b</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0</td>
+            <td>
+                0x0400</td>
+            <td>
+                100111b</td>
+            <td>
+                11.00111b</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1</td>
+            <td>
+                0x040A</td>
+            <td>
+                100111b</td>
+            <td>
+                -110011100000.0b</td>
+        </tr>
+    </table>
+    <br />
+    <p>If the exponent bits are non-zero, it is assumed that there is an extra bit set to
+    1 (imaginary bit 52) to the left bit 51 of the fractional value. If the exponent bits
+    are zero, the value for the floating point number is zero.</p>
+    <p>When you work on a computer that uses reverse-order format (Intel processor chips),
+    you need to reverse these 8 bytes to address the bits correctly.</p>
+    <p><strong>Explanation of the Result for the Last Example Above</strong></p>
+    <p>The fractional bits are as follows, moving from the highest-order fractional bit
+    to the lowest-order fractional bit:<br />
+    </p>
+    <pre>
+bit 51 = 1
+bit 50 = 0
+bit 49 = 0
+bit 48 = 1
+bit 47 = 1
+bit 46 = 1
+bits 45 -0 = 0
+</pre>
+    <p>This is the value 100111b. However, since the exponent value is non-zero there is
+    also an imaginary bit 52 that is set to 1. The value becomes 1100111. Depending on the
+    exponent, the decimal point floats right or left, adding zeros as needed. For the last
+    example the exponent is 0x040A. The decimal is placed 11 places to the right of bit
+    51, and the result becomes 110011100000.0b.</p>
+    <hr />
+    <h3>0xD08A</h3>
+    <p>Reserved</p>
+    <hr />
+    <h3>0xD08B</h3>
+    <p><strong>Cell Prefix Flag Embedded Subfunction</strong></p>
+    <pre>
+&lt;139 (0x8B)&gt; (size = 3)
+&lt;flags to indicate if default is zero or none&gt;
+&lt;139 (0x8B)&gt;
+</pre>
+    <hr />
+    <h3>0xD08C</h3>
+    <p><strong>Cell Recalculation Error Number Embedded Subfunction</strong></p>
+    <pre>
+&lt;140 (0x8C)&gt; (size = 3)
+&lt;recalculation error number&gt;
+&lt;140 (0x8C)&gt;
+</pre>
+    <hr />
+    <h3>0xD08D</h3>
+    <p><strong>Don't End a Paragraph Style for this Hard Return</strong></p>
+    <pre>
+&lt;141 (0x8D)&gt; (size = 1)
+</pre>
+</body>
+</html>

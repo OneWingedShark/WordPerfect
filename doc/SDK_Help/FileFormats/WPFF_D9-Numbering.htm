@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: D9 Set Number Functions</h2>
+    <p><strong>Numbering Method Group - Function 217 (0xD9)</strong></p>
+    <p>The Numbering Method Group subfunctions have character orientation.</p>
+    <p><strong>Subfunctions: 0 (0x00) - 9 (0x09)</strong></p>
+    <table border="1" width="93%" cellpadding="5">
+        <tr valign="top">
+            <td width="21%">
+                <strong>Subfunction</strong></td>
+            <td width="78%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0 (0x00)</td>
+            <td>
+                Set User-Defined Counter Numbering Mode</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1 (0x01)</td>
+            <td>
+                Set Box Numbering Mode</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2 (0x02)</td>
+            <td>
+                Set Page Numbering Mode</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3 (0x03)</td>
+            <td>
+                Set Secondary Page Numbering Mode</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4 (0x04)</td>
+            <td>
+                Set Chapter Numbering Mode</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5 (0x05)</td>
+            <td>
+                Set Volume Numbering Mode</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6 (0x06)</td>
+            <td>
+                Set Paragraph Numbering Mode</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7 (0x07)</td>
+            <td>
+                Set Footnote Numbering Mode</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8 (0x08)</td>
+            <td>
+                Set Endnote Numbering Mode</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9 (0x09)</td>
+            <td>
+                Set Line Numbering Mode</td>
+        </tr>
+    </table>
+    <br />
+    <p><code>&lt;217 (0xD9)&gt; &lt;subfunction&gt; [size = variable] &lt;flags = 0 or PRFXID&gt;</code></p>
+    <p>If the prefix ID bit is set, the following information exists:</p>
+    <pre>  &lt;number of prefix IDs = 1&gt;
+  [counter PID (type=0x11)]
+[size of non-deletable information = 2]
+&lt;level number (0 - n )&gt; 
+&lt;numbering method&gt;
+  0 = Arabic numbers
+  1 = lowercase letters (a-z)
+  2 = uppercase letters (A-Z)
+  3 = lowercase Roman
+  4 = uppercase Roman
+  5 = character string (only valid for footnotes and endnotes)
+  6 = leading-zero Arabic numbers for Asia:
+  64 (0x40) = 2-byte Arabic
+  65 (0x41) = 2-byte lowercase letters (a-z)
+  66 (0x42) = 2-byte uppercase letters (A-Z)
+  67 (0x43) = 2-byte lowercase Roman
+  68 (0x44) = 2-byte uppercase Roman
+  69 (0x45) = 2-byte character string (only valid for footnotes and endnotes)
+  70 (0x46) = 2-byte leading zero Arabic numbers
+  128 (0x80) = kanji 1 (ten = ichi maru)
+  129 (0x81) = 1-byte katakana (aiueo)
+  130 (0x82) = 2-byte katakana (aiueo)
+  131 (0x83) = 1-byte katakana (iroha)
+  132 (0x84) = 2-byte katakana (iroha)
+  133 (0x85) = available
+  134 (0x86) = standard kanji with leading-zero
+  192 (0xC0) = kanji 2 (ten = juu)</pre>
+    <p>If the numbering method is character string, the following information exists:</p>
+    <pre>  [character string] x ?
+&lt;undocumented deletable data&gt; x ?
+[size] &lt;0xD9&gt;
+</pre>
+</body>
+</html>

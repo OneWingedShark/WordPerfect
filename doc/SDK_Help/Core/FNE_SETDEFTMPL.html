@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>FNE_SETDEFTMPL message</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="FNE_SETDEFDIR.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="NSLB_CANCELPOPUP.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="Custom_controls.html">Creating custom controls</a> :
+        FNE_SETDEFTMPL message</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp541056"></a>
+
+  <h4 class="pHeading3">FNE_SETDEFTMPL message</h4><a name="wp541058"></a>
+
+  <p class="pBody">The <code class="cCode">FNE_SETDEFTMPL</code> message sets the default filename template for the files to be displayed in the files list box
+  of the browsing dialog box, if the button is clicked to bring up the browsing dialog box. This message is available to filename entry controls.</p><a name=
+  "wp541060"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp541063"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp509851"></a>
+
+          <p class="pBody"><code class="cCode">wParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp509853"></a>
+
+          <p class="pBody">Must be set to <code class="cCode">0</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp509861"></a>
+
+          <p class="pBody"><code class="cCode">lParam</code></p>
+        </td>
+
+        <td>
+          <a name="wp509863"></a>
+
+          <p class="pBody">Acts as a far pointer to a string containing the default template. The default template is of the form of a description followed by
+          a quoted wildcard template in parentheses (for example, <code class="cCode">executable files *.exe</code>).</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp541065"></a>
+
+  <p class="pBody">Multiple wildcards can be specified. Separate multiple wildcards with a space (for example, <code class="cCode">WordPerfect macro files
+  *.wcm or *.wpm</code>).</p><a name="wp541067"></a>
+
+  <p class="pBody">If <code class="cCode">FNE_SETDEFTMPL</code> is not sent, the default template is <code class="cCode">All Files (*.*)</code>.</p>
+</body>
+</html>

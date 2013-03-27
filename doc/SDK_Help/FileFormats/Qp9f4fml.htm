@@ -1,0 +1,2633 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>Quattro Pro File Format</title>
+</head>
+<body>
+    <h1>Quattro Pro File Format</h1>
+    <p><a href="qpff_Index.htm">Back to main page</a></p>
+    <h2>Formula Syntax and Opcodes</h2>
+    <p>A spreadsheet formula in Quattro Pro appears in a <i>formula record</i>, with a record
+    type of 16. Quattro Pro uses reverse Polish notation for its formulas, first stating
+    the operands and then the operator.</p>
+    <p>Quattro Pro places references to cells and blocks at the end of the formula, in the
+    order they normally would appear in the formula. The example in <a href="#Example_Cells_and_Formulas">
+        Example Cells and Formulas</a> later in this section shows the formula A1*A2. The
+    first and second opcodes tell Quattro Pro that they are references to cells; the third
+    opcode tells it that one cell is multiplied by the other; the fourth opcode tells it
+    that the formula has reached the end. Only then does Quattro Pro state the two cell
+    references in the order in which they appear in the formula: <i>ref1</i> for the A1
+    reference and <i>ref2</i> for the A2 reference.</p>
+    <p>See the table <a href="#Formula_Opcodes">Formula Opcodes</a> later in this section
+    for a list of opcodes for references, arithmetic, and @function operators.</p>
+    <hr />
+    <h3>The Formula Record</h3>
+    <p>The Quattro Pro Formula record has the following structure.</p>
+    <pre>
+[record type = 16 (0x0010)]
+[body length = variable]
+&lt;column&gt; (0-18277)
+&lt;page&gt; not used
+&lt;row&gt; (0-999999)
+[attributes]
+  bits 0-2: reserved
+  bits 3-15: attribute ID.  This is an index to an attribute (cell
+properties) in an attribute table of the saved notebook.
+[value] formula value after previous evaluation.  (This is a standard,
+8-byte floating-point number of type double)
+[state] formula state
+[length] length of formula (maximum of 2048 characters)
+[reference begin] beginning position of cell references used in the
+formula (these appear in order and in-line after the opcode and
+operators themselves).
+&lt;formula&gt; x ? formula byte codes
+</pre>
+    <p>The first six bytes (0-5) are the column, page, row, and cell attributes of the cell
+    that holds the formula. Bytes 6-13 is an 8-byte IEEE floating-point value that holds
+    the most recent evaluation of the formula.</p>
+    <table border="1" cellpadding="5" width="44%">
+        <tr valign="top">
+            <td colspan="2" width="11%">
+                Special values if exponent = 0x7FF0</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0</td>
+            <td width="88%">
+                ERR</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1</td>
+            <td>
+                the result is string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3</td>
+            <td>
+                the result is a long integer in the first 4 bytes</td>
+        </tr>
+    </table>
+    <p>After the float are two bytes which hold the formula state. The non-zero formula
+    state values are:</p>
+    <ul>
+    <li>Constant 0x0008 formula holds a constant</li>
+    </ul>
+    <ul>
+    <li>Volatile 0x0010 formula holds a volatile function</li>
+    </ul>
+    <ul>
+    <li>Array 0x0100 formula is an array formula</li>
+    </ul>
+    <ul>
+    <li>DLL 0x0200 formula contains functions from a DLL</li>
+    </ul>
+    <p>Bytes 16 and 17 of the formula record hold the length of the formula, including the
+    references at its end (if any). A formula can be a maximum of 2048 bytes long.</p>
+    <p>Bytes 18 and 19 hold a 0-based offset to the references used in the formula, from
+    the beginning byte of the formula.</p>
+    <p>Byte 20 begins the formula.</p>
+    <p>Cell references can be relative or absolute, indicated by bit settings within the
+    reference. A cell reference is 10 bytes long, organized as follows:</p>
+    <pre>
+[notebook]
+&lt;column&gt;
+&lt;page&gt;
+[row with relative bits]
+  bit 31: 1 = page is relative
+  bit 30: 1 = column is relative
+  bit 29: 1 = row is relative
+  bits 0-19: row index  (bits 20-28 unused, since 20 bits can hold the row max of 1,000,000)
+</pre>
+    <p>Block references can also be relative or absolute, indicated by bit settings. A block
+    reference is 18 bytes long, organized as follows:</p>
+    <pre>
+[notebook index with block type 0x1000]
+&lt;first column&gt;
+&lt;first page&gt;
+[first row with relative bits]
+&lt;last column&gt;
+&lt;last page&gt;
+[last row with relative bits]
+</pre>
+    <p>Quattro Pro uses twos-complement arithmetic to express relative references. Note
+    that bits 31-29 of the row index signify the relative page, column, and row (respectively),
+    and that the maximum row distance of 1,000,000 rows requires bits 19-0 to represent
+    it. In twos-complement arithmetic, Bytes 6 through 9 in a cell reference structure can
+    represent absolute references to 1,000,000, but they can represent negative relative
+    references for half that distance in either direction (positive or negative).<br />
+    </p>
+    <hr />
+    <h3><a name="Example_Cells_and_Formulas">Example Cells and Formulas</a></h3>
+    <p>As an example, this section parses part of a .WB2 file containing two integer value
+    cells and two formulas organized as follows.</p>
+    <table border="1" cellpadding="5" width="30%">
+        <tr valign="top">
+            <td width="27%">
+                <b>Cell&nbsp;</b></td>
+            <td width="72%">
+                <b>Formula or Value</b>&nbsp;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                A1</td>
+            <td>
+                2</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                A2</td>
+            <td>
+                3</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                A3</td>
+            <td>
+                +A1*A2</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                A4</td>
+            <td>
+                @sum(A1-A3)</td>
+        </tr>
+    </table>
+    <p>This results in a four-record structure in the file: two integer records and two
+    formula records.</p>
+    <p>Starting at Offset 475:</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr valign="top">
+            <td colspan="12">
+                <i>400 +</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <i>75</i></td>
+            <td>
+                <i>76</i></td>
+            <td>
+                <i>77</i></td>
+            <td>
+                <i>78</i></td>
+            <td>
+                <i>79</i></td>
+            <td>
+                <i>80</i></td>
+            <td>
+                <i>81</i></td>
+            <td>
+                <i>82</i></td>
+            <td>
+                <i>83</i></td>
+            <td>
+                <i>84</i></td>
+            <td>
+                <i>85</i></td>
+            <td>
+                <i>86</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <b>13</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>8</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>2</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>2</b></td>
+            <td>
+                <b>0</b></td>
+        </tr>
+    </table>
+    <p>Cell A1 begins at byte offset 475, and is defined as an <i>Integer Cell</i> (<b>13</b>).
+    Using the definition for record type <b>13</b> we see that A1 has a value of 2. Cell
+    A2 begins at byte offset 487, and continues into the next line of bytes.</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr valign="top">
+            <td colspan="12">
+                <i>400 +</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <i>87</i></td>
+            <td>
+                <i>88</i></td>
+            <td>
+                <i>89</i></td>
+            <td>
+                <i>90</i></td>
+            <td>
+                <i>91</i></td>
+            <td>
+                <i>92</i></td>
+            <td>
+                <i>93</i></td>
+            <td>
+                <i>94</i></td>
+            <td>
+                <i>95</i></td>
+            <td>
+                <i>96</i></td>
+            <td>
+                <i>97</i></td>
+            <td>
+                <i>98</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <b>13</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>8</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>1</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>2</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>3</b></td>
+            <td>
+                <b>0</b></td>
+        </tr>
+    </table>
+    <p>Cell A2 begins at byte offset 487, and is defined as an <i>Integer Cell</i> (<b>13</b>).
+    Using the definition for record type <b>13</b> we see that A2 has a value of 3.</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr valign="top">
+            <td>
+                <i>400 +</i></td>
+            <td colspan="19">
+                <i>500 +</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <i>99</i></td>
+            <td>
+                <i>0</i></td>
+            <td>
+                <i>1</i></td>
+            <td>
+                <i>2</i></td>
+            <td>
+                <i>3</i></td>
+            <td>
+                <i>4</i></td>
+            <td>
+                <i>5</i></td>
+            <td>
+                <i>6</i></td>
+            <td>
+                <i>7</i></td>
+            <td>
+                <i>8</i></td>
+            <td>
+                <i>9</i></td>
+            <td>
+                <i>10</i></td>
+            <td>
+                <i>11</i></td>
+            <td>
+                <i>12</i></td>
+            <td>
+                <i>13</i></td>
+            <td>
+                <i>14</i></td>
+            <td>
+                <i>15</i></td>
+            <td>
+                <i>16</i></td>
+            <td>
+                <i>17</i></td>
+            <td>
+                <i>18</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <b>16</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>48</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>2</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>5</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+        </tr>
+    </table>
+    <p>The formula for cell A3 begins in byte 499 with a record type of <b>16</b>. Bytes
+    501 and 502 indicate that the length of this formula record is 48 bytes. Bytes 503 and
+    504 hold the column value for the cell A3 (00=col A). Bytes 505 and 506 hold the page
+    value for A3 (00=first page). Bytes 507 through 510 hold the row value (02=row 3). Bytes
+    511 and 512 hold the attributes. Bytes 513 through 520 hold the formula value as last
+    evaluated. This is an 8-byte float.</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr valign="top">
+            <td colspan="18">
+                <i>500 +</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <i>19</i></td>
+            <td>
+                <i>20</i></td>
+            <td>
+                <i>21</i></td>
+            <td>
+                <i>22</i></td>
+            <td>
+                <i>23</i></td>
+            <td>
+                <i>24</i></td>
+            <td>
+                <i>25</i></td>
+            <td>
+                <i>26</i></td>
+            <td>
+                <i>27</i></td>
+            <td>
+                <i>28</i></td>
+            <td>
+                <i>29</i></td>
+            <td>
+                <i>30</i></td>
+            <td>
+                <i>31</i></td>
+            <td>
+                <i>32</i></td>
+            <td>
+                <i>33</i></td>
+            <td>
+                <i>34</i></td>
+            <td>
+                <i>35</i></td>
+            <td>
+                <i>36</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <b>24</b></td>
+            <td>
+                <b>64</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>24</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>4</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>1</b></td>
+            <td>
+                <b>1</b></td>
+            <td>
+                <b>11</b></td>
+            <td>
+                <b>3</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+        </tr>
+    </table>
+    <p></p>
+    <p>Bytes 521 and 522 hold the formula state. Bytes 523 and 524 show the length of the
+    formula to be 16 bytes. Bytes 525 and 526 hold the offset into the reference section
+    of the formula. In this case, these bytes indicate that references begin at byte 531.
+    The formula starts at byte 527.</p>
+    <p>The first byte of the formula is byte 527. Its value of 1, indicates that a cell
+    reference is present at the end of the formula. The second byte of the formula, byte
+    528 is also 1, indicating a cell reference. Byte 529 is 11, translating into a * in
+    the opcodes. Byte 530 is 03, meaning End of Formula.</p>
+    <p>Bytes 531 through 546 hold the references for the two operands, cells A1 and A2 (although
+    the formula proper only recognizes that there are references, not yet what they are).</p>
+    <p>Bytes 531 and 532 hold the relative notebook index, 00 00, since the reference does
+    not cite another notebook. Bytes 533 &amp; 534 are the relative column and bytes 535
+    &amp; 536 art the relative page of the reference.</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr valign="top">
+            <td colspan="26">
+                <i>500 +</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <i>37</i></td>
+            <td>
+                <i>38</i></td>
+            <td>
+                <i>39</i></td>
+            <td>
+                <i>40</i></td>
+            <td>
+                <i>41</i></td>
+            <td>
+                <i>42</i></td>
+            <td>
+                <i>43</i></td>
+            <td>
+                <i>44</i></td>
+            <td>
+                <i>45</i></td>
+            <td>
+                <i>46</i></td>
+            <td>
+                <i>47</i></td>
+            <td>
+                <i>48</i></td>
+            <td>
+                <i>49</i></td>
+            <td>
+                <i>50</i></td>
+            <td>
+                <i>51</i></td>
+            <td>
+                <i>52</i></td>
+            <td>
+                <i>53</i></td>
+            <td>
+                <i>54</i></td>
+            <td>
+                <i>55</i></td>
+            <td>
+                <i>56</i></td>
+            <td>
+                <i>57</i></td>
+            <td>
+                <i>58</i></td>
+            <td>
+                <i>59</i></td>
+            <td>
+                <i>60</i></td>
+            <td>
+                <i>61</i></td>
+            <td>
+                <i>62</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <b>FE</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>16</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>46</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>3</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+        </tr>
+    </table>
+    <p>Bytes 537 through 540 give the relative row with relative bits set in twos complement.
+    The row value is 0xFFFFFFFE (-2).</p>
+    <p>Bytes 541 through 550 give the same information for the second reference, to cell
+    A2; however, the value for the row of cell A2 is 0xFFFFFFFF, (1).</p>
+    <p>Byte 551 begins the second formula cell for cell A4. Byte 553 gives the formula length
+    as 46. Bytes 555 through 562 give the column, page, and row of the formula in cell A4.</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr valign="top">
+            <td colspan="16">
+                <i>500 +</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <i>63</i></td>
+            <td>
+                <i>64</i></td>
+            <td>
+                <i>65</i></td>
+            <td>
+                <i>66</i></td>
+            <td>
+                <i>67</i></td>
+            <td>
+                <i>68</i></td>
+            <td>
+                <i>69</i></td>
+            <td>
+                <i>70</i></td>
+            <td>
+                <i>71</i></td>
+            <td>
+                <i>78</i></td>
+            <td>
+                <i>79</i></td>
+            <td>
+                <i>80</i></td>
+            <td>
+                <i>81</i></td>
+            <td>
+                <i>82</i></td>
+            <td>
+                <i>83</i></td>
+            <td>
+                <i>84</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <b>5</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>38</b></td>
+            <td>
+                <b>64</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>22</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>4</b></td>
+            <td>
+                <b>0</b></td>
+        </tr>
+    </table>
+    <p>Bytes 563 and 564 give the attributes of the formula for cell A4. Bytes 565 through
+    578 is the 8-byte float which lists the formula's last evaluation. Bytes 579 and 580
+    give the formula state; bytes 581 and 582 give the formula length (22 bytes). Bytes
+    583 and 584 give the offset to the reference section of the formula (4, a pointer to
+    byte 589).</p>
+    <table border="1" cellpadding="5" width="98%">
+        <tr valign="top">
+            <td colspan="22">
+                <i>500 +</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <i>85</i></td>
+            <td>
+                <i>86</i></td>
+            <td>
+                <i>87</i></td>
+            <td>
+                <i>88</i></td>
+            <td>
+                <i>89</i></td>
+            <td>
+                <i>90</i></td>
+            <td>
+                <i>91</i></td>
+            <td>
+                <i>92</i></td>
+            <td>
+                <i>93</i></td>
+            <td>
+                <i>94</i></td>
+            <td>
+                <i>95</i></td>
+            <td>
+                <i>96</i></td>
+            <td>
+                <i>97</i></td>
+            <td>
+                <i>98</i></td>
+            <td>
+                <i>99</i></td>
+            <td>
+                <i>100</i></td>
+            <td>
+                <i>101</i></td>
+            <td>
+                <i>102</i></td>
+            <td>
+                <i>103</i></td>
+            <td>
+                <i>104</i></td>
+            <td>
+                <i>105</i></td>
+            <td>
+                <i>106</i></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                <b>2</b></td>
+            <td>
+                <b>80</b></td>
+            <td>
+                <b>1</b></td>
+            <td>
+                <b>3</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>16</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>FC</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>0</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>FF</b></td>
+            <td>
+                <b>FF</b></td>
+        </tr>
+    </table>
+    <p>Byte 585 is 2, which is an opcode for block reference. Byte 586 is 80, the opcode
+    for @SUM; the byte immediately following tells how many arguments there are to this
+    @function. In this case, there is one (byte 587). Byte 588 is 3, End of Formula. Byte
+    589 begins the reference section.</p>
+    <p>The single block reference in cell A4 has a top-left location and a bottom-right
+    location, as described in Table 4.3. Bytes 589 and 590 are the notebook index with a
+    block type. Bytes 591 &amp; 592 and 593 &amp; 594 are the relative first (top-left)
+    column and first (top-left) page, respectively. Bytes 595 through 598 are the relative
+    first (top-left) row with relative bits set.</p>
+    <p>Bytes 599 &amp; 600 and 601 &amp; 602 are the last (bottom-right) column and last
+    (bottom-right) page, respectively. Bytes 603 through 606 are the relative last row (bottom-right)
+    with relative bits set.&nbsp;<br />
+    </p>
+    <hr />
+    <h3><a name="Formula_Opcodes">Formula Opcodes</a></h3>
+    <p><strong>In Numeric Order:</strong></p>
+    <table border="1" cellpadding="5" width="69%">
+        <tr valign="top">
+            <td width="13%">
+                <b>Code&nbsp;</b></td>
+            <td width="86%">
+                <b>Function</b>&nbsp;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0</td>
+            <td>
+                Code followed by an 8-byte float</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1</td>
+            <td>
+                Cell reference</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2</td>
+            <td>
+                Block reference</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3</td>
+            <td>
+                End of Formula (EOF)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4</td>
+            <td>
+                Parenthesis</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5</td>
+            <td>
+                Code followed by an integer</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6</td>
+            <td>
+                Code followed by a length-byte string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7</td>
+            <td>
+                Default argument, assumed to be 0</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8</td>
+            <td>
+                Unary&nbsp;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9</td>
+            <td>
+                + add</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                10</td>
+            <td>
+                subtract</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                11</td>
+            <td>
+                * multiply</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                12</td>
+            <td>
+                / divide</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                13</td>
+            <td>
+                ^ Power</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                14</td>
+            <td>
+                = Equal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                15</td>
+            <td>
+                &lt;&gt; Not Equal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                16</td>
+            <td>
+                &lt;=&nbsp;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                17</td>
+            <td>
+                &gt;=</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                18</td>
+            <td>
+                &lt;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                19</td>
+            <td>
+                &gt;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                20</td>
+            <td>
+                #And#</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                21</td>
+            <td>
+                #Or#</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                22</td>
+            <td>
+                #Not#</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                23</td>
+            <td>
+                Unary +</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                24</td>
+            <td>
+                &amp;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                25</td>
+            <td>
+                Halt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                26</td>
+            <td>
+                DLL Function</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                27</td>
+            <td>
+                Extended No Operands</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                28</td>
+            <td>
+                Extended Operands</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                29</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                30</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                31</td>
+            <td>
+                NA</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                32</td>
+            <td>
+                @Err</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                33</td>
+            <td>
+                @Abs</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                34</td>
+            <td>
+                @Int</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                35</td>
+            <td>
+                @Sqrt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                36</td>
+            <td>
+                @Log</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                37</td>
+            <td>
+                @Ln</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                38</td>
+            <td>
+                @Pi</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                39</td>
+            <td>
+                @Sin</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                40</td>
+            <td>
+                @Cos</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                41</td>
+            <td>
+                @Tan</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                42</td>
+            <td>
+                @Atan2</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                43</td>
+            <td>
+                @Atan</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                44</td>
+            <td>
+                @Asin</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                45</td>
+            <td>
+                @Acos</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                46</td>
+            <td>
+                @Exp</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                47</td>
+            <td>
+                @Mod</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                48</td>
+            <td>
+                @Choose (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                49</td>
+            <td>
+                @Isna</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                50</td>
+            <td>
+                @Iserr</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                51</td>
+            <td>
+                @False</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                52</td>
+            <td>
+                @True</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                53</td>
+            <td>
+                @Rand</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                54</td>
+            <td>
+                @Date</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                55</td>
+            <td>
+                @Now</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                56</td>
+            <td>
+                @Pmt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                57</td>
+            <td>
+                @Pv</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                58</td>
+            <td>
+                @Fv</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                59</td>
+            <td>
+                @If</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                60</td>
+            <td>
+                @Day</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                61</td>
+            <td>
+                @Month</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                62</td>
+            <td>
+                @Year</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                63</td>
+            <td>
+                @Round</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                64</td>
+            <td>
+                @Time</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                65</td>
+            <td>
+                @Hour</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                66</td>
+            <td>
+                @Minute</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                67</td>
+            <td>
+                @Second</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                68</td>
+            <td>
+                @Isnum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                69</td>
+            <td>
+                @Isstr</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                70</td>
+            <td>
+                @Length</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                71</td>
+            <td>
+                @Value</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                72</td>
+            <td>
+                @String</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                73</td>
+            <td>
+                @Mid</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                74</td>
+            <td>
+                @Char</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                75</td>
+            <td>
+                @Code</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                76</td>
+            <td>
+                @Find</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                77</td>
+            <td>
+                @DateVal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                78</td>
+            <td>
+                @TimeVal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                79</td>
+            <td>
+                @CellPtr</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                80</td>
+            <td>
+                @Sum (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                81</td>
+            <td>
+                @Avg (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                82</td>
+            <td>
+                @Count (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                83</td>
+            <td>
+                @Min (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                84</td>
+            <td>
+                @Max (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                85</td>
+            <td>
+                @Vlookup</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                86</td>
+            <td>
+                @Npv</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                87</td>
+            <td>
+                @Var (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                88</td>
+            <td>
+                @Std (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                89</td>
+            <td>
+                @Irr</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                90</td>
+            <td>
+                @Hlookup</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                91</td>
+            <td>
+                @Dsum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                92</td>
+            <td>
+                @Davg</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                93</td>
+            <td>
+                @Dcount</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                94</td>
+            <td>
+                @Dmin</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                95</td>
+            <td>
+                @Dmax</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                96</td>
+            <td>
+                @Dvar</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                97</td>
+            <td>
+                @Dstd</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                98</td>
+            <td>
+                @Index2d</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                99</td>
+            <td>
+                @Cols</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                100</td>
+            <td>
+                @Rows</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                101</td>
+            <td>
+                @Repeat</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                102</td>
+            <td>
+                @Upper</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                103</td>
+            <td>
+                @Lower</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                104</td>
+            <td>
+                @Left</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                105</td>
+            <td>
+                @Right</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                106</td>
+            <td>
+                @Replace</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                107</td>
+            <td>
+                @Proper</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                108</td>
+            <td>
+                @Cell</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                109</td>
+            <td>
+                @Trim</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                110</td>
+            <td>
+                @Clean</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                111</td>
+            <td>
+                @S</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                112</td>
+            <td>
+                @N</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                113</td>
+            <td>
+                @Exact</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                114</td>
+            <td>
+                @Call</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                115</td>
+            <td>
+                @@</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                116</td>
+            <td>
+                @Rate</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                117</td>
+            <td>
+                @Term</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                118</td>
+            <td>
+                @Cterm</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                119</td>
+            <td>
+                @Sln</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                120</td>
+            <td>
+                @Syd</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                121</td>
+            <td>
+                @Ddb</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                122</td>
+            <td>
+                @Stds (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                123</td>
+            <td>
+                @Vars (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                124</td>
+            <td>
+                @Dstds</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                125</td>
+            <td>
+                @Dvars</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                126</td>
+            <td>
+                @Pval</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                127</td>
+            <td>
+                @Paymt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                128</td>
+            <td>
+                @Fval</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                129</td>
+            <td>
+                @Nper</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                130</td>
+            <td>
+                @Irate</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                131</td>
+            <td>
+                @Ipaymt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                132</td>
+            <td>
+                @Ppaymt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                133</td>
+            <td>
+                @SumProduct</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                134</td>
+            <td>
+                @MemAvail</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                135</td>
+            <td>
+                @MemEmsAvail</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                136</td>
+            <td>
+                @FileExists</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                137</td>
+            <td>
+                @CurValue</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                138</td>
+            <td>
+                @Degrees</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                139</td>
+            <td>
+                @Radians</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                140</td>
+            <td>
+                @HexToNum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                141</td>
+            <td>
+                @NumToHex</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                142</td>
+            <td>
+                @Today</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                143</td>
+            <td>
+                @Npv (with optional third argument)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                144</td>
+            <td>
+                @CellIndex2d</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                145</td>
+            <td>
+                @Version</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                154</td>
+            <td>
+                @Sheets</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                157</td>
+            <td>
+                @Index3d</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                158</td>
+            <td>
+                @CellIndex3d</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                159</td>
+            <td>
+                @Property</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                160</td>
+            <td>
+                @DDELink</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                161</td>
+            <td>
+                @Command</td>
+        </tr>
+    </table>
+    <p><strong>In Alphabetic Order:</strong></p>
+    <table border="1" cellpadding="5" width="69%">
+        <tr valign="top">
+            <td width="13%">
+                <b>Code&nbsp;</b></td>
+            <td width="86%">
+                <b>Function</b>&nbsp;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                10</td>
+            <td>
+                subtract</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                20</td>
+            <td>
+                #And#</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                22</td>
+            <td>
+                #Not#</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                21</td>
+            <td>
+                #Or#</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                24</td>
+            <td>
+                &amp;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                11</td>
+            <td>
+                * multiply</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                9</td>
+            <td>
+                + add</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                12</td>
+            <td>
+                / divide</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                18</td>
+            <td>
+                &lt;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                16</td>
+            <td>
+                &lt;=&nbsp;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                15</td>
+            <td>
+                &lt;&gt; Not Equal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                14</td>
+            <td>
+                = Equal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                19</td>
+            <td>
+                &gt;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                17</td>
+            <td>
+                &gt;=</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                115</td>
+            <td>
+                @@</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                33</td>
+            <td>
+                @Abs</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                45</td>
+            <td>
+                @Acos</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                44</td>
+            <td>
+                @Asin</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                43</td>
+            <td>
+                @Atan</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                42</td>
+            <td>
+                @Atan2</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                81</td>
+            <td>
+                @Avg (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                114</td>
+            <td>
+                @Call</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                108</td>
+            <td>
+                @Cell</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                144</td>
+            <td>
+                @CellIndex2d</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                158</td>
+            <td>
+                @CellIndex3d</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                79</td>
+            <td>
+                @CellPtr</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                74</td>
+            <td>
+                @Char</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                48</td>
+            <td>
+                @Choose (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                110</td>
+            <td>
+                @Clean</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                75</td>
+            <td>
+                @Code</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                99</td>
+            <td>
+                @Cols</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                161</td>
+            <td>
+                @Command</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                40</td>
+            <td>
+                @Cos</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                82</td>
+            <td>
+                @Count (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                118</td>
+            <td>
+                @Cterm</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                137</td>
+            <td>
+                @CurValue</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                54</td>
+            <td>
+                @Date</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                77</td>
+            <td>
+                @DateVal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                92</td>
+            <td>
+                @Davg</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                60</td>
+            <td>
+                @Day</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                93</td>
+            <td>
+                @Dcount</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                121</td>
+            <td>
+                @Ddb</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                160</td>
+            <td>
+                @DDELink</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                138</td>
+            <td>
+                @Degrees</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                95</td>
+            <td>
+                @Dmax</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                94</td>
+            <td>
+                @Dmin</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                97</td>
+            <td>
+                @Dstd</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                124</td>
+            <td>
+                @Dstds</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                91</td>
+            <td>
+                @Dsum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                96</td>
+            <td>
+                @Dvar</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                125</td>
+            <td>
+                @Dvars</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                32</td>
+            <td>
+                @Err</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                113</td>
+            <td>
+                @Exact</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                46</td>
+            <td>
+                @Exp</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                51</td>
+            <td>
+                @False</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                136</td>
+            <td>
+                @FileExists</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                76</td>
+            <td>
+                @Find</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                58</td>
+            <td>
+                @Fv</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                128</td>
+            <td>
+                @Fval</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                140</td>
+            <td>
+                @HexToNum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                90</td>
+            <td>
+                @Hlookup</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                65</td>
+            <td>
+                @Hour</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                59</td>
+            <td>
+                @If</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                98</td>
+            <td>
+                @Index2d</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                157</td>
+            <td>
+                @Index3d</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                34</td>
+            <td>
+                @Int</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                131</td>
+            <td>
+                @Ipaymt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                130</td>
+            <td>
+                @Irate</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                89</td>
+            <td>
+                @Irr</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                50</td>
+            <td>
+                @Iserr</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                49</td>
+            <td>
+                @Isna</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                68</td>
+            <td>
+                @Isnum</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                69</td>
+            <td>
+                @Isstr</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                104</td>
+            <td>
+                @Left</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                70</td>
+            <td>
+                @Length</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                37</td>
+            <td>
+                @Ln</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                36</td>
+            <td>
+                @Log</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                103</td>
+            <td>
+                @Lower</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                84</td>
+            <td>
+                @Max (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                134</td>
+            <td>
+                @MemAvail</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                135</td>
+            <td>
+                @MemEmsAvail</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                73</td>
+            <td>
+                @Mid</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                83</td>
+            <td>
+                @Min (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                66</td>
+            <td>
+                @Minute</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                47</td>
+            <td>
+                @Mod</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                61</td>
+            <td>
+                @Month</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                112</td>
+            <td>
+                @N</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                55</td>
+            <td>
+                @Now</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                129</td>
+            <td>
+                @Nper</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                86</td>
+            <td>
+                @Npv</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                143</td>
+            <td>
+                @Npv (with optional third argument)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                141</td>
+            <td>
+                @NumToHex</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                127</td>
+            <td>
+                @Paymt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                38</td>
+            <td>
+                @Pi</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                56</td>
+            <td>
+                @Pmt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                132</td>
+            <td>
+                @Ppaymt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                107</td>
+            <td>
+                @Proper</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                159</td>
+            <td>
+                @Property</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                57</td>
+            <td>
+                @Pv</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                126</td>
+            <td>
+                @Pval</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                139</td>
+            <td>
+                @Radians</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                53</td>
+            <td>
+                @Rand</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                116</td>
+            <td>
+                @Rate</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                101</td>
+            <td>
+                @Repeat</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                106</td>
+            <td>
+                @Replace</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                105</td>
+            <td>
+                @Right</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                63</td>
+            <td>
+                @Round</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                100</td>
+            <td>
+                @Rows</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                111</td>
+            <td>
+                @S</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                67</td>
+            <td>
+                @Second</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                154</td>
+            <td>
+                @Sheets</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                39</td>
+            <td>
+                @Sin</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                119</td>
+            <td>
+                @Sln</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                35</td>
+            <td>
+                @Sqrt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                88</td>
+            <td>
+                @Std (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                122</td>
+            <td>
+                @Stds (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                72</td>
+            <td>
+                @String</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                80</td>
+            <td>
+                @Sum (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                133</td>
+            <td>
+                @SumProduct</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                120</td>
+            <td>
+                @Syd</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                41</td>
+            <td>
+                @Tan</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                117</td>
+            <td>
+                @Term</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                64</td>
+            <td>
+                @Time</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                78</td>
+            <td>
+                @TimeVal</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                142</td>
+            <td>
+                @Today</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                109</td>
+            <td>
+                @Trim</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                52</td>
+            <td>
+                @True</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                102</td>
+            <td>
+                @Upper</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                71</td>
+            <td>
+                @Value</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                87</td>
+            <td>
+                @Var (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                123</td>
+            <td>
+                @Vars (followed by a byte giving the number of arguments)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                145</td>
+            <td>
+                @Version</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                85</td>
+            <td>
+                @Vlookup</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                62</td>
+            <td>
+                @Year</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                13</td>
+            <td>
+                ^ Power</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2</td>
+            <td>
+                Block reference</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1</td>
+            <td>
+                Cell reference</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6</td>
+            <td>
+                Code followed by a length-byte string</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0</td>
+            <td>
+                Code followed by an 8-byte float</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5</td>
+            <td>
+                Code followed by an integer</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                7</td>
+            <td>
+                Default argument, assumed to be 0</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                26</td>
+            <td>
+                DLL Function</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3</td>
+            <td>
+                End of Formula (EOF)</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                27</td>
+            <td>
+                Extended No Operands</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                28</td>
+            <td>
+                Extended Operands</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                25</td>
+            <td>
+                Halt</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                31</td>
+            <td>
+                Na</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4</td>
+            <td>
+                Parenthesis</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                29</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                30</td>
+            <td>
+                Reserved</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                8</td>
+            <td>
+                Unary&nbsp;</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                23</td>
+            <td>
+                Unary +</td>
+        </tr>
+    </table>
+</body>
+</html>

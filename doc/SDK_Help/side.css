@@ -1,0 +1,47 @@
+body 
+{
+	background: RGB( 8, 13, 60 );
+	color: white; 
+	border: none 0 black;
+	padding: 0 0 0 0;
+	border-collapse:collapse;
+	margin:7pt 7pt 7pt 7pt;
+}
+
+p 
+{
+	color: white;
+	font-size: 10pt;
+	font-family: sans-serif; 
+}
+
+a:link 
+{
+	color: white; 
+}
+
+a:visited 
+{
+	color: silver; 
+}
+
+h1 
+{
+	font-family: sans-serif;
+	font-size: 10pt;
+	font-weight: bold; 
+}
+h2 
+{
+	font-family: sans-serif;
+	font-size: 9pt;
+	font-weight: bold; 
+}
+
+h3 
+{
+	font-family: sans-serif; 
+	font-size: 8pt;
+	font-weight: bold;
+	text-align:center; 
+}

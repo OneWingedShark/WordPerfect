@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProPureGetCellValueType function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProPureGetCellStringValue_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProPureGetQProDirectory_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height=
+      "18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "PUREtype_functions_added_in_Corel_Quattro_Pro_1.html">PURE-type functions added in Quattro Pro 1</a> : QProPureGetCellValueType function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp559594"></a>
+
+  <h4 class="pHeading3">QProPureGetCellValueType function</h4><a name="wp559596"></a>
+
+  <p class="pBody">This function determines the value type of a cell, given the reference handle and row/column/page offsets.</p><a name="wp559598"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+CellValueType QProPureGetCellValueType(<a name="wp559600"> </a>
+RefHandle RH,<a name="wp559602"> </a>
+UINT  RowOffset,<a name="wp559604"> </a>
+UINT  ColOffset,<a name="wp559606"> </a>
+UINT  SheetOffset);<a name="wp559608"> </a>
+</pre>
+  </div><a name="wp559610"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp559613"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp528226"></a>
+
+          <p class="pBody"><code class="cCode">RH</code></p>
+        </td>
+
+        <td>
+          <a name="wp528228"></a>
+
+          <p class="pBody">Specifies the handle to the three-dimensional range passed to DLL function</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528234"></a>
+
+          <p class="pBody"><code class="cCode">RowOffset</code></p>
+        </td>
+
+        <td>
+          <a name="wp528236"></a>
+
+          <p class="pBody">Specifies the non-negative row offset into three-dimensional range</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528242"></a>
+
+          <p class="pBody"><code class="cCode">ColOffset</code></p>
+        </td>
+
+        <td>
+          <a name="wp528244"></a>
+
+          <p class="pBody">Specifies the non-negative column offset into three-dimensional range</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp528250"></a>
+
+          <p class="pBody"><code class="cCode">SheetOffset</code></p>
+        </td>
+
+        <td>
+          <a name="wp528252"></a>
+
+          <p class="pBody">Specifies the non-negative sheet offset into three-dimensional range</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp559615"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp559617"></a>
+
+  <p class="pBody">This function returns the type of cell using one of the following values:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef enum {<a name="wp559619"> </a>
+CellValueTypeRefErr = 0, // reference error<a name="wp559621"> </a>
+CellValueTypeBlank = 1, // blank cell<a name="wp559623"> </a>
+CellValueTypeNumber = 2, // cell with numeric value<a name="wp559625"> </a>
+CellValueTypeString = 3, // cell with string value<a name="wp559627"> </a>
+CellValueTypeNAN = 4; // NAN cell/formula<a name="wp559629"> </a>
+} CellValueType;<a name="wp559631"> </a>
+</pre>
+  </div>
+</body>
+</html>

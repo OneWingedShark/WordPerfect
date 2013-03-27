@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:32" />
+
+  <title>Lesson 13: User interface functions</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Lesson_12_Executing_a_command_object.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Quattro_Pro_import_functions.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Creating_QP_Add-in_DLLs.html">Creating Quattro Pro Add-in DLLs</a> : Lesson 13: User interface functions</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp533413"></a>
+
+  <h3 class="pHeading2">Lesson 13: User interface functions</h3><a name="wp533415"></a>
+
+  <p class="pBody">Before beginning this lesson, do the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp533417"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Load the qshell.cpp file into your program editor.</li>
+      </ul>
+    </div><a name="wp533419"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Save qshell.cpp as lesson13.cpp in your data folder.</li>
+      </ul>
+    </div>
+  </div><a name="wp533421"></a>
+
+  <p class="pBody">This lesson teaches you how to use the Quattro Pro User Interface (UI) import functions.</p><a name="wp533423"></a>
+
+  <p class="pBody">To work with strings, insert the <code class="cCode">#include</code> statement at the beginning of your code.</p><a name="wp1270987"></a>
+
+  <h5 class="pHeading4">Step 1</h5><a name="wp533425"></a>
+
+  <p class="pBody">Replace <code class="cCode">DUMMY</code> in the <code class="cCode">SelfDefStructure</code> of the qshell.cpp file with the following
+  code:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533427"> </a>
+// Quattro Pro prescribed header (and other overhead)<a name="wp533429"> </a>
+//===============================================================<a name="wp533431"> </a>
+SelfDefStructure MyFuncs[] = {<a name="wp533433"> </a>
+{<a name="wp533435"> </a>
+"double PASCAL GETD( )", // Function Command <a name="wp533437"> </a>
+(FarProc)&amp;GETD, // Pointer to _exported function <a name="wp533439"> </a>
+"Help", // Help Line (optional/samples use default of Help) <a name="wp533441"> </a>
+"GETD" // English form of name (match the function name <a name="wp533443"> </a>
+above) <a name="wp533445"> </a>
+}, <a name="wp533447"> </a>
+{<a name="wp533449"> </a>
+"int PASCAL GETI( )", // Function Command <a name="wp533451"> </a>
+(FarProc)&amp;GETI, // Pointer to _exported function <a name="wp533453"> </a>
+"Help", // Help Line (optional/samples use default of Help) <a name="wp533455"> </a>
+"GETI" // English form of name (match the function name <a name="wp533457"> </a>
+above) <a name="wp533459"> </a>
+}, <a name="wp533461"> </a>
+{ <a name="wp533463"> </a>
+"asciiz PASCAL GETS( )", // Function Command <a name="wp533465"> </a>
+(FarProc)&amp;GETS, // Pointer to _exported function <a name="wp533467"> </a>
+"Help", // Help Line (optional/samples use default of Help) <a name="wp533469"> </a>
+"GETS" // English form of name (match the function name <a name="wp533471"> </a>
+above) <a name="wp533473"> </a>
+}, <a name="wp533475"> </a>
+{ <a name="wp533477"> </a>
+"macro PASCAL LPSTR GETFN( )", // Function Command <a name="wp533479"> </a>
+(FarProc)&amp;GETFN, // Pointer to _exported function <a name="wp533481"> </a>
+"Help", // Help Line (optional/samples use default of Help) <a name="wp533483"> </a>
+"GETFN" // English form of name (match the function name <a name="wp533485"> </a>
+above) <a name="wp533487"> </a>
+}, <a name="wp533489"> </a>
+{ <a name="wp533491"> </a>
+"int PASCAL GETMN( )", // Function Command <a name="wp533493"> </a>
+(FarProc)&amp;GETMN, // Pointer to _exported function <a name="wp533495"> </a>
+"Help", // Help Line (optional/samples use default of Help) <a name="wp533497"> </a>
+"GETMN" // English form of name (match the function name <a name="wp533499"> </a>
+above) <a name="wp533501"> </a>
+}, <a name="wp533503"> </a>
+NULL // Always null terminate the list! <a name="wp533505"> </a>
+};<a name="wp533507"> </a>
+</pre>
+  </div><a name="wp533511"></a>
+
+  <p class="pBody">There are no PURE keywords in these custom functions. For information on <code class="cCode">ProcPrototype</code>, see "<a href=
+  "Structures_types_enums.html#wp1271647">Understanding structures, types, and enumerations</a>."</p><a name="wp533513"></a>
+
+  <p class="pBody">The DLL now understands that the custom functions <code class="cCode">GETD</code>, <code class="cCode">GETI</code>, <code class=
+  "cCode">GETS</code>, <code class="cCode">GETFN</code>, and <code class="cCode">GETMN</code> exist. Now you must tell the DLL what to do when these functions
+  are called.</p><a name="wp1271027"></a>
+
+  <h5 class="pHeading4">Step 2</h5><a name="wp533515"></a>
+
+  <p class="pBody">Now you must prototype the function in the DLL. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533517"> </a>
+// Add-In function prototypes<a name="wp533519"> </a>
+//===============================================================<a name="wp533521"> </a>
+DOUBLE Exported GETD( );<a name="wp533523"> </a>
+int Exported GETI( );<a name="wp533525"> </a>
+LPSTR Exported GETS( );<a name="wp533527"> </a>
+LPSTR Exported GETFN( );<a name="wp533529"> </a>
+int Exported GETMN( );<a name="wp533531"> </a>
+</pre>
+  </div><a name="wp1271034"></a>
+
+  <h5 class="pHeading4">Step 3</h5><a name="wp533533"></a>
+
+  <p class="pBody">Change the main function code area to appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp533535"> </a>
+// MAIN FUNCTION CODE<a name="wp533537"> </a>
+//===============================================================<a name="wp533539"> </a>
+char szBuffer[255]; // general purpose return buffer for strings<a name="wp533541"> </a>
+LPSTR menuitems[] =<a name="wp533543"> </a>
+{<a name="wp533545"> </a>
+"Menu Choice 1", <a name="wp533547"> </a>
+"Menu Choice 2", <a name="wp533549"> </a>
+"Menu Choice 3" <a name="wp533551"> </a>
+};<a name="wp533553"> </a>
+helpstrings[] =<a name="wp533555"> </a>
+{<a name="wp533557"> </a>
+"This is Help #1", <a name="wp533559"> </a>
+"This is Help #2", <a name="wp533561"> </a>
+"This is Help #3" <a name="wp533563"> </a>
+};<a name="wp533565"> </a>
+int entries = sizeof(menuitems) / sizeof(LPSTR);<a name="wp533567"> </a>
+DOUBLE Exported GETD( )<a name="wp533569"> </a>
+{<a name="wp533571"> </a>
+double dValue=1.44; //initialize result to 1.44 <a name="wp533573"> </a>
+QProInputDouble("Please enter a double Value (0-3.5)", <a name="wp533575"> </a>
+&amp;dValue, 0, 3.5, 0); <a name="wp533577"> </a>
+DoubleReturn ( dValue ); <a name="wp533579"> </a>
+}<a name="wp533581"> </a>
+int Exported GETI( ){<a name="wp533583"> </a>
+int iValue=0; //initialize result to 0 <a name="wp533585"> </a>
+QproInputInteger("Please enter a value between -10 and <a name="wp533587"> </a>
+10",&amp;iValue,-10,10); <a name="wp533589"> </a>
+return iValue; <a name="wp533591"> </a>
+}<a name="wp533593"> </a>
+LPSTR Exported GETS( )<a name="wp533595"> </a>
+{<a name="wp533597"> </a>
+strcpy(szBuffer, "Old Value"); // initialize the buffer <a name="wp533599"> </a>
+QProInputString("Please enter a string (&lt;255 char)", szBuffer, 255); 
+return szBuffer; } LPSTR Exported GETFN( ) { strcpy(szBuffer, 
+"C:\\"); QProInputFilename("Please select a file name", szBuffer, 
+255, "TXT"); return szBuffer; } int Exported GETMN( ) { WORD 
+wchosen="0;" QProMenu("Menu Title", entries, menuitems, helpstrings, 
+(WORD far *)&amp;wchosen); return wchosen; } <a name="wp533601"> </a>
+</pre>
+  </div><a name="wp533605"></a>
+
+  <p class="pBody">Each of the UI functions has its own example custom function within the DLL. For detailed descriptions of each of the functions used, please
+  see "<a href="Quattro_Pro_import_functions.html#wp555750">Using Quattro Pro import functions</a>."</p><a name="wp1271049"></a>
+
+  <h5 class="pHeading4">Step 4</h5><a name="wp533607"></a>
+
+  <p class="pBody">Save this file as lesson13.cpp.</p><a name="wp1271050"></a>
+
+  <h5 class="pHeading4">Step 5</h5><a name="wp533609"></a>
+
+  <p class="pBody">Create your custom functions. Refer to your compiler documentation for further information on making a DLL.</p><a name="wp1271051"></a>
+
+  <h5 class="pHeading4">Step 6</h5><a name="wp533611"></a>
+
+  <p class="pBody">Start Quattro Pro. A macro must be used to get the results of these functions. Listed below are examples of macros for each of the
+  functions:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+{Let A1,@lesson13.GETD}<a name="wp533613"> </a>
+{Let A2,@lesson13.GETI}<a name="wp533615"> </a>
+{Let A3,@lesson13.GETS}<a name="wp533617"> </a>
+{Let A4,@lesson13.GETFN}<a name="wp533619"> </a>
+{Let A5,@lesson13.GETMN}<a name="wp533621"> </a>
+</pre>
+  </div><a name="wp533623"></a>
+
+  <p class="pBody">When any of the above macros are executed, the appropriate UI function is called and returns the choice you make to the selected cell. For
+  example, if you execute the <code class="cCode">{Let A2,@lesson13.GETI}</code> macro, then you are prompted to enter an integer between <code class=
+  "cCode">-10</code> and <code class="cCode">10</code>. When entered, the number is placed into cell A2.</p>
+</body>
+</html>

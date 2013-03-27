@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProLocateNextRangeName function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="QProLocateFirstRangeName_function.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height=
+      "18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Sheet_name_functions_added_in_Corel_Quattro_Pro_5.html"><img alt="Next Document" border="0" src="images/next.gif" width="18"
+      height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "Range_name_functions_added_in_Corel_Quattro_Pro_5.html">Range-name functions added in Quattro Pro 5</a> : QProLocateNextRangeName function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp557618"></a>
+
+  <h4 class="pHeading3">QProLocateNextRangeName function</h4><a name="wp557620"></a>
+
+  <p class="pBody">This function finds the next name definition in the current notebook. Use this function in conjunction with the <a href=
+  "QProLocateFirstRangeName_function.html#wp1269687">QProLocateFirstRangeName function</a> to get a full list of range names.</p><a name="wp557622"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+RangeNameControl QProLocateNextRangeName(<a name="wp557624"> </a>
+UINT   NotebookIndex,<a name="wp557626"> </a>
+RangeNameControl LastNC,<a name="wp557628"> </a>
+LPSTR   pName,<a name="wp557630"> </a>
+UINT   MaxName,<a name="wp557632"> </a>
+LPRange   pRange);<a name="wp557634"> </a>
+</pre>
+  </div><a name="wp557636"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp557639"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp527478"></a>
+
+          <p class="pBody"><code class="cCode">NotebookIndex</code></p>
+        </td>
+
+        <td>
+          <a name="wp527480"></a>
+
+          <p class="pBody">Specifies the notebook in which to define the name</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp527486"></a>
+
+          <p class="pBody"><code class="cCode">LastNC</code></p>
+        </td>
+
+        <td>
+          <a name="wp527488"></a>
+
+          <p class="pBody">Specifies the previously returned <code class="cCode">RangeNameControl</code></p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp527494"></a>
+
+          <p class="pBody"><code class="cCode">pName</code></p>
+        </td>
+
+        <td>
+          <a name="wp527496"></a>
+
+          <p class="pBody">Specifies the pointer to output buffer (returned name)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp527502"></a>
+
+          <p class="pBody"><code class="cCode">MaxName</code></p>
+        </td>
+
+        <td>
+          <a name="wp527504"></a>
+
+          <p class="pBody">Specifies the maximum buffer (including null byte)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp527510"></a>
+
+          <p class="pBody"><code class="cCode">pRange</code></p>
+        </td>
+
+        <td>
+          <a name="wp527512"></a>
+
+          <p class="pBody">Specifies the pointer to cell reference</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp557641"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp557643"></a>
+
+  <p class="pBody">This function returns the next name definition. If there are no names defined, <code class="cCode">EndOfRangeNames</code> is returned.</p>
+</body>
+</html>

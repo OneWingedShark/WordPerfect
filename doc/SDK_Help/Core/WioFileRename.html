@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WioFileRename function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WioFileMove.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WioFullPath.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        WioFileRename function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp548233"></a>
+
+  <h4 class="pHeading3">WioFileRename function</h4><a name="wp548235"></a>
+
+  <p class="pBody">The <code class="cCode">WioFileRename</code> function renames a file to another filename.</p><a name="wp548237"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+int FAR PASCAL WioFileRename (<a name="wp548239"> </a>
+LPAZ lpazDest,<a name="wp548241"> </a>
+LPAZ lpazSource );<a name="wp548243"> </a>
+</pre>
+  </div><a name="wp548245"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp548248"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp519627"></a>
+
+          <p class="pBody"><code class="cCode">lpazDest</code></p>
+        </td>
+
+        <td>
+          <a name="wp519629"></a>
+
+          <p class="pBody">Specifies the path and filename of the destination file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp519635"></a>
+
+          <p class="pBody"><code class="cCode">lpazSource</code></p>
+        </td>
+
+        <td>
+          <a name="wp519637"></a>
+
+          <p class="pBody">Specifies the path and filename of the source file</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp548250"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp548252"></a>
+
+  <p class="pBody">This function returns zero if no errors occur. If there was an error, it returns <code class="cCode">-1</code>. Use <code class=
+  "cCode">WioFileError(&nbsp;)</code> to determine the type of error that occurred.</p>
+</body>
+</html>

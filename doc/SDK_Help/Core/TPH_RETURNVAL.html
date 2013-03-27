@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:27" />
+
+  <title>TPH_RETURNVAL functional element</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="MAC_VARIABLE.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="TPValInfo.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Third_Party_DLL_Entry_Points.html">Using entry points in Third Party Handler DLLs</a> : <a href=
+        "Structures_Types_and_Constants_used_by_functions.html">Choosing elements for required functions in Third Party Handler DLLs</a> : TPH_RETURNVAL
+        functional element</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp555239"></a>
+
+  <h4 class="pHeading3">TPH_RETURNVAL functional element</h4><a name="wp555241"></a>
+
+  <p class="pBody">The <code class="cCode">TPH_RETURNVAL</code> functional element represents a PerfectScript command, and it contains information identifying
+  the command, parameter data, and any return value information that may be associated with the command.</p><a name="wp555243"></a>
+
+  <h5 class="pHeading4">C structure</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+typedef struct tph_returnval_tag {<a name="wp555245"> </a>
+LPMAC_TOKEN  lpTokenData;<a name="wp555247"> </a>
+LPLPMAC_RETURNVAL lplpmacRetVal;<a name="wp555249"> </a>
+}TPH_RETURNVAL, FAR * LPTPH_RETURNVAL;<a name="wp555251"> </a>
+</pre>
+  </div><a name="wp555253"></a>
+
+  <h5 class="pHeading4">Pascal record</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+TPH_RETURNVAL = record<a name="wp555255"> </a>
+lpTokenData : LPMAC_TOKEN;<a name="wp555257"> </a>
+lplpmacRetVal : LPLPMAC_RETURNVAL;<a name="wp555259"> </a>
+end;<a name="wp555261"> </a>
+</pre>
+  </div><a name="wp555263"></a>
+
+  <h5 class="pHeading4">Members</h5><a name="wp555266"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp525983"></a>
+
+          <p class="pBody"><code class="cCode">lpTokenData</code></p>
+        </td>
+
+        <td>
+          <a name="wp525985"></a>
+
+          <p class="pBody">Specifies a pointer to the <code class="cCode">MAC_TOKEN</code> structure containing the PerfectScript command's ID and parameter
+          information</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp525991"></a>
+
+          <p class="pBody"><code class="cCode">lplpmacRetVal</code></p>
+        </td>
+
+        <td>
+          <a name="wp525993"></a>
+
+          <p class="pBody">Specifies a pointer to an <code class="cCode">LPMAC_RETURNVAL</code> for storing the command's return value information</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p>
+</body>
+</html>

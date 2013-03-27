@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:36" />
+
+  <title>QProGetPropertyEnglish function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Object_functions_added_in_Corel_Quattro_Pro_6.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18"
+      height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="QProStartMacroRecord_function.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Quattro_Pro_import_functions.html">Using Quattro Pro import functions</a> : <a href=
+        "Object_functions_added_in_Corel_Quattro_Pro_6.html">Object functions added in Quattro Pro 6</a> : QProGetPropertyEnglish function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp556582"></a>
+
+  <h4 class="pHeading3">QProGetPropertyEnglish function</h4><a name="wp556584"></a>
+
+  <p class="pBody">This function gets a command property or an object property in English. This function was first made available in the international versions
+  of Quattro Pro 6.0; in later versions of Quattro Pro, this function is available in both US and non-US releases.</p><a name="wp556586"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+BOOL Exported QProGetPropertyEnglish(<a name="wp556588"> </a>
+LPSTR  pObjectName,<a name="wp556590"> </a>
+LPSTR  pPropertyName,<a name="wp556592"> </a>
+LPSTR  pValue,<a name="wp556594"> </a>
+UINT  ValueMax);<a name="wp556596"> </a>
+</pre>
+  </div><a name="wp556598"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp556601"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp526912"></a>
+
+          <p class="pBody"><code class="cCode">pObjectName</code></p>
+        </td>
+
+        <td>
+          <a name="wp526914"></a>
+
+          <p class="pBody">Specifiies the name of command/object</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526920"></a>
+
+          <p class="pBody"><code class="cCode">pPropertyName</code></p>
+        </td>
+
+        <td>
+          <a name="wp526922"></a>
+
+          <p class="pBody">Specifiies the name of property</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526928"></a>
+
+          <p class="pBody"><code class="cCode">pValue</code></p>
+        </td>
+
+        <td>
+          <a name="wp526930"></a>
+
+          <p class="pBody">Specifiies the far pointer to output string buffer</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp526936"></a>
+
+          <p class="pBody"><code class="cCode">ValueMax</code></p>
+        </td>
+
+        <td>
+          <a name="wp526938"></a>
+
+          <p class="pBody">Specifiies the number of bytes for output buffer (including null byte)</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp556603"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp556605"></a>
+
+  <p class="pBody">This function returns <code class="cCode">TRUE</code> if successful, or it returns FALSE otherwise (for example, if a protection error is
+  encountered).</p>
+</body>
+</html>

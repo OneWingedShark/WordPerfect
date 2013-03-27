@@ -1,0 +1,832 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>Providing file-management capabilities</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c2 {text-align: left}
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WpidThetaDestroy.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WfsAddExtension.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : Providing file-management capabilities</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp546769"></a>
+
+  <h3 class="pHeading2">Providing file-management capabilities</h3><a name="wp546771"></a>
+
+  <p class="pBody">This API subsystem is a group of functions that let you provide file-management capabilities in your application without having to write all
+  the code. In most cases, error and special-case handling is provided by the functions. Also provided are common <code class="cCode">Filespec</code> and
+  <code class="cCode">FileSaveAs</code> dialog boxes, which give you access to Directory Management functions and Viewer Document management systems through
+  Open Document Management Architecture (ODMA).</p>
+
+  <p class="pNote"><img src="images/note.gif" height="15" width="16" border="0" hspace="0" vspace="0" /></p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp546778"></a>
+
+    <div class="pSmartList1">
+      The <code class="cCode">WfsFileOpenEx(&nbsp;)</code> API, which is described in this section, is preserved mainly for backward compatibility. Using the
+      PerfectFit <code class="cCode">FileOpen</code> COM Object is the preferred method for interfacing with the Corel File Open dialog box.
+    </div>
+  </div><a name="wp546788"></a>
+
+  <h5 class="pHeading4">Understanding File Open input flags</h5><a name="wp546790"></a>
+
+  <p class="pBody">The File Open input flags are used with <code class="cCode">WfsFileOpenEx(&nbsp;)</code>.</p><a name="wp1275187"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1275171"></a>
+
+          <h5 class="pHeading4">Flag</h5>
+        </th>
+
+        <th>
+          <a name="wp1275173"></a>
+
+          <h5 class="pHeading4">Desired result</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1275175"></a>
+
+          <p class="pBody"><code class="cCode">FO_DOESNTHAVETOEXIST</code></p>
+        </td>
+
+        <td>
+          <a name="wp1275177"></a>
+
+          <p class="pBody">Does not require the file to already exist</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp546831"></a>
+
+  <h5 class="pHeading4">Understanding File I/O input flags</h5><a name="wp546833"></a>
+
+  <p class="pBody">The File I/O input flags are used by <code class="cCode">WfsFileCopy(&nbsp;)</code>, <code class="cCode">WfsFileMove(&nbsp;)</code>,
+  <code class="cCode">WfsFileDelete(&nbsp;)</code>, <code class="cCode">WfsFileAttr(&nbsp;)</code>, <code class="cCode">WfsCreateDir(&nbsp;)</code>, and
+  <code class="cCode">WfsRemoveDir(&nbsp;)</code>.</p><a name="wp546838"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1275200"></a>
+
+          <h5 class="pHeading4">Flag</h5>
+        </th>
+
+        <th>
+          <a name="wp1275202"></a>
+
+          <h5 class="pHeading4">Desired result</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518035"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_ERROR</code></p>
+        </td>
+
+        <td>
+          <a name="wp518037"></a>
+
+          <p class="pBody">Does not prompt if an error occurs</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518043"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_CREATE</code></p>
+        </td>
+
+        <td>
+          <a name="wp518045"></a>
+
+          <p class="pBody">Does not prompt before creating an item</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518051"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_REPLACE</code></p>
+        </td>
+
+        <td>
+          <a name="wp518053"></a>
+
+          <p class="pBody">Does not prompt to replace files. Note that if both <code class="cCode">replace</code> and <code class="cCode">replaceall</code> are
+          not set, PerfectFit prompts for <code class="cCode">replace</code>, but not <code class="cCode">replaceall</code>. If <code class=
+          "cCode">replace</code> is set and <code class="cCode">replaceall</code> is not set, PerfectFit prompts for <code class="cCode">replaceall</code>. If
+          both are set, PerfectFit does not prompt for either <code class="cCode">replace</code> or <code class="cCode">replaceall</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518059"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_REPLACEALL</code></p>
+        </td>
+
+        <td>
+          <a name="wp518061"></a>
+
+          <p class="pBody">Does not prompt for <code class="cCode">replaceall</code> files. Note that if both <code class="cCode">replace</code> and
+          <code class="cCode">replaceall</code> are not set, PerfectFit prompts for <code class="cCode">replace</code>, but not <code class=
+          "cCode">replaceall</code>. If <code class="cCode">replace</code> is set and <code class="cCode">replaceall</code> is not set, PerfectFit prompts for
+          <code class="cCode">replaceall</code>. If both are set, PerfectFit does not prompt for either <code class="cCode">replace</code> or <code class=
+          "cCode">replaceall</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518067"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_READONLY</code></p>
+        </td>
+
+        <td>
+          <a name="wp518069"></a>
+
+          <p class="pBody">Does not prompt on move/delete of a read-only file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518075"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_HIDDEN</code></p>
+        </td>
+
+        <td>
+          <a name="wp518077"></a>
+
+          <p class="pBody">Does not prompt on move/delete of a hidden file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518083"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_SYSTEM</code></p>
+        </td>
+
+        <td>
+          <a name="wp518085"></a>
+
+          <p class="pBody">Does not prompt on move/delete of a system file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518091"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_STATUS</code></p>
+        </td>
+
+        <td>
+          <a name="wp518093"></a>
+
+          <p class="pBody">Does not display status spinner</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518099"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_REPLACENORMAL</code></p>
+        </td>
+
+        <td>
+          <a name="wp518101"></a>
+
+          <p class="pBody">Does not prompt on replacement of a normal file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518107"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_REPLACEREADONLY</code></p>
+        </td>
+
+        <td>
+          <a name="wp518109"></a>
+
+          <p class="pBody">Does not prompt on replacement of a read-only file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518115"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_REPLACEHIDDEN</code></p>
+        </td>
+
+        <td>
+          <a name="wp518117"></a>
+
+          <p class="pBody">Does not prompt on replacement of a hidden file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518123"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_REPLACESYSTEM</code></p>
+        </td>
+
+        <td>
+          <a name="wp518125"></a>
+
+          <p class="pBody">Does not prompt on replacement of a system file</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518131"></a>
+
+          <p class="pBody"><code class="cCode">FS_PROMPT_YESTOALL</code></p>
+        </td>
+
+        <td>
+          <a name="wp518133"></a>
+
+          <p class="pBody">Prompts to delete all specified files (if set)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518139"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOPROMPT_DESTDEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp518141"></a>
+
+          <p class="pBody">Does not prompt to delete existing files on the removable target (if set)</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp518147"></a>
+
+          <p class="pBody"><code class="cCode">FS_NOCOPY_IDENTICAL</code></p>
+        </td>
+
+        <td>
+          <a name="wp518149"></a>
+
+          <p class="pBody">Does not copy files that have the same date and time as the target file (if set)</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1276370"></a>
+
+  <h5 class="pHeading4">Understanding File I/O return values</h5><a name="wp1276371"></a>
+
+  <p class="pBody">The File I/O return values are used by <code class="cCode">WfsFileCopy(&nbsp;)</code>, <code class="cCode">WfsFileMove(&nbsp;)</code>,
+  <code class="cCode">WfsFileDelete(&nbsp;)</code>, <code class="cCode">WfsFileAttr(&nbsp;)</code>, <code class="cCode">WfsCreateDir(&nbsp;)</code>, and
+  <code class="cCode">WfsRemoveDir(&nbsp;)</code>.</p><a name="wp546922"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c2">
+    <table border="1">
+      <tr align="center">
+        <th>
+          <a name="wp1276374"></a>
+
+          <h5 class="pHeading4">Return value</h5>
+        </th>
+
+        <th>
+          <a name="wp1276376"></a>
+
+          <h5 class="pHeading4">Description</h5>
+        </th>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276378"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_OKERROR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276380"></a>
+
+          <p class="pBody">Indicates that an error occurred after a successful operation. Note that the <code class="cCode">FS_RETURN_OKERROR</code> and
+          <code class="cCode">FS_RETURN_OKCANCEL</code> flags are used mainly for template operations. Either value returned means the operation was successful
+          on one or more files before the error or cancel occurred.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276382"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_OKCANCEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276384"></a>
+
+          <p class="pBody">Indicates that Cancel was selected after a successful operation. Note that the <code class="cCode">FS_RETURN_OKERROR</code> and
+          <code class="cCode">FS_RETURN_OKCANCEL</code> flags are used mainly for template operations. Either value returned means the operation was successful
+          on one or more files before the error or cancel occurred.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276386"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_CANCEL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276388"></a>
+
+          <p class="pBody">Indicates that Cancel was selected, so no successful operation was performed</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276390"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_ERROR</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276392"></a>
+
+          <p class="pBody">Indicates that an error occurred, so no successful operation was performed</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276394"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_N</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276396"></a>
+
+          <p class="pBody">Is reserved for unhandled</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276398"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_OK</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276400"></a>
+
+          <p class="pBody">Indicates that the operation was successful</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276402"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_ALLREADONLY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276404"></a>
+
+          <p class="pBody">Indicates that deleting all read-only files was selected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276406"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_ALLHIDDEN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276408"></a>
+
+          <p class="pBody">Indicates that deleting all hidden files was selected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276410"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_ALLSYSTEM</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276412"></a>
+
+          <p class="pBody">Indicates that deleting all system files was selected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276414"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_REPLACEONE</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276416"></a>
+
+          <p class="pBody">Indicates that Yes replace was selected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276418"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_REPLACENORMAL</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276420"></a>
+
+          <p class="pBody">Indicates that Yes-to-all replace was selected</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276422"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_REPLACEREADONLY</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276424"></a>
+
+          <p class="pBody">Replaces all read-only files</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276426"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_REPLACEHIDDEN</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276428"></a>
+
+          <p class="pBody">Replaces all hidden files</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp1276430"></a>
+
+          <p class="pBody"><code class="cCode">FS_RETURN_REPLACESYSTEM</code></p>
+        </td>
+
+        <td>
+          <a name="wp1276432"></a>
+
+          <p class="pBody">Replaces all system files</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp1276363"></a>
+
+  <h5 class="pHeading4">Understanding File I/O functions</h5><a name="wp546924"></a>
+
+  <p class="pBody">You can use the following File I/O functions:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1275657"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsAddExtension.html#wp547084">WfsAddExtension function</a></li>
+      </ul>
+    </div><a name="wp1279408"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsAddPathSlash.html#wp547119">WfsAddPathSlash function</a></li>
+      </ul>
+    </div><a name="wp1279412"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsConcatPathFilename.html#wp547150">WfsConcatPathFilename function</a></li>
+      </ul>
+    </div><a name="wp1279416"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsCreateDir.html#wp547185">WfsCreateDir function</a></li>
+      </ul>
+    </div><a name="wp1279420"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsDirPath.html#wp547220">WfsDirPath function</a></li>
+      </ul>
+    </div><a name="wp1279424"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsDoesDirExist.html#wp547257">WfsDoesDirExist function</a></li>
+      </ul>
+    </div><a name="wp1279428"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsDoesExistDefault.html#wp547288">WfsDoesExistDefault function</a></li>
+      </ul>
+    </div><a name="wp1279432"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsDoesExistEx.html#wp547330">WfsDoesExistEx function</a></li>
+      </ul>
+    </div><a name="wp1279436"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsDoesFileExist.html#wp547368">WfsDoesFileExist function</a></li>
+      </ul>
+    </div><a name="wp1279440"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsExpandPath.html#wp547399">WfsExpandPath function</a></li>
+      </ul>
+    </div><a name="wp1279444"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsFileAttr.html#wp547434">WfsFileAttr function</a></li>
+      </ul>
+    </div><a name="wp1279448"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsFileCopy.html#wp547471">WfsFileCopy function</a></li>
+      </ul>
+    </div><a name="wp1279452"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsFileDelete.html#wp547508">WfsFileDelete function</a></li>
+      </ul>
+    </div><a name="wp1279456"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsFileMove.html#wp547543">WfsFileMove function</a></li>
+      </ul>
+    </div><a name="wp1279460"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsFileOpenEx.html#wp547580">WfsFileOpenEx function</a></li>
+      </ul>
+    </div><a name="wp1279464"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsFileSaveAsEx.html#wp547639">WfsFileSaveAsEx function</a></li>
+      </ul>
+    </div><a name="wp1279468"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsGetCurDir.html#wp547699">WfsGetCurDir function</a></li>
+      </ul>
+    </div><a name="wp1279472"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsGetDiskSize.html#wp547730">WfsGetDiskSize function</a></li>
+      </ul>
+    </div><a name="wp1279476"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsGetExtension.html#wp547767">WfsGetExtension function</a></li>
+      </ul>
+    </div><a name="wp1279480"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsGetFileName.html#wp547802">WfsGetFileName function</a></li>
+      </ul>
+    </div><a name="wp1279484"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsIsTemplate.html#wp547837">WfsIsTemplate function</a></li>
+      </ul>
+    </div><a name="wp1279488"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsPathSplit.html#wp547868">WfsPathSplit function</a></li>
+      </ul>
+    </div><a name="wp1279492"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsRemoveDir.html#wp547909">WfsRemoveDir function</a></li>
+      </ul>
+    </div><a name="wp1279496"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsRemovePathSlash.html#wp547944">WfsRemovePathSlash function</a></li>
+      </ul>
+    </div><a name="wp1279500"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsSetCurDir.html#wp547975">WfsSetCurDir function</a></li>
+      </ul>
+    </div><a name="wp1279504"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WfsSetCurDrive.html#wp548006">WfsSetCurDrive function</a></li>
+      </ul>
+    </div><a name="wp1279508"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioCreateDir.html#wp548037">WioCreateDir function</a></li>
+      </ul>
+    </div><a name="wp1279512"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioDiskSpace.html#wp548068">WioDiskSpace function</a></li>
+      </ul>
+    </div><a name="wp1279516"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioFileCopy.html#wp548099">WioFileCopy function</a></li>
+      </ul>
+    </div><a name="wp1279520"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioFileDelete.html#wp548134">WioFileDelete function</a></li>
+      </ul>
+    </div><a name="wp1279524"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioFileError.html#wp548165">WioFileError function</a></li>
+      </ul>
+    </div><a name="wp1279528"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioFileMove.html#wp548198">WioFileMove function</a></li>
+      </ul>
+    </div><a name="wp1279532"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioFileRename.html#wp548233">WioFileRename function</a></li>
+      </ul>
+    </div><a name="wp1279536"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioFullPath.html#wp548268">WioFullPath function</a></li>
+      </ul>
+    </div><a name="wp1279540"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioGetCurrentDir.html#wp548299">WioGetCurrentDir function</a></li>
+      </ul>
+    </div><a name="wp1279544"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioRemoveDir.html#wp548330">WioRemoveDir function</a></li>
+      </ul>
+    </div><a name="wp1279548"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="WioSetCurrentDir.html#wp548361">WioSetCurrentDir function</a></li>
+      </ul>
+    </div>
+  </div><a name="wp1275676"></a>
+
+  <p class="pBody">You can also use the following WordPerfect File I/O functions:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp1275662"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="wopen.html#wp548444">wopen function</a></li>
+      </ul>
+    </div><a name="wp1279555"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="wclose.html#wp548479">wclose function</a></li>
+      </ul>
+    </div><a name="wp1279559"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="wread.html#wp548510">wread function</a></li>
+      </ul>
+    </div><a name="wp1279563"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="wwrite.html#wp548547">wwrite function</a></li>
+      </ul>
+    </div><a name="wp1279567"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li><a href="wseek.html#wp548584">wseek function</a></li>
+      </ul>
+    </div>
+  </div>
+</body>
+</html>

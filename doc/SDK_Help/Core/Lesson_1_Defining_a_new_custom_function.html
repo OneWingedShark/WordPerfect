@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  <meta name="LASTUPDATED" content="01/20/12 16:19:32" />
+
+  <title>Lesson 1: Defining a new custom function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {margin-left: 2em}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="Creating_QP_Add-in_DLLs.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="Lesson_2_Using_arguments.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="Creating_QP_Add-in_DLLs.html">Creating Quattro Pro Add-in DLLs</a> : Lesson 1: Defining a new custom function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp532191"></a>
+
+  <h3 class="pHeading2">Lesson 1: Defining a new custom function</h3><a name="wp532193"></a>
+
+  <p class="pBody">Before beginning this lesson, do the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp532195"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Load the qshell.cpp file into your program editor.</li>
+      </ul>
+    </div><a name="wp532197"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Save qshell.cpp as lesson01.cpp in your data folder.</li>
+      </ul>
+    </div>
+  </div><a name="wp532199"></a>
+
+  <p class="pBody">There are four basic steps required to creating a custom function within a DLL. To create a custom function, you will do the following:</p>
+
+  <div class="pSmartList1 pSmartList1 c1">
+    <a name="wp532201"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Add the definition of your custom function to the DLL (<code class="cCode">SelfDefStructure</code>).</li>
+      </ul>
+    </div><a name="wp532203"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Add the function prototype to the DLL.</li>
+      </ul>
+    </div><a name="wp532205"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Add the appropriate code to create the custom function.</li>
+      </ul>
+    </div><a name="wp532207"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Create a corresponding .def file.</li>
+      </ul>
+    </div><a name="wp532209"></a>
+
+    <div class="pSmartList1">
+      <ul>
+        <li>Compile and link the DLL.</li>
+      </ul>
+    </div>
+  </div><a name="wp532211"></a>
+
+  <p class="pBody">The rest of this lesson will show you how to create a simple @function called <code class="cCode">FIVE</code>. <code class=
+  "cCode">FIVE</code> will return the number five (<code class="cCode">5</code>) when called. <code class="cCode">FIVE</code> is not as useful as <code class=
+  "cCode">@SUM</code>, but it illustrates the process you'll need to follow to create custom functions.</p><a name="wp1269626"></a>
+
+  <h5 class="pHeading4">Step 1</h5><a name="wp532213"></a>
+
+  <p class="pBody">To get started, replace <code class="cCode">DUMMY</code> with <code class="cCode">FIVE</code> in the <code class=
+  "cCode">SelfDefStructure</code> of the qshell.cpp file. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532215"> </a>
+// Quattro Pro prescribed header (and other overhead)<a name="wp532217"> </a>
+//===============================================================<a name="wp532219"> </a>
+SelfDefStructure MyFuncs[] = { <a name="wp532221"> </a>
+{ <a name="wp532223"> </a>
+"PURE int PASCAL FIVE( )", // Function Command <a name="wp532225"> </a>
+(FarProc)&amp;FIVE, // Pointer to _exported function <a name="wp532227"> </a>
+"Help", // Help Line (samples use Help) <a name="wp532229"> </a>
+"FIVE" // English name (match name above) <a name="wp532231"> </a>
+}, <a name="wp532233"> </a>
+NULL // Always null terminate the list! <a name="wp532235"> </a>
+}; <a name="wp532237"> </a>
+</pre>
+  </div><a name="wp532239"></a>
+
+  <p class="pBody">You've just defined a custom function named <code class="cCode">FIVE</code>. <code class="cCode">PURE</code> defines your function as a PURE
+  type of function, <code class="cCode">int</code> describes the return of the function as an integer, and <code class="cCode">FIVE( )</code> describes the
+  function by name. Because <code class="cCode">FIVE</code> doesn't take any arguments, there is a space between the parentheses. <code class=
+  "cCode">(FarProc)&amp;FIVE</code> states that this is a Far call (required), <code class="cCode">"Help"</code> is the Help-line text that shows when the DLL
+  is loaded, and <code class="cCode">"Five"</code> is the English form of the name used if this function is translated into a different language.</p><a name=
+  "wp1269630"></a>
+
+  <h5 class="pHeading4">Step 2</h5><a name="wp532241"></a>
+
+  <p class="pBody">Next, you must prototype the function in the DLL. Your code should appear as follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532243"> </a>
+// Add-In function prototypes<a name="wp532245"> </a>
+//===============================================================<a name="wp532247"> </a>
+int Exported FIVE( );<a name="wp532249"> </a>
+</pre>
+  </div><a name="wp532251"></a>
+
+  <h5 class="pHeading4">Step 3</h5><a name="wp1269634"></a>
+
+  <p class="pBody">Now you must tell the DLL what to do when <code class="cCode">FIVE</code> is called. Change the main function code area to appear as
+  follows:</p>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+//===============================================================<a name="wp532253"> </a>
+// MAIN FUNCTION CODE<a name="wp532255"> </a>
+//===============================================================<a name="wp532257"> </a>
+int Exported FIVE( )<a name="wp532259"> </a>
+{<a name="wp532261"> </a>
+return 5; <a name="wp532263"> </a>
+}<a name="wp532265"> </a>
+</pre>
+  </div><a name="wp532267"></a>
+
+  <p class="pBody"><code class="cCode">FIVE</code> is called with no arguments. You can also use int <code class="cCode">Exported FIVE(void)</code>.
+  <code class="cCode">Return 5</code> will return the number <code class="cCode">5</code>.</p><a name="wp532269"></a>
+
+  <h5 class="pHeading4">Step 4</h5><a name="wp1269638"></a>
+
+  <p class="pBody">Save this file as lesson01.cpp.</p><a name="wp1269642"></a>
+
+  <h5 class="pHeading4">Step 5</h5><a name="wp532271"></a>
+
+  <p class="pBody">Next, create the custom function. Refer to your compiler documentation for further information on making a DLL.</p><a name="wp1269646"></a>
+
+  <h5 class="pHeading4">Step 6</h5><a name="wp532273"></a>
+
+  <p class="pBody">Finally, load Quattro Pro and type <code class="cCode">@LESSON01.FIVE( )</code> in any cell. The number <code class="cCode">5</code> should
+  appear in the cell.</p>
+</body>
+</html>

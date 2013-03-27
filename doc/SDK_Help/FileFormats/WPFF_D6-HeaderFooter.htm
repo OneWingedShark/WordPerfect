@@ -1,0 +1,91 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+    <link rel="stylesheet" href="../main.css" type="text/css" />
+    <title>WordPerfect File Format</title>
+</head>
+<body>
+    <h1>WordPerfect File Format</h1>
+    <p><a href="WPFF_Index.htm">Back to main page</a></p>
+    <h2>Variable-Length Multi-Byte Functions: D6 Header/Footer Functions</h2>
+    <p><strong>Header/Footer Group- Function 214 (0xD6)</strong></p>
+    <p>The Header/Footer Group subfunctions have page orientation.</p>
+    <p><strong>Subfunctions: 0 (0x00) - 5 (0x05)<br />
+    </strong></p>
+    <table border="1" width="93%" cellpadding="5">
+        <tr valign="top">
+            <td width="21%">
+                <strong>Subfunction</strong></td>
+            <td width="78%">
+                <strong>Description</strong></td>
+        </tr>
+        <tr valign="top">
+            <td>
+                0 (0x00)</td>
+            <td>
+                Header A</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                1 (0x01)</td>
+            <td>
+                Header B</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                2 (0x02)</td>
+            <td>
+                Footer A</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                3 (0x03)</td>
+            <td>
+                Footer B</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                4 (0x04)</td>
+            <td>
+                Watermark A</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                5 (0x05)</td>
+            <td>
+                Watermark B</td>
+        </tr>
+        <tr valign="top">
+            <td>
+                6 (0x06)</td>
+            <td>
+                Fancy Border</td>
+        </tr>
+    </table>
+    <br />
+    <p><code>&lt;214 (0xD6)&gt; &lt;subfunction&gt; [size = variable] &lt;flags = PRFXID&gt;<br />
+        &nbsp; &lt;number of PIDs&gt;<br />
+        &nbsp;&nbsp;&nbsp; 1 = 0x08 - always exists<br />
+        &nbsp;&nbsp;&nbsp; 2 = 0x5B - can exist as second prefix<br />
+        &nbsp; [ header/footer text PID (type=0x08)]<br />
+        &nbsp; [User Assistant (type=0x5B)] - optional prefix if PIDs set to 2<br />
+        [size of non-deletable information = 2]<br />
+        &lt; occurrence&gt;<br />
+        &nbsp; bit 0:<br />
+        &nbsp;&nbsp;&nbsp; 0 = does not occur on odd pages<br />
+        &nbsp;&nbsp;&nbsp; 1 = does occur on odd pages<br />
+        &nbsp; bit 1:<br />
+        &nbsp;&nbsp;&nbsp; 0 = does not occur on even pages<br />
+        &nbsp;&nbsp;&nbsp; 1 = does occur on even pages<br />
+        &nbsp; bit 2:<br />
+        &nbsp;&nbsp;&nbsp; 0 = horizontal direction (left to right)<br />
+        &nbsp;&nbsp;&nbsp; 1 = vertical direction (top to bottom - East Asia)<br />
+        &nbsp; bit 3:<br />
+        &nbsp;&nbsp;&nbsp; 0 = use full page to display watermark<br />
+        &nbsp;&nbsp;&nbsp; 1 = use space between headers and footers to display watermark<br />
+        &lt;undocumented deletable data&gt; x ?<br />
+        [size] &lt;0xD6&gt;</code></p>
+</body>
+</html>

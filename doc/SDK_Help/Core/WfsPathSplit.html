@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  
+  <meta http-equiv="Content-Type" content="text/html; charset=us-ascii" />
+  
+
+  <title>WfsPathSplit function</title>
+  <link rel="StyleSheet" href="document.css" type="text/css" />
+  <link rel="StyleSheet" href="catalog.css" type="text/css" />
+  <style type="text/css">
+/*<![CDATA[*/
+  div.c1 {text-align: left}
+  /*]]>*/
+  </style>
+</head>
+
+<body>
+  <table border="0" width="100%">
+    <tr>
+      <td width="23"><a href="WfsIsTemplate.html"><img alt="Previous Document" border="0" src="images/prev.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="SDK_TOC.html"><img alt="Table Of Contents" border="0" src="images/BtnBacktoTop.gif" width="18" height="18" /></a></td>
+      <td width="23"><a href="WfsRemoveDir.html"><img alt="Next Document" border="0" src="images/next.gif" width="18" height="18" /></a></td>
+
+      <td>
+        <p class="pBody"><a href="PerfectFit_reference.html">Using PerfectFit</a> : <a href="File_System.html">Providing file-management capabilities</a> :
+        WfsPathSplit function</p>
+      </td>
+    </tr>
+  </table>
+  <hr width="100%" size="1" color="#0000CC" />
+  <a name="wp547868"></a>
+
+  <h4 class="pHeading3">WfsPathSplit function</h4><a name="wp547870"></a>
+
+  <p class="pBody">The <code class="cCode">WfsPathSplit</code> function breaks up a qualified pathname into its component parts (drive, folder, filename, and
+  extension). All input and output strings are assumed to be ANSI strings. This function does not attempt to verify any portion of the path.</p><a name=
+  "wp547872"></a>
+
+  <h5 class="pHeading4">Prototype</h5>
+
+  <div class="pPreformatted">
+    <pre class="pPreformatted">
+VOID SHAPI WfsPathSplit (<a name="wp547874"> </a>
+LPSTR lpszFullPath,<a name="wp547876"> </a>
+LPSTR lpszDrive,<a name="wp547878"> </a>
+LPSTR lpszDir,<a name="wp547880"> </a>
+LPSTR lpszFileName,<a name="wp547882"> </a>
+LPSTR lpszExt );<a name="wp547884"> </a>
+</pre>
+  </div><a name="wp547886"></a>
+
+  <h5 class="pHeading4">Parameters</h5><a name="wp547889"></a>
+
+  <p class="pBody"></p>
+
+  <div class="c1">
+    <table border="1">
+      <tr align="left">
+        <td>
+          <a name="wp519260"></a>
+
+          <p class="pBody"><code class="cCode">lpszFullPath</code></p>
+        </td>
+
+        <td>
+          <a name="wp519262"></a>
+
+          <p class="pBody">Acts as a pointer to the input filename to split. This filename can be no longer than <code class="cCode">FS_FILENAME_LEN</code>
+          (<code class="cCode">155</code>).</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp519268"></a>
+
+          <p class="pBody"><code class="cCode">lpszDrive</code></p>
+        </td>
+
+        <td>
+          <a name="wp519270"></a>
+
+          <p class="pBody">Acts as a pointer to the buffer to contain the drive letter and colon. This buffer should be of size <code class=
+          "cCode">FS_DRIVE_LEN</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp519276"></a>
+
+          <p class="pBody"><code class="cCode">lpszDir</code></p>
+        </td>
+
+        <td>
+          <a name="wp519278"></a>
+
+          <p class="pBody">Acts as a pointer to the buffer to contain the folder. This buffer should be of size <code class="cCode">FS_DIR_LEN</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp519284"></a>
+
+          <p class="pBody"><code class="cCode">lpszFileName</code></p>
+        </td>
+
+        <td>
+          <a name="wp519286"></a>
+
+          <p class="pBody">Acts as a pointer to the buffer to contain the filename without the extension. This buffer should be of length <code class=
+          "cCode">FS_FILE_LEN</code>.</p>
+        </td>
+      </tr>
+
+      <tr align="left">
+        <td>
+          <a name="wp519292"></a>
+
+          <p class="pBody"><code class="cCode">lpszExt</code></p>
+        </td>
+
+        <td>
+          <a name="wp519294"></a>
+
+          <p class="pBody">Acts as a pointer to the buffer to contain the extension, including the preceding period. This buffer should be of length
+          <code class="cCode">FS_EXT_LEN</code>.</p>
+        </td>
+      </tr>
+    </table>
+  </div>
+
+  <p class="pBody"></p><a name="wp547891"></a>
+
+  <h5 class="pHeading4">Return values</h5><a name="wp547893"></a>
+
+  <p class="pBody">None</p>
+</body>
+</html>
